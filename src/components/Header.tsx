@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
+  { href: "/stats", label: "챔피언 통계", icon: "📊" },
   { href: "/matchup", label: "맞라인 분석", icon: "⚔️" },
   { href: "/team", label: "조합 분석기", icon: "👥" },
 ];
@@ -28,7 +29,7 @@ export default function Header() {
           {/* Navigation */}
           <nav className="flex items-center gap-1">
             {navItems.map((item) => {
-              const isActive = pathname === item.href;
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <Link
                   key={item.href}
