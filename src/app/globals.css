@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant xs (@media (min-width: 400px));
+
 :root {
   --bg-primary: #0e1015;
   --bg-secondary: #151920;

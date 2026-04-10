@@ -61,22 +61,22 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
   const fpScoreRounded = Math.round(fpScore * 10) / 10;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-4xl px-3 py-6 sm:px-6 sm:py-8">
       {/* Back link */}
-      <Link href="/stats" className="inline-flex items-center gap-1 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] mb-6">
+      <Link href="/stats" className="inline-flex items-center gap-1 text-xs sm:text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] mb-4 sm:mb-6">
         ← 챔피언 통계
       </Link>
 
       {/* Warning */}
-      <div className="mb-5 flex items-start gap-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20 px-4 py-2.5 text-xs">
+      <div className="mb-4 flex items-start gap-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20 px-3 py-2 text-[11px]">
         <span>&#9888;&#65039;</span>
         <span className="text-[var(--text-muted)]">{EXTERNAL_DATA_INFO.warning}</span>
       </div>
 
       {/* Champion header */}
-      <div className="glass-card p-6 mb-6">
-        <div className="flex items-center gap-5">
-          <div className="relative h-20 w-20 overflow-hidden rounded-xl border-2 border-[var(--accent-blue)]">
+      <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex items-center gap-3 sm:gap-5">
+          <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-xl border-2 border-[var(--accent-blue)] shrink-0">
             <Image
               src={getChampionImageUrl(champData.name)}
               alt={champData.nameKr}
@@ -86,15 +86,15 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
               unoptimized
             />
           </div>
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-[var(--text-primary)]">{champData.nameKr}</h1>
-            <p className="text-sm text-[var(--text-muted)]">{champData.name}</p>
-            <div className="flex items-center gap-3 mt-2">
-              <span className="flex items-center gap-1 text-sm bg-[var(--bg-tertiary)] px-2.5 py-1 rounded-lg">
+          <div className="flex-1 min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">{champData.nameKr}</h1>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)]">{champData.name}</p>
+            <div className="flex items-center gap-1.5 sm:gap-3 mt-2 flex-wrap">
+              <span className="flex items-center gap-1 text-xs sm:text-sm bg-[var(--bg-tertiary)] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg">
                 {POSITION_ICONS[champData.position]} {POSITION_LABELS[champData.position]}
               </span>
               {otherPositions.map((op) => (
-                <span key={op.position} className="flex items-center gap-1 text-sm text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-2.5 py-1 rounded-lg opacity-60">
+                <span key={op.position} className="flex items-center gap-1 text-xs sm:text-sm text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg opacity-60">
                   {POSITION_ICONS[op.position]} {POSITION_LABELS[op.position]}
                 </span>
               ))}
@@ -103,32 +103,32 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-          <div className="bg-[var(--bg-tertiary)] rounded-xl p-4 text-center">
-            <div className="text-xs text-[var(--text-muted)] mb-1">게임 수</div>
-            <div className="text-lg font-bold text-[var(--text-primary)]">{champData.games.toLocaleString()}</div>
+        <div className="grid grid-cols-4 gap-2 sm:gap-4 mt-4 sm:mt-6">
+          <div className="bg-[var(--bg-tertiary)] rounded-xl p-2.5 sm:p-4 text-center">
+            <div className="text-[10px] sm:text-xs text-[var(--text-muted)] mb-0.5">게임 수</div>
+            <div className="text-sm sm:text-lg font-bold text-[var(--text-primary)]">{(champData.games / 1000).toFixed(1)}k</div>
           </div>
-          <div className="bg-[var(--bg-tertiary)] rounded-xl p-4 text-center">
-            <div className="text-xs text-[var(--text-muted)] mb-1">승률</div>
-            <div className={`text-lg font-bold ${getWinRateColor(champData.winRate)}`}>{champData.winRate.toFixed(2)}%</div>
+          <div className="bg-[var(--bg-tertiary)] rounded-xl p-2.5 sm:p-4 text-center">
+            <div className="text-[10px] sm:text-xs text-[var(--text-muted)] mb-0.5">승률</div>
+            <div className={`text-sm sm:text-lg font-bold ${getWinRateColor(champData.winRate)}`}>{champData.winRate.toFixed(1)}%</div>
           </div>
-          <div className="bg-[var(--bg-tertiary)] rounded-xl p-4 text-center">
-            <div className="text-xs text-[var(--text-muted)] mb-1">픽률</div>
-            <div className="text-lg font-bold text-[var(--text-primary)]">{champData.pickRate.toFixed(2)}%</div>
+          <div className="bg-[var(--bg-tertiary)] rounded-xl p-2.5 sm:p-4 text-center">
+            <div className="text-[10px] sm:text-xs text-[var(--text-muted)] mb-0.5">픽률</div>
+            <div className="text-sm sm:text-lg font-bold text-[var(--text-primary)]">{champData.pickRate.toFixed(1)}%</div>
           </div>
-          <div className="bg-[var(--bg-tertiary)] rounded-xl p-4 text-center">
-            <div className="text-xs text-[var(--text-muted)] mb-1">밴률</div>
-            <div className="text-lg font-bold text-[var(--text-primary)]">{champData.banRate.toFixed(2)}%</div>
+          <div className="bg-[var(--bg-tertiary)] rounded-xl p-2.5 sm:p-4 text-center">
+            <div className="text-[10px] sm:text-xs text-[var(--text-muted)] mb-0.5">밴률</div>
+            <div className="text-sm sm:text-lg font-bold text-[var(--text-primary)]">{champData.banRate.toFixed(1)}%</div>
           </div>
         </div>
       </div>
 
       {/* FP Score */}
-      <div className="glass-card p-6 mb-6">
-        <h2 className="text-lg font-bold mb-4">선픽 점수</h2>
-        <div className="flex items-center gap-6">
-          <div className="relative h-24 w-24">
-            <svg className="h-24 w-24 -rotate-90" viewBox="0 0 100 100">
+      <div className="glass-card p-4 sm:p-6 mb-4 sm:mb-6">
+        <h2 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">선픽 점수</h2>
+        <div className="flex items-center gap-4 sm:gap-6">
+          <div className="relative h-20 w-20 sm:h-24 sm:w-24 shrink-0">
+            <svg className="h-20 w-20 sm:h-24 sm:w-24 -rotate-90" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="42" stroke="var(--bg-tertiary)" strokeWidth="8" fill="none" />
               <circle
                 cx="50" cy="50" r="42"
@@ -150,11 +150,11 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
       </div>
 
       {/* Counters */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
         {/* Hard matchups - counters */}
-        <div className="glass-card p-6">
-          <h2 className="text-lg font-bold mb-4 text-red-400">카운터 챔피언</h2>
-          <p className="text-xs text-[var(--text-muted)] mb-4">{champData.nameKr}이(가) 약한 상대</p>
+        <div className="glass-card p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-bold mb-2 sm:mb-4 text-red-400">카운터 챔피언</h2>
+          <p className="text-[11px] sm:text-xs text-[var(--text-muted)] mb-3">{champData.nameKr}이(가) 약한 상대</p>
           <div className="space-y-3">
             {champData.counters.map((counter) => (
               <div key={counter.name} className="flex items-center gap-3 p-2 rounded-lg bg-red-500/5 border border-red-500/10">
@@ -182,9 +182,9 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
         </div>
 
         {/* Easy matchups */}
-        <div className="glass-card p-6">
-          <h2 className="text-lg font-bold mb-4 text-green-400">상대하기 쉬운 챔피언</h2>
-          <p className="text-xs text-[var(--text-muted)] mb-4">{champData.nameKr}이(가) 강한 상대</p>
+        <div className="glass-card p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-bold mb-2 sm:mb-4 text-green-400">상대하기 쉬운 챔피언</h2>
+          <p className="text-[11px] sm:text-xs text-[var(--text-muted)] mb-3">{champData.nameKr}이(가) 강한 상대</p>
           <div className="space-y-3">
             {champData.easyMatchups.map((easy) => (
               <div key={easy.name} className="flex items-center gap-3 p-2 rounded-lg bg-green-500/5 border border-green-500/10">
