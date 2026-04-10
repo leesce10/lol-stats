@@ -392,28 +392,40 @@ function generateStats(): ExternalChampionStats[] {
       else if (winRate >= 48) tier = 4;
       else tier = 5;
 
-      // 카운터 데이터
-      const { counters, easy } = getCounterNames(champ.id, pos);
-      const counterData = counters.filter(Boolean).slice(0, 3).map((cId) => {
-        const c = findChampMeta(cId);
-        const ch = hash(champ.id + cId);
-        return {
-          name: cId,
-          nameKr: c?.nameKr ?? cId,
-          winRate: Math.round((42 + Math.abs(seeded(ch)) * 6) * 10) / 10,
-          games: Math.floor(200 + Math.abs(seeded(ch + 1)) * 1500),
-        };
-      });
-      const easyData = easy.filter(Boolean).slice(0, 3).map((eId) => {
-        const e = findChampMeta(eId);
-        const eh = hash(champ.id + eId + "e");
-        return {
-          name: eId,
-          nameKr: e?.nameKr ?? eId,
-          winRate: Math.round((53 + Math.abs(seeded(eh)) * 6) * 10) / 10,
-          games: Math.floor(200 + Math.abs(seeded(eh + 1)) * 1500),
-        };
-      });
+      // 카운터 데이터: 같은 포지션 전체 챔피언과의 매치업 생성
+      const { counters: hardCounters, easy: easyTargets } = getCounterNames(champ.id, pos);
+      const samePosChamps = allChampions.filter(
+        (c) => c.mainPosition === pos && c.id !== champ.id
+      );
+
+      const allMatchups: { name: string; nameKr: string; winRate: number; games: number }[] = [];
+      for (const enemy of samePosChamps) {
+        const mh = hash(champ.id + "|" + enemy.id);
+        const isHardCounter = hardCounters.includes(enemy.id);
+        const isEasyTarget = easyTargets.includes(enemy.id);
+
+        let matchWr: number;
+        if (isHardCounter) {
+          matchWr = 42 + Math.abs(seeded(mh)) * 6; // 42~48%
+        } else if (isEasyTarget) {
+          matchWr = 53 + Math.abs(seeded(mh)) * 6; // 53~59%
+        } else {
+          matchWr = 46 + Math.abs(seeded(mh)) * 8; // 46~54% 일반 매치업
+        }
+        const matchGames = Math.floor(150 + Math.abs(seeded(mh + 1)) * 2000);
+
+        allMatchups.push({
+          name: enemy.id,
+          nameKr: enemy.nameKr,
+          winRate: Math.round(matchWr * 10) / 10,
+          games: matchGames,
+        });
+      }
+
+      // 승률 기준 정렬: 낮은 순 = 카운터, 높은 순 = 쉬운 상대
+      const sorted = [...allMatchups].sort((a, b) => a.winRate - b.winRate);
+      const counterData = sorted.slice(0, Math.min(10, sorted.length)); // 어려운 상대 최대 10개
+      const easyData = [...allMatchups].sort((a, b) => b.winRate - a.winRate).slice(0, Math.min(10, sorted.length)); // 쉬운 상대 최대 10개
 
       result.push({
         id: champ.key,
