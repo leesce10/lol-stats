@@ -204,18 +204,18 @@ export default function ChampionTable() {
 
   return (
     <div className="animate-fade-in">
-      {/* Data source indicator */}
-      {dataInfo && dataInfo.totalMatches > 0 && (
-        <div className="mb-4 flex items-center gap-2 rounded-lg bg-green-500/10 border border-green-500/20 px-4 py-2.5 text-sm">
-          <span className="inline-block h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-green-400 font-medium">실제 데이터</span>
+      {/* Warning banner */}
+      <div className="mb-4 flex items-start gap-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20 px-4 py-3 text-sm">
+        <span className="mt-0.5">&#9888;&#65039;</span>
+        <div>
+          <span className="text-yellow-400 font-medium">임시 데이터</span>
           <span className="text-[var(--text-muted)]">
-            · 챌린저 {dataInfo.totalMatches}경기 기준
-            {dataInfo.lastUpdated &&
-              ` · ${new Date(dataInfo.lastUpdated).toLocaleDateString("ko-KR")} 업데이트`}
+            {dataInfo && dataInfo.totalMatches > 0
+              ? ` · 챌린저 ${dataInfo.totalMatches}경기 수집 — 샘플이 적어 통계 신뢰도가 낮습니다. 참고용으로만 활용하세요.`
+              : " · 시뮬레이션 데이터입니다. 실제 게임 통계가 아닙니다."}
           </span>
         </div>
-      )}
+      </div>
 
       {/* Controls */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -260,23 +260,14 @@ export default function ChampionTable() {
                 <th className="px-4 py-3" onClick={() => handleSort("name")}>
                   챔피언 <SortIcon column="name" />
                 </th>
-                <th className="px-4 py-3 text-center" onClick={() => handleSort("tier")}>
-                  티어 <SortIcon column="tier" />
-                </th>
                 <th className="px-4 py-3 text-right" onClick={() => handleSort("winRate")}>
                   승률 <SortIcon column="winRate" />
                 </th>
                 <th className="px-4 py-3 text-right" onClick={() => handleSort("pickRate")}>
                   픽률 <SortIcon column="pickRate" />
                 </th>
-                <th className="px-4 py-3 text-right" onClick={() => handleSort("banRate")}>
-                  밴률 <SortIcon column="banRate" />
-                </th>
                 <th className="px-4 py-3 text-right" onClick={() => handleSort("games")}>
                   게임 수 <SortIcon column="games" />
-                </th>
-                <th className="px-4 py-3" onClick={() => handleSort("fpScore")}>
-                  선픽 점수 <SortIcon column="fpScore" />
                 </th>
               </tr>
             </thead>
@@ -308,13 +299,6 @@ export default function ChampionTable() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-center">
-                    <span
-                      className={`tier-${row.stats.tier} inline-flex h-7 w-16 items-center justify-center rounded-full text-xs font-bold`}
-                    >
-                      {getTierLabel(row.stats.tier)}
-                    </span>
-                  </td>
                   <td className="px-4 py-3 text-right">
                     <span
                       className="font-semibold"
@@ -326,30 +310,8 @@ export default function ChampionTable() {
                   <td className="px-4 py-3 text-right text-[var(--text-secondary)]">
                     {row.stats.pickRate.toFixed(2)}%
                   </td>
-                  <td className="px-4 py-3 text-right text-[var(--text-secondary)]">
-                    {row.stats.banRate.toFixed(2)}%
-                  </td>
                   <td className="px-4 py-3 text-right text-[var(--text-secondary)] font-mono text-xs">
                     {row.stats.games.toLocaleString()}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="fp-bar w-20">
-                        <div
-                          className="fp-fill"
-                          style={{
-                            width: `${(row.stats.fpScore / 10) * 100}%`,
-                            background: getFpColor(row.stats.fpScore),
-                          }}
-                        />
-                      </div>
-                      <span
-                        className="text-xs font-semibold w-8"
-                        style={{ color: getFpColor(row.stats.fpScore) }}
-                      >
-                        {row.stats.fpScore.toFixed(1)}
-                      </span>
-                    </div>
                   </td>
                 </tr>
               ))}

@@ -193,7 +193,7 @@ export default function TeamPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       {/* Header */}
-      <div className="mb-8 flex items-start justify-between">
+      <div className="mb-6 flex items-start justify-between">
         <div>
           <h1 className="text-3xl font-bold gradient-text mb-2">조합 분석기</h1>
           <p className="text-[var(--text-secondary)]">
@@ -206,6 +206,17 @@ export default function TeamPage() {
         >
           초기화
         </button>
+      </div>
+
+      {/* Warning */}
+      <div className="mb-6 flex items-start gap-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20 px-4 py-3 text-sm">
+        <span className="mt-0.5">&#9888;&#65039;</span>
+        <div>
+          <span className="text-yellow-400 font-medium">AI 추정 데이터</span>
+          <span className="text-[var(--text-muted)]">
+            {" "}· 챔피언 속성 기반 알고리즘 추정치입니다. 실제 매치 통계가 아니므로 참고용으로만 활용하세요.
+          </span>
+        </div>
       </div>
 
       {/* Team selection */}

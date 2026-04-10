@@ -70,12 +70,23 @@ export default function MatchupPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold gradient-text mb-2">맞라인 분석</h1>
         <p className="text-[var(--text-secondary)]">
           내 챔피언과 상대 챔피언을 선택하면 매치업 분석과 플레이 가이드를
           제공합니다.
         </p>
+      </div>
+
+      {/* Warning */}
+      <div className="mb-6 flex items-start gap-2 rounded-lg bg-yellow-500/10 border border-yellow-500/20 px-4 py-3 text-sm">
+        <span className="mt-0.5">&#9888;&#65039;</span>
+        <div>
+          <span className="text-yellow-400 font-medium">AI 추정 데이터</span>
+          <span className="text-[var(--text-muted)]">
+            {" "}· 챔피언 속성 기반 알고리즘 추정치입니다. 실제 매치 통계가 아니므로 참고용으로만 활용하세요.
+          </span>
+        </div>
       </div>
 
       {/* Position select */}
