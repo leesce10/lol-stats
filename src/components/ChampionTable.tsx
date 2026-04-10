@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
-import { champions, generateChampionStats, getChampionImageUrl } from "@/data/champions";
+import { champions, generateChampionStats, getChampionImageUrl, DDRAGON_VERSION } from "@/data/champions";
 import { ChampionStats, Position, POSITION_LABELS } from "@/types";
+import { RealChampionStats } from "@/lib/stats-calculator";
 import PositionFilter from "./PositionFilter";
 
 type SortKey = "name" | "winRate" | "pickRate" | "banRate" | "games" | "tier" | "fpScore";
@@ -15,7 +16,14 @@ interface ChampionRow {
   nameEn: string;
   imageUrl: string;
   position: Position;
-  stats: ChampionStats;
+  stats: {
+    winRate: number;
+    pickRate: number;
+    banRate: number;
+    games: number;
+    tier: 1 | 2 | 3 | 4 | 5;
+    fpScore: number;
+  };
 }
 
 function getTierLabel(tier: number): string {
@@ -37,41 +45,118 @@ function getWinRateColor(wr: number): string {
   return "var(--accent-red)";
 }
 
+// Riot API championName → 우리 챔피언 데이터 매핑
+function findChampionByApiName(apiName: string) {
+  return champions.find(
+    (c) => c.id === apiName || c.nameEn.replace(/['\s]/g, "") === apiName
+  );
+}
+
 export default function ChampionTable() {
   const [positionFilter, setPositionFilter] = useState<Position | "all">("all");
   const [sortKey, setSortKey] = useState<SortKey>("tier");
   const [sortDir, setSortDir] = useState<SortDir>("asc");
   const [searchQuery, setSearchQuery] = useState("");
+  const [realStats, setRealStats] = useState<RealChampionStats[] | null>(null);
+  const [dataInfo, setDataInfo] = useState<{
+    totalMatches: number;
+    lastUpdated: string | null;
+  } | null>(null);
 
-  const allStats = useMemo(() => generateChampionStats(), []);
+  // 실제 데이터 로드 시도
+  useEffect(() => {
+    fetch("/api/stats")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.stats && data.stats.length > 0) {
+          setRealStats(data.stats);
+          setDataInfo({
+            totalMatches: data.totalMatches,
+            lastUpdated: data.lastUpdated,
+          });
+        }
+      })
+      .catch(() => {
+        // 실패 시 생성 데이터 사용
+      });
+  }, []);
+
+  const generatedStats = useMemo(() => generateChampionStats(), []);
 
   const rows: ChampionRow[] = useMemo(() => {
     const result: ChampionRow[] = [];
-    for (const stat of allStats) {
-      const champ = champions.find((c) => c.id === stat.championId);
-      if (!champ) continue;
-      if (positionFilter !== "all" && stat.position !== positionFilter) continue;
 
-      const query = searchQuery.toLowerCase();
-      if (
-        query &&
-        !champ.name.toLowerCase().includes(query) &&
-        !champ.nameEn.toLowerCase().includes(query)
-      ) {
-        continue;
+    if (realStats && realStats.length > 0) {
+      // 실제 데이터 사용
+      for (const stat of realStats) {
+        const champ = findChampionByApiName(stat.championName);
+        if (positionFilter !== "all" && stat.position !== positionFilter) continue;
+
+        const displayName = champ?.name ?? stat.championName;
+        const displayNameEn = champ?.nameEn ?? stat.championName;
+        const imageUrl = `https://ddragon.leagueoflegends.com/cdn/${DDRAGON_VERSION}/img/champion/${stat.championName}.png`;
+
+        const query = searchQuery.toLowerCase();
+        if (
+          query &&
+          !displayName.toLowerCase().includes(query) &&
+          !displayNameEn.toLowerCase().includes(query) &&
+          !stat.championName.toLowerCase().includes(query)
+        ) {
+          continue;
+        }
+
+        result.push({
+          id: stat.championName,
+          name: displayName,
+          nameEn: displayNameEn,
+          imageUrl,
+          position: stat.position,
+          stats: {
+            winRate: stat.winRate,
+            pickRate: stat.pickRate,
+            banRate: stat.banRate,
+            games: stat.games,
+            tier: stat.tier,
+            fpScore: stat.fpScore,
+          },
+        });
       }
+    } else {
+      // 생성 데이터 폴백
+      for (const stat of generatedStats) {
+        const champ = champions.find((c) => c.id === stat.championId);
+        if (!champ) continue;
+        if (positionFilter !== "all" && stat.position !== positionFilter) continue;
 
-      result.push({
-        id: champ.id,
-        name: champ.name,
-        nameEn: champ.nameEn,
-        imageUrl: getChampionImageUrl(champ.id),
-        position: stat.position,
-        stats: stat,
-      });
+        const query = searchQuery.toLowerCase();
+        if (
+          query &&
+          !champ.name.toLowerCase().includes(query) &&
+          !champ.nameEn.toLowerCase().includes(query)
+        ) {
+          continue;
+        }
+
+        result.push({
+          id: champ.id,
+          name: champ.name,
+          nameEn: champ.nameEn,
+          imageUrl: getChampionImageUrl(champ.id),
+          position: stat.position,
+          stats: {
+            winRate: stat.winRate,
+            pickRate: stat.pickRate,
+            banRate: stat.banRate,
+            games: stat.games,
+            tier: stat.tier,
+            fpScore: stat.fpScore,
+          },
+        });
+      }
     }
     return result;
-  }, [allStats, positionFilter, searchQuery]);
+  }, [realStats, generatedStats, positionFilter, searchQuery]);
 
   const sortedRows = useMemo(() => {
     return [...rows].sort((a, b) => {
@@ -119,6 +204,19 @@ export default function ChampionTable() {
 
   return (
     <div className="animate-fade-in">
+      {/* Data source indicator */}
+      {dataInfo && dataInfo.totalMatches > 0 && (
+        <div className="mb-4 flex items-center gap-2 rounded-lg bg-green-500/10 border border-green-500/20 px-4 py-2.5 text-sm">
+          <span className="inline-block h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-green-400 font-medium">실제 데이터</span>
+          <span className="text-[var(--text-muted)]">
+            · 챌린저 {dataInfo.totalMatches}경기 기준
+            {dataInfo.lastUpdated &&
+              ` · ${new Date(dataInfo.lastUpdated).toLocaleDateString("ko-KR")} 업데이트`}
+          </span>
+        </div>
+      )}
+
       {/* Controls */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <PositionFilter selected={positionFilter} onChange={setPositionFilter} />
