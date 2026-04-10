@@ -55,9 +55,11 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
     (s) => s.name === champData.name && s.position !== champData.position
   );
 
-  const fpScore = Math.min(10, Math.max(0,
-    (champData.winRate - 47) * 1.0 + (10 - champData.banRate * 0.3)
-  ));
+  // 선픽 점수: 승률 높을수록 +, 밴률 높을수록 - (카운터 많다는 의미), 픽률 적당하면 +
+  const wrScore = (champData.winRate - 48) * 1.5; // -3 ~ +7.5
+  const banPenalty = champData.banRate * 0.15; // 밴률 높으면 감점 (카운터 취약)
+  const pickBonus = Math.min(champData.pickRate * 0.1, 1); // 픽률 적당하면 소폭 가점
+  const fpScore = Math.min(10, Math.max(0, wrScore - banPenalty + pickBonus + 3));
   const fpScoreRounded = Math.round(fpScore * 10) / 10;
 
   return (
