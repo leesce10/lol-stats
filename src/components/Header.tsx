@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/", label: "챔피언 통계", icon: "📊" },
   { href: "/matchup", label: "맞라인 분석", icon: "⚔️" },
   { href: "/team", label: "조합 분석기", icon: "👥" },
 ];
