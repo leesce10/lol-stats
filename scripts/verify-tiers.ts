@@ -51,8 +51,9 @@ const expected: Record<string, number> = {
   "Nami|support": 4, "Yuumi|support": 4, "Lux|support": 4, "Xerath|support": 4,
 };
 
-let correct = 0;
-let wrong = 0;
+let exact = 0;
+let within1 = 0;
+let total = 0;
 const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 const wrongs: string[] = [];
 
@@ -60,9 +61,11 @@ for (const [key, exp] of Object.entries(expected)) {
   const [name, pos] = key.split("|");
   const stat = externalStats.find((s) => s.name === name && s.position === pos);
   if (!stat) continue;
-  if (stat.tier === exp) correct++;
-  else {
-    wrong++;
+  total++;
+  const diff = Math.abs(stat.tier - exp);
+  if (diff === 0) exact++;
+  if (diff <= 1) within1++;
+  if (diff > 1) {
     wrongs.push(`${key}: expected T${exp}, got T${stat.tier} (wr ${stat.winRate} pr ${stat.pickRate} br ${stat.banRate})`);
   }
 }
@@ -70,9 +73,9 @@ for (const [key, exp] of Object.entries(expected)) {
 for (const s of externalStats) counts[s.tier]++;
 
 console.log("Distribution:", counts, "Total:", externalStats.length);
-console.log(`Accuracy: ${correct}/${correct + wrong} = ${((correct / (correct + wrong)) * 100).toFixed(1)}%`);
+console.log(`Exact match:  ${exact}/${total} = ${((exact / total) * 100).toFixed(1)}%`);
+console.log(`Within ±1:    ${within1}/${total} = ${((within1 / total) * 100).toFixed(1)}%`);
 if (wrongs.length > 0) {
-  console.log("\nMismatches:");
+  console.log(`\n${wrongs.length} champions are off by 2+ tiers:`);
   wrongs.slice(0, 30).forEach((w) => console.log("  " + w));
-  if (wrongs.length > 30) console.log(`  ... and ${wrongs.length - 30} more`);
 }
