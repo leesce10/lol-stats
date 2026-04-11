@@ -4,6 +4,7 @@
 
 import { championGuidesBatch2 } from "./champion-guides-batch2";
 import { championGuidesBatch3 } from "./champion-guides-batch3";
+import { championGuidesBatch4 } from "./champion-guides-batch4";
 
 export interface VideoSource {
   videoId: string;
@@ -861,6 +862,7 @@ export const allChampionGuides: ChampionGuide[] = [
   ...championGuides,
   ...championGuidesBatch2,
   ...championGuidesBatch3,
+  ...championGuidesBatch4,
 ];
 
 export function getChampionGuide(championId: string): ChampionGuide | undefined {
