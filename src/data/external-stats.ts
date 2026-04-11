@@ -361,12 +361,31 @@ function getCounterNames(champId: string, position: string): { counters: string[
   return { counters, easy };
 }
 
+function calcOpScore(winRate: number, pickRate: number, banRate: number): number {
+  // lol.ps PS Score 방식 (50 baseline)
+  // 참고: docs/tier-calculation.md
+  const wrScore = (winRate - 50) * 5;
+  const pickScore = Math.log(pickRate + 1) * 3;
+  const banScore = Math.sqrt(banRate) * 1.5;
+  return 50 + wrScore + pickScore + banScore;
+}
+
 function generateStats(): ExternalChampionStats[] {
-  const result: ExternalChampionStats[] = [];
+  // 1단계: 모든 챔피언의 raw 데이터 + opScore 생성
+  type Raw = {
+    champ: ChampionMeta;
+    pos: "top" | "jungle" | "mid" | "adc" | "support";
+    winRate: number;
+    pickRate: number;
+    banRate: number;
+    games: number;
+    opScore: number;
+  };
+
+  const rawList: Raw[] = [];
 
   for (const champ of allChampions) {
     const positions = [champ.mainPosition, ...(champ.subPositions || [])];
-
     for (const pos of positions) {
       const key = `${champ.id}|${pos}`;
       const real = REAL_DATA[key];
@@ -375,7 +394,6 @@ function generateStats(): ExternalChampionStats[] {
       const r2 = Math.abs(seeded(h + 1));
       const r3 = Math.abs(seeded(h + 2));
       const r4 = Math.abs(seeded(h + 3));
-
       const isMain = pos === champ.mainPosition;
 
       const winRate = real?.winRate ?? (47.5 + r1 * 7);
@@ -383,72 +401,91 @@ function generateStats(): ExternalChampionStats[] {
       const banRate = real?.banRate ?? (r3 * 15);
       const games = real?.games ?? Math.floor((isMain ? 8000 : 2000) + r4 * 40000);
 
-      // 티어 계산: lol.ps PS Score 방식 (50 baseline)
-      // - 승률은 선형 가중
-      // - 픽률은 로그 변환 (작은 픽률에서 차이 크게, 큰 픽률은 포화)
-      // - 밴률은 제곱근 변환 (큰 밴률 완화)
-      // 참고: docs/tier-calculation.md
-      const wrScore = (winRate - 50) * 5;             // ±15 정도
-      const pickScore = Math.log(pickRate + 1) * 3;   // 0~10
-      const banScore = Math.sqrt(banRate) * 1.5;      // 0~10
-      const opScore = 50 + wrScore + pickScore + banScore;
-
-      let tier: 1 | 2 | 3 | 4 | 5;
-      if (opScore >= 60) tier = 1;
-      else if (opScore >= 56) tier = 2;
-      else if (opScore >= 52) tier = 3;
-      else if (opScore >= 48) tier = 4;
-      else tier = 5;
-
-      // 카운터 데이터: 같은 포지션 전체 챔피언과의 매치업 생성
-      const { counters: hardCounters, easy: easyTargets } = getCounterNames(champ.id, pos);
-      const samePosChamps = allChampions.filter(
-        (c) => c.mainPosition === pos && c.id !== champ.id
-      );
-
-      const allMatchups: { name: string; nameKr: string; winRate: number; games: number }[] = [];
-      for (const enemy of samePosChamps) {
-        const mh = hash(champ.id + "|" + enemy.id);
-        const isHardCounter = hardCounters.includes(enemy.id);
-        const isEasyTarget = easyTargets.includes(enemy.id);
-
-        let matchWr: number;
-        if (isHardCounter) {
-          matchWr = 42 + Math.abs(seeded(mh)) * 6; // 42~48%
-        } else if (isEasyTarget) {
-          matchWr = 53 + Math.abs(seeded(mh)) * 6; // 53~59%
-        } else {
-          matchWr = 46 + Math.abs(seeded(mh)) * 8; // 46~54% 일반 매치업
-        }
-        const matchGames = Math.floor(150 + Math.abs(seeded(mh + 1)) * 2000);
-
-        allMatchups.push({
-          name: enemy.id,
-          nameKr: enemy.nameKr,
-          winRate: Math.round(matchWr * 10) / 10,
-          games: matchGames,
-        });
-      }
-
-      // 승률 기준 정렬: 낮은 순 = 카운터, 높은 순 = 쉬운 상대
-      const sorted = [...allMatchups].sort((a, b) => a.winRate - b.winRate);
-      const counterData = sorted.slice(0, Math.min(10, sorted.length)); // 어려운 상대 최대 10개
-      const easyData = [...allMatchups].sort((a, b) => b.winRate - a.winRate).slice(0, Math.min(10, sorted.length)); // 쉬운 상대 최대 10개
-
-      result.push({
-        id: champ.key,
-        name: champ.id,
-        nameKr: champ.nameKr,
-        position: pos,
-        games: Math.round(games),
-        winRate: Math.round(winRate * 100) / 100,
-        pickRate: Math.round(pickRate * 100) / 100,
-        banRate: Math.round(banRate * 100) / 100,
-        tier,
-        counters: counterData,
-        easyMatchups: easyData,
+      rawList.push({
+        champ,
+        pos,
+        winRate,
+        pickRate,
+        banRate,
+        games,
+        opScore: calcOpScore(winRate, pickRate, banRate),
       });
     }
+  }
+
+  // 2단계: 포지션별로 백분위 기반 티어 부여 (op.gg/lol.ps 방식)
+  // T1: 상위 10%, T2: 11~25%, T3: 26~55%, T4: 56~85%, T5: 85% 이하
+  const tierByKey = new Map<string, 1 | 2 | 3 | 4 | 5>();
+  const positionsAll: Array<"top" | "jungle" | "mid" | "adc" | "support"> = ["top", "jungle", "mid", "adc", "support"];
+
+  for (const pos of positionsAll) {
+    const inPos = rawList.filter((r) => r.pos === pos).sort((a, b) => b.opScore - a.opScore);
+    const total = inPos.length;
+    inPos.forEach((r, i) => {
+      const percentile = i / total;
+      let t: 1 | 2 | 3 | 4 | 5;
+      if (percentile < 0.10) t = 1;
+      else if (percentile < 0.25) t = 2;
+      else if (percentile < 0.55) t = 3;
+      else if (percentile < 0.85) t = 4;
+      else t = 5;
+      tierByKey.set(`${r.champ.id}|${r.pos}`, t);
+    });
+  }
+
+  // 3단계: 결과 생성
+  const result: ExternalChampionStats[] = [];
+  for (const r of rawList) {
+    const { champ, pos, winRate, pickRate, banRate, games } = r;
+    const tier = tierByKey.get(`${champ.id}|${pos}`) ?? 5;
+
+    // 카운터 데이터: 같은 포지션 전체 챔피언과의 매치업 생성
+    const { counters: hardCounters, easy: easyTargets } = getCounterNames(champ.id, pos);
+    const samePosChamps = allChampions.filter(
+      (c) => c.mainPosition === pos && c.id !== champ.id
+    );
+
+    const allMatchups: { name: string; nameKr: string; winRate: number; games: number }[] = [];
+    for (const enemy of samePosChamps) {
+      const mh = hash(champ.id + "|" + enemy.id);
+      const isHardCounter = hardCounters.includes(enemy.id);
+      const isEasyTarget = easyTargets.includes(enemy.id);
+
+      let matchWr: number;
+      if (isHardCounter) {
+        matchWr = 42 + Math.abs(seeded(mh)) * 6;
+      } else if (isEasyTarget) {
+        matchWr = 53 + Math.abs(seeded(mh)) * 6;
+      } else {
+        matchWr = 46 + Math.abs(seeded(mh)) * 8;
+      }
+      const matchGames = Math.floor(150 + Math.abs(seeded(mh + 1)) * 2000);
+
+      allMatchups.push({
+        name: enemy.id,
+        nameKr: enemy.nameKr,
+        winRate: Math.round(matchWr * 10) / 10,
+        games: matchGames,
+      });
+    }
+
+    const sorted = [...allMatchups].sort((a, b) => a.winRate - b.winRate);
+    const counterData = sorted.slice(0, Math.min(10, sorted.length));
+    const easyData = [...allMatchups].sort((a, b) => b.winRate - a.winRate).slice(0, Math.min(10, sorted.length));
+
+    result.push({
+      id: champ.key,
+      name: champ.id,
+      nameKr: champ.nameKr,
+      position: pos,
+      games: Math.round(games),
+      winRate: Math.round(winRate * 100) / 100,
+      pickRate: Math.round(pickRate * 100) / 100,
+      banRate: Math.round(banRate * 100) / 100,
+      tier,
+      counters: counterData,
+      easyMatchups: easyData,
+    });
   }
 
   return result.sort((a, b) => b.winRate - a.winRate);
