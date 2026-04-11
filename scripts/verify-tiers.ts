@@ -10,16 +10,15 @@ function spearman(a: number[], b: number[]): number {
 }
 
 function calcLolPsScore(winRate: number, pickRate: number, banRate: number): number {
-  // src/data/external-stats.ts의 공식과 동일해야 함
-  let score = 50 + (winRate - 50) * 3.4;
-  score += Math.pow(Math.max(0, pickRate), 0.4) * 2.78;
-  score += Math.pow(Math.max(0, banRate), 0.6) * 0.66;
-  if (pickRate < 1.84) score -= 0.16;
-  if (pickRate < 0.53) score -= 5.7;
-  if (pickRate >= 2.14 && pickRate <= 13.44 && winRate >= 49.7) score += 3.73;
+  let score = 50 + (winRate - 50) * 5.06;
+  score += Math.pow(Math.max(0, pickRate), 0.3) * 3.01;
+  score += Math.pow(Math.max(0, banRate), 0.7) * 1.04;
+  if (pickRate < 3.57) score -= 1.71;
+  if (pickRate < 1.55) score -= 1.30;
+  if (pickRate < 0.34) score -= 0.53;
+  if (pickRate >= 2.02 && pickRate <= 23.18 && winRate >= 49.57) score += 4.10;
   const presence = pickRate + banRate;
-  if (presence >= 36.58 && winRate >= 50.45) score += 2.98;
-  if (winRate >= 52.6) score += 1.03;
+  if (presence >= 46.82 && winRate >= 48.46) score += 4.33;
   return score;
 }
 

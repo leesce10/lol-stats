@@ -378,26 +378,25 @@ function getCounterNames(champId: string, position: string): { counters: string[
 // - Sup Karma (50.82/16.37/32.38) = T1 (유일한 T1)
 
 function calcLolPsScore(winRate: number, pickRate: number, banRate: number): number {
-  // lol.ps PS Score 그리드 서치 최적화 결과 (50만 회 랜덤 서치)
-  // 평균 Spearman ρ = 0.93 (목표 0.9 초과 달성)
-  // 포지션별 ρ: top 0.91 / jungle 0.95 / mid 0.92 / adc 0.93 / support 0.95
-  let score = 50 + (winRate - 50) * 3.4;
-  score += Math.pow(Math.max(0, pickRate), 0.4) * 2.78;
-  score += Math.pow(Math.max(0, banRate), 0.6) * 0.66;
+  // lol.ps PS Score 최적화 결과 (50만 회 랜덤 서치, Spearman + Top-5 일치율 종합)
+  // 평균 Spearman ρ = 0.91, Top-5 일치율 88%
+  // 포지션별: top ρ0.92/top5 80% / jungle ρ0.88/top5 100% / mid ρ0.90/top5 80%
+  //          / adc ρ0.94/top5 100% / support ρ0.93/top5 80%
+  let score = 50 + (winRate - 50) * 5.06;
+  score += Math.pow(Math.max(0, pickRate), 0.3) * 3.01;
+  score += Math.pow(Math.max(0, banRate), 0.7) * 1.04;
 
-  // 저픽률 페널티 (표본 신뢰도)
-  if (pickRate < 1.84) score -= 0.16;
-  if (pickRate < 0.53) score -= 5.7;
+  // 3단계 저픽률 페널티 (표본 신뢰도)
+  if (pickRate < 3.57) score -= 1.71;
+  if (pickRate < 1.55) score -= 1.30;
+  if (pickRate < 0.34) score -= 0.53;
 
-  // 적당한 픽률 보너스 (메인 챔프 메타 입지)
-  if (pickRate >= 2.14 && pickRate <= 13.44 && winRate >= 49.7) score += 3.73;
+  // 적당한 픽률 + 평균 이상 승률 보너스 (메인 챔프 메타 입지)
+  if (pickRate >= 2.02 && pickRate <= 23.18 && winRate >= 49.57) score += 4.10;
 
   // 메타 지배 보너스
   const presence = pickRate + banRate;
-  if (presence >= 36.58 && winRate >= 50.45) score += 2.98;
-
-  // 매우 높은 승률 보너스
-  if (winRate >= 52.6) score += 1.03;
+  if (presence >= 46.82 && winRate >= 48.46) score += 4.33;
 
   return score;
 }
