@@ -1,21 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Read",
-      "Write",
-      "Edit",
-      "Glob",
-      "Grep",
-      "Bash(*)",
-      "WebFetch(*)",
-      "WebSearch(*)",
       "Skill(update-config)",
       "Skill(update-config:*)",
-      "Agent",
-      "TodoWrite",
-      "NotebookEdit",
-      "ToolSearch"
-    ],
-    "defaultMode": "dontAsk"
+      "WebFetch(domain:help.op.gg)"
+    ]
   }
 }
