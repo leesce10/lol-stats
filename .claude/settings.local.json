@@ -11,7 +11,8 @@
       "Bash(tee /tmp/collect.log)",
       "Bash(node -e \"const d = require\\('./scripts/data/all-raw.json'\\); for \\(const c of d\\) { console.log\\(c.champion.id, '-', c.videos.length, 'videos,', c.videos.reduce\\(\\(s,v\\)=>s+\\(v.transcript||''\\).length,0\\), 'chars total'\\); }\")",
       "Bash(node -e ':*)",
-      "Bash(tee /tmp/bulk1.log)"
+      "Bash(tee /tmp/bulk1.log)",
+      "Bash(tee /tmp/bulk2.log)"
     ]
   }
 }

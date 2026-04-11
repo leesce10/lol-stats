@@ -3,6 +3,7 @@
 // 영상 출처는 각 가이드의 sources 배열에 명시
 
 import { championGuidesBatch2 } from "./champion-guides-batch2";
+import { championGuidesBatch3 } from "./champion-guides-batch3";
 
 export interface VideoSource {
   videoId: string;
@@ -859,6 +860,7 @@ export const championGuides: ChampionGuide[] = [
 export const allChampionGuides: ChampionGuide[] = [
   ...championGuides,
   ...championGuidesBatch2,
+  ...championGuidesBatch3,
 ];
 
 export function getChampionGuide(championId: string): ChampionGuide | undefined {
