@@ -2,6 +2,8 @@
 // 출처: 한국 롤 강의 유튜브 영상 자막 + 메타 지식 종합
 // 영상 출처는 각 가이드의 sources 배열에 명시
 
+import { championGuidesBatch2 } from "./champion-guides-batch2";
+
 export interface VideoSource {
   videoId: string;
   title: string;
@@ -853,6 +855,12 @@ export const championGuides: ChampionGuide[] = [
   },
 ];
 
+// 모든 가이드 합치기
+export const allChampionGuides: ChampionGuide[] = [
+  ...championGuides,
+  ...championGuidesBatch2,
+];
+
 export function getChampionGuide(championId: string): ChampionGuide | undefined {
-  return championGuides.find((g) => g.championId === championId);
+  return allChampionGuides.find((g) => g.championId === championId);
 }

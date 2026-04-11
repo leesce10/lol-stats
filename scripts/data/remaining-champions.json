@@ -1,0 +1,962 @@
+[
+  {
+    "id": "LeeSin",
+    "nameKr": "리 신",
+    "pickRate": 28.31,
+    "position": "jungle"
+  },
+  {
+    "id": "Jhin",
+    "nameKr": "진",
+    "pickRate": 26.14,
+    "position": "adc"
+  },
+  {
+    "id": "Kaisa",
+    "nameKr": "카이사",
+    "pickRate": 19.34,
+    "position": "adc"
+  },
+  {
+    "id": "Graves",
+    "nameKr": "그레이브즈",
+    "pickRate": 17.43,
+    "position": "jungle"
+  },
+  {
+    "id": "Karma",
+    "nameKr": "카르마",
+    "pickRate": 16.79,
+    "position": "support"
+  },
+  {
+    "id": "Nautilus",
+    "nameKr": "노틸러스",
+    "pickRate": 13.73,
+    "position": "support"
+  },
+  {
+    "id": "Neeko",
+    "nameKr": "니코",
+    "pickRate": 12.67,
+    "position": "mid"
+  },
+  {
+    "id": "Thresh",
+    "nameKr": "쓰레쉬",
+    "pickRate": 12.64,
+    "position": "support"
+  },
+  {
+    "id": "Corki",
+    "nameKr": "코르키",
+    "pickRate": 12.34,
+    "position": "mid"
+  },
+  {
+    "id": "Caitlyn",
+    "nameKr": "케이틀린",
+    "pickRate": 11.94,
+    "position": "adc"
+  },
+  {
+    "id": "Lulu",
+    "nameKr": "룰루",
+    "pickRate": 11.27,
+    "position": "support"
+  },
+  {
+    "id": "Brand",
+    "nameKr": "브랜드",
+    "pickRate": 10.8,
+    "position": "support"
+  },
+  {
+    "id": "Renata",
+    "nameKr": "레나타 글라스크",
+    "pickRate": 10.26,
+    "position": "support"
+  },
+  {
+    "id": "Lucian",
+    "nameKr": "루시안",
+    "pickRate": 10.16,
+    "position": "adc"
+  },
+  {
+    "id": "Udyr",
+    "nameKr": "우디르",
+    "pickRate": 9.69,
+    "position": "jungle"
+  },
+  {
+    "id": "XinZhao",
+    "nameKr": "신 짜오",
+    "pickRate": 9.65,
+    "position": "jungle"
+  },
+  {
+    "id": "MonkeyKing",
+    "nameKr": "오공",
+    "pickRate": 9.39,
+    "position": "jungle"
+  },
+  {
+    "id": "Sylas",
+    "nameKr": "사일러스",
+    "pickRate": 9.28,
+    "position": "mid"
+  },
+  {
+    "id": "Naafiri",
+    "nameKr": "나피리",
+    "pickRate": 9.06,
+    "position": "jungle"
+  },
+  {
+    "id": "Viktor",
+    "nameKr": "빅토르",
+    "pickRate": 8.95,
+    "position": "mid"
+  },
+  {
+    "id": "Viego",
+    "nameKr": "비에고",
+    "pickRate": 8.83,
+    "position": "jungle"
+  },
+  {
+    "id": "Orianna",
+    "nameKr": "오리아나",
+    "pickRate": 8.44,
+    "position": "mid"
+  },
+  {
+    "id": "Sivir",
+    "nameKr": "시비르",
+    "pickRate": 8.22,
+    "position": "adc"
+  },
+  {
+    "id": "TwistedFate",
+    "nameKr": "트위스티드 페이트",
+    "pickRate": 8.15,
+    "position": "mid"
+  },
+  {
+    "id": "Blitzcrank",
+    "nameKr": "블리츠크랭크",
+    "pickRate": 8.14,
+    "position": "support"
+  },
+  {
+    "id": "Bard",
+    "nameKr": "바드",
+    "pickRate": 7.59,
+    "position": "support"
+  },
+  {
+    "id": "Leona",
+    "nameKr": "레오나",
+    "pickRate": 7.5,
+    "position": "support"
+  },
+  {
+    "id": "Akali",
+    "nameKr": "아칼리",
+    "pickRate": 7.37,
+    "position": "mid"
+  },
+  {
+    "id": "JarvanIV",
+    "nameKr": "자르반 4세",
+    "pickRate": 7.29,
+    "position": "jungle"
+  },
+  {
+    "id": "Malphite",
+    "nameKr": "말파이트",
+    "pickRate": 7.13,
+    "position": "top"
+  },
+  {
+    "id": "Nocturne",
+    "nameKr": "녹턴",
+    "pickRate": 6.91,
+    "position": "jungle"
+  },
+  {
+    "id": "Aphelios",
+    "nameKr": "아펠리오스",
+    "pickRate": 6.89,
+    "position": "adc"
+  },
+  {
+    "id": "Aatrox",
+    "nameKr": "아트록스",
+    "pickRate": 6.87,
+    "position": "top"
+  },
+  {
+    "id": "Garen",
+    "nameKr": "가렌",
+    "pickRate": 6.8,
+    "position": "top"
+  },
+  {
+    "id": "Renekton",
+    "nameKr": "레넥톤",
+    "pickRate": 6.64,
+    "position": "top"
+  },
+  {
+    "id": "Xerath",
+    "nameKr": "제라스",
+    "pickRate": 6.58,
+    "position": "mid"
+  },
+  {
+    "id": "Yuumi",
+    "nameKr": "유미",
+    "pickRate": 6.55,
+    "position": "support"
+  },
+  {
+    "id": "Braum",
+    "nameKr": "브라움",
+    "pickRate": 6.5,
+    "position": "support"
+  },
+  {
+    "id": "Gwen",
+    "nameKr": "그웬",
+    "pickRate": 6.46,
+    "position": "top"
+  },
+  {
+    "id": "Jax",
+    "nameKr": "잭스",
+    "pickRate": 6.28,
+    "position": "top"
+  },
+  {
+    "id": "Yone",
+    "nameKr": "요네",
+    "pickRate": 6.18,
+    "position": "top"
+  },
+  {
+    "id": "Yasuo",
+    "nameKr": "야스오",
+    "pickRate": 6.1,
+    "position": "mid"
+  },
+  {
+    "id": "Seraphine",
+    "nameKr": "세라핀",
+    "pickRate": 6.06,
+    "position": "support"
+  },
+  {
+    "id": "Irelia",
+    "nameKr": "이렐리아",
+    "pickRate": 6.04,
+    "position": "top"
+  },
+  {
+    "id": "Mel",
+    "nameKr": "멜",
+    "pickRate": 6.02,
+    "position": "mid"
+  },
+  {
+    "id": "KSante",
+    "nameKr": "크산테",
+    "pickRate": 5.87,
+    "position": "top"
+  },
+  {
+    "id": "Ambessa",
+    "nameKr": "암베사",
+    "pickRate": 5.75,
+    "position": "top"
+  },
+  {
+    "id": "Ryze",
+    "nameKr": "라이즈",
+    "pickRate": 5.6,
+    "position": "mid"
+  },
+  {
+    "id": "Pyke",
+    "nameKr": "파이크",
+    "pickRate": 5.51,
+    "position": "support"
+  },
+  {
+    "id": "Leblanc",
+    "nameKr": "르블랑",
+    "pickRate": 5.44,
+    "position": "mid"
+  },
+  {
+    "id": "Gnar",
+    "nameKr": "나르",
+    "pickRate": 5.42,
+    "position": "top"
+  },
+  {
+    "id": "Poppy",
+    "nameKr": "뽀삐",
+    "pickRate": 5.38,
+    "position": "jungle"
+  },
+  {
+    "id": "Vayne",
+    "nameKr": "베인",
+    "pickRate": 5.24,
+    "position": "top"
+  },
+  {
+    "id": "Velkoz",
+    "nameKr": "벨코즈",
+    "pickRate": 5.1,
+    "position": "mid"
+  },
+  {
+    "id": "Sion",
+    "nameKr": "사이온",
+    "pickRate": 5.05,
+    "position": "top"
+  },
+  {
+    "id": "Galio",
+    "nameKr": "갈리오",
+    "pickRate": 4.93,
+    "position": "mid"
+  },
+  {
+    "id": "Lissandra",
+    "nameKr": "리산드라",
+    "pickRate": 4.92,
+    "position": "mid"
+  },
+  {
+    "id": "Aurora",
+    "nameKr": "오로라",
+    "pickRate": 4.92,
+    "position": "mid"
+  },
+  {
+    "id": "Varus",
+    "nameKr": "바루스",
+    "pickRate": 4.92,
+    "position": "adc"
+  },
+  {
+    "id": "Trundle",
+    "nameKr": "트런들",
+    "pickRate": 4.86,
+    "position": "top"
+  },
+  {
+    "id": "Xayah",
+    "nameKr": "자야",
+    "pickRate": 4.84,
+    "position": "adc"
+  },
+  {
+    "id": "Nidalee",
+    "nameKr": "니달리",
+    "pickRate": 4.8,
+    "position": "jungle"
+  },
+  {
+    "id": "Nami",
+    "nameKr": "나미",
+    "pickRate": 4.8,
+    "position": "support"
+  },
+  {
+    "id": "Lux",
+    "nameKr": "럭스",
+    "pickRate": 4.65,
+    "position": "support"
+  },
+  {
+    "id": "Alistar",
+    "nameKr": "알리스타",
+    "pickRate": 4.64,
+    "position": "support"
+  },
+  {
+    "id": "Ziggs",
+    "nameKr": "직스",
+    "pickRate": 4.58,
+    "position": "mid"
+  },
+  {
+    "id": "Zoe",
+    "nameKr": "조이",
+    "pickRate": 4.5,
+    "position": "mid"
+  },
+  {
+    "id": "Darius",
+    "nameKr": "다리우스",
+    "pickRate": 4.5,
+    "position": "top"
+  },
+  {
+    "id": "Rakan",
+    "nameKr": "라칸",
+    "pickRate": 4.41,
+    "position": "support"
+  },
+  {
+    "id": "Katarina",
+    "nameKr": "카타리나",
+    "pickRate": 4.36,
+    "position": "mid"
+  },
+  {
+    "id": "Veigar",
+    "nameKr": "베이가",
+    "pickRate": 4.29,
+    "position": "mid"
+  },
+  {
+    "id": "Rumble",
+    "nameKr": "럼블",
+    "pickRate": 4.23,
+    "position": "top"
+  },
+  {
+    "id": "Sett",
+    "nameKr": "세트",
+    "pickRate": 4.16,
+    "position": "top"
+  },
+  {
+    "id": "Rell",
+    "nameKr": "렐",
+    "pickRate": 4.14,
+    "position": "support"
+  },
+  {
+    "id": "Azir",
+    "nameKr": "아지르",
+    "pickRate": 4.1,
+    "position": "mid"
+  },
+  {
+    "id": "Chogath",
+    "nameKr": "초가스",
+    "pickRate": 4.05,
+    "position": "top"
+  },
+  {
+    "id": "TahmKench",
+    "nameKr": "탐 켄치",
+    "pickRate": 3.94,
+    "position": "top"
+  },
+  {
+    "id": "Swain",
+    "nameKr": "스웨인",
+    "pickRate": 3.91,
+    "position": "support"
+  },
+  {
+    "id": "Senna",
+    "nameKr": "세나",
+    "pickRate": 3.87,
+    "position": "support"
+  },
+  {
+    "id": "Malzahar",
+    "nameKr": "말자하",
+    "pickRate": 3.86,
+    "position": "mid"
+  },
+  {
+    "id": "Khazix",
+    "nameKr": "카직스",
+    "pickRate": 3.86,
+    "position": "jungle"
+  },
+  {
+    "id": "Mordekaiser",
+    "nameKr": "모데카이저",
+    "pickRate": 3.85,
+    "position": "top"
+  },
+  {
+    "id": "Fiora",
+    "nameKr": "피오라",
+    "pickRate": 3.84,
+    "position": "top"
+  },
+  {
+    "id": "Yorick",
+    "nameKr": "요릭",
+    "pickRate": 3.79,
+    "position": "top"
+  },
+  {
+    "id": "Briar",
+    "nameKr": "브라이어",
+    "pickRate": 3.7,
+    "position": "jungle"
+  },
+  {
+    "id": "Gangplank",
+    "nameKr": "갱플랭크",
+    "pickRate": 3.64,
+    "position": "top"
+  },
+  {
+    "id": "Hwei",
+    "nameKr": "흐웨이",
+    "pickRate": 3.58,
+    "position": "mid"
+  },
+  {
+    "id": "Diana",
+    "nameKr": "다이애나",
+    "pickRate": 3.56,
+    "position": "mid"
+  },
+  {
+    "id": "MasterYi",
+    "nameKr": "마스터 이",
+    "pickRate": 3.55,
+    "position": "jungle"
+  },
+  {
+    "id": "Talon",
+    "nameKr": "탈론",
+    "pickRate": 3.53,
+    "position": "jungle"
+  },
+  {
+    "id": "Morgana",
+    "nameKr": "모르가나",
+    "pickRate": 3.53,
+    "position": "support"
+  },
+  {
+    "id": "Vex",
+    "nameKr": "벡스",
+    "pickRate": 3.52,
+    "position": "mid"
+  },
+  {
+    "id": "Anivia",
+    "nameKr": "애니비아",
+    "pickRate": 3.5,
+    "position": "mid"
+  },
+  {
+    "id": "Ornn",
+    "nameKr": "오른",
+    "pickRate": 3.45,
+    "position": "top"
+  },
+  {
+    "id": "Samira",
+    "nameKr": "사미라",
+    "pickRate": 3.34,
+    "position": "adc"
+  },
+  {
+    "id": "RekSai",
+    "nameKr": "렉사이",
+    "pickRate": 3.32,
+    "position": "jungle"
+  },
+  {
+    "id": "Rengar",
+    "nameKr": "렝가",
+    "pickRate": 3.32,
+    "position": "top"
+  },
+  {
+    "id": "Syndra",
+    "nameKr": "신드라",
+    "pickRate": 3.32,
+    "position": "mid"
+  },
+  {
+    "id": "Fizz",
+    "nameKr": "피즈",
+    "pickRate": 3.28,
+    "position": "mid"
+  },
+  {
+    "id": "Tristana",
+    "nameKr": "트리스타나",
+    "pickRate": 3.27,
+    "position": "adc"
+  },
+  {
+    "id": "Kennen",
+    "nameKr": "케넨",
+    "pickRate": 3.25,
+    "position": "top"
+  },
+  {
+    "id": "Soraka",
+    "nameKr": "소라카",
+    "pickRate": 3.24,
+    "position": "support"
+  },
+  {
+    "id": "Shen",
+    "nameKr": "쉔",
+    "pickRate": 3.19,
+    "position": "top"
+  },
+  {
+    "id": "Hecarim",
+    "nameKr": "헤카림",
+    "pickRate": 3.16,
+    "position": "jungle"
+  },
+  {
+    "id": "Camille",
+    "nameKr": "카밀",
+    "pickRate": 3.1,
+    "position": "top"
+  },
+  {
+    "id": "Olaf",
+    "nameKr": "올라프",
+    "pickRate": 2.98,
+    "position": "top"
+  },
+  {
+    "id": "Maokai",
+    "nameKr": "마오카이",
+    "pickRate": 2.95,
+    "position": "support"
+  },
+  {
+    "id": "Pantheon",
+    "nameKr": "판테온",
+    "pickRate": 2.86,
+    "position": "mid"
+  },
+  {
+    "id": "Vladimir",
+    "nameKr": "블라디미르",
+    "pickRate": 2.86,
+    "position": "top"
+  },
+  {
+    "id": "Heimerdinger",
+    "nameKr": "하이머딩거",
+    "pickRate": 2.82,
+    "position": "mid"
+  },
+  {
+    "id": "Singed",
+    "nameKr": "신지드",
+    "pickRate": 2.79,
+    "position": "top"
+  },
+  {
+    "id": "Ekko",
+    "nameKr": "에코",
+    "pickRate": 2.69,
+    "position": "jungle"
+  },
+  {
+    "id": "Elise",
+    "nameKr": "엘리스",
+    "pickRate": 2.67,
+    "position": "jungle"
+  },
+  {
+    "id": "Milio",
+    "nameKr": "밀리오",
+    "pickRate": 2.64,
+    "position": "support"
+  },
+  {
+    "id": "Shaco",
+    "nameKr": "샤코",
+    "pickRate": 2.63,
+    "position": "jungle"
+  },
+  {
+    "id": "Volibear",
+    "nameKr": "볼리베어",
+    "pickRate": 2.58,
+    "position": "jungle"
+  },
+  {
+    "id": "Smolder",
+    "nameKr": "스몰더",
+    "pickRate": 2.58,
+    "position": "adc"
+  },
+  {
+    "id": "Zyra",
+    "nameKr": "자이라",
+    "pickRate": 2.55,
+    "position": "support"
+  },
+  {
+    "id": "Nasus",
+    "nameKr": "나서스",
+    "pickRate": 2.53,
+    "position": "top"
+  },
+  {
+    "id": "Annie",
+    "nameKr": "애니",
+    "pickRate": 2.5,
+    "position": "mid"
+  },
+  {
+    "id": "Lillia",
+    "nameKr": "릴리아",
+    "pickRate": 2.43,
+    "position": "jungle"
+  },
+  {
+    "id": "Zac",
+    "nameKr": "자크",
+    "pickRate": 2.4,
+    "position": "jungle"
+  },
+  {
+    "id": "Zilean",
+    "nameKr": "질리언",
+    "pickRate": 2.38,
+    "position": "support"
+  },
+  {
+    "id": "Kayn",
+    "nameKr": "케인",
+    "pickRate": 2.37,
+    "position": "jungle"
+  },
+  {
+    "id": "Teemo",
+    "nameKr": "티모",
+    "pickRate": 2.32,
+    "position": "top"
+  },
+  {
+    "id": "Shyvana",
+    "nameKr": "쉬바나",
+    "pickRate": 2.25,
+    "position": "jungle"
+  },
+  {
+    "id": "Kindred",
+    "nameKr": "킨드레드",
+    "pickRate": 2.19,
+    "position": "jungle"
+  },
+  {
+    "id": "Qiyana",
+    "nameKr": "키아나",
+    "pickRate": 2.13,
+    "position": "mid"
+  },
+  {
+    "id": "Riven",
+    "nameKr": "리븐",
+    "pickRate": 2.13,
+    "position": "top"
+  },
+  {
+    "id": "Sona",
+    "nameKr": "소나",
+    "pickRate": 2.02,
+    "position": "support"
+  },
+  {
+    "id": "Akshan",
+    "nameKr": "아크샨",
+    "pickRate": 2.01,
+    "position": "mid"
+  },
+  {
+    "id": "DrMundo",
+    "nameKr": "문도 박사",
+    "pickRate": 2,
+    "position": "top"
+  },
+  {
+    "id": "AurelionSol",
+    "nameKr": "아우렐리온 솔",
+    "pickRate": 1.99,
+    "position": "mid"
+  },
+  {
+    "id": "Gragas",
+    "nameKr": "그라가스",
+    "pickRate": 1.86,
+    "position": "top"
+  },
+  {
+    "id": "Karthus",
+    "nameKr": "카서스",
+    "pickRate": 1.71,
+    "position": "jungle"
+  },
+  {
+    "id": "Nunu",
+    "nameKr": "누누와 윌럼프",
+    "pickRate": 1.69,
+    "position": "jungle"
+  },
+  {
+    "id": "Tryndamere",
+    "nameKr": "트린다미어",
+    "pickRate": 1.69,
+    "position": "top"
+  },
+  {
+    "id": "Evelynn",
+    "nameKr": "이블린",
+    "pickRate": 1.68,
+    "position": "jungle"
+  },
+  {
+    "id": "Twitch",
+    "nameKr": "트위치",
+    "pickRate": 1.67,
+    "position": "adc"
+  },
+  {
+    "id": "Illaoi",
+    "nameKr": "일라오이",
+    "pickRate": 1.63,
+    "position": "top"
+  },
+  {
+    "id": "Kassadin",
+    "nameKr": "카사딘",
+    "pickRate": 1.61,
+    "position": "mid"
+  },
+  {
+    "id": "Sejuani",
+    "nameKr": "세주아니",
+    "pickRate": 1.58,
+    "position": "jungle"
+  },
+  {
+    "id": "Kalista",
+    "nameKr": "칼리스타",
+    "pickRate": 1.56,
+    "position": "adc"
+  },
+  {
+    "id": "Warwick",
+    "nameKr": "워윅",
+    "pickRate": 1.53,
+    "position": "jungle"
+  },
+  {
+    "id": "Fiddlesticks",
+    "nameKr": "피들스틱",
+    "pickRate": 1.53,
+    "position": "jungle"
+  },
+  {
+    "id": "Taliyah",
+    "nameKr": "탈리야",
+    "pickRate": 1.44,
+    "position": "mid"
+  },
+  {
+    "id": "Cassiopeia",
+    "nameKr": "카시오페아",
+    "pickRate": 1.35,
+    "position": "mid"
+  },
+  {
+    "id": "Kled",
+    "nameKr": "클레드",
+    "pickRate": 1.33,
+    "position": "top"
+  },
+  {
+    "id": "Belveth",
+    "nameKr": "벨베스",
+    "pickRate": 1.3,
+    "position": "jungle"
+  },
+  {
+    "id": "Kayle",
+    "nameKr": "케일",
+    "pickRate": 1.26,
+    "position": "top"
+  },
+  {
+    "id": "Urgot",
+    "nameKr": "우르곳",
+    "pickRate": 1.21,
+    "position": "top"
+  },
+  {
+    "id": "Rammus",
+    "nameKr": "람머스",
+    "pickRate": 1.2,
+    "position": "jungle"
+  },
+  {
+    "id": "Skarner",
+    "nameKr": "스카너",
+    "pickRate": 1.12,
+    "position": "jungle"
+  },
+  {
+    "id": "Janna",
+    "nameKr": "잔나",
+    "pickRate": 1.07,
+    "position": "support"
+  },
+  {
+    "id": "KogMaw",
+    "nameKr": "코그모",
+    "pickRate": 0.89,
+    "position": "adc"
+  },
+  {
+    "id": "Amumu",
+    "nameKr": "아무무",
+    "pickRate": 0.81,
+    "position": "jungle"
+  },
+  {
+    "id": "Quinn",
+    "nameKr": "퀸",
+    "pickRate": 0.78,
+    "position": "top"
+  },
+  {
+    "id": "Taric",
+    "nameKr": "타릭",
+    "pickRate": 0.78,
+    "position": "support"
+  },
+  {
+    "id": "Ivern",
+    "nameKr": "아이번",
+    "pickRate": 0.76,
+    "position": "jungle"
+  },
+  {
+    "id": "Nilah",
+    "nameKr": "닐라",
+    "pickRate": 0.73,
+    "position": "adc"
+  }
+]
