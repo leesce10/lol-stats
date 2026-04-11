@@ -383,13 +383,17 @@ function generateStats(): ExternalChampionStats[] {
       const banRate = real?.banRate ?? (r3 * 15);
       const games = real?.games ?? Math.floor((isMain ? 8000 : 2000) + r4 * 40000);
 
+      // 티어 계산: 승률 + 픽률 + 밴률 종합 점수 (op.gg 방식 참고)
+      // 밴률은 "위협도"의 지표 — 높으면 메타에서 강력하다는 의미
+      const wrScore = (winRate - 50) * 4;       // -8 ~ +12 정도
+      const presenceScore = (pickRate + banRate) * 0.3; // 0 ~ +20 정도
+      const opScore = wrScore + presenceScore;
+
       let tier: 1 | 2 | 3 | 4 | 5;
-      if (real?.tier) {
-        tier = real.tier;
-      } else if (winRate >= 52.5) tier = 1;
-      else if (winRate >= 51) tier = 2;
-      else if (winRate >= 49.5) tier = 3;
-      else if (winRate >= 48) tier = 4;
+      if (opScore >= 12) tier = 1;
+      else if (opScore >= 7) tier = 2;
+      else if (opScore >= 3) tier = 3;
+      else if (opScore >= -2) tier = 4;
       else tier = 5;
 
       // 카운터 데이터: 같은 포지션 전체 챔피언과의 매치업 생성
