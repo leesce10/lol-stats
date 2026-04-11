@@ -5,7 +5,12 @@
       "Skill(update-config:*)",
       "WebFetch(domain:help.op.gg)",
       "Bash(npx tsx:*)",
-      "Bash(tee /tmp/per-pos-result.log)"
+      "Bash(tee /tmp/per-pos-result.log)",
+      "WebFetch(domain:www.youtube.com)",
+      "Bash(curl -s \"https://www.youtube.com/results?search_query=%EC%A0%9C%EB%93%9C+%EA%B3%B5%EB%9E%B5+%EC%97%B0%EC%8A%B5%EB%AA%A8%EB%93%9C\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(tee /tmp/collect.log)",
+      "Bash(node -e \"const d = require\\('./scripts/data/all-raw.json'\\); for \\(const c of d\\) { console.log\\(c.champion.id, '-', c.videos.length, 'videos,', c.videos.reduce\\(\\(s,v\\)=>s+\\(v.transcript||''\\).length,0\\), 'chars total'\\); }\")",
+      "Bash(node -e ':*)"
     ]
   }
 }

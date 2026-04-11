@@ -6,6 +6,7 @@ import Link from "next/link";
 import { externalStats, EXTERNAL_DATA_INFO } from "@/data/external-stats";
 import { DDRAGON_VERSION } from "@/data/champions";
 import { POSITION_LABELS, POSITION_ICONS } from "@/types";
+import { getChampionGuide } from "@/data/champion-guides";
 
 function getChampionImageUrl(name: string): string {
   const normalized = name.replace(/[\s']/g, "").replace("Wukong", "MonkeyKing");
@@ -54,6 +55,9 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
   const otherPositions = externalStats.filter(
     (s) => s.name === champData.name && s.position !== champData.position
   );
+
+  // 챔피언 공략 가이드 (있는 경우만)
+  const guide = getChampionGuide(champData.name);
 
   // 선픽 점수: 승률 높을수록 +, 밴률 높을수록 - (카운터 많다는 의미), 픽률 적당하면 +
   const wrScore = (champData.winRate - 48) * 1.5; // -3 ~ +7.5
@@ -213,6 +217,183 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
           </div>
         </div>
       </div>
+
+      {/* 챔피언 공략 가이드 */}
+      {guide && (
+        <div className="space-y-4 sm:space-y-6 mb-6">
+          {/* 한 줄 핵심 */}
+          <div className="glass-card p-4 sm:p-6 border-l-4 border-[var(--accent-blue)]">
+            <h2 className="text-base sm:text-lg font-bold mb-2 flex items-center gap-2">
+              <span>💡</span> 핵심 한 줄
+            </h2>
+            <p className="text-sm sm:text-base text-[var(--text-primary)]">{guide.oneLine}</p>
+            <div className="flex items-center gap-3 mt-3 text-xs text-[var(--text-muted)]">
+              <span>난이도: {"★".repeat(guide.difficulty)}{"☆".repeat(5 - guide.difficulty)}</span>
+              <span>딜 타입: {guide.damageType}</span>
+            </div>
+          </div>
+
+          {/* 장점/단점 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="glass-card p-4 sm:p-6">
+              <h3 className="text-sm sm:text-base font-bold mb-3 text-green-400">강점</h3>
+              <ul className="space-y-1.5">
+                {guide.strengths.map((s, i) => (
+                  <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex gap-2">
+                    <span className="text-green-400">+</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="glass-card p-4 sm:p-6">
+              <h3 className="text-sm sm:text-base font-bold mb-3 text-red-400">약점</h3>
+              <ul className="space-y-1.5">
+                {guide.weaknesses.map((w, i) => (
+                  <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex gap-2">
+                    <span className="text-red-400">-</span>
+                    <span>{w}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* 콤보 */}
+          <div className="glass-card p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-bold mb-3">🎯 핵심 콤보</h2>
+            <div className="space-y-3">
+              {guide.combos.map((c, i) => (
+                <div key={i} className="bg-[var(--bg-tertiary)] rounded-lg p-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs sm:text-sm font-bold text-[var(--accent-blue)]">{c.name}</span>
+                    <code className="text-xs bg-[var(--bg-secondary)] px-2 py-0.5 rounded text-[var(--text-primary)]">{c.sequence}</code>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-[var(--text-muted)]">{c.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 시간대별 운영 */}
+          <div className="glass-card p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-bold mb-4">⏱️ 시간대별 운영</h2>
+            <div className="space-y-4">
+              <div>
+                <div className="text-xs sm:text-sm font-bold text-yellow-400 mb-2">🌅 라인전 (1~14분)</div>
+                <ul className="space-y-1">
+                  {guide.earlyGame.map((e, i) => (
+                    <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex gap-2">
+                      <span className="text-[var(--text-muted)]">•</span>
+                      <span>{e}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div className="text-xs sm:text-sm font-bold text-orange-400 mb-2">⚔️ 중반 (14~25분)</div>
+                <ul className="space-y-1">
+                  {guide.midGame.map((m, i) => (
+                    <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex gap-2">
+                      <span className="text-[var(--text-muted)]">•</span>
+                      <span>{m}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div className="text-xs sm:text-sm font-bold text-purple-400 mb-2">🏆 후반 (25분+)</div>
+                <ul className="space-y-1">
+                  {guide.lateGame.map((l, i) => (
+                    <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex gap-2">
+                      <span className="text-[var(--text-muted)]">•</span>
+                      <span>{l}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* 실전 팁 */}
+          <div className="glass-card p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-bold mb-3">📝 실전 팁</h2>
+            <ul className="space-y-1.5">
+              {guide.tips.map((t, i) => (
+                <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex gap-2">
+                  <span className="text-[var(--accent-blue)]">▸</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 룬 + 아이템 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="glass-card p-4 sm:p-6">
+              <h3 className="text-sm sm:text-base font-bold mb-3">🌀 추천 룬</h3>
+              <div className="text-xs sm:text-sm space-y-1">
+                <div><span className="text-[var(--text-muted)]">주룬:</span> {guide.recommendedRunes.primary}</div>
+                <div><span className="text-[var(--text-muted)]">부룬:</span> {guide.recommendedRunes.secondary}</div>
+                <div className="text-[11px] text-[var(--text-muted)] mt-2">{guide.recommendedRunes.note}</div>
+              </div>
+            </div>
+            <div className="glass-card p-4 sm:p-6">
+              <h3 className="text-sm sm:text-base font-bold mb-3">🛒 추천 아이템</h3>
+              <div className="text-xs sm:text-sm space-y-1.5">
+                <div>
+                  <span className="text-[var(--text-muted)]">코어:</span>{" "}
+                  {guide.recommendedItems.core.join(" → ")}
+                </div>
+                <div>
+                  <span className="text-[var(--text-muted)]">상황별:</span>{" "}
+                  {guide.recommendedItems.situational.join(", ")}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 출처 영상 */}
+          <div className="glass-card p-4 sm:p-6">
+            <h2 className="text-base sm:text-lg font-bold mb-3 flex items-center gap-2">
+              <span>📺</span> 참고 강의 영상
+            </h2>
+            <p className="text-[11px] text-[var(--text-muted)] mb-3">
+              아래 강의 영상들을 종합하여 정리한 가이드입니다. 자세한 내용은 영상을 직접 확인하세요.
+            </p>
+            <div className="space-y-2">
+              {guide.sources.map((s) => (
+                <a
+                  key={s.videoId}
+                  href={`https://www.youtube.com/watch?v=${s.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-2 rounded-lg hover:bg-[var(--bg-hover)] transition-colors group"
+                >
+                  <div className="relative w-20 h-12 overflow-hidden rounded shrink-0 bg-[var(--bg-tertiary)]">
+                    <Image
+                      src={`https://i.ytimg.com/vi/${s.videoId}/mqdefault.jpg`}
+                      alt={s.title}
+                      width={80}
+                      height={48}
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs sm:text-sm font-medium text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] truncate">
+                      {s.title}
+                    </div>
+                    <div className="text-[10px] sm:text-[11px] text-[var(--text-muted)]">
+                      {s.channel} · {s.duration} · {s.viewCount}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Data source */}
       <div className="text-center text-xs text-[var(--text-muted)] py-4">
