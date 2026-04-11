@@ -1,58 +1,78 @@
 import { externalStats } from "../src/data/external-stats";
 
-const lolpsExpected: Record<string, number> = {
+// lol.ps 실데이터 (스크래핑 결과)
+const expected: Record<string, number> = {
   // TOP
-  "LeeSin|top": 1, "Malphite|top": 1, "RekSai|top": 1, "Gangplank|top": 1, "Irelia|top": 1,
-  "Sion|top": 2, "Garen|top": 2, "Kayle|top": 2, "Pantheon|top": 2,
-  "Yasuo|top": 3, "Akali|top": 3, "Warwick|top": 3, "Quinn|top": 3,
-  "Nasus|top": 4, "Ryze|top": 4, "Riven|top": 4,
-  "Jax|top": 5,
+  "Malphite|top": 1, "Irelia|top": 2, "Gangplank|top": 2, "Jax|top": 2, "Olaf|top": 2,
+  "Garen|top": 2, "Renekton|top": 2, "Gnar|top": 2, "Pantheon|top": 2, "Shen|top": 2,
+  "Sion|top": 2, "Aatrox|top": 2, "Camille|top": 2, "Singed|top": 2, "Vayne|top": 2,
+  "Yorick|top": 2, "Darius|top": 2, "Rumble|top": 2,
+  "Urgot|top": 3, "Kayle|top": 3, "Cassiopeia|top": 3, "Ambessa|top": 3, "Ornn|top": 3,
+  "Fiora|top": 3, "Quinn|top": 3, "Gragas|top": 3, "Kled|top": 3, "Teemo|top": 3,
+  "Warwick|top": 3, "Sett|top": 3, "Volibear|top": 3,
+  "Illaoi|top": 4, "Tryndamere|top": 4, "Nasus|top": 4, "KSante|top": 4, "Riven|top": 4,
+  "Maokai|top": 4, "Rammus|top": 4, "Mordekaiser|top": 4, "Yone|top": 4,
+  "Jayce|top": 5,
 
   // JUNGLE
-  "LeeSin|jungle": 1, "Naafiri|jungle": 1, "Graves|jungle": 1, "RekSai|jungle": 1,
-  "Elise|jungle": 2, "Vi|jungle": 2, "Nidalee|jungle": 2, "Briar|jungle": 2,
-  "Shaco|jungle": 3, "Sylas|jungle": 3, "Kindred|jungle": 3,
-  "Ekko|jungle": 4, "MasterYi|jungle": 4,
+  "LeeSin|jungle": 1, "Naafiri|jungle": 1, "XinZhao|jungle": 1, "Graves|jungle": 1, "RekSai|jungle": 1,
+  "Nocturne|jungle": 2, "JarvanIV|jungle": 2, "Vi|jungle": 2, "Briar|jungle": 2, "Elise|jungle": 2, "Ivern|jungle": 2,
+  "Sylas|jungle": 3, "Kindred|jungle": 3, "Hecarim|jungle": 3, "Shaco|jungle": 3, "Ekko|jungle": 3,
+  "Kayn|jungle": 3, "Warwick|jungle": 3, "Skarner|jungle": 3, "Evelynn|jungle": 3, "Nidalee|jungle": 3,
+  "Karthus|jungle": 3, "Sejuani|jungle": 3, "Nunu|jungle": 3,
+  "Rengar|jungle": 4, "MonkeyKing|jungle": 4, "Lillia|jungle": 4, "Khazix|jungle": 4, "Zac|jungle": 4,
+  "MasterYi|jungle": 4, "Talon|jungle": 4, "Diana|jungle": 4,
+  "Viego|jungle": 5,
 
   // MID
-  "Ahri|mid": 1, "Zoe|mid": 1, "TwistedFate|mid": 1, "Akali|mid": 1,
-  "Viktor|mid": 2, "Vex|mid": 2, "Xerath|mid": 2, "Yasuo|mid": 2, "Katarina|mid": 2,
-  "Sylas|mid": 3, "Fizz|mid": 3,
-  "Ryze|mid": 4, "Azir|mid": 4,
+  "Ahri|mid": 1, "Zoe|mid": 1, "Akali|mid": 1, "TwistedFate|mid": 1, "Leblanc|mid": 1,
+  "Viktor|mid": 2, "Vex|mid": 2, "Xerath|mid": 2, "Lissandra|mid": 2, "Orianna|mid": 2,
+  "Yasuo|mid": 2, "Katarina|mid": 2, "Anivia|mid": 2, "Diana|mid": 2, "Annie|mid": 2, "Zed|mid": 2,
+  "Fizz|mid": 3, "Malzahar|mid": 3, "Aurora|mid": 3, "Hwei|mid": 3, "Sylas|mid": 3,
+  "Cassiopeia|mid": 3, "Qiyana|mid": 3, "Syndra|mid": 3, "Veigar|mid": 3,
+  "Galio|mid": 4, "Talon|mid": 4, "Kassadin|mid": 4, "Lux|mid": 4, "Ryze|mid": 4,
+  "Vladimir|mid": 4, "Azir|mid": 4, "Mel|mid": 4, "Akshan|mid": 4,
 
   // ADC
-  "Ashe|adc": 1, "Jinx|adc": 1, "MissFortune|adc": 1,
-  "Caitlyn|adc": 2, "Ezreal|adc": 2, "Jhin|adc": 2, "Kaisa|adc": 2, "Lucian|adc": 2,
-  "Draven|adc": 4,
+  "Ashe|adc": 1, "Jinx|adc": 1,
+  "Ezreal|adc": 2, "MissFortune|adc": 2, "Caitlyn|adc": 2, "Sivir|adc": 2, "Xayah|adc": 2,
+  "Samira|adc": 2, "Nilah|adc": 2, "Senna|adc": 2,
+  "Jhin|adc": 3, "Kaisa|adc": 3, "Aphelios|adc": 3, "Tristana|adc": 3, "Twitch|adc": 3,
+  "Lucian|adc": 4, "Draven|adc": 4, "Corki|adc": 4, "KogMaw|adc": 4, "Smolder|adc": 4,
+  "Zeri|adc": 4, "Yuumi|adc": 4,
+  "Kalista|adc": 5,
 
   // SUPPORT
-  "Karma|support": 1, "Braum|support": 1, "Thresh|support": 1,
-  "Leona|support": 2, "Lulu|support": 2, "Bard|support": 2,
-  "Nautilus|support": 3, "Pyke|support": 3,
-  "Yuumi|support": 5,
+  "Karma|support": 1,
+  "Braum|support": 2, "Thresh|support": 2, "Nautilus|support": 2, "Leona|support": 2, "Lulu|support": 2,
+  "Blitzcrank|support": 2, "Bard|support": 2, "Rell|support": 2, "Rakan|support": 2, "Pyke|support": 2,
+  "Seraphine|support": 2, "Morgana|support": 2, "Maokai|support": 2,
+  "Soraka|support": 3, "Janna|support": 3, "Sona|support": 3, "Milio|support": 3, "Velkoz|support": 3,
+  "Nami|support": 4, "Yuumi|support": 4, "Lux|support": 4, "Xerath|support": 4,
 };
 
 let correct = 0;
 let wrong = 0;
-const mismatches: string[] = [];
+const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+const wrongs: string[] = [];
 
-for (const [key, expected] of Object.entries(lolpsExpected)) {
+for (const [key, exp] of Object.entries(expected)) {
   const [name, pos] = key.split("|");
   const stat = externalStats.find((s) => s.name === name && s.position === pos);
-  if (!stat) {
-    mismatches.push(`${key}: NOT FOUND`);
-    continue;
-  }
-  if (stat.tier === expected) {
-    correct++;
-  } else {
+  if (!stat) continue;
+  if (stat.tier === exp) correct++;
+  else {
     wrong++;
-    mismatches.push(`${key}: expected T${expected}, got T${stat.tier} (wr ${stat.winRate}, pr ${stat.pickRate}, br ${stat.banRate})`);
+    wrongs.push(`${key}: expected T${exp}, got T${stat.tier} (wr ${stat.winRate} pr ${stat.pickRate} br ${stat.banRate})`);
   }
 }
 
+for (const s of externalStats) counts[s.tier]++;
+
+console.log("Distribution:", counts, "Total:", externalStats.length);
 console.log(`Accuracy: ${correct}/${correct + wrong} = ${((correct / (correct + wrong)) * 100).toFixed(1)}%`);
-if (mismatches.length > 0) {
+if (wrongs.length > 0) {
   console.log("\nMismatches:");
-  mismatches.forEach((m) => console.log("  " + m));
+  wrongs.slice(0, 30).forEach((w) => console.log("  " + w));
+  if (wrongs.length > 30) console.log(`  ... and ${wrongs.length - 30} more`);
 }
