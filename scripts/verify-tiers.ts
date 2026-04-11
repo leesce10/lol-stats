@@ -10,15 +10,18 @@ function spearman(a: number[], b: number[]): number {
 }
 
 function calcLolPsScore(winRate: number, pickRate: number, banRate: number): number {
-  let score = 50 + (winRate - 50) * 5.06;
-  score += Math.pow(Math.max(0, pickRate), 0.3) * 3.01;
-  score += Math.pow(Math.max(0, banRate), 0.7) * 1.04;
-  if (pickRate < 3.57) score -= 1.71;
-  if (pickRate < 1.55) score -= 1.30;
-  if (pickRate < 0.34) score -= 0.53;
-  if (pickRate >= 2.02 && pickRate <= 23.18 && winRate >= 49.57) score += 4.10;
+  let score = 50 + (winRate - 50) * 5.41;
+  score += Math.pow(Math.max(0, pickRate), 0.3) * 0.93;
+  score += Math.pow(Math.max(0, banRate), 0.6) * 0.11;
+  if (pickRate < 5.26) score -= 2.80;
+  if (pickRate < 2.03) score -= 3.42;
+  if (pickRate < 1.62) score -= 4.53;
+  if (pickRate < 0.41) score -= 5.30;
+  if (pickRate >= 3.25 && pickRate <= 19.56 && winRate >= 49.69) score += 1.65;
   const presence = pickRate + banRate;
-  if (presence >= 46.82 && winRate >= 48.46) score += 4.33;
+  if (presence >= 16.20 && winRate >= 50.01) score += 4.62;
+  if (presence >= 51.84 && winRate >= 48.75) score += 4.81;
+  if (winRate >= 52.89 && pickRate <= 0.72) score -= 6.99;
   return score;
 }
 

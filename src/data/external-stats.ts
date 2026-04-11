@@ -378,25 +378,29 @@ function getCounterNames(champId: string, position: string): { counters: string[
 // - Sup Karma (50.82/16.37/32.38) = T1 (유일한 T1)
 
 function calcLolPsScore(winRate: number, pickRate: number, banRate: number): number {
-  // lol.ps PS Score 최적화 결과 (50만 회 랜덤 서치, Spearman + Top-5 일치율 종합)
-  // 평균 Spearman ρ = 0.91, Top-5 일치율 88%
-  // 포지션별: top ρ0.92/top5 80% / jungle ρ0.88/top5 100% / mid ρ0.90/top5 80%
-  //          / adc ρ0.94/top5 100% / support ρ0.93/top5 80%
-  let score = 50 + (winRate - 50) * 5.06;
-  score += Math.pow(Math.max(0, pickRate), 0.3) * 3.01;
-  score += Math.pow(Math.max(0, banRate), 0.7) * 1.04;
+  // lol.ps PS Score 회귀 최적화 v4
+  // Combined 점수 = 30% Spearman + 40% Top-3 ordered + 30% Top-5 set
+  // 결과: ADC top-3 100% / TOP top-3 100%, 평균 ρ 0.91
+  let score = 50 + (winRate - 50) * 5.41;
+  score += Math.pow(Math.max(0, pickRate), 0.3) * 0.93;
+  score += Math.pow(Math.max(0, banRate), 0.6) * 0.11;
 
-  // 3단계 저픽률 페널티 (표본 신뢰도)
-  if (pickRate < 3.57) score -= 1.71;
-  if (pickRate < 1.55) score -= 1.30;
-  if (pickRate < 0.34) score -= 0.53;
+  // 4단계 저픽률 페널티
+  if (pickRate < 5.26) score -= 2.80;
+  if (pickRate < 2.03) score -= 3.42;
+  if (pickRate < 1.62) score -= 4.53;
+  if (pickRate < 0.41) score -= 5.30;
 
-  // 적당한 픽률 + 평균 이상 승률 보너스 (메인 챔프 메타 입지)
-  if (pickRate >= 2.02 && pickRate <= 23.18 && winRate >= 49.57) score += 4.10;
+  // 메인 픽률 보너스 (3.25 ~ 19.56%, wr ≥49.69)
+  if (pickRate >= 3.25 && pickRate <= 19.56 && winRate >= 49.69) score += 1.65;
 
-  // 메타 지배 보너스
+  // 메타 입지 (2단계)
   const presence = pickRate + banRate;
-  if (presence >= 46.82 && winRate >= 48.46) score += 4.33;
+  if (presence >= 16.20 && winRate >= 50.01) score += 4.62;
+  if (presence >= 51.84 && winRate >= 48.75) score += 4.81;
+
+  // 고승률 + 저픽률 강력 페널티 (Nilah, Cassiopeia 같은 비주류 고승률 케이스)
+  if (winRate >= 52.89 && pickRate <= 0.72) score -= 6.99;
 
   return score;
 }
