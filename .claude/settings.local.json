@@ -4,7 +4,8 @@
       "Skill(update-config)",
       "Skill(update-config:*)",
       "WebFetch(domain:help.op.gg)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(tee /tmp/per-pos-result.log)"
     ]
   }
 }

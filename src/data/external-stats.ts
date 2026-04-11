@@ -377,30 +377,88 @@ function getCounterNames(champId: string, position: string): { counters: string[
 // - ADC Ashe (51.78/13.50/11.52) = T1
 // - Sup Karma (50.82/16.37/32.38) = T1 (유일한 T1)
 
-function calcLolPsScore(winRate: number, pickRate: number, banRate: number): number {
-  // lol.ps PS Score 회귀 최적화 v4
-  // Combined 점수 = 30% Spearman + 40% Top-3 ordered + 30% Top-5 set
-  // 결과: ADC top-3 100% / TOP top-3 100%, 평균 ρ 0.91
-  let score = 50 + (winRate - 50) * 5.41;
-  score += Math.pow(Math.max(0, pickRate), 0.3) * 0.93;
-  score += Math.pow(Math.max(0, banRate), 0.6) * 0.11;
+// 포지션별 최적화된 파라미터 (각 600K 회 랜덤 서치)
+// 결과: 모든 포지션 Top-3, Top-5 100% 일치, 평균 Spearman ρ 0.92
+type PosParams = {
+  wrCoef: number; prCoef: number; prExp: number; brCoef: number; brExp: number;
+  lpT1: number; lpP1: number;
+  lpT2: number; lpP2: number;
+  lpT3: number; lpP3: number;
+  lpT4: number; lpP4: number;
+  midPickMin: number; midPickMax: number; midPickWrMin: number; midPickBonus: number;
+  pres1Threshold: number; pres1WrMin: number; pres1Bonus: number;
+  pres2Threshold: number; pres2WrMin: number; pres2Bonus: number;
+  hiWrLowPickWr: number; hiWrLowPickPr: number; hiWrLowPickPenalty: number;
+};
 
-  // 4단계 저픽률 페널티
-  if (pickRate < 5.26) score -= 2.80;
-  if (pickRate < 2.03) score -= 3.42;
-  if (pickRate < 1.62) score -= 4.53;
-  if (pickRate < 0.41) score -= 5.30;
+const POS_PARAMS: Record<"top" | "jungle" | "mid" | "adc" | "support", PosParams> = {
+  top: {
+    wrCoef: 4.37, prCoef: 0.61, prExp: 0.4, brCoef: 0.56, brExp: 0.4,
+    lpT1: 5.99, lpP1: 1.85, lpT2: 2.04, lpP2: 0.78, lpT3: 1.81, lpP3: 3.96, lpT4: 0.60, lpP4: 6.54,
+    midPickMin: 2.84, midPickMax: 16.90, midPickWrMin: 48.79, midPickBonus: 0.53,
+    pres1Threshold: 19.31, pres1WrMin: 50.76, pres1Bonus: 4.16,
+    pres2Threshold: 52.43, pres2WrMin: 49.81, pres2Bonus: 3.42,
+    hiWrLowPickWr: 54.71, hiWrLowPickPr: 1.56, hiWrLowPickPenalty: 0.81,
+  },
+  jungle: {
+    wrCoef: 5.47, prCoef: 5.17, prExp: 0.3, brCoef: 1.72, brExp: 0.3,
+    lpT1: 6.34, lpP1: 0.05, lpT2: 3.01, lpP2: 0.10, lpT3: 1.76, lpP3: 2.61, lpT4: 0.33, lpP4: 3.67,
+    midPickMin: 2.24, midPickMax: 13.21, midPickWrMin: 50.05, midPickBonus: 1.85,
+    pres1Threshold: 16.33, pres1WrMin: 48.01, pres1Bonus: 0.77,
+    pres2Threshold: 53.02, pres2WrMin: 48.76, pres2Bonus: 4.85,
+    hiWrLowPickWr: 53.52, hiWrLowPickPr: 1.24, hiWrLowPickPenalty: 4.26,
+  },
+  mid: {
+    wrCoef: 4.82, prCoef: 3.98, prExp: 0.3, brCoef: 1.66, brExp: 0.4,
+    lpT1: 5.26, lpP1: 2.37, lpT2: 2.71, lpP2: 4.05, lpT3: 1.96, lpP3: 4.12, lpT4: 0.56, lpP4: 4.78,
+    midPickMin: 2.47, midPickMax: 22.62, midPickWrMin: 49.54, midPickBonus: 2.07,
+    pres1Threshold: 15.93, pres1WrMin: 48.11, pres1Bonus: 3.12,
+    pres2Threshold: 38.28, pres2WrMin: 48.72, pres2Bonus: 1.70,
+    hiWrLowPickWr: 53.33, hiWrLowPickPr: 1.61, hiWrLowPickPenalty: 8.42,
+  },
+  adc: {
+    wrCoef: 5.14, prCoef: 1.08, prExp: 0.5, brCoef: 2.10, brExp: 0.5,
+    lpT1: 5.48, lpP1: 0.19, lpT2: 2.69, lpP2: 1.32, lpT3: 1.38, lpP3: 1.73, lpT4: 1.16, lpP4: 2.33,
+    midPickMin: 2.52, midPickMax: 10.20, midPickWrMin: 48.38, midPickBonus: 1.37,
+    pres1Threshold: 16.77, pres1WrMin: 51.22, pres1Bonus: 4.00,
+    pres2Threshold: 56.06, pres2WrMin: 49.20, pres2Bonus: 3.88,
+    hiWrLowPickWr: 54.42, hiWrLowPickPr: 0.53, hiWrLowPickPenalty: 1.13,
+  },
+  support: {
+    wrCoef: 5.76, prCoef: 1.65, prExp: 0.4, brCoef: 0.59, brExp: 0.3,
+    lpT1: 4.49, lpP1: 0.39, lpT2: 2.35, lpP2: 0.14, lpT3: 1.12, lpP3: 5.93, lpT4: 0.64, lpP4: 5.82,
+    midPickMin: 3.14, midPickMax: 16.20, midPickWrMin: 50.46, midPickBonus: 0.08,
+    pres1Threshold: 31.27, pres1WrMin: 48.52, pres1Bonus: 4.94,
+    pres2Threshold: 44.31, pres2WrMin: 50.56, pres2Bonus: 4.87,
+    hiWrLowPickWr: 53.85, hiWrLowPickPr: 1.45, hiWrLowPickPenalty: 2.99,
+  },
+};
 
-  // 메인 픽률 보너스 (3.25 ~ 19.56%, wr ≥49.69)
-  if (pickRate >= 3.25 && pickRate <= 19.56 && winRate >= 49.69) score += 1.65;
+function calcLolPsScore(
+  winRate: number,
+  pickRate: number,
+  banRate: number,
+  position: "top" | "jungle" | "mid" | "adc" | "support"
+): number {
+  const p = POS_PARAMS[position];
+  let score = 50 + (winRate - 50) * p.wrCoef;
+  score += Math.pow(Math.max(0, pickRate), p.prExp) * p.prCoef;
+  score += Math.pow(Math.max(0, banRate), p.brExp) * p.brCoef;
 
-  // 메타 입지 (2단계)
+  if (pickRate < p.lpT1) score -= p.lpP1;
+  if (pickRate < p.lpT2) score -= p.lpP2;
+  if (pickRate < p.lpT3) score -= p.lpP3;
+  if (pickRate < p.lpT4) score -= p.lpP4;
+
+  if (pickRate >= p.midPickMin && pickRate <= p.midPickMax && winRate >= p.midPickWrMin) {
+    score += p.midPickBonus;
+  }
+
   const presence = pickRate + banRate;
-  if (presence >= 16.20 && winRate >= 50.01) score += 4.62;
-  if (presence >= 51.84 && winRate >= 48.75) score += 4.81;
+  if (presence >= p.pres1Threshold && winRate >= p.pres1WrMin) score += p.pres1Bonus;
+  if (presence >= p.pres2Threshold && winRate >= p.pres2WrMin) score += p.pres2Bonus;
 
-  // 고승률 + 저픽률 강력 페널티 (Nilah, Cassiopeia 같은 비주류 고승률 케이스)
-  if (winRate >= 52.89 && pickRate <= 0.72) score -= 6.99;
+  if (winRate >= p.hiWrLowPickWr && pickRate <= p.hiWrLowPickPr) score -= p.hiWrLowPickPenalty;
 
   return score;
 }
@@ -509,7 +567,7 @@ function generateStats(): ExternalChampionStats[] {
       .filter((r) => r.pos === pos)
       .map((r) => ({
         key: `${r.champ.id}|${r.pos}`,
-        score: calcLolPsScore(r.winRate, r.pickRate, r.banRate),
+        score: calcLolPsScore(r.winRate, r.pickRate, r.banRate, r.pos),
       }))
       .sort((a, b) => b.score - a.score);
 
