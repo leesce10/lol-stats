@@ -145,7 +145,7 @@ export default function StatsPage() {
         <div className="flex-1 min-w-0 pl-2">
           <SortBtn k="name" label="챔피언" />
         </div>
-        <div className="w-12 text-center shrink-0">
+        <div className="w-14 text-center shrink-0">
           <SortBtn k="tier" label="티어" />
         </div>
         <div className="w-16 text-right shrink-0">
@@ -186,9 +186,9 @@ export default function StatsPage() {
               </div>
 
               {/* Tier badge */}
-              <div className="w-12 shrink-0 flex justify-center">
-                <span className={`inline-flex h-5 w-9 items-center justify-center rounded text-[10px] font-bold border ${tierStyle.bg} ${tierStyle.text}`}>
-                  T{champ.tier}
+              <div className="w-14 shrink-0 flex justify-center">
+                <span className={`inline-flex h-5 px-2 items-center justify-center rounded text-[10px] font-bold border ${tierStyle.bg} ${tierStyle.text}`}>
+                  {champ.tier} tier
                 </span>
               </div>
 
