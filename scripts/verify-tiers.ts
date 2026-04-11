@@ -1,4 +1,67 @@
 import { externalStats } from "../src/data/external-stats";
+import { lolpsTruth } from "./lolps-truth";
+
+function spearman(a: number[], b: number[]): number {
+  const n = a.length;
+  if (n < 2) return 0;
+  let sumD2 = 0;
+  for (let i = 0; i < n; i++) sumD2 += (a[i] - b[i]) ** 2;
+  return 1 - (6 * sumD2) / (n * (n * n - 1));
+}
+
+function calcLolPsScore(winRate: number, pickRate: number, banRate: number): number {
+  // src/data/external-stats.ts의 공식과 동일해야 함
+  let score = 50 + (winRate - 50) * 3.4;
+  score += Math.pow(Math.max(0, pickRate), 0.4) * 2.78;
+  score += Math.pow(Math.max(0, banRate), 0.6) * 0.66;
+  if (pickRate < 1.84) score -= 0.16;
+  if (pickRate < 0.53) score -= 5.7;
+  if (pickRate >= 2.14 && pickRate <= 13.44 && winRate >= 49.7) score += 3.73;
+  const presence = pickRate + banRate;
+  if (presence >= 36.58 && winRate >= 50.45) score += 2.98;
+  if (winRate >= 52.6) score += 1.03;
+  return score;
+}
+
+function computeSpearman(): { positionRho: Record<string, number>; avgRho: number } {
+  const byPos: Record<string, typeof lolpsTruth> = { top: [], jungle: [], mid: [], adc: [], support: [] };
+  for (const e of lolpsTruth) byPos[e.position].push(e);
+
+  const positionRho: Record<string, number> = {};
+  let sum = 0;
+  let cnt = 0;
+  for (const pos of Object.keys(byPos)) {
+    const inPos = byPos[pos];
+    if (inPos.length < 2) continue;
+
+    // lol.ps 순위 (티어가 같으면 승률 높은 순)
+    const lolpsOrdered = [...inPos].sort((a, b) => {
+      if (a.tier !== b.tier) return a.tier - b.tier;
+      return b.winRate - a.winRate;
+    });
+    const lolpsRank = new Map<string, number>();
+    lolpsOrdered.forEach((e, i) => lolpsRank.set(e.name, i + 1));
+
+    // 우리 순위: lol.ps 챔피언과 동일한 챔피언만으로 점수 정렬
+    const oursOrdered = inPos
+      .map((e) => ({ name: e.name, score: calcLolPsScore(e.winRate, e.pickRate, e.banRate) }))
+      .sort((a, b) => b.score - a.score);
+    const ourRank = new Map<string, number>();
+    oursOrdered.forEach((it, i) => ourRank.set(it.name, i + 1));
+
+    const a: number[] = [];
+    const b: number[] = [];
+    for (const e of inPos) {
+      a.push(lolpsRank.get(e.name)!);
+      b.push(ourRank.get(e.name)!);
+    }
+    const rho = spearman(a, b);
+    positionRho[pos] = rho;
+    sum += rho;
+    cnt++;
+  }
+  return { positionRho, avgRho: sum / cnt };
+}
 
 // lol.ps 실데이터 (스크래핑 결과)
 const expected: Record<string, number> = {
@@ -75,7 +138,12 @@ for (const s of externalStats) counts[s.tier]++;
 console.log("Distribution:", counts, "Total:", externalStats.length);
 console.log(`Exact match:  ${exact}/${total} = ${((exact / total) * 100).toFixed(1)}%`);
 console.log(`Within ±1:    ${within1}/${total} = ${((within1 / total) * 100).toFixed(1)}%`);
-if (wrongs.length > 0) {
-  console.log(`\n${wrongs.length} champions are off by 2+ tiers:`);
-  wrongs.slice(0, 30).forEach((w) => console.log("  " + w));
+
+// Spearman 순위 상관도
+const sp = computeSpearman();
+console.log("\n=== Spearman 순위 상관계수 (실제 순위 유사도) ===");
+console.log(`평균 ρ: ${sp.avgRho.toFixed(4)}`);
+for (const [pos, rho] of Object.entries(sp.positionRho)) {
+  console.log(`  ${pos.padEnd(8)}: ${rho.toFixed(4)}`);
 }
+console.log(`목표 0.9 ${sp.avgRho >= 0.9 ? "✓ 달성" : "✗ 미달"}`);
