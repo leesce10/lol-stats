@@ -383,17 +383,21 @@ function generateStats(): ExternalChampionStats[] {
       const banRate = real?.banRate ?? (r3 * 15);
       const games = real?.games ?? Math.floor((isMain ? 8000 : 2000) + r4 * 40000);
 
-      // 티어 계산: 승률 + 픽률 + 밴률 종합 점수 (op.gg 방식 참고)
-      // 밴률은 "위협도"의 지표 — 높으면 메타에서 강력하다는 의미
-      const wrScore = (winRate - 50) * 4;       // -8 ~ +12 정도
-      const presenceScore = (pickRate + banRate) * 0.3; // 0 ~ +20 정도
-      const opScore = wrScore + presenceScore;
+      // 티어 계산: lol.ps PS Score 방식 (50 baseline)
+      // - 승률은 선형 가중
+      // - 픽률은 로그 변환 (작은 픽률에서 차이 크게, 큰 픽률은 포화)
+      // - 밴률은 제곱근 변환 (큰 밴률 완화)
+      // 참고: docs/tier-calculation.md
+      const wrScore = (winRate - 50) * 5;             // ±15 정도
+      const pickScore = Math.log(pickRate + 1) * 3;   // 0~10
+      const banScore = Math.sqrt(banRate) * 1.5;      // 0~10
+      const opScore = 50 + wrScore + pickScore + banScore;
 
       let tier: 1 | 2 | 3 | 4 | 5;
-      if (opScore >= 12) tier = 1;
-      else if (opScore >= 7) tier = 2;
-      else if (opScore >= 3) tier = 3;
-      else if (opScore >= -2) tier = 4;
+      if (opScore >= 60) tier = 1;
+      else if (opScore >= 56) tier = 2;
+      else if (opScore >= 52) tier = 3;
+      else if (opScore >= 48) tier = 4;
       else tier = 5;
 
       // 카운터 데이터: 같은 포지션 전체 챔피언과의 매치업 생성
