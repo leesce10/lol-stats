@@ -361,34 +361,87 @@ function getCounterNames(champId: string, position: string): { counters: string[
   return { counters, easy };
 }
 
+// lol.ps 실제 티어 데이터 (KR Emerald+, 패치 26.07)
+// 하드코딩으로 정확도 확보. 없는 챔피언은 공식으로 계산.
+const LOLPS_TIERS: Record<string, 1 | 2 | 3 | 4 | 5> = {
+  // TOP
+  "LeeSin|top": 1, "Malphite|top": 1, "XinZhao|top": 1, "RekSai|top": 1, "Gangplank|top": 1, "Irelia|top": 1,
+  "Sion|top": 2, "Garen|top": 2, "Leona|top": 2, "Renekton|top": 2, "Jayce|top": 2, "Ambessa|top": 2,
+  "Pantheon|top": 2, "Kayle|top": 2, "Aatrox|top": 2, "Camille|top": 2, "Gnar|top": 2, "Fiora|top": 2,
+  "Shen|top": 2, "Rumble|top": 2, "Ornn|top": 2, "Singed|top": 2,
+  "Urgot|top": 3, "Cassiopeia|top": 3, "Kled|top": 3, "Yasuo|top": 3, "Warwick|top": 3, "Akali|top": 3,
+  "Darius|top": 3, "Teemo|top": 3, "Volibear|top": 3, "Taliyah|top": 3, "Quinn|top": 3,
+  "Ryze|top": 4, "Riven|top": 4, "MonkeyKing|top": 4, "Tryndamere|top": 4, "Nasus|top": 4, "Mordekaiser|top": 4,
+  "Yone|top": 4, "KSante|top": 4, "DrMundo|top": 4, "Gragas|top": 4, "Rammus|top": 4, "Gwen|top": 4, "Chogath|top": 4,
+  "Jax|top": 5,
+
+  // JUNGLE
+  "LeeSin|jungle": 1, "Naafiri|jungle": 1, "XinZhao|jungle": 1, "RekSai|jungle": 1, "Graves|jungle": 1,
+  "Nocturne|jungle": 2, "Elise|jungle": 2, "Vi|jungle": 2, "Nidalee|jungle": 2, "Briar|jungle": 2,
+  "Karthus|jungle": 2, "Zyra|jungle": 2, "JarvanIV|jungle": 2,
+  "Shaco|jungle": 3, "Sylas|jungle": 3, "Hecarim|jungle": 3, "Kindred|jungle": 3, "Skarner|jungle": 3,
+  "Evelynn|jungle": 3, "Fiddlesticks|jungle": 3, "Taliyah|jungle": 3, "Kayn|jungle": 3, "Nunu|jungle": 3,
+  "Ivern|jungle": 3, "Sejuani|jungle": 3, "Warwick|jungle": 3,
+  "Ekko|jungle": 4, "Rengar|jungle": 4, "MasterYi|jungle": 4, "Lillia|jungle": 4, "Shyvana|jungle": 4,
+  "Khazix|jungle": 4, "Talon|jungle": 4, "MonkeyKing|jungle": 4, "Amumu|jungle": 4, "Zac|jungle": 4,
+  "Viego|jungle": 5, "Qiyana|jungle": 5,
+
+  // MID
+  "Ahri|mid": 1, "Zoe|mid": 1, "TwistedFate|mid": 1, "Akali|mid": 1,
+  "Leblanc|mid": 2, "Viktor|mid": 2, "Vex|mid": 2, "Xerath|mid": 2, "Lissandra|mid": 2, "Annie|mid": 2,
+  "Anivia|mid": 2, "Katarina|mid": 2, "Yasuo|mid": 2, "Diana|mid": 2, "Orianna|mid": 2,
+  "Sylas|mid": 3, "Malzahar|mid": 3, "Fizz|mid": 3, "Aurora|mid": 3, "Hwei|mid": 3, "Velkoz|mid": 3, "Syndra|mid": 3,
+  "Galio|mid": 4, "Taliyah|mid": 4, "Ryze|mid": 4, "Azir|mid": 4, "Mel|mid": 4, "Kassadin|mid": 4,
+  "Vladimir|mid": 4, "Cassiopeia|mid": 4, "Akshan|mid": 4, "Zed|mid": 4,
+  "Qiyana|mid": 5, "Yone|mid": 5,
+
+  // ADC
+  "Ashe|adc": 1, "Jinx|adc": 1, "MissFortune|adc": 1,
+  "Caitlyn|adc": 2, "Ezreal|adc": 2, "Jhin|adc": 2, "Kaisa|adc": 2, "Lucian|adc": 2, "Samira|adc": 2,
+  "Xayah|adc": 2, "Senna|adc": 2, "Sivir|adc": 2,
+  "Aphelios|adc": 3, "Tristana|adc": 3, "Twitch|adc": 3, "KogMaw|adc": 3, "Smolder|adc": 3, "Nilah|adc": 3,
+  "Swain|adc": 3, "Ziggs|adc": 3,
+  "Draven|adc": 4, "Vayne|adc": 4, "Zeri|adc": 4, "Corki|adc": 4, "Varus|adc": 4, "Mel|adc": 4,
+  "Kalista|adc": 5,
+
+  // SUPPORT
+  "Karma|support": 1, "Braum|support": 1, "Thresh|support": 1,
+  "Leona|support": 2, "Lulu|support": 2, "Bard|support": 2, "Blitzcrank|support": 2, "Rell|support": 2,
+  "Elise|support": 2,
+  "Nautilus|support": 3, "Morgana|support": 3, "Pyke|support": 3, "Seraphine|support": 3, "Milio|support": 3,
+  "Sona|support": 3, "Janna|support": 3, "Zilean|support": 3, "Senna|support": 3, "Rakan|support": 3,
+  "Soraka|support": 3, "Maokai|support": 3, "Alistar|support": 3, "Zyra|support": 3, "Taric|support": 3,
+  "Nami|support": 4, "Velkoz|support": 4, "Xerath|support": 4, "Lux|support": 4, "Neeko|support": 4,
+  "Yuumi|support": 5,
+};
+
 function calcOpScore(winRate: number, pickRate: number, banRate: number): number {
-  // op.gg 탑 포지션 실데이터 패턴 학습 결과
-  // 승률이 압도적으로 큰 영향, 픽/밴률은 보조 가중치
-  // 참고: docs/tier-calculation.md
-  return winRate + Math.log(pickRate + 1) * 0.5 + Math.sqrt(banRate) * 0.5;
+  // lol.ps 스타일 스코어: 승률 선형, 픽/밴 제곱근
+  return winRate + Math.sqrt(pickRate) * 0.8 + Math.sqrt(banRate) * 0.5;
 }
 
 function calcTierByCalibration(winRate: number, pickRate: number, banRate: number): 1 | 2 | 3 | 4 | 5 {
-  // op.gg 탑 데이터 회귀 분석 결과:
-  // - 승률 51.5%+ → T1 (안정적으로 강함)
-  // - 승률 50.0%+ → T2 (평균 이상)
-  // - 승률 48.5%+ → T3 (평균)
-  // - 승률 47.0%+ → T4 (평균 이하)
-  // - 승률 47.0%- → T5 (약함)
-  // 추가: pick+ban ≥ 25 (메타 챔피언)이면 한 단계 승급
+  // LOLPS_TIERS에 없는 챔피언용 폴백 공식
+  // lol.ps 관찰 패턴 기반:
+  // - T1: 승률 51.5%+ 또는 pick+ban 40%+
+  // - T2: 승률 50.5%+ 또는 pick+ban 15%+ with wr>=50
+  // - T3: 승률 49.5%+ 또는 평균
+  // - T4: 승률 47.5%+
+  // - T5: 승률 47.5%-
+  const presence = pickRate + banRate;
+
   let tier: 1 | 2 | 3 | 4 | 5;
-  if (winRate >= 51.5) tier = 1;
-  else if (winRate >= 50.0) tier = 2;
-  else if (winRate >= 48.5) tier = 3;
-  else if (winRate >= 47.0) tier = 4;
+  if (winRate >= 51.5 && pickRate >= 2) tier = 1;
+  else if (presence >= 40 && winRate >= 49) tier = 1;
+  else if (winRate >= 50.5) tier = 2;
+  else if (winRate >= 50 && presence >= 12) tier = 2;
+  else if (winRate >= 49 && presence >= 8) tier = 3;
+  else if (winRate >= 49.5) tier = 3;
+  else if (winRate >= 48) tier = 4;
   else tier = 5;
 
-  const presence = pickRate + banRate;
-  if (presence >= 25 && tier > 1) {
-    tier = (tier - 1) as 1 | 2 | 3 | 4 | 5;
-  }
-  // 픽률 매우 낮은 (1% 미만) 비주류 챔프는 표본 신뢰도 낮아서 한 단계 강등
-  if (pickRate < 1.0 && tier < 5) {
+  // 저픽률 페널티 (표본 부족)
+  if (pickRate < 1.5 && tier < 4) {
     tier = (tier + 1) as 1 | 2 | 3 | 4 | 5;
   }
   return tier;
@@ -437,12 +490,12 @@ function generateStats(): ExternalChampionStats[] {
     }
   }
 
-  // 2단계: op.gg 캘리브레이션 공식으로 티어 부여
-  // 승률 기반 + pick+ban presence 보너스 + 저픽률 페널티
+  // 2단계: lol.ps 실데이터 우선, 없으면 공식 계산
   const tierByKey = new Map<string, 1 | 2 | 3 | 4 | 5>();
   for (const r of rawList) {
-    const t = calcTierByCalibration(r.winRate, r.pickRate, r.banRate);
-    tierByKey.set(`${r.champ.id}|${r.pos}`, t);
+    const key = `${r.champ.id}|${r.pos}`;
+    const t = LOLPS_TIERS[key] ?? calcTierByCalibration(r.winRate, r.pickRate, r.banRate);
+    tierByKey.set(key, t);
   }
 
   // 3단계: 결과 생성
