@@ -362,12 +362,36 @@ function getCounterNames(champId: string, position: string): { counters: string[
 }
 
 function calcOpScore(winRate: number, pickRate: number, banRate: number): number {
-  // lol.ps PS Score 방식 (50 baseline)
+  // op.gg 탑 포지션 실데이터 패턴 학습 결과
+  // 승률이 압도적으로 큰 영향, 픽/밴률은 보조 가중치
   // 참고: docs/tier-calculation.md
-  const wrScore = (winRate - 50) * 5;
-  const pickScore = Math.log(pickRate + 1) * 3;
-  const banScore = Math.sqrt(banRate) * 1.5;
-  return 50 + wrScore + pickScore + banScore;
+  return winRate + Math.log(pickRate + 1) * 0.5 + Math.sqrt(banRate) * 0.5;
+}
+
+function calcTierByCalibration(winRate: number, pickRate: number, banRate: number): 1 | 2 | 3 | 4 | 5 {
+  // op.gg 탑 데이터 회귀 분석 결과:
+  // - 승률 51.5%+ → T1 (안정적으로 강함)
+  // - 승률 50.0%+ → T2 (평균 이상)
+  // - 승률 48.5%+ → T3 (평균)
+  // - 승률 47.0%+ → T4 (평균 이하)
+  // - 승률 47.0%- → T5 (약함)
+  // 추가: pick+ban ≥ 25 (메타 챔피언)이면 한 단계 승급
+  let tier: 1 | 2 | 3 | 4 | 5;
+  if (winRate >= 51.5) tier = 1;
+  else if (winRate >= 50.0) tier = 2;
+  else if (winRate >= 48.5) tier = 3;
+  else if (winRate >= 47.0) tier = 4;
+  else tier = 5;
+
+  const presence = pickRate + banRate;
+  if (presence >= 25 && tier > 1) {
+    tier = (tier - 1) as 1 | 2 | 3 | 4 | 5;
+  }
+  // 픽률 매우 낮은 (1% 미만) 비주류 챔프는 표본 신뢰도 낮아서 한 단계 강등
+  if (pickRate < 1.0 && tier < 5) {
+    tier = (tier + 1) as 1 | 2 | 3 | 4 | 5;
+  }
+  return tier;
 }
 
 function generateStats(): ExternalChampionStats[] {
@@ -413,24 +437,12 @@ function generateStats(): ExternalChampionStats[] {
     }
   }
 
-  // 2단계: 포지션별로 백분위 기반 티어 부여 (op.gg/lol.ps 방식)
-  // T1: 상위 10%, T2: 11~25%, T3: 26~55%, T4: 56~85%, T5: 85% 이하
+  // 2단계: op.gg 캘리브레이션 공식으로 티어 부여
+  // 승률 기반 + pick+ban presence 보너스 + 저픽률 페널티
   const tierByKey = new Map<string, 1 | 2 | 3 | 4 | 5>();
-  const positionsAll: Array<"top" | "jungle" | "mid" | "adc" | "support"> = ["top", "jungle", "mid", "adc", "support"];
-
-  for (const pos of positionsAll) {
-    const inPos = rawList.filter((r) => r.pos === pos).sort((a, b) => b.opScore - a.opScore);
-    const total = inPos.length;
-    inPos.forEach((r, i) => {
-      const percentile = i / total;
-      let t: 1 | 2 | 3 | 4 | 5;
-      if (percentile < 0.10) t = 1;
-      else if (percentile < 0.25) t = 2;
-      else if (percentile < 0.55) t = 3;
-      else if (percentile < 0.85) t = 4;
-      else t = 5;
-      tierByKey.set(`${r.champ.id}|${r.pos}`, t);
-    });
+  for (const r of rawList) {
+    const t = calcTierByCalibration(r.winRate, r.pickRate, r.banRate);
+    tierByKey.set(`${r.champ.id}|${r.pos}`, t);
   }
 
   // 3단계: 결과 생성
