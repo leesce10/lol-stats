@@ -365,15 +365,69 @@ function SecondaryRuneTree({ runeString }: { runeString: string }) {
   );
 }
 
+/** 능력치 파편 (Stat Shards) */
+const SHARD_CDN = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods";
+const SHARD_ROWS = [
+  { label: "공격", options: [
+    { name: "적응형 능력치", icon: `${SHARD_CDN}/statmodsadaptiveforceicon.png` },
+    { name: "공격 속도", icon: `${SHARD_CDN}/statmodsattackspeedicon.png` },
+    { name: "스킬 가속", icon: `${SHARD_CDN}/statmodscdrscalingicon.png` },
+  ]},
+  { label: "유연", options: [
+    { name: "적응형 능력치", icon: `${SHARD_CDN}/statmodsadaptiveforceicon.png` },
+    { name: "이동 속도", icon: `${SHARD_CDN}/statmodsmovementspeedicon.png` },
+    { name: "체력", icon: `${SHARD_CDN}/statmodshealthscalingicon.png` },
+  ]},
+  { label: "방어", options: [
+    { name: "체력", icon: `${SHARD_CDN}/statmodshealthplusicon.png` },
+    { name: "방어력", icon: `${SHARD_CDN}/statmodsarmoricon.png` },
+    { name: "마법 저항력", icon: `${SHARD_CDN}/statmodsmagicresicon.png` },
+  ]},
+];
+
+function StatShardPanel({ damageType }: { damageType?: string }) {
+  // 기본 선택: 데미지 타입에 따라 추론
+  const isAp = damageType === "AP" || damageType === "ap";
+  const defaults = [0, 0, isAp ? 2 : 1]; // [공격: 적응형, 유연: 적응형, 방어: 방어력/마저]
+
+  return (
+    <div className="flex flex-col items-center gap-3 py-4 px-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      <span className="text-[10px] font-bold text-[var(--text-muted)]">능력치</span>
+      <div className="w-10 h-px bg-[var(--border-color)]" />
+      {SHARD_ROWS.map((row, ri) => (
+        <div key={ri} className="flex items-center justify-center gap-2">
+          {row.options.map((opt, oi) => {
+            const isActive = oi === defaults[ri];
+            return (
+              <div key={oi} className="shrink-0" style={{ width: 24, height: 24 }} title={opt.name}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={opt.icon}
+                  alt=""
+                  width={24}
+                  height={24}
+                  className={`rounded-full ${isActive ? "ring-2 ring-[var(--accent-gold)]" : "brightness-[0.25] grayscale"}`}
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function BuildTab({ guide }: { guide: ChampionGuide }) {
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* 룬 */}
+      {/* 룬 — 3열 (주룬 / 보조 / 능력치) */}
       <div className="glass-card p-4 sm:p-5">
         <h2 className="text-sm sm:text-base font-bold mb-4">추천 룬</h2>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           <PrimaryRuneTree runeString={guide.recommendedRunes.primary} />
           <SecondaryRuneTree runeString={guide.recommendedRunes.secondary} />
+          <StatShardPanel damageType={guide.damageType} />
         </div>
         <div className="text-[11px] text-[var(--text-muted)] pt-3 border-t border-[var(--border-color)] mt-4">
           {guide.recommendedRunes.note}
