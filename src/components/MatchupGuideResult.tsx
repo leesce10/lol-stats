@@ -349,7 +349,7 @@ export default function MatchupGuideResult({ guide, myJunglePath }: { guide: Mat
         <div className="glass-card p-4">
           <h3 className="text-sm font-bold text-[var(--text-primary)] mb-3">추천 초반 동선</h3>
           <div className="flex flex-col sm:flex-row items-start gap-4">
-            <JunglePathMap path={{ camps: myJunglePath }} size={240} />
+            <JunglePathMap camps={myJunglePath} size={260} />
             <div className="flex-1 text-xs text-[var(--text-secondary)] space-y-1.5">
               <p>{guide.phases.early.pathing}</p>
               <p className="text-[var(--text-muted)]">{guide.phases.early.gankCounterjungle}</p>
