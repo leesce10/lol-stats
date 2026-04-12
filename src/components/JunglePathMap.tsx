@@ -1,29 +1,33 @@
 "use client";
 
+import Image from "next/image";
+
 /**
  * 정글 동선 미니맵 시각화.
- * SVG 기반. 캠프 위치에 번호 매기고 선으로 연결.
+ * 실제 롤 미니맵 이미지 위에 캠프 번호 + 경로선 오버레이.
  */
 
-// 캠프 위치 (% 기준, 512x512 맵)
+const MINIMAP_URL = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-match-history/global/default/minimap-ig-sr.png";
+
+// 캠프 위치 (% 기준, 실제 미니맵 좌표)
 const CAMPS: Record<string, { x: number; y: number; label: string; color: string }> = {
   // 블루 사이드 (좌하단)
-  blue_red:    { x: 47, y: 49, label: "레드", color: "#ef4444" },
-  blue_blue:   { x: 28, y: 71, label: "블루", color: "#3b82f6" },
-  blue_gromp:  { x: 20, y: 66, label: "개미", color: "#8b5cf6" },
-  blue_wolves: { x: 30, y: 62, label: "늑대", color: "#6b7280" },
-  blue_raptors:{ x: 43, y: 56, label: "닭", color: "#f59e0b" },
-  blue_krugs:  { x: 55, y: 54, label: "두꺼비", color: "#a3a3a3" },
+  blue_red:    { x: 36, y: 58, label: "레드", color: "#ef4444" },
+  blue_blue:   { x: 22, y: 72, label: "블루", color: "#3b82f6" },
+  blue_gromp:  { x: 15, y: 66, label: "개미", color: "#8b5cf6" },
+  blue_wolves: { x: 25, y: 64, label: "늑대", color: "#6b7280" },
+  blue_raptors:{ x: 40, y: 54, label: "닭", color: "#f59e0b" },
+  blue_krugs:  { x: 46, y: 60, label: "두꺼비", color: "#a3a3a3" },
   // 레드 사이드 (우상단)
-  red_red:     { x: 53, y: 51, label: "레드", color: "#ef4444" },
-  red_blue:    { x: 72, y: 29, label: "블루", color: "#3b82f6" },
-  red_gromp:   { x: 80, y: 34, label: "개미", color: "#8b5cf6" },
-  red_wolves:  { x: 70, y: 38, label: "늑대", color: "#6b7280" },
-  red_raptors: { x: 57, y: 44, label: "닭", color: "#f59e0b" },
-  red_krugs:   { x: 45, y: 46, label: "두꺼비", color: "#a3a3a3" },
+  red_red:     { x: 64, y: 42, label: "레드", color: "#ef4444" },
+  red_blue:    { x: 78, y: 28, label: "블루", color: "#3b82f6" },
+  red_gromp:   { x: 85, y: 34, label: "개미", color: "#8b5cf6" },
+  red_wolves:  { x: 75, y: 36, label: "늑대", color: "#6b7280" },
+  red_raptors: { x: 60, y: 46, label: "닭", color: "#f59e0b" },
+  red_krugs:   { x: 54, y: 40, label: "두꺼비", color: "#a3a3a3" },
   // 공용
-  scuttle_bot: { x: 52, y: 62, label: "바텀게", color: "#06b6d4" },
-  scuttle_top: { x: 48, y: 38, label: "탑게", color: "#06b6d4" },
+  scuttle_bot: { x: 52, y: 56, label: "바텀게", color: "#06b6d4" },
+  scuttle_top: { x: 48, y: 44, label: "탑게", color: "#06b6d4" },
 };
 
 // 텍스트 캠프명 → 캠프 키 매핑 (블루 사이드 기준)
@@ -65,33 +69,26 @@ export default function JunglePathMap({ path, size = 280 }: { path: JunglePath; 
 
   return (
     <div className="relative" style={{ width: size, height: size }}>
-      <svg viewBox="0 0 100 100" width={size} height={size} className="rounded-lg overflow-hidden">
-        {/* 배경 */}
-        <rect width="100" height="100" fill="#0a0e13" />
-
-        {/* 강 (대각선) */}
-        <line x1="15" y1="85" x2="85" y2="15" stroke="#1a3a4a" strokeWidth="8" strokeLinecap="round" opacity="0.4" />
-
-        {/* 라인 (희미하게) */}
-        <line x1="10" y1="10" x2="10" y2="50" stroke="#1e293b" strokeWidth="0.8" /> {/* 탑 */}
-        <line x1="10" y1="10" x2="50" y2="10" stroke="#1e293b" strokeWidth="0.8" />
-        <line x1="15" y1="15" x2="85" y2="85" stroke="#1e293b" strokeWidth="0.8" /> {/* 미드 */}
-        <line x1="90" y1="50" x2="90" y2="90" stroke="#1e293b" strokeWidth="0.8" /> {/* 봇 */}
-        <line x1="50" y1="90" x2="90" y2="90" stroke="#1e293b" strokeWidth="0.8" />
-
-        {/* 정글 영역 구분 */}
-        <rect x="15" y="45" width="35" height="42" rx="3" fill="#111827" opacity="0.5" /> {/* 블루 정글 */}
-        <rect x="50" y="13" width="35" height="42" rx="3" fill="#111827" opacity="0.5" /> {/* 레드 정글 */}
-
+      {/* 실제 미니맵 이미지 */}
+      <Image
+        src={MINIMAP_URL}
+        alt="소환사의 협곡 미니맵"
+        width={size}
+        height={size}
+        className="rounded-lg"
+        unoptimized
+      />
+      {/* SVG 오버레이 */}
+      <svg viewBox="0 0 100 100" width={size} height={size} className="absolute inset-0 rounded-lg">
         {/* 모든 캠프 위치 (희미하게) */}
         {Object.entries(CAMPS).map(([key, camp]) => (
           <circle
             key={key}
             cx={camp.x}
             cy={camp.y}
-            r="2"
+            r="1.5"
             fill={camp.color}
-            opacity="0.15"
+            opacity="0.2"
           />
         ))}
 
