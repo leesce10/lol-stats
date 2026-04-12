@@ -9,7 +9,7 @@ import { DDRAGON_VERSION } from "@/data/champions";
 import { POSITION_LABELS } from "@/types";
 import PositionIcon from "@/components/PositionIcon";
 import { getChampionGuide, ChampionGuide } from "@/data/champion-guides";
-import { parseRuneString, getRuneIconUrl, getRuneStyleIconUrl } from "@/data/rune-icons";
+import { parseRuneString, getRuneIconUrl, getRuneStyleIconUrl, RUNE_TREES } from "@/data/rune-icons";
 
 type Tab = "overview" | "guide" | "matchup" | "build";
 
@@ -280,53 +280,97 @@ function MatchupTab({ champData, guide }: { champData: ExternalChampionStats; gu
   );
 }
 
-function RuneRow({ name }: { name: string }) {
-  const iconUrl = getRuneIconUrl(name);
+/** 룬 트리 한 줄: 모든 옵션 표시, 선택된 것만 밝게 */
+function RuneTreeRow({ runes, selected, isKeystone }: { runes: string[]; selected: Set<string>; isKeystone: boolean }) {
+  const iconSize = isKeystone ? 38 : 30;
   return (
-    <div className="flex items-center gap-2" title={name}>
-      {iconUrl ? (
-        <Image src={iconUrl} alt={name} width={28} height={28} className="rounded" unoptimized />
-      ) : (
-        <div className="w-7 h-7 rounded bg-[var(--bg-tertiary)] flex items-center justify-center text-[8px] text-[var(--text-muted)]">?</div>
-      )}
-      <span className="text-xs text-[var(--text-secondary)]">{name}</span>
+    <div className="flex items-center justify-center gap-2">
+      {runes.map((name) => {
+        const url = getRuneIconUrl(name);
+        const isActive = selected.has(name);
+        return (
+          <div key={name} className="relative group" title={name}>
+            {url ? (
+              <Image
+                src={url}
+                alt={name}
+                width={iconSize}
+                height={iconSize}
+                className={`rounded-full transition-all ${
+                  isActive
+                    ? isKeystone ? "ring-2 ring-[var(--accent-gold)] brightness-110" : "brightness-110"
+                    : "brightness-[0.3] grayscale"
+                }`}
+                unoptimized
+              />
+            ) : (
+              <div
+                className={`rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center text-[7px] text-[var(--text-muted)] ${isActive ? "ring-2 ring-[var(--accent-gold)]" : "opacity-30"}`}
+                style={{ width: iconSize, height: iconSize }}
+              >{name.slice(0, 2)}</div>
+            )}
+            {/* 호버 툴팁 */}
+            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 hidden group-hover:block z-10">
+              <span className="text-[9px] text-[var(--text-primary)] bg-[var(--bg-tertiary)] border border-[var(--border-color)] px-1.5 py-0.5 rounded whitespace-nowrap">{name}</span>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-function RunePathDisplay({ runeString, label }: { runeString: string; label: string }) {
-  const { style, runes } = parseRuneString(runeString);
+/** 주 룬 트리 (클라이언트 스타일: 스타일 아이콘 + 4줄 격자) */
+function PrimaryRuneTree({ runeString }: { runeString: string }) {
+  const { style, runes: selectedRunes } = parseRuneString(runeString);
+  const tree = RUNE_TREES[style];
   const styleIcon = getRuneStyleIconUrl(style);
-  const keystone = runes[0];
-  const subRunes = runes.slice(1);
+  const selected = new Set(selectedRunes);
+
+  if (!tree) return <div className="text-xs text-[var(--text-muted)]">{runeString}</div>;
 
   return (
-    <div>
-      <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">{label}</span>
-      {/* 스타일 + 키스톤 */}
-      <div className="flex items-center gap-2 mt-1.5 mb-2">
-        {styleIcon && (
-          <Image src={styleIcon} alt={style} width={24} height={24} className="opacity-80" unoptimized />
-        )}
-        <span className="text-xs font-bold text-[var(--text-primary)]">{style}</span>
+    <div className="flex flex-col items-center gap-3 py-3 px-2 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      {/* 스타일 아이콘 */}
+      <div className="flex flex-col items-center gap-1">
+        {styleIcon && <Image src={styleIcon} alt={style} width={32} height={32} unoptimized />}
+        <span className="text-[10px] font-bold text-[var(--text-primary)]">{style}</span>
       </div>
-      {/* 키스톤 (크게) */}
-      {keystone && (
-        <div className="flex items-center gap-2 mb-2 ml-1">
-          {getRuneIconUrl(keystone) ? (
-            <Image src={getRuneIconUrl(keystone)!} alt={keystone} width={36} height={36} className="rounded-lg ring-2 ring-[var(--accent-gold)]/30" unoptimized />
-          ) : (
-            <div className="w-9 h-9 rounded-lg bg-[var(--bg-tertiary)]" />
-          )}
-          <span className="text-sm font-bold text-[var(--accent-gold)]">{keystone}</span>
-        </div>
-      )}
-      {/* 하위 룬 */}
-      <div className="flex flex-wrap gap-2 ml-1">
-        {subRunes.map((r, i) => (
-          <RuneRow key={i} name={r} />
-        ))}
+      {/* 구분선 */}
+      <div className="w-12 h-px bg-[var(--border-color)]" />
+      {/* 키스톤 행 */}
+      <RuneTreeRow runes={tree.rows[0]} selected={selected} isKeystone />
+      {/* 구분선 */}
+      <div className="w-8 h-px bg-[var(--border-color)]" />
+      {/* 하위 룬 3행 */}
+      {tree.rows.slice(1).map((row, i) => (
+        <RuneTreeRow key={i} runes={row} selected={selected} isKeystone={false} />
+      ))}
+    </div>
+  );
+}
+
+/** 보조 룬 트리 (스타일 아이콘 + 선택된 2개만 표시) */
+function SecondaryRuneTree({ runeString }: { runeString: string }) {
+  const { style, runes: selectedRunes } = parseRuneString(runeString);
+  const tree = RUNE_TREES[style];
+  const styleIcon = getRuneStyleIconUrl(style);
+  const selected = new Set(selectedRunes);
+
+  if (!tree) return <div className="text-xs text-[var(--text-muted)]">{runeString}</div>;
+
+  return (
+    <div className="flex flex-col items-center gap-3 py-3 px-2 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      {/* 스타일 아이콘 */}
+      <div className="flex flex-col items-center gap-1">
+        {styleIcon && <Image src={styleIcon} alt={style} width={32} height={32} unoptimized />}
+        <span className="text-[10px] font-bold text-[var(--text-primary)]">{style}</span>
       </div>
+      <div className="w-12 h-px bg-[var(--border-color)]" />
+      {/* 하위 룬 행만 (키스톤 제외) — 선택된 것만 밝게 */}
+      {tree.rows.slice(1).map((row, i) => (
+        <RuneTreeRow key={i} runes={row} selected={selected} isKeystone={false} />
+      ))}
     </div>
   );
 }
@@ -337,9 +381,9 @@ function BuildTab({ guide }: { guide: ChampionGuide }) {
       {/* 룬 */}
       <div className="glass-card p-4 sm:p-5">
         <h2 className="text-sm sm:text-base font-bold mb-4">추천 룬</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <RunePathDisplay runeString={guide.recommendedRunes.primary} label="주 룬" />
-          <RunePathDisplay runeString={guide.recommendedRunes.secondary} label="보조 룬" />
+        <div className="grid grid-cols-2 gap-3">
+          <PrimaryRuneTree runeString={guide.recommendedRunes.primary} />
+          <SecondaryRuneTree runeString={guide.recommendedRunes.secondary} />
         </div>
         <div className="text-[11px] text-[var(--text-muted)] pt-3 border-t border-[var(--border-color)] mt-4">
           {guide.recommendedRunes.note}
