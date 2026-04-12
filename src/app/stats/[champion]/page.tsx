@@ -9,6 +9,7 @@ import { DDRAGON_VERSION } from "@/data/champions";
 import { POSITION_LABELS } from "@/types";
 import PositionIcon from "@/components/PositionIcon";
 import { getChampionGuide, ChampionGuide } from "@/data/champion-guides";
+import { parseRuneString, getRuneIconUrl, getRuneStyleIconUrl } from "@/data/rune-icons";
 
 type Tab = "overview" | "guide" | "matchup" | "build";
 
@@ -279,26 +280,69 @@ function MatchupTab({ champData, guide }: { champData: ExternalChampionStats; gu
   );
 }
 
+function RuneRow({ name }: { name: string }) {
+  const iconUrl = getRuneIconUrl(name);
+  return (
+    <div className="flex items-center gap-2" title={name}>
+      {iconUrl ? (
+        <Image src={iconUrl} alt={name} width={28} height={28} className="rounded" unoptimized />
+      ) : (
+        <div className="w-7 h-7 rounded bg-[var(--bg-tertiary)] flex items-center justify-center text-[8px] text-[var(--text-muted)]">?</div>
+      )}
+      <span className="text-xs text-[var(--text-secondary)]">{name}</span>
+    </div>
+  );
+}
+
+function RunePathDisplay({ runeString, label }: { runeString: string; label: string }) {
+  const { style, runes } = parseRuneString(runeString);
+  const styleIcon = getRuneStyleIconUrl(style);
+  const keystone = runes[0];
+  const subRunes = runes.slice(1);
+
+  return (
+    <div>
+      <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">{label}</span>
+      {/* 스타일 + 키스톤 */}
+      <div className="flex items-center gap-2 mt-1.5 mb-2">
+        {styleIcon && (
+          <Image src={styleIcon} alt={style} width={24} height={24} className="opacity-80" unoptimized />
+        )}
+        <span className="text-xs font-bold text-[var(--text-primary)]">{style}</span>
+      </div>
+      {/* 키스톤 (크게) */}
+      {keystone && (
+        <div className="flex items-center gap-2 mb-2 ml-1">
+          {getRuneIconUrl(keystone) ? (
+            <Image src={getRuneIconUrl(keystone)!} alt={keystone} width={36} height={36} className="rounded-lg ring-2 ring-[var(--accent-gold)]/30" unoptimized />
+          ) : (
+            <div className="w-9 h-9 rounded-lg bg-[var(--bg-tertiary)]" />
+          )}
+          <span className="text-sm font-bold text-[var(--accent-gold)]">{keystone}</span>
+        </div>
+      )}
+      {/* 하위 룬 */}
+      <div className="flex flex-wrap gap-2 ml-1">
+        {subRunes.map((r, i) => (
+          <RuneRow key={i} name={r} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function BuildTab({ guide }: { guide: ChampionGuide }) {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* 룬 */}
       <div className="glass-card p-4 sm:p-5">
-        <h2 className="text-sm sm:text-base font-bold mb-3 flex items-center gap-2">
-          <span>🌀</span> 추천 룬
-        </h2>
-        <div className="space-y-2 text-xs sm:text-sm">
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">주룬</span>
-            <span className="text-[var(--text-primary)]">{guide.recommendedRunes.primary}</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">부룬</span>
-            <span className="text-[var(--text-primary)]">{guide.recommendedRunes.secondary}</span>
-          </div>
-          <div className="text-[11px] text-[var(--text-muted)] pt-2 border-t border-[var(--border-color)] mt-2">
-            💡 {guide.recommendedRunes.note}
-          </div>
+        <h2 className="text-sm sm:text-base font-bold mb-4">추천 룬</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <RunePathDisplay runeString={guide.recommendedRunes.primary} label="주 룬" />
+          <RunePathDisplay runeString={guide.recommendedRunes.secondary} label="보조 룬" />
+        </div>
+        <div className="text-[11px] text-[var(--text-muted)] pt-3 border-t border-[var(--border-color)] mt-4">
+          {guide.recommendedRunes.note}
         </div>
       </div>
 
