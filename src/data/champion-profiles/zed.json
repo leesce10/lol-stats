@@ -4,6 +4,7 @@
   "nameEn": "Zed",
   "position": "jungle",
   "patch": "15.7",
+  "junglePath": ["레드", "블루", "개미", "두꺼비", "닭", "늑대"],
 
   "profile": {
     "clearSpeed": "C",

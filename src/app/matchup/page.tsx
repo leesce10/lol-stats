@@ -513,7 +513,7 @@ export default function MatchupPage() {
       )}
 
       {/* Results — 룰 엔진 가이드 우선, 없으면 기존 방식 폴백 */}
-      {matchupGuide && <MatchupGuideResult guide={matchupGuide} />}
+      {matchupGuide && <MatchupGuideResult guide={matchupGuide} myJunglePath={myProfile?.junglePath} />}
       {hasSoloResult && !matchupGuide && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
       {hasBottomResult && <BottomMatchupResult myAdc={myAdcChamp} mySup={mySupChamp} enemyAdc={enemyAdcChamp} enemySup={enemySupChamp} />}
 

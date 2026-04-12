@@ -105,6 +105,9 @@ export interface JungleChampionProfile {
   position: "jungle";
   patch: string; // 태깅 시점 패치 (예: "15.7")
 
+  // --- 추천 정글 동선 (캠프명 순서) ---
+  junglePath?: string[];
+
   // --- 정량 프로파일 ---
   profile: {
     clearSpeed: Tier;

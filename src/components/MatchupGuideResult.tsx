@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { MatchupGuide } from "@/types/matchup-engine";
+import JunglePathMap from "./JunglePathMap";
 
 // ============================================================
 // L0 — 한 줄 판정
@@ -326,7 +327,7 @@ function ChampOverrideSection({ guide }: { guide: MatchupGuide }) {
 // ============================================================
 // 메인 컴포넌트
 // ============================================================
-export default function MatchupGuideResult({ guide }: { guide: MatchupGuide }) {
+export default function MatchupGuideResult({ guide, myJunglePath }: { guide: MatchupGuide; myJunglePath?: string[] }) {
   return (
     <div className="space-y-4 animate-fade-in">
       {/* L0 */}
@@ -342,6 +343,20 @@ export default function MatchupGuideResult({ guide }: { guide: MatchupGuide }) {
         <PowerSpikeCard guide={guide} />
         <BuildAdviceCard guide={guide} />
       </div>
+
+      {/* 추천 정글 동선 미니맵 */}
+      {myJunglePath && myJunglePath.length > 0 && (
+        <div className="glass-card p-4">
+          <h3 className="text-sm font-bold text-[var(--text-primary)] mb-3">추천 초반 동선</h3>
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <JunglePathMap path={{ camps: myJunglePath }} size={240} />
+            <div className="flex-1 text-xs text-[var(--text-secondary)] space-y-1.5">
+              <p>{guide.phases.early.pathing}</p>
+              <p className="text-[var(--text-muted)]">{guide.phases.early.gankCounterjungle}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* L3 */}
       <PhaseGuideSection guide={guide} />
