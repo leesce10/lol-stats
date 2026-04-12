@@ -280,47 +280,50 @@ function MatchupTab({ champData, guide }: { champData: ExternalChampionStats; gu
   );
 }
 
-/** 룬 트리 한 줄: 모든 옵션 표시, 선택된 것만 밝게 */
-function RuneTreeRow({ runes, selected, isKeystone }: { runes: string[]; selected: Set<string>; isKeystone: boolean }) {
-  const iconSize = isKeystone ? 38 : 30;
+/** 룬 아이콘 1개 (텍스트 없이 아이콘만, 호버 시 이름 표시) */
+function RuneIcon({ name, size, isActive, isKeystone }: { name: string; size: number; isActive: boolean; isKeystone: boolean }) {
+  const url = getRuneIconUrl(name);
   return (
-    <div className="flex items-center justify-center gap-2">
-      {runes.map((name) => {
-        const url = getRuneIconUrl(name);
-        const isActive = selected.has(name);
-        return (
-          <div key={name} className="relative group" title={name}>
-            {url ? (
-              <Image
-                src={url}
-                alt={name}
-                width={iconSize}
-                height={iconSize}
-                className={`rounded-full transition-all ${
-                  isActive
-                    ? isKeystone ? "ring-2 ring-[var(--accent-gold)] brightness-110" : "brightness-110"
-                    : "brightness-[0.3] grayscale"
-                }`}
-                unoptimized
-              />
-            ) : (
-              <div
-                className={`rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center text-[7px] text-[var(--text-muted)] ${isActive ? "ring-2 ring-[var(--accent-gold)]" : "opacity-30"}`}
-                style={{ width: iconSize, height: iconSize }}
-              >{name.slice(0, 2)}</div>
-            )}
-            {/* 호버 툴팁 */}
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 hidden group-hover:block z-10">
-              <span className="text-[9px] text-[var(--text-primary)] bg-[var(--bg-tertiary)] border border-[var(--border-color)] px-1.5 py-0.5 rounded whitespace-nowrap">{name}</span>
-            </div>
-          </div>
-        );
-      })}
+    <div className="relative group flex items-center justify-center" style={{ width: size, height: size }}>
+      {url ? (
+        <Image
+          src={url}
+          alt={name}
+          width={size}
+          height={size}
+          className={`rounded-full ${
+            isActive
+              ? isKeystone ? "ring-2 ring-[var(--accent-gold)]" : ""
+              : "brightness-[0.25] grayscale"
+          }`}
+          unoptimized
+        />
+      ) : (
+        <div
+          className={`rounded-full bg-[var(--bg-hover)] ${isActive ? "" : "opacity-25"}`}
+          style={{ width: size, height: size }}
+        />
+      )}
+      <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 hidden group-hover:block z-10 pointer-events-none">
+        <span className="text-[9px] text-[var(--text-primary)] bg-[var(--bg-tertiary)] border border-[var(--border-color)] px-1.5 py-0.5 rounded whitespace-nowrap shadow-lg">{name}</span>
+      </div>
     </div>
   );
 }
 
-/** 주 룬 트리 (클라이언트 스타일: 스타일 아이콘 + 4줄 격자) */
+/** 룬 트리 한 행 */
+function RuneTreeRow({ runes, selected, isKeystone }: { runes: string[]; selected: Set<string>; isKeystone: boolean }) {
+  const size = isKeystone ? 34 : 28;
+  return (
+    <div className="flex items-center justify-center gap-1.5">
+      {runes.map((name) => (
+        <RuneIcon key={name} name={name} size={size} isActive={selected.has(name)} isKeystone={isKeystone} />
+      ))}
+    </div>
+  );
+}
+
+/** 주 룬 트리 */
 function PrimaryRuneTree({ runeString }: { runeString: string }) {
   const { style, runes: selectedRunes } = parseRuneString(runeString);
   const tree = RUNE_TREES[style];
@@ -330,19 +333,11 @@ function PrimaryRuneTree({ runeString }: { runeString: string }) {
   if (!tree) return <div className="text-xs text-[var(--text-muted)]">{runeString}</div>;
 
   return (
-    <div className="flex flex-col items-center gap-3 py-3 px-2 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
-      {/* 스타일 아이콘 */}
-      <div className="flex flex-col items-center gap-1">
-        {styleIcon && <Image src={styleIcon} alt={style} width={32} height={32} unoptimized />}
-        <span className="text-[10px] font-bold text-[var(--text-primary)]">{style}</span>
-      </div>
-      {/* 구분선 */}
-      <div className="w-12 h-px bg-[var(--border-color)]" />
-      {/* 키스톤 행 */}
+    <div className="flex flex-col items-center gap-2.5 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      {styleIcon && <Image src={styleIcon} alt={style} width={28} height={28} unoptimized />}
+      <div className="w-10 h-px bg-[var(--border-color)]" />
       <RuneTreeRow runes={tree.rows[0]} selected={selected} isKeystone />
-      {/* 구분선 */}
-      <div className="w-8 h-px bg-[var(--border-color)]" />
-      {/* 하위 룬 3행 */}
+      <div className="w-6 h-px bg-[var(--border-color)]" />
       {tree.rows.slice(1).map((row, i) => (
         <RuneTreeRow key={i} runes={row} selected={selected} isKeystone={false} />
       ))}
@@ -350,7 +345,7 @@ function PrimaryRuneTree({ runeString }: { runeString: string }) {
   );
 }
 
-/** 보조 룬 트리 (스타일 아이콘 + 선택된 2개만 표시) */
+/** 보조 룬 트리 */
 function SecondaryRuneTree({ runeString }: { runeString: string }) {
   const { style, runes: selectedRunes } = parseRuneString(runeString);
   const tree = RUNE_TREES[style];
@@ -360,14 +355,9 @@ function SecondaryRuneTree({ runeString }: { runeString: string }) {
   if (!tree) return <div className="text-xs text-[var(--text-muted)]">{runeString}</div>;
 
   return (
-    <div className="flex flex-col items-center gap-3 py-3 px-2 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
-      {/* 스타일 아이콘 */}
-      <div className="flex flex-col items-center gap-1">
-        {styleIcon && <Image src={styleIcon} alt={style} width={32} height={32} unoptimized />}
-        <span className="text-[10px] font-bold text-[var(--text-primary)]">{style}</span>
-      </div>
-      <div className="w-12 h-px bg-[var(--border-color)]" />
-      {/* 하위 룬 행만 (키스톤 제외) — 선택된 것만 밝게 */}
+    <div className="flex flex-col items-center gap-2.5 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      {styleIcon && <Image src={styleIcon} alt={style} width={28} height={28} unoptimized />}
+      <div className="w-10 h-px bg-[var(--border-color)]" />
       {tree.rows.slice(1).map((row, i) => (
         <RuneTreeRow key={i} runes={row} selected={selected} isKeystone={false} />
       ))}
