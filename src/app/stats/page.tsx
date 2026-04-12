@@ -180,7 +180,7 @@ export default function StatsPage() {
           return (
             <Link
               key={champ.name + champ.position}
-              href={`/stats/${champ.name.toLowerCase().replace(/[\s']/g, "-")}`}
+              href={`/stats/${champ.name.toLowerCase().replace(/[\s']/g, "-")}?position=${champ.position}`}
               className="flex items-center px-2.5 py-2 hover:bg-[var(--bg-hover)] transition-colors border-b border-[var(--border-color)]/30"
             >
               {/* Rank */}

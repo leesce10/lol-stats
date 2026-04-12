@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { externalStats, EXTERNAL_DATA_INFO, ExternalChampionStats } from "@/data/external-stats";
@@ -379,6 +380,8 @@ function BuildTab({ guide }: { guide: ChampionGuide }) {
 export default function ChampionDetailPage({ params }: { params: Promise<{ champion: string }> }) {
   const { champion } = use(params);
   const slug = champion.toLowerCase();
+  const searchParams = useSearchParams();
+  const posFromUrl = searchParams.get("position");
   const [activeTab, setActiveTab] = useState<Tab>("overview");
 
   // 이 챔피언의 모든 포지션 데이터
@@ -386,17 +389,20 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
     (s) => s.name.toLowerCase().replace(/[\s']/g, "-") === slug
   );
 
-  // 메인 포지션 = 게임수 최다
-  const mainData = allPositionData.length > 0
+  // 기본 포지션: URL 쿼리 > 게임수 최다
+  const defaultData = (posFromUrl
+    ? allPositionData.find(s => s.position === posFromUrl)
+    : null
+  ) ?? (allPositionData.length > 0
     ? allPositionData.reduce((best, cur) => cur.games > best.games ? cur : best)
-    : null;
+    : null);
 
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
 
-  // 선택된 포지션 또는 메인 포지션의 데이터
+  // 선택된 포지션 또는 기본 포지션의 데이터
   const champData = selectedPosition
-    ? allPositionData.find(s => s.position === selectedPosition) ?? mainData
-    : mainData;
+    ? allPositionData.find(s => s.position === selectedPosition) ?? defaultData
+    : defaultData;
 
   if (!champData) {
     return (
