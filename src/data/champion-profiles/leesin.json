@@ -4,7 +4,7 @@
   "nameEn": "Lee Sin",
   "position": "jungle",
   "patch": "15.7",
-  "junglePath": ["레드", "블루", "개미", "레벨3갱"],
+  "junglePath": ["레드", "블루", "개미"],
 
   "profile": {
     "clearSpeed": "A",
