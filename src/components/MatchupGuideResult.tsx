@@ -346,13 +346,21 @@ export default function MatchupGuideResult({ guide, myJunglePath }: { guide: Mat
 
       {/* 추천 정글 동선 미니맵 */}
       {myJunglePath && myJunglePath.length > 0 && (
-        <div className="glass-card p-4">
-          <h3 className="text-sm font-bold text-[var(--text-primary)] mb-3">추천 초반 동선</h3>
-          <div className="flex flex-col sm:flex-row items-start gap-4">
-            <JunglePathMap camps={myJunglePath} size={260} />
-            <div className="flex-1 text-xs text-[var(--text-secondary)] space-y-1.5">
-              <p>{guide.phases.early.pathing}</p>
-              <p className="text-[var(--text-muted)]">{guide.phases.early.gankCounterjungle}</p>
+        <div className="glass-card p-5">
+          <h3 className="text-sm font-bold text-[var(--text-primary)] mb-4">추천 초반 동선</h3>
+          {/* 미니맵 (크게, 중앙 정렬) */}
+          <div className="flex justify-center mb-4">
+            <JunglePathMap camps={myJunglePath} size={340} />
+          </div>
+          {/* 동선 설명 (깔끔한 카드) */}
+          <div className="space-y-2">
+            <div className="bg-[var(--bg-tertiary)] rounded-lg p-3">
+              <span className="text-[10px] font-bold text-blue-400 block mb-1">동선</span>
+              <p className="text-sm text-[var(--text-primary)] leading-relaxed">{guide.phases.early.pathing}</p>
+            </div>
+            <div className="bg-[var(--bg-tertiary)] rounded-lg p-3">
+              <span className="text-[10px] font-bold text-green-400 block mb-1">갱/카정</span>
+              <p className="text-sm text-[var(--text-primary)] leading-relaxed">{guide.phases.early.gankCounterjungle}</p>
             </div>
           </div>
         </div>

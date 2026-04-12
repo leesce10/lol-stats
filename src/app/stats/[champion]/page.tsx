@@ -10,6 +10,7 @@ import { POSITION_LABELS } from "@/types";
 import PositionIcon from "@/components/PositionIcon";
 import { getChampionGuide, ChampionGuide } from "@/data/champion-guides";
 import { parseRuneString, getRuneIconUrl, getRuneStyleIconUrl, RUNE_TREES } from "@/data/rune-icons";
+import { getItemImageUrl } from "@/data/item-icons";
 
 type Tab = "overview" | "guide" | "matchup" | "build";
 
@@ -381,27 +382,43 @@ function BuildTab({ guide }: { guide: ChampionGuide }) {
 
       {/* 아이템 */}
       <div className="glass-card p-4 sm:p-5">
-        <h2 className="text-sm sm:text-base font-bold mb-3 flex items-center gap-2">
-          <span>🛒</span> 추천 아이템
-        </h2>
-        <div className="space-y-3 text-xs sm:text-sm">
+        <h2 className="text-sm sm:text-base font-bold mb-3">추천 아이템</h2>
+        <div className="space-y-4">
           <div>
-            <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1.5">코어 빌드</div>
+            <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-2">코어 빌드</div>
             <div className="flex flex-wrap items-center gap-2">
-              {guide.recommendedItems.core.map((item, i) => (
-                <span key={i} className="flex items-center gap-2">
-                  <span className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-[var(--text-primary)] text-xs">{item}</span>
-                  {i < guide.recommendedItems.core.length - 1 && <span className="text-[var(--text-muted)]">→</span>}
-                </span>
-              ))}
+              {guide.recommendedItems.core.map((item, i) => {
+                const imgUrl = getItemImageUrl(item);
+                return (
+                  <span key={i} className="flex items-center gap-2">
+                    <span className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-color)]">
+                      {imgUrl && (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={imgUrl} alt="" width={28} height={28} className="rounded" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                      )}
+                      <span className="text-xs text-[var(--text-primary)]">{item}</span>
+                    </span>
+                    {i < guide.recommendedItems.core.length - 1 && <span className="text-[var(--text-muted)] text-lg">→</span>}
+                  </span>
+                );
+              })}
             </div>
           </div>
           <div>
-            <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-1.5">상황별 아이템</div>
-            <div className="flex flex-wrap gap-1.5">
-              {guide.recommendedItems.situational.map((item, i) => (
-                <span key={i} className="px-2 py-1 rounded bg-[var(--bg-tertiary)] text-[var(--text-secondary)] text-xs">{item}</span>
-              ))}
+            <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mb-2">상황별 아이템</div>
+            <div className="flex flex-wrap gap-2">
+              {guide.recommendedItems.situational.map((item, i) => {
+                const imgUrl = getItemImageUrl(item);
+                return (
+                  <span key={i} className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-[var(--bg-tertiary)] border border-[var(--border-color)]">
+                    {imgUrl && (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img src={imgUrl} alt="" width={24} height={24} className="rounded" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+                    )}
+                    <span className="text-xs text-[var(--text-secondary)]">{item}</span>
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>
