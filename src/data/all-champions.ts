@@ -173,7 +173,7 @@ export const allChampions: ChampionMeta[] = [
   { id: "Yorick", key: 83, nameKr: "요릭", tags: ["Fighter","Tank"], mainPosition: "top" },
   { id: "Yuumi", key: 350, nameKr: "유미", tags: ["Support","Mage"], mainPosition: "support" },
   { id: "Zac", key: 154, nameKr: "자크", tags: ["Tank"], mainPosition: "jungle" },
-  { id: "Zed", key: 238, nameKr: "제드", tags: ["Assassin"], mainPosition: "mid" },
+  { id: "Zed", key: 238, nameKr: "제드", tags: ["Assassin"], mainPosition: "mid", subPositions: ["jungle"] },
   { id: "Zeri", key: 221, nameKr: "제리", tags: ["Marksman"], mainPosition: "adc" },
   { id: "Ziggs", key: 115, nameKr: "직스", tags: ["Mage"], mainPosition: "mid", subPositions: ["adc"] },
   { id: "Zilean", key: 26, nameKr: "질리언", tags: ["Support","Mage"], mainPosition: "support" },

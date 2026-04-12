@@ -44,6 +44,16 @@ export default function StatsPage() {
     let list = externalStats;
     if (positionFilter !== "all") {
       list = list.filter((s) => s.position === positionFilter);
+    } else {
+      // 전체 보기: 챔프당 메인 라인(게임수 최다) 하나만 표시
+      const best = new Map<string, typeof list[number]>();
+      for (const s of list) {
+        const existing = best.get(s.name);
+        if (!existing || s.games > existing.games) {
+          best.set(s.name, s);
+        }
+      }
+      list = Array.from(best.values());
     }
     if (searchQuery) {
       const q = searchQuery.toLowerCase();

@@ -1,0 +1,166 @@
+{
+  "id": "LeeSin",
+  "name": "리 신",
+  "nameEn": "Lee Sin",
+  "position": "jungle",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "A",
+    "earlyDuel": "S",
+    "midDuel": "A",
+    "lateDuel": "C",
+    "gankPower": "S",
+    "scaling": "early",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": ["slow", "knockback"]
+  },
+
+  "powerSpikes": [3, 6, 9],
+  "weakAfter": 14,
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "음파 / 공명의 일격",
+      "type": "skillshot",
+      "roles": ["primary_damage", "execute"],
+      "missPenalty": "critical",
+      "hitEnables": ["gap_close", "execute_missing_hp"],
+      "counterMethod": "벽/엄폐 활용. 미니언 사이에서 차단. 직선 예측 회피 어려우므로 옆걸음보단 시야 차단.",
+      "range": 1100,
+      "cooldownEarly": 11,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "W",
+      "name": "보호막 / 무쇠의지",
+      "type": "dash",
+      "roles": ["mobility", "defense"],
+      "missPenalty": "medium",
+      "hitEnables": ["shield", "lifesteal_boost"],
+      "counterMethod": "W 대상(와드/아군)이 없으면 이동 불가. 와드 소진 시 도주력 급감. 핑크 와드로 와드홉 차단.",
+      "range": 700,
+      "cooldownEarly": 14,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "E",
+      "name": "폭풍 / 불구",
+      "type": "aoe",
+      "roles": ["secondary_damage", "cc"],
+      "missPenalty": "low",
+      "hitEnables": ["slow", "attack_speed_slow"],
+      "counterMethod": "근접 범위(350). 사거리 밖 유지. 슬로우 걸리면 Q2 확정 히트 주의.",
+      "range": 350,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "R",
+      "name": "용의 분노",
+      "type": "point_click",
+      "roles": ["engage", "cc"],
+      "missPenalty": "none",
+      "hitEnables": ["knockback", "aoe_collision_damage", "team_split"],
+      "counterMethod": "논타겟이라 회피 불가. 거리 유지가 유일한 대응. 플래시+R(인섹) 대비로 항상 점멸 보유 필수.",
+      "range": 375,
+      "cooldownEarly": 110,
+      "cooldownMaxRank": 70
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "Q_missed",
+      "skillKey": "Q",
+      "windowSec": 9,
+      "severity": "critical",
+      "explanation": "Q2(공명의 일격) 사용 불가. 갭클로즈 + 풀콤보 자체가 불발. 유일한 확정 올인 타이밍."
+    },
+    {
+      "condition": "W_used_offensive",
+      "skillKey": "W",
+      "windowSec": 12,
+      "severity": "high",
+      "explanation": "이동기 절반 소진. 와드홉 도주 불가 상태. 추격 시 도망 못 침."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 110,
+      "severity": "high",
+      "explanation": "팀 분리 + 인섹 위협 소실. 한타 이니시 능력 급감. 오브젝트 싸움 유리."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "레벨 3 빠르게 도달 후 갱 or 카정. 초반 이니시에이트로 라인 우위 만들기.",
+      "danger": "파밍만 하면 후반에 약화. 초반 리드 못 잡으면 존재감 하락.",
+      "opportunity": "레벨 3~6 듀얼 최강급. 적 정글러 버프 타이밍 노려 카정 가능.",
+      "pathing": "레드 → 블루 → 개미 → 레벨 3 갱. 또는 3캠프 후 바로 카정.",
+      "objective": "전령보다 갱 우선. 드래곤은 바텀 갱 성공 후 연계.",
+      "gank": "Q 적중이 갱 성공률 결정. CC 라이너가 있는 라인 우선. 타워 다이브 가능(W 실드)."
+    },
+    "mid": {
+      "goal": "갱+킬로 벌어놓은 이득 유지. 오브젝트 컨트롤.",
+      "danger": "템 차이 벌어지기 시작. 풀탱 빌드 아니면 한타에서 녹을 수 있음.",
+      "opportunity": "R(인섹)으로 핵심 딜러 분리. 잘 맞으면 한타 결정.",
+      "pathing": "아군 라이너 우위 라인 중심 합류. 적 정글 시야 장악.",
+      "objective": "드래곤/전령 핵심. R로 상대 정글러 밀어내고 스마이트 경쟁 유리.",
+      "gank": "갱보다 스커미시/오브젝트 싸움 참여 비중 증가. 로밍 싸움에서 Q+R 결정적."
+    },
+    "late": {
+      "goal": "팀을 위한 이니시+유틸. 킬보다 인섹으로 팀파이트 판 짜기.",
+      "danger": "딜이 부족해짐. 순수 딜러 역할 불가. 탱킹도 빌드 없으면 부족.",
+      "opportunity": "인섹 한 방이 게임 결정. 바론/드래곤 전 핵심 딜러 킥으로 분리.",
+      "pathing": "팀과 붙어서 이동. 혼자 다니면 잡히기 쉬움.",
+      "objective": "바론/드래곤 전 반드시 시야 싸움 선행. R로 오브젝트 접근 차단.",
+      "gank": "갱 아닌 픽오프. 부시에서 Q+R 인섹으로 고립된 적 제거."
+    }
+  },
+
+  "defaultSpells": "점멸 + 강타",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "죽음의 무도 + 스테락의 도전",
+      "reason": "순간 버스트에 취약. 실드/체력으로 R 쓸 시간 확보."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "처형인의 대검 (치유 감소)",
+      "reason": "상대 체젠이 강하면 올인 효과 반감."
+    },
+    {
+      "condition": "enemy_scaling_late",
+      "recommendation": "서릴다의 원한 (초반 스노우볼)",
+      "reason": "후반에 약해지므로 초중반에 리드 확정 필요."
+    },
+    {
+      "condition": "enemy_mobility_high",
+      "recommendation": "칼날비 검진 + 이동속도 빌드",
+      "reason": "도주 능력 높은 상대 추격용."
+    }
+  ],
+
+  "vulnerabilities": [
+    "falls_off_late",
+    "q_dependent",
+    "ward_hop_dependent",
+    "skill_ceiling_high",
+    "no_hard_cc_basic"
+  ],
+  "keyStrengths": [
+    "early_invade",
+    "lvl3_gank",
+    "insec_engage",
+    "tower_dive",
+    "objective_control",
+    "early_duel_king"
+  ]
+}

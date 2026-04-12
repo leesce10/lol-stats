@@ -4,6 +4,17 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { externalStats, EXTERNAL_DATA_INFO, ExternalChampionStats } from "@/data/external-stats";
 import { DDRAGON_VERSION } from "@/data/champions";
+import { generateMatchupGuide } from "@/lib/matchup-engine";
+import type { JungleChampionProfile } from "@/types/matchup-engine";
+import MatchupGuideResult from "@/components/MatchupGuideResult";
+import zedProfile from "@/data/champion-profiles/zed.json";
+import leesinProfile from "@/data/champion-profiles/leesin.json";
+
+// 프로파일이 있는 정글 챔피언 맵
+const JUNGLE_PROFILES: Record<string, JungleChampionProfile> = {
+  Zed: zedProfile as unknown as JungleChampionProfile,
+  LeeSin: leesinProfile as unknown as JungleChampionProfile,
+};
 
 type Lane = "top" | "jungle" | "mid" | "bottom";
 
@@ -19,15 +30,28 @@ function getChampionImageUrl(name: string): string {
   return `https://ddragon.leagueoflegends.com/cdn/${DDRAGON_VERSION}/img/champion/${normalized}.png`;
 }
 
-function ChampionGrid({ position, search, onSelect, selectedName, excludeNames }: {
+function ChampionGrid({ position, search, onSelect, selectedName, excludeNames, extraChamps }: {
   position: "top" | "jungle" | "mid" | "adc" | "support";
   search: string;
   onSelect: (name: string) => void;
   selectedName: string | null;
   excludeNames: string[];
+  extraChamps?: { name: string; nameKr: string }[];
 }) {
   const posChamps = externalStats.filter((s) => s.position === position);
-  const filtered = posChamps.filter((c) => {
+
+  // 프로파일 전용 챔프 추가 (기존 리스트에 없는 것만)
+  const existingNames = new Set(posChamps.map(c => c.name));
+  const extras = (extraChamps || [])
+    .filter(e => !existingNames.has(e.name))
+    .map(e => ({ name: e.name, nameKr: e.nameKr, isExtra: true }));
+
+  const allChamps = [
+    ...posChamps.map(c => ({ name: c.name, nameKr: c.nameKr, isExtra: false })),
+    ...extras,
+  ];
+
+  const filtered = allChamps.filter((c) => {
     if (excludeNames.includes(c.name) && c.name !== selectedName) return false;
     if (!search) return true;
     const q = search.toLowerCase();
@@ -40,7 +64,7 @@ function ChampionGrid({ position, search, onSelect, selectedName, excludeNames }
         <button
           key={c.name}
           onClick={() => onSelect(c.name)}
-          className={`champion-grid-item p-1 flex flex-col items-center ${c.name === selectedName ? "selected" : ""}`}
+          className={`champion-grid-item p-1 flex flex-col items-center ${c.name === selectedName ? "selected" : ""} ${c.isExtra ? "ring-1 ring-purple-500/30" : ""}`}
         >
           <div className="relative h-9 w-9 overflow-hidden rounded-lg">
             <Image src={getChampionImageUrl(c.name)} alt={c.nameKr} width={36} height={36} className="object-cover" unoptimized />
@@ -56,15 +80,23 @@ function SelectedChampion({ name, position, borderColor }: {
   name: string | null; position: "top" | "jungle" | "mid" | "adc" | "support"; borderColor: string;
 }) {
   const champ = name ? externalStats.find((s) => s.name === name && s.position === position) : null;
-  if (!champ) return null;
+  // 프로파일 전용 챔프 폴백 (정글 제드 등 비주류 포지션)
+  const profile = name ? JUNGLE_PROFILES[name] : null;
+  const displayName = champ?.nameKr ?? profile?.name;
+  const displayId = champ?.name ?? profile?.id ?? name;
+
+  if (!displayName || !displayId) return null;
+
   return (
     <div className={`flex items-center gap-2 p-2 rounded-lg border ${borderColor}`}>
       <div className={`relative h-10 w-10 overflow-hidden rounded-lg border-2 ${borderColor}`}>
-        <Image src={getChampionImageUrl(champ.name)} alt={champ.nameKr} width={40} height={40} className="object-cover" unoptimized />
+        <Image src={getChampionImageUrl(displayId)} alt={displayName} width={40} height={40} className="object-cover" unoptimized />
       </div>
       <div>
-        <div className="font-bold text-sm">{champ.nameKr}</div>
-        <div className="text-[10px] text-[var(--text-muted)]">{champ.winRate}% 승률</div>
+        <div className="font-bold text-sm">{displayName}</div>
+        <div className="text-[10px] text-[var(--text-muted)]">
+          {champ ? `${champ.winRate}% 승률` : profile ? "프로파일 분석" : ""}
+        </div>
       </div>
     </div>
   );
@@ -343,6 +375,21 @@ export default function MatchupPage() {
   const hasSoloResult = !isBottom && myChamp && enemyChamp;
   const hasBottomResult = isBottom && myAdcChamp && mySupChamp && enemyAdcChamp && enemySupChamp;
 
+  // 룰 엔진 매치업 가이드 (정글 + 프로파일 있는 챔프 두 개)
+  const myProfile = myChampName ? JUNGLE_PROFILES[myChampName] : null;
+  const enemyProfile = enemyChampName ? JUNGLE_PROFILES[enemyChampName] : null;
+  const hasMatchupGuide = lane === "jungle" && myProfile && enemyProfile;
+  const matchupGuide = useMemo(() => {
+    if (!hasMatchupGuide || !myProfile || !enemyProfile) return null;
+    return generateMatchupGuide(myProfile, enemyProfile);
+  }, [hasMatchupGuide, myProfile, enemyProfile]);
+
+  // 프로파일 전용 챔프 목록 (ChampionGrid extraChamps용)
+  const profileExtraChamps = Object.values(JUNGLE_PROFILES).map(p => ({
+    name: p.id,
+    nameKr: p.name,
+  }));
+
   function handleLaneChange(l: Lane) {
     setLane(l);
     setMyChampName(null); setEnemyChampName(null);
@@ -394,7 +441,8 @@ export default function MatchupPage() {
             <input type="text" placeholder="검색..." value={mySearch} onChange={(e) => setMySearch(e.target.value)}
               className="champion-search w-full px-3 py-1.5 text-xs my-2" />
             <ChampionGrid position={soloPosition} search={mySearch} onSelect={setMyChampName}
-              selectedName={myChampName} excludeNames={soloSelected} />
+              selectedName={myChampName} excludeNames={soloSelected}
+              extraChamps={lane === "jungle" ? profileExtraChamps : undefined} />
           </div>
           <div className="glass-card p-4">
             <div className="flex items-center justify-between mb-3">
@@ -405,7 +453,8 @@ export default function MatchupPage() {
             <input type="text" placeholder="검색..." value={enemySearch} onChange={(e) => setEnemySearch(e.target.value)}
               className="champion-search w-full px-3 py-1.5 text-xs my-2" />
             <ChampionGrid position={soloPosition} search={enemySearch} onSelect={setEnemyChampName}
-              selectedName={enemyChampName} excludeNames={soloSelected} />
+              selectedName={enemyChampName} excludeNames={soloSelected}
+              extraChamps={lane === "jungle" ? profileExtraChamps : undefined} />
           </div>
         </div>
       )}
@@ -461,12 +510,13 @@ export default function MatchupPage() {
         </div>
       )}
 
-      {/* Results */}
-      {hasSoloResult && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
+      {/* Results — 룰 엔진 가이드 우선, 없으면 기존 방식 폴백 */}
+      {matchupGuide && <MatchupGuideResult guide={matchupGuide} />}
+      {hasSoloResult && !matchupGuide && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
       {hasBottomResult && <BottomMatchupResult myAdc={myAdcChamp} mySup={mySupChamp} enemyAdc={enemyAdcChamp} enemySup={enemySupChamp} />}
 
       {/* Empty state */}
-      {!hasSoloResult && !hasBottomResult && (
+      {!hasSoloResult && !hasBottomResult && !matchupGuide && (
         <div className="glass-card p-12 text-center">
           <div className="text-5xl mb-4">{isBottom ? "🏹🛡️" : "⚔️"}</div>
           <p className="text-lg font-medium text-[var(--text-secondary)]">

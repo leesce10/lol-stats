@@ -380,9 +380,22 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
   const slug = champion.toLowerCase();
   const [activeTab, setActiveTab] = useState<Tab>("overview");
 
-  const champData = externalStats.find(
+  // 이 챔피언의 모든 포지션 데이터
+  const allPositionData = externalStats.filter(
     (s) => s.name.toLowerCase().replace(/[\s']/g, "-") === slug
   );
+
+  // 메인 포지션 = 게임수 최다
+  const mainData = allPositionData.length > 0
+    ? allPositionData.reduce((best, cur) => cur.games > best.games ? cur : best)
+    : null;
+
+  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+
+  // 선택된 포지션 또는 메인 포지션의 데이터
+  const champData = selectedPosition
+    ? allPositionData.find(s => s.position === selectedPosition) ?? mainData
+    : mainData;
 
   if (!champData) {
     return (
@@ -395,9 +408,16 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
     );
   }
 
-  const otherPositions = externalStats.filter(
-    (s) => s.name === champData.name && s.position !== champData.position
-  );
+  // 라인별 게임수 비율 계산
+  const totalGames = allPositionData.reduce((sum, s) => sum + s.games, 0);
+  const positionRates = allPositionData
+    .map(s => ({
+      position: s.position,
+      rate: Math.round((s.games / totalGames) * 100),
+      data: s,
+    }))
+    .sort((a, b) => b.rate - a.rate);
+
   const guide = getChampionGuide(champData.name);
 
   // 선픽 점수
@@ -449,17 +469,33 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
                 <span className="text-[var(--text-muted)]">밴률 <span className="font-bold text-[var(--text-primary)]">{champData.banRate.toFixed(1)}%</span></span>
               </div>
             </div>
-            {/* 다른 포지션 */}
-            {otherPositions.length > 0 && (
-              <div className="hidden sm:flex gap-1">
-                {otherPositions.map((op) => (
-                  <span key={op.position} className="text-xs text-[var(--text-muted)] bg-[var(--bg-tertiary)] px-2 py-0.5 rounded opacity-60">
-                    {POSITION_ICONS[op.position]}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
+
+          {/* 라인 선택 탭 (op.gg 스타일) */}
+          {positionRates.length > 1 && (
+            <div className="flex gap-1 mt-2">
+              {positionRates.map((pr) => {
+                const isActive = (selectedPosition ?? champData.position) === pr.position;
+                return (
+                  <button
+                    key={pr.position}
+                    onClick={() => setSelectedPosition(pr.position)}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all ${
+                      isActive
+                        ? "bg-[var(--accent-blue)] text-white"
+                        : "bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:bg-[var(--bg-hover)]"
+                    }`}
+                  >
+                    <span>{POSITION_ICONS[pr.position]}</span>
+                    <span>{POSITION_LABELS[pr.position]}</span>
+                    <span className={`text-[9px] ${isActive ? "text-blue-200" : "text-[var(--text-muted)]"}`}>
+                      {pr.rate}%
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Tabs */}

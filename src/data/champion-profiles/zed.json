@@ -1,0 +1,158 @@
+{
+  "id": "Zed",
+  "name": "제드",
+  "nameEn": "Zed",
+  "position": "jungle",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "C",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "A",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": ["slow"]
+  },
+
+  "powerSpikes": [4, 6, 11],
+  "weakAfter": null,
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "면도날 표창",
+      "type": "skillshot",
+      "roles": ["primary_damage"],
+      "missPenalty": "medium",
+      "hitEnables": ["triple_shuriken_damage"],
+      "counterMethod": "미니언 뒤에 서서 관통 뎀 감소. 이동 방향 예측 후 옆걸음.",
+      "range": 900,
+      "cooldownEarly": 6,
+      "cooldownMaxRank": 4
+    },
+    {
+      "key": "W",
+      "name": "살아있는 그림자",
+      "type": "dash",
+      "roles": ["mobility", "secondary_damage"],
+      "missPenalty": "low",
+      "hitEnables": ["gap_close", "skill_clone", "swap_position"],
+      "counterMethod": "W 이동 방향 확인 후 반대로 빠지기. W 사용 직후가 제드 도주기 없는 타이밍.",
+      "range": 650,
+      "cooldownEarly": 22,
+      "cooldownMaxRank": 18
+    },
+    {
+      "key": "E",
+      "name": "그림자 베기",
+      "type": "aoe",
+      "roles": ["secondary_damage", "cc"],
+      "missPenalty": "low",
+      "hitEnables": ["slow"],
+      "counterMethod": "근접 범위. 사거리 밖에서 견제.",
+      "range": 290,
+      "cooldownEarly": 5,
+      "cooldownMaxRank": 3
+    },
+    {
+      "key": "R",
+      "name": "사형 선고",
+      "type": "dash",
+      "roles": ["execute", "primary_damage", "mobility"],
+      "missPenalty": "critical",
+      "hitEnables": ["execute_mark", "untargetable", "shadow_swap"],
+      "counterMethod": "R 직후 착지 위치 예측 가능 (대상 뒤). 즉시 CC로 고정. 존야/스톱워치로 마크 데미지 무효화.",
+      "range": 625,
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 80
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 20,
+      "severity": "high",
+      "explanation": "이동기 + 딜 증폭 모두 빠진 상태. 도주 불가, W 없이 교전하면 올인 대응력 급감."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 120,
+      "severity": "critical",
+      "explanation": "킬 캐치 + 무적 프레임 소실. R 쿨 중 한타 가치 급감. 이 시간이 오브젝트 싸움 타이밍."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "풀클리어 후 레벨 4에 W+E+Q 세트 완성. 첫 갱 시도.",
+      "danger": "초반 듀얼력 B등급. 카정 당하거나 조우전 시 불리한 매치업 다수.",
+      "opportunity": "W로 벽 넘어 갱. 와드 무시 진입 가능. CC 있는 라이너와 협공 시 킬 확률 높음.",
+      "pathing": "레드 → 블루 → 개미 → 두꺼비 순 풀클. 스마이트는 체력 관리용으로 큰 캠프에.",
+      "objective": "첫 드래곤보다 갱 우선. 상대 정글 위치 파악 후 반대편 라인 갱.",
+      "gank": "레벨 4+ 갱 시작. W 벽 넘기 진입 → E 슬로우 → Q. 플래시 빼기 or 킬. W 도주각 반드시 남기기."
+    },
+    "mid": {
+      "goal": "코어 아이템 1개 완성 (요우무 등). R로 적 딜러/미드 원콜 노리기.",
+      "danger": "R 없을 때 한타 가치 급감. 적 CC에 취약. 갱 실패 후 역갱에 죽기 쉬움.",
+      "opportunity": "R 사용 가능 시 1:1 킬 캐치력 최상. 스플릿 위협 + 합류 선택지.",
+      "pathing": "정글 풀클 + 사이드 캠프 수급. 적 정글 시야 확보 후 카정 or 갱.",
+      "objective": "드래곤/전령 전 상대 딜러 한 명 제거하면 오브젝트 확보 쉬움. R로 선제 킬 노리기.",
+      "gank": "R 있으면 적극적 갱. R 없으면 파밍 위주. 상대 와드 미비 라인 우선."
+    },
+    "late": {
+      "goal": "한타에서 R로 상대 핵심 딜러 제거. 팀파이트 결정적 한 방.",
+      "danger": "상대 앞라인이 두꺼우면 진입 자체가 어려움. CC 맞으면 즉사.",
+      "opportunity": "풀빌드 제드의 버스트는 최상급. 아군 이니시 후 후방 진입으로 캐리 원콜.",
+      "pathing": "바론/드래곤 싸움 전 사이드 시야 확보. 측면 우회 진입로 확보.",
+      "objective": "오브젝트 직접 스틸보다 상대 딜러 제거 → 오브젝트 무혈 확보가 효율적.",
+      "gank": "갱보다 픽오프. 혼자 움직이는 상대 캐치. 시야 장악이 전제."
+    }
+  },
+
+  "defaultSpells": "점멸 + 강타",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "맬모셔스의 아귀 or 죽음의 무도",
+      "reason": "상대 버스트 대응. 한 방에 터지기 전 R 활용 시간 확보."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "처형인의 대검 (치유 감소)",
+      "reason": "상대 체젠으로 올인 실패 방지."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 이지스 계열",
+      "reason": "CC 걸리면 즉사. 수은으로 CC 시간 감소."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 세릴다의 원한",
+      "reason": "방관 부족 시 딜 불가. 탱커 상대 방관 필수."
+    }
+  ],
+
+  "vulnerabilities": [
+    "cc_locked",
+    "no_sustain",
+    "slow_first_clear",
+    "r_dependent",
+    "squishy"
+  ],
+  "keyStrengths": [
+    "wall_cross_gank",
+    "execute_burst",
+    "splitpush_threat",
+    "high_mobility",
+    "ad_assassin"
+  ]
+}
