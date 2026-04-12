@@ -1,6 +1,7 @@
 "use client";
 
-import { Position, POSITION_LABELS, POSITION_ICONS } from "@/types";
+import { Position, POSITION_LABELS } from "@/types";
+import PositionIcon from "./PositionIcon";
 
 interface PositionFilterProps {
   selected: Position | "all";
@@ -25,7 +26,6 @@ export default function PositionFilter({
       {positions.map((pos) => {
         const isActive = selected === pos;
         const label = pos === "all" ? "전체" : POSITION_LABELS[pos];
-        const icon = pos === "all" ? "🎮" : POSITION_ICONS[pos];
 
         return (
           <button
@@ -37,7 +37,11 @@ export default function PositionFilter({
                 : "bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]"
             }`}
           >
-            <span>{icon}</span>
+            {pos === "all" ? (
+              <span className="text-sm">ALL</span>
+            ) : (
+              <PositionIcon position={pos} size={16} className={isActive ? "brightness-200" : "opacity-70"} />
+            )}
             <span className="hidden sm:inline">{label}</span>
           </button>
         );

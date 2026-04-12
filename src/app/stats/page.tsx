@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { externalStats, EXTERNAL_DATA_INFO } from "@/data/external-stats";
 import { DDRAGON_VERSION } from "@/data/champions";
-import { Position, POSITION_LABELS, POSITION_ICONS } from "@/types";
+import { Position, POSITION_LABELS } from "@/types";
+import PositionIcon from "@/components/PositionIcon";
 
 type SortKey = "tier" | "winRate" | "pickRate" | "banRate" | "name";
 
@@ -116,7 +117,6 @@ export default function StatsPage() {
         {positions.map((pos) => {
           const isActive = positionFilter === pos;
           const label = pos === "all" ? "전체" : POSITION_LABELS[pos];
-          const icon = pos === "all" ? "🎮" : POSITION_ICONS[pos];
           return (
             <button
               key={pos}
@@ -127,7 +127,11 @@ export default function StatsPage() {
                   : "bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)]"
               }`}
             >
-              <span className="text-sm">{icon}</span>
+              {pos === "all" ? (
+                <span className="text-sm">ALL</span>
+              ) : (
+                <PositionIcon position={pos} size={14} className={isActive ? "brightness-200" : "opacity-70"} />
+              )}
               <span>{label}</span>
             </button>
           );
@@ -192,7 +196,10 @@ export default function StatsPage() {
               {/* Name */}
               <div className="flex-1 min-w-0 pl-2">
                 <div className="text-xs font-medium text-[var(--text-primary)] truncate">{champ.nameKr}</div>
-                <div className="text-[9px] text-[var(--text-muted)]">{POSITION_LABELS[champ.position]}</div>
+                <div className="flex items-center gap-1 text-[9px] text-[var(--text-muted)]">
+                  <PositionIcon position={champ.position} size={10} className="opacity-60" />
+                  {POSITION_LABELS[champ.position]}
+                </div>
               </div>
 
               {/* Tier badge */}

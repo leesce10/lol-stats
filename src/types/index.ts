@@ -8,12 +8,22 @@ export const POSITION_LABELS: Record<Position, string> = {
   support: "서폿",
 };
 
+/** 이모지 폴백 (텍스트 전용 컨텍스트) */
 export const POSITION_ICONS: Record<Position, string> = {
   top: "⚔️",
   jungle: "🌿",
   mid: "🔮",
   adc: "🏹",
   support: "🛡️",
+};
+
+/** 롤 공식 포지션 아이콘 URL (Community Dragon CDN) */
+export const POSITION_ICON_URLS: Record<Position, string> = {
+  top: "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-top.png",
+  jungle: "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-jungle.png",
+  mid: "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-middle.png",
+  adc: "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-bottom.png",
+  support: "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/icon-position-utility.png",
 };
 
 export type ChampionClass =

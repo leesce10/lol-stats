@@ -5,7 +5,8 @@ import Image from "next/image";
 import { externalStats, EXTERNAL_DATA_INFO, ExternalChampionStats } from "@/data/external-stats";
 import { allChampions } from "@/data/all-champions";
 import { DDRAGON_VERSION } from "@/data/champions";
-import { Position, POSITION_LABELS, POSITION_ICONS } from "@/types";
+import { Position, POSITION_LABELS } from "@/types";
+import PositionIcon from "@/components/PositionIcon";
 
 const POSITIONS: Position[] = ["top", "jungle", "mid", "adc", "support"];
 
@@ -40,7 +41,7 @@ function TeamSlot({ position, selectedName, onSelect, allSelectedNames, teamColo
         <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-sm ${
           teamColor === "blue" ? "bg-blue-500/20 text-blue-400" : "bg-red-500/20 text-red-400"
         }`}>
-          {POSITION_ICONS[position]}
+          <PositionIcon position={position} size={18} />
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}

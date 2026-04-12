@@ -7,6 +7,8 @@ import { DDRAGON_VERSION } from "@/data/champions";
 import { generateMatchupGuide } from "@/lib/matchup-engine";
 import type { JungleChampionProfile } from "@/types/matchup-engine";
 import MatchupGuideResult from "@/components/MatchupGuideResult";
+import PositionIcon from "@/components/PositionIcon";
+import { POSITION_ICON_URLS } from "@/types";
 import zedProfile from "@/data/champion-profiles/zed.json";
 import leesinProfile from "@/data/champion-profiles/leesin.json";
 
@@ -18,11 +20,11 @@ const JUNGLE_PROFILES: Record<string, JungleChampionProfile> = {
 
 type Lane = "top" | "jungle" | "mid" | "bottom";
 
-const LANE_CONFIG: { key: Lane; label: string; icon: string }[] = [
-  { key: "top", label: "탑", icon: "⚔️" },
-  { key: "jungle", label: "정글", icon: "🌿" },
-  { key: "mid", label: "미드", icon: "🔮" },
-  { key: "bottom", label: "바텀", icon: "🏹" },
+const LANE_CONFIG: { key: Lane; label: string; iconUrl: string }[] = [
+  { key: "top", label: "탑", iconUrl: POSITION_ICON_URLS.top },
+  { key: "jungle", label: "정글", iconUrl: POSITION_ICON_URLS.jungle },
+  { key: "mid", label: "미드", iconUrl: POSITION_ICON_URLS.mid },
+  { key: "bottom", label: "바텀", iconUrl: POSITION_ICON_URLS.adc },
 ];
 
 function getChampionImageUrl(name: string): string {
@@ -422,7 +424,7 @@ export default function MatchupPage() {
                   ? "bg-[var(--accent-blue)] text-white shadow-md shadow-blue-500/20"
                   : "bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)]"
               }`}>
-              <span>{l.icon}</span>
+              <Image src={l.iconUrl} alt={l.label} width={16} height={16} className={`inline-block ${lane === l.key ? "brightness-200" : "opacity-70"}`} unoptimized />
               <span className="hidden sm:inline">{l.label}</span>
             </button>
           ))}
@@ -467,7 +469,7 @@ export default function MatchupPage() {
             <div className="text-sm font-medium text-blue-400 mb-3">내 바텀</div>
             <div className="space-y-3">
               <div>
-                <div className="text-xs text-[var(--text-muted)] mb-1">🏹 원딜</div>
+                <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] mb-1"><PositionIcon position="adc" size={12} className="opacity-60" /> 원딜</div>
                 <SelectedChampion name={myAdc} position="adc" borderColor="border-blue-500/30 bg-blue-500/10" />
                 <input type="text" placeholder="원딜 검색..." value={myAdcSearch} onChange={(e) => setMyAdcSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
@@ -475,7 +477,7 @@ export default function MatchupPage() {
                   selectedName={myAdc} excludeNames={allSelectedBottom} />
               </div>
               <div className="border-t border-[var(--border-color)] pt-3">
-                <div className="text-xs text-[var(--text-muted)] mb-1">🛡️ 서포터</div>
+                <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] mb-1"><PositionIcon position="support" size={12} className="opacity-60" /> 서포터</div>
                 <SelectedChampion name={mySup} position="support" borderColor="border-blue-400/30 bg-blue-400/10" />
                 <input type="text" placeholder="서포터 검색..." value={mySupSearch} onChange={(e) => setMySupSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
@@ -490,7 +492,7 @@ export default function MatchupPage() {
             <div className="text-sm font-medium text-red-400 mb-3">상대 바텀</div>
             <div className="space-y-3">
               <div>
-                <div className="text-xs text-[var(--text-muted)] mb-1">🏹 원딜</div>
+                <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] mb-1"><PositionIcon position="adc" size={12} className="opacity-60" /> 원딜</div>
                 <SelectedChampion name={enemyAdc} position="adc" borderColor="border-red-500/30 bg-red-500/10" />
                 <input type="text" placeholder="원딜 검색..." value={enemyAdcSearch} onChange={(e) => setEnemyAdcSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
@@ -498,7 +500,7 @@ export default function MatchupPage() {
                   selectedName={enemyAdc} excludeNames={allSelectedBottom} />
               </div>
               <div className="border-t border-[var(--border-color)] pt-3">
-                <div className="text-xs text-[var(--text-muted)] mb-1">🛡️ 서포터</div>
+                <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] mb-1"><PositionIcon position="support" size={12} className="opacity-60" /> 서포터</div>
                 <SelectedChampion name={enemySup} position="support" borderColor="border-red-400/30 bg-red-400/10" />
                 <input type="text" placeholder="서포터 검색..." value={enemySupSearch} onChange={(e) => setEnemySupSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
@@ -518,7 +520,7 @@ export default function MatchupPage() {
       {/* Empty state */}
       {!hasSoloResult && !hasBottomResult && !matchupGuide && (
         <div className="glass-card p-12 text-center">
-          <div className="text-5xl mb-4">{isBottom ? "🏹🛡️" : "⚔️"}</div>
+          <div className="flex justify-center gap-2 mb-4">{isBottom ? (<><PositionIcon position="adc" size={40} /><PositionIcon position="support" size={40} /></>) : <PositionIcon position="top" size={40} />}</div>
           <p className="text-lg font-medium text-[var(--text-secondary)]">
             {isBottom ? "양쪽 원딜 + 서포터를 선택해주세요" : "양쪽 챔피언을 선택해주세요"}
           </p>

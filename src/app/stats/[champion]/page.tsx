@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { externalStats, EXTERNAL_DATA_INFO, ExternalChampionStats } from "@/data/external-stats";
 import { DDRAGON_VERSION } from "@/data/champions";
-import { POSITION_LABELS, POSITION_ICONS } from "@/types";
+import { POSITION_LABELS } from "@/types";
+import PositionIcon from "@/components/PositionIcon";
 import { getChampionGuide, ChampionGuide } from "@/data/champion-guides";
 
 type Tab = "overview" | "guide" | "matchup" | "build";
@@ -460,7 +461,8 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-base sm:text-lg font-bold text-[var(--text-primary)]">{champData.nameKr}</h1>
                 <span className="flex items-center gap-1 text-[10px] sm:text-xs bg-[var(--bg-tertiary)] px-2 py-0.5 rounded">
-                  {POSITION_ICONS[champData.position]} {POSITION_LABELS[champData.position]}
+                  <PositionIcon position={champData.position} size={14} />
+                  {POSITION_LABELS[champData.position]}
                 </span>
               </div>
               <div className="flex items-center gap-3 mt-1 text-[10px] sm:text-xs">
@@ -486,7 +488,7 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
                         : "bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:bg-[var(--bg-hover)]"
                     }`}
                   >
-                    <span>{POSITION_ICONS[pr.position]}</span>
+                    <PositionIcon position={pr.position} size={14} className={isActive ? "brightness-200" : "opacity-70"} />
                     <span>{POSITION_LABELS[pr.position]}</span>
                     <span className={`text-[9px] ${isActive ? "text-blue-200" : "text-[var(--text-muted)]"}`}>
                       {pr.rate}%
