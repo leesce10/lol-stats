@@ -280,23 +280,23 @@ function MatchupTab({ champData, guide }: { champData: ExternalChampionStats; gu
   );
 }
 
-/** 룬 아이콘 1개 (텍스트 없이 아이콘만, 호버 시 이름 표시) */
+/** 룬 아이콘 1개 (이미지 실패 시 빈 원으로 폴백) */
 function RuneIcon({ name, size, isActive, isKeystone }: { name: string; size: number; isActive: boolean; isKeystone: boolean }) {
   const url = getRuneIconUrl(name);
+  const dimClass = isActive ? "" : "brightness-[0.25] grayscale";
+  const ringClass = isActive && isKeystone ? "ring-2 ring-[var(--accent-gold)]" : "";
+
   return (
-    <div className="relative group flex items-center justify-center" style={{ width: size, height: size }}>
+    <div className="relative group flex items-center justify-center shrink-0" style={{ width: size, height: size }} title={name}>
       {url ? (
-        <Image
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
           src={url}
-          alt={name}
+          alt=""
           width={size}
           height={size}
-          className={`rounded-full ${
-            isActive
-              ? isKeystone ? "ring-2 ring-[var(--accent-gold)]" : ""
-              : "brightness-[0.25] grayscale"
-          }`}
-          unoptimized
+          className={`rounded-full ${dimClass} ${ringClass}`}
+          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
         />
       ) : (
         <div
@@ -304,9 +304,6 @@ function RuneIcon({ name, size, isActive, isKeystone }: { name: string; size: nu
           style={{ width: size, height: size }}
         />
       )}
-      <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 hidden group-hover:block z-10 pointer-events-none">
-        <span className="text-[9px] text-[var(--text-primary)] bg-[var(--bg-tertiary)] border border-[var(--border-color)] px-1.5 py-0.5 rounded whitespace-nowrap shadow-lg">{name}</span>
-      </div>
     </div>
   );
 }
@@ -333,8 +330,9 @@ function PrimaryRuneTree({ runeString }: { runeString: string }) {
   if (!tree) return <div className="text-xs text-[var(--text-muted)]">{runeString}</div>;
 
   return (
-    <div className="flex flex-col items-center gap-2.5 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
-      {styleIcon && <Image src={styleIcon} alt={style} width={28} height={28} unoptimized />}
+    <div className="flex flex-col items-center gap-2.5 py-4 px-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {styleIcon && <img src={styleIcon} alt="" width={28} height={28} />}
       <div className="w-10 h-px bg-[var(--border-color)]" />
       <RuneTreeRow runes={tree.rows[0]} selected={selected} isKeystone />
       <div className="w-6 h-px bg-[var(--border-color)]" />
@@ -355,8 +353,9 @@ function SecondaryRuneTree({ runeString }: { runeString: string }) {
   if (!tree) return <div className="text-xs text-[var(--text-muted)]">{runeString}</div>;
 
   return (
-    <div className="flex flex-col items-center gap-2.5 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
-      {styleIcon && <Image src={styleIcon} alt={style} width={28} height={28} unoptimized />}
+    <div className="flex flex-col items-center gap-2.5 py-4 px-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {styleIcon && <img src={styleIcon} alt="" width={28} height={28} />}
       <div className="w-10 h-px bg-[var(--border-color)]" />
       {tree.rows.slice(1).map((row, i) => (
         <RuneTreeRow key={i} runes={row} selected={selected} isKeystone={false} />
