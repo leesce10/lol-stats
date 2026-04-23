@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navItems = [
-  { href: "/stats", label: "통계", icon: "📊" },
   { href: "/matchup", label: "맞라인", icon: "⚔️" },
   { href: "/team", label: "조합", icon: "👥" },
+  { href: "/stats", label: "통계", icon: "📊" },
 ];
 
 export default function Header() {
