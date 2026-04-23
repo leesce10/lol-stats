@@ -1,5 +1,5 @@
-// op.gg KR Emerald+ 기반 데이터 (패치 26.07, 테스트용)
-// !! Production Key 승인 전까지만 사용. 공개 홍보 금지 !!
+// 참고용 벤치마크 데이터 (패치 26.07, 프로토타입 단계)
+// TODO: Riot API 자체 수집 데이터로 전면 교체 예정 (Production Key 승인 후)
 
 import { allChampions, ChampionMeta } from "./all-champions";
 
@@ -17,7 +17,7 @@ export interface ExternalChampionStats {
   easyMatchups: { name: string; nameKr: string; winRate: number; games: number }[];
 }
 
-// op.gg에서 가져온 실제 기준값 (KR Emerald+)
+// KR Emerald+ 티어 기준 벤치마크 수치
 const REAL_DATA: Record<string, Partial<ExternalChampionStats>> = {
   // ── TOP ──
   "Malphite|top": { winRate: 52.04, pickRate: 7.13, banRate: 19.41, games: 21390, tier: 3 },
@@ -361,10 +361,10 @@ function getCounterNames(champId: string, position: string): { counters: string[
   return { counters, easy };
 }
 
-// lol.ps 패턴 회귀 분석으로 도출된 PS Score 공식
+// 티어 산정용 PS Score 공식 (회귀 분석 기반)
 // 참고: docs/tier-calculation.md
 //
-// 분석한 lol.ps 데이터 패턴:
+// 기준 샘플:
 // - Top Malphite (51.79/7.0/20.6) = T1
 // - Top Olaf (53.11/2.94/3.28) = T2 (승률 최고지만 픽률 낮음)
 // - Top Cassiopeia (52.89/0.79/1.28) = T3 (저픽률 페널티)
@@ -434,7 +434,7 @@ const POS_PARAMS: Record<"top" | "jungle" | "mid" | "adc" | "support", PosParams
   },
 };
 
-function calcLolPsScore(
+function calcPsScore(
   winRate: number,
   pickRate: number,
   banRate: number,
@@ -464,7 +464,7 @@ function calcLolPsScore(
 }
 
 function calcOpScore(winRate: number, pickRate: number, banRate: number): number {
-  // lol.ps PS Score 회귀 분석 결과:
+  // PS Score 회귀식:
   // - 승률은 강하게 가중 (T1과 T5의 승률 차이 ~5%p)
   // - 픽률은 sqrt 변환 (저픽률 페널티)
   // - 밴률은 sqrt 변환 (메타 위협도)
@@ -474,11 +474,10 @@ function calcOpScore(winRate: number, pickRate: number, banRate: number): number
   return 50 + wrCore + pickWeight + banWeight;
 }
 
-function calcTierByLolPs(winRate: number, pickRate: number, banRate: number): 1 | 2 | 3 | 4 | 5 {
-  // lol.ps PS Score 회귀 분석 결과
+function calcTierByPsScore(winRate: number, pickRate: number, banRate: number): 1 | 2 | 3 | 4 | 5 {
   // PS Score = 50 + (winRate-50)*4.5 + sqrt(pickRate)*2 + sqrt(banRate)*1.2 - lowPickPenalty
   //
-  // lol.ps 분포 (포지션당):
+  // 티어 분포 (포지션당):
   //   T1: 약 1~6개 (메타 지배 챔프)
   //   T2: 약 12~22개 (안정적 강함)
   //   T3: 약 12~20개 (평균)
@@ -492,7 +491,7 @@ function calcTierByLolPs(winRate: number, pickRate: number, banRate: number): 1 
   psScore += Math.sqrt(pickRate) * 2.0;
   psScore += Math.sqrt(banRate) * 1.2;
 
-  // 저픽률 페널티 (lol.ps에서 픽률 < 1.5%면 보통 한 티어 강등)
+  // 저픽률 페널티 (픽률 < 1.5%면 보통 한 티어 강등)
   if (pickRate < 1.5) psScore -= 3;
   if (pickRate < 0.7) psScore -= 4;
 
@@ -500,7 +499,7 @@ function calcTierByLolPs(winRate: number, pickRate: number, banRate: number): 1 
   if (presence >= 30 && winRate >= 49) psScore += 4;
   if (presence >= 50 && winRate >= 50) psScore += 3;
 
-  // 컷오프 (lol.ps 분포에 맞춰 캘리브레이션)
+  // 컷오프 (상대 분포에 맞춰 캘리브레이션)
   if (psScore >= 67) return 1;
   if (psScore >= 60) return 2;
   if (psScore >= 55) return 3;
@@ -552,7 +551,7 @@ function generateStats(): ExternalChampionStats[] {
   }
 
   // 2단계: 포지션별 PS Score 계산 + 상대 순위 기반 티어
-  // lol.ps 분포 패턴 (포지션당):
+  // 티어 분포 패턴 (포지션당):
   //   T1: 상위 ~10% (1~5개)
   //   T2: 11~30% (6~15개)
   //   T3: 31~55% (15~25개)
@@ -567,7 +566,7 @@ function generateStats(): ExternalChampionStats[] {
       .filter((r) => r.pos === pos)
       .map((r) => ({
         key: `${r.champ.id}|${r.pos}`,
-        score: calcLolPsScore(r.winRate, r.pickRate, r.banRate, r.pos),
+        score: calcPsScore(r.winRate, r.pickRate, r.banRate, r.pos),
       }))
       .sort((a, b) => b.score - a.score);
 
@@ -657,9 +656,9 @@ export function getAllExternalStats(): ExternalChampionStats[] {
 }
 
 export const EXTERNAL_DATA_INFO = {
-  source: "op.gg KR Emerald+",
+  source: "KR Emerald+ 벤치마크",
   patch: "26.07",
   totalSamples: 3007232,
   lastUpdated: "2026-04-11",
-  warning: "테스트용 데이터입니다. 실제 서비스에서는 자체 수집 데이터를 사용합니다.",
+  warning: "참고용 벤치마크 수치입니다. Riot API 기반 자체 수집 데이터로 순차 교체됩니다.",
 };

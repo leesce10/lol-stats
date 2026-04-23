@@ -627,7 +627,7 @@ export default function ChampionDetailPage({ params }: { params: Promise<{ champ
             </div>
           </div>
 
-          {/* 라인 선택 탭 (op.gg 스타일) */}
+          {/* 라인 선택 탭 */}
           {positionRates.length > 1 && (
             <div className="flex gap-1 mt-2">
               {positionRates.map((pr) => {
