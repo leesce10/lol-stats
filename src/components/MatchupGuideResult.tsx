@@ -108,7 +108,7 @@ function MustDodgeCard({ guide }: { guide: MatchupGuide }) {
     <div className="glass-card p-4 border-l-4 border-red-500/50">
       <h3 className="text-xs font-bold text-red-400 mb-3 flex items-center gap-1.5">
         <span className="w-2 h-2 rounded-full bg-red-500" />
-        필수 회피
+        핵심 위협 대응
       </h3>
       <div className="space-y-3">
         {guide.mustDodge.map((skill) => (

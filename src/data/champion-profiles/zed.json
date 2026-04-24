@@ -30,7 +30,7 @@
       "roles": ["primary_damage"],
       "missPenalty": "medium",
       "hitEnables": ["triple_shuriken_damage"],
-      "counterMethod": "미니언 뒤에 서서 관통 뎀 감소. 이동 방향 예측 후 옆걸음.",
+      "counterMethod": "사거리 900 직선 투사체. 미니언 뒤 숨어 관통 뎀 감소 (3단계 최대 1/2/3 적중). W 그림자 + Q 콤보 가능하니 그림자 위치도 같이 주시.",
       "range": 900,
       "cooldownEarly": 6,
       "cooldownMaxRank": 4
@@ -42,7 +42,7 @@
       "roles": ["mobility", "secondary_damage"],
       "missPenalty": "low",
       "hitEnables": ["gap_close", "skill_clone", "swap_position"],
-      "counterMethod": "W 이동 방향 확인 후 반대로 빠지기. W 사용 직후가 제드 도주기 없는 타이밍.",
+      "counterMethod": "650 거리로 그림자를 던짐. 그림자 착지 위치가 제드의 다음 돌격 지점 → **그림자 위치 밖으로 빠져 올인 각 차단**. W 사용 직후 22초 동안 이동기 제로 (풀쿨 올인 타이밍).",
       "range": 650,
       "cooldownEarly": 22,
       "cooldownMaxRank": 18
@@ -54,7 +54,7 @@
       "roles": ["secondary_damage", "cc"],
       "missPenalty": "low",
       "hitEnables": ["slow"],
-      "counterMethod": "근접 범위. 사거리 밖에서 견제.",
+      "counterMethod": "주변 290 범위 슬로우 + 뎀. E 슬로우가 걸리면 Q 맞추기 쉬워짐 → **290 밖 유지가 풀콤 차단의 핵심**. 그림자에서도 E 발동되므로 그림자 범위도 고려.",
       "range": 290,
       "cooldownEarly": 5,
       "cooldownMaxRank": 3
@@ -66,7 +66,7 @@
       "roles": ["execute", "primary_damage", "mobility"],
       "missPenalty": "critical",
       "hitEnables": ["execute_mark", "untargetable", "shadow_swap"],
-      "counterMethod": "R 직후 착지 위치 예측 가능 (대상 뒤). 즉시 CC로 고정. 존야/스톱워치로 마크 데미지 무효화.",
+      "counterMethod": "**타겟팅 궁이라 회피 불가**. 사거리 625 밖에서 플레이가 유일한 예방. 예방: (1) W 그림자 설치 각 안 주기, (2) 제드 W 눈에 들어오면 즉시 존야/스톱워치 슬롯 확인, (3) 미니언 뒤 포지션으로 Q 셋업 차단. 대응: R 걸리면 착지 지점(대상 뒤 600)에 즉시 CC or 존야 발동으로 마크 뎀 무효화. 한타에선 제드 R 쿨 80초 — R 사용 직후 80초가 오브젝트 타이밍.",
       "range": 625,
       "cooldownEarly": 120,
       "cooldownMaxRank": 80

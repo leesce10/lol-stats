@@ -272,99 +272,179 @@ function personalizePhases(phases: ChampionProfile["phases"], champName: string)
   return { early: add(phases.early), mid: add(phases.mid), late: add(phases.late) };
 }
 
-/** 태그별 4스킬 템플릿. L2 "필수 회피" 카드 생성용. */
+/**
+ * 스킬 타입별 대응 문구 자동 생성.
+ * "필수 회피"라는 프레임 대신 **타입에 맞는 실전 대응**을 생성한다:
+ * - skillshot → 측면 회피 / 미니언 뒤 (회피 가능)
+ * - point_click → 사거리 밖 유지 (회피 불가, 포지션이 유일한 방어)
+ * - dash → 지형 활용 + 직후 CC (궤적 차단)
+ * - aoe → 즉시 범위 이탈
+ * - self_buff → 버프 지속 중 거리 유지, 버프 종료 후 공격
+ * - toggle/summon → 상태/소환물 관리
+ */
+function counterFor(params: {
+  type: import("@/types/matchup-engine").SkillType;
+  role: "damage" | "cc" | "mobility" | "buff" | "ultimate";
+  range?: number;
+  cooldown?: number;
+  key: string; // "Q"/"W"/"E"/"R"
+}): string {
+  const { type, role, range, cooldown, key } = params;
+  const cdNote = cooldown ? `쿨 ${cooldown}초` : "쿨 관리";
+
+  switch (type) {
+    case "skillshot": {
+      const rangeNote = range ? `사거리 ${range}` : "중거리";
+      const dmgAdvice = role === "cc"
+        ? "맞으면 풀콤 성립. 미니언 뒤 숨기 최우선, 여의치 않으면 측면 예측 회피."
+        : "쿨마다 견제. 미니언 뒤/측면 회피로 뎀 누적 최소화.";
+      return `${rangeNote} 스킬샷. ${dmgAdvice} ${cdNote} 후 재사용 주시.`;
+    }
+    case "point_click": {
+      const rangeNote = range ? `사거리 ${range}` : "근거리";
+      return `타겟팅 스킬(조준 회피 불가). ${rangeNote} 밖 유지가 **유일한 예방**. 맞으면 즉시 점멸/존야/QSS 중 하나는 반드시 활용. ${cdNote}까지 거리 강제.`;
+    }
+    case "dash": {
+      const rangeNote = range ? `${range} 거리` : "중거리";
+      if (role === "ultimate") {
+        return `${rangeNote} 돌진 궁 (타겟팅성). 회피 불가이므로 **사거리 밖 포지션이 핵심**. 돌진 직후 경직 타이밍에 CC 또는 존야로 버스트 차단. ${cdNote}.`;
+      }
+      return `${rangeNote} 돌진. 벽/지형 근처 포지션으로 각 차단. 대시 직후 짧은 취약 창에 CC. 사용 후 ${cdNote} 동안 이동기 제로.`;
+    }
+    case "aoe": {
+      const rangeNote = range ? `범위 ${range}` : "광역";
+      return `${rangeNote} 공격. 지연 발동 있으면 즉시 범위 이탈. 뭉쳐 있으면 다중 적중 — 분산 포지션 유지.`;
+    }
+    case "self_buff": {
+      if (role === "ultimate") {
+        return `상대 자가 강화 궁. 발동 순간 뎀/탱킹 급증. 지속 시간(보통 5~8초) 동안 **거리 유지 + 교전 회피**, 끝나면 쿨 긴 동안 올인.`;
+      }
+      return `자가 버프. 발동 중 뎀/체젠 급증. 교전 시작 전이면 소진 유도 후 공격. ${cdNote}.`;
+    }
+    case "toggle":
+      return `스탠스 토글. 켜진 상태에서 상성 변화. 끄는 타이밍(보통 에너지/마나 고갈) 주시.`;
+    case "summon":
+      return `소환물 생성. 소환물 먼저 제거 or 범위 밖 이동. 소환물 있는 동안 ${cdNote}.`;
+  }
+}
+
+/** 태그별 4스킬 템플릿. 실전 대응 중심. */
 function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
-  const name = champName;
+  const n = champName;
   switch (tag) {
     case "Tank":
       return [
-        { key: "Q", name: `${name} 핵심 CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
-          hitEnables: ["stun_or_slow"], counterMethod: "근거리 이니시. 사거리 밖으로 빠지기. 스킬샷이면 측면 회피.",
-          range: 600, cooldownEarly: 10, cooldownMaxRank: 7 },
-        { key: "W", name: `${name} 방어기/버프`, type: "self_buff", roles: ["defense"], missPenalty: "none",
-          hitEnables: ["shield_or_tenacity"], counterMethod: "방어 버프 차징 중 이탈. 주요 CC/버스트 아껴뒀다가 버프 끝난 뒤 사용.",
+        { key: "Q", name: `${n} 근접 CC`, type: "point_click", roles: ["cc"], missPenalty: "high",
+          hitEnables: ["stun_or_slow"],
+          counterMethod: counterFor({ type: "point_click", role: "cc", range: 300, cooldown: 7, key: "Q" }),
+          range: 300, cooldownEarly: 10, cooldownMaxRank: 7 },
+        { key: "W", name: `${n} 방어 버프`, type: "self_buff", roles: ["defense"], missPenalty: "none",
+          hitEnables: ["shield_or_tenacity"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 9, key: "W" }),
           cooldownEarly: 14, cooldownMaxRank: 9 },
-        { key: "E", name: `${name} 돌진/이니시`, type: "dash", roles: ["engage", "cc"], missPenalty: "high",
-          hitEnables: ["gap_close", "knockup"], counterMethod: "돌진 궤적 예측 후 점멸/이동기로 회피. E 빠지면 이니시 수단 제로.",
+        { key: "E", name: `${n} 돌진 이니시`, type: "dash", roles: ["engage", "cc"], missPenalty: "high",
+          hitEnables: ["gap_close", "knockup"],
+          counterMethod: counterFor({ type: "dash", role: "mobility", range: 700, cooldown: 10, key: "E" }),
           range: 700, cooldownEarly: 16, cooldownMaxRank: 10 },
-        { key: "R", name: `${name} 궁극기`, type: "aoe", roles: ["engage", "cc"], missPenalty: "high",
-          hitEnables: ["aoe_cc"], counterMethod: "광역 CC 궁. 밴시/수은/점멸로 차단. 한타 전 R 사용 유도.",
-          cooldownEarly: 120, cooldownMaxRank: 80 },
+        { key: "R", name: `${n} 광역 CC 궁`, type: "aoe", roles: ["engage", "cc"], missPenalty: "high",
+          hitEnables: ["aoe_cc"],
+          counterMethod: counterFor({ type: "aoe", role: "ultimate", range: 600, cooldown: 80, key: "R" }),
+          range: 600, cooldownEarly: 120, cooldownMaxRank: 80 },
       ];
     case "Fighter":
       return [
-        { key: "Q", name: `${name} 주 딜 스킬`, type: "skillshot", roles: ["primary_damage"], "missPenalty": "medium",
-          hitEnables: ["core_damage"], counterMethod: "쿨마다 날아오는 견제. 미니언 뒤/측면 회피.",
+        { key: "Q", name: `${n} 주 딜`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
+          hitEnables: ["core_damage"],
+          counterMethod: counterFor({ type: "skillshot", role: "damage", range: 500, cooldown: 5, key: "Q" }),
           range: 500, cooldownEarly: 8, cooldownMaxRank: 5 },
-        { key: "W", name: `${name} 보조 스킬`, type: "self_buff", roles: ["defense"], missPenalty: "none",
-          hitEnables: ["heal_or_empower"], counterMethod: "지속 교전 유지 스킬. 버프 타이밍 주시.",
+        { key: "W", name: `${n} 지속 버프`, type: "self_buff", roles: ["defense"], missPenalty: "none",
+          hitEnables: ["heal_or_empower"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 8, key: "W" }),
           cooldownEarly: 12, cooldownMaxRank: 8 },
-        { key: "E", name: `${name} 이동기/CC`, type: "dash", roles: ["mobility", "cc"], missPenalty: "high",
-          hitEnables: ["gap_close", "cc_combo"], counterMethod: "유일 이동기. E 빠지면 추격 불가. 12~18초 쿨.",
+        { key: "E", name: `${n} 이동기`, type: "dash", roles: ["mobility", "cc"], missPenalty: "high",
+          hitEnables: ["gap_close", "cc_combo"],
+          counterMethod: counterFor({ type: "dash", role: "mobility", range: 500, cooldown: 10, key: "E" }),
           range: 500, cooldownEarly: 18, cooldownMaxRank: 10 },
-        { key: "R", name: `${name} 강화 궁`, type: "self_buff", roles: ["primary_damage", "defense"], missPenalty: "none",
-          hitEnables: ["burst_window"], counterMethod: "R 사용 시 뎀/탱킹 급증. R 끝날 때까지 버티기.",
+        { key: "R", name: `${n} 강화 궁`, type: "self_buff", roles: ["primary_damage", "defense"], missPenalty: "none",
+          hitEnables: ["burst_window"],
+          counterMethod: counterFor({ type: "self_buff", role: "ultimate", cooldown: 60, key: "R" }),
           cooldownEarly: 100, cooldownMaxRank: 60 },
       ];
     case "Mage":
       return [
-        { key: "Q", name: `${name} 포크 스킬`, type: "skillshot", roles: ["primary_damage"], missPenalty: "high",
-          hitEnables: ["long_range_poke"], counterMethod: "장거리 스킬샷. 미니언 뒤 회피. 쿨마다 뎀 누적 주의.",
+        { key: "Q", name: `${n} 원거리 포크`, type: "skillshot", roles: ["primary_damage"], missPenalty: "high",
+          hitEnables: ["long_range_poke"],
+          counterMethod: counterFor({ type: "skillshot", role: "damage", range: 900, cooldown: 5, key: "Q" }),
           range: 900, cooldownEarly: 7, cooldownMaxRank: 5 },
-        { key: "W", name: `${name} CC/보조`, type: "skillshot", roles: ["cc"], missPenalty: "high",
-          hitEnables: ["slow_or_stun"], counterMethod: "지연 발동 or 차징형. 범위 밖 이탈.",
+        { key: "W", name: `${n} CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
+          hitEnables: ["slow_or_stun"],
+          counterMethod: counterFor({ type: "skillshot", role: "cc", range: 700, cooldown: 9, key: "W" }),
           range: 700, cooldownEarly: 14, cooldownMaxRank: 9 },
-        { key: "E", name: `${name} 유틸 스킬`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
-          hitEnables: ["shield_or_blink"], counterMethod: "보호막/짧은 블링크. 풀콤 진입 전 소진 유도.",
+        { key: "E", name: `${n} 유틸/방어`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
+          hitEnables: ["shield_or_blink"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 10, key: "E" }),
           cooldownEarly: 18, cooldownMaxRank: 10 },
-        { key: "R", name: `${name} 버스트 궁`, type: "aoe", roles: ["primary_damage"], missPenalty: "high",
-          hitEnables: ["aoe_burst"], counterMethod: "광역 버스트. 뭉치지 말 것. 밴시/존야로 차단.",
+        { key: "R", name: `${n} 버스트 궁`, type: "aoe", roles: ["primary_damage"], missPenalty: "high",
+          hitEnables: ["aoe_burst"],
+          counterMethod: counterFor({ type: "aoe", role: "ultimate", range: 700, cooldown: 80, key: "R" }),
           range: 700, cooldownEarly: 120, cooldownMaxRank: 80 },
       ];
     case "Assassin":
       return [
-        { key: "Q", name: `${name} 주 버스트`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
-          hitEnables: ["burst_damage"], counterMethod: "가장 큰 뎀 원천. 맞으면 풀콤 성립. 측면 회피.",
+        { key: "Q", name: `${n} 주 버스트`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
+          hitEnables: ["burst_damage"],
+          counterMethod: counterFor({ type: "skillshot", role: "damage", range: 600, cooldown: 4, key: "Q" }),
           range: 600, cooldownEarly: 7, cooldownMaxRank: 4 },
-        { key: "W", name: `${name} 유틸/표식`, type: "self_buff", roles: ["utility"], missPenalty: "none",
-          hitEnables: ["mark_or_empower"], counterMethod: "표식 찍히면 갭클로즈 가능. 거리 유지.",
+        { key: "W", name: `${n} 유틸/표식`, type: "self_buff", roles: ["utility"], missPenalty: "none",
+          hitEnables: ["mark_or_empower"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 8, key: "W" }),
           cooldownEarly: 12, cooldownMaxRank: 8 },
-        { key: "E", name: `${name} 이동기`, type: "dash", roles: ["mobility"], missPenalty: "low",
-          hitEnables: ["gap_close", "escape"], counterMethod: "긴 대시. E 쿨 중이면 이동기 제로. 12~18초 쿨 주시.",
+        { key: "E", name: `${n} 장거리 이동기`, type: "dash", roles: ["mobility"], missPenalty: "low",
+          hitEnables: ["gap_close", "escape"],
+          counterMethod: counterFor({ type: "dash", role: "mobility", range: 700, cooldown: 12, key: "E" }),
           range: 700, cooldownEarly: 18, cooldownMaxRank: 12 },
-        { key: "R", name: `${name} 처형 궁`, type: "dash", roles: ["execute"], missPenalty: "high",
-          hitEnables: ["execute_or_reset"], counterMethod: "저체력 상태 피하기. R 사용 후 쿨 긴 타이밍 공격.",
-          cooldownEarly: 100, cooldownMaxRank: 70 },
+        { key: "R", name: `${n} 타겟팅 처형 궁`, type: "dash", roles: ["execute"], missPenalty: "high",
+          hitEnables: ["execute_or_reset"],
+          counterMethod: counterFor({ type: "dash", role: "ultimate", range: 650, cooldown: 70, key: "R" }),
+          range: 650, cooldownEarly: 100, cooldownMaxRank: 70 },
       ];
     case "Marksman":
       return [
-        { key: "Q", name: `${name} 견제기`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
-          hitEnables: ["aa_empower_or_poke"], counterMethod: "AA 사거리 확장 or 포크. 미니언 뒤 회피.",
+        { key: "Q", name: `${n} 견제기`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
+          hitEnables: ["aa_empower_or_poke"],
+          counterMethod: counterFor({ type: "skillshot", role: "damage", range: 900, cooldown: 5, key: "Q" }),
           range: 900, cooldownEarly: 8, cooldownMaxRank: 5 },
-        { key: "W", name: `${name} 온히트/유틸`, type: "self_buff", roles: ["primary_damage"], missPenalty: "none",
-          hitEnables: ["true_damage_or_vision"], counterMethod: "스택/은화살 형 강화. 3번째 AA 고정딜 주의.",
+        { key: "W", name: `${n} 온히트/유틸`, type: "self_buff", roles: ["primary_damage"], missPenalty: "none",
+          hitEnables: ["true_damage_or_vision"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 6, key: "W" }),
           cooldownEarly: 10, cooldownMaxRank: 6 },
-        { key: "E", name: `${name} 회피/CC`, type: "dash", roles: ["mobility"], missPenalty: "medium",
-          hitEnables: ["escape", "trap"], counterMethod: "짧은 대시 or 덫. E 빠지면 이탈 수단 제로.",
+        { key: "E", name: `${n} 이탈기/덫`, type: "dash", roles: ["mobility"], missPenalty: "medium",
+          hitEnables: ["escape", "trap"],
+          counterMethod: counterFor({ type: "dash", role: "mobility", range: 450, cooldown: 10, key: "E" }),
           range: 450, cooldownEarly: 18, cooldownMaxRank: 10 },
-        { key: "R", name: `${name} 피니시 궁`, type: "skillshot", roles: ["execute", "primary_damage"], missPenalty: "high",
-          hitEnables: ["long_range_finish"], counterMethod: "장거리 처형. 저체력 시 시야 밖 이탈.",
+        { key: "R", name: `${n} 피니시 궁`, type: "skillshot", roles: ["execute", "primary_damage"], missPenalty: "high",
+          hitEnables: ["long_range_finish"],
+          counterMethod: counterFor({ type: "skillshot", role: "ultimate", range: 1500, cooldown: 70, key: "R" }),
           range: 1500, cooldownEarly: 100, cooldownMaxRank: 70 },
       ];
     case "Support":
       return [
-        { key: "Q", name: `${name} 포크/CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
-          hitEnables: ["hook_or_damage"], counterMethod: "장거리 CC 스킬. 미니언 뒤 숨기 필수.",
+        { key: "Q", name: `${n} 포크/CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
+          hitEnables: ["hook_or_damage"],
+          counterMethod: counterFor({ type: "skillshot", role: "cc", range: 950, cooldown: 8, key: "Q" }),
           range: 950, cooldownEarly: 12, cooldownMaxRank: 8 },
-        { key: "W", name: `${name} 쉴드/체젠`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
-          hitEnables: ["shield_ally", "heal"], counterMethod: "ADC 보호막/힐. 쉴드 깨고 올인 or 치감템 준비.",
+        { key: "W", name: `${n} 쉴드/체젠`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
+          hitEnables: ["shield_ally", "heal"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 6, key: "W" }),
           cooldownEarly: 12, cooldownMaxRank: 6 },
-        { key: "E", name: `${name} 유틸`, type: "self_buff", roles: ["utility"], missPenalty: "low",
-          hitEnables: ["ms_or_cc"], counterMethod: "이동기 or 추가 CC. 사용 타이밍 주시.",
+        { key: "E", name: `${n} 유틸`, type: "self_buff", roles: ["utility"], missPenalty: "low",
+          hitEnables: ["ms_or_cc"],
+          counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 10, key: "E" }),
           cooldownEarly: 14, cooldownMaxRank: 10 },
-        { key: "R", name: `${name} 팀 버프/CC`, type: "aoe", roles: ["cc", "defense"], missPenalty: "high",
-          hitEnables: ["team_buff_or_aoe_cc"], counterMethod: "팀 전체 영향. R 사용 시 한타 시작. 차단 or 대응 준비.",
-          cooldownEarly: 140, cooldownMaxRank: 80 },
+        { key: "R", name: `${n} 팀 궁`, type: "aoe", roles: ["cc", "defense"], missPenalty: "high",
+          hitEnables: ["team_buff_or_aoe_cc"],
+          counterMethod: counterFor({ type: "aoe", role: "ultimate", range: 800, cooldown: 80, key: "R" }),
+          range: 800, cooldownEarly: 140, cooldownMaxRank: 80 },
       ];
   }
 }

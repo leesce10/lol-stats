@@ -12,18 +12,19 @@
   "keySkills": [
     { "key": "Q", "name": "면도날 표창", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
       "hitEnables": ["triple_shuriken_damage"],
-      "counterMethod": "미니언 뒤 관통 뎀 감소. 이동 방향 예측 후 옆걸음.",
+      "counterMethod": "사거리 900 직선 투사체. 미니언 뒤 숨어 관통 뎀 감소. W 그림자 위치에서도 동시 발사되므로 그림자 위치까지 같이 주시.",
       "range": 900, "cooldownEarly": 6, "cooldownMaxRank": 4 },
     { "key": "W", "name": "살아있는 그림자", "type": "dash", "roles": ["mobility", "secondary_damage"], "missPenalty": "low",
       "hitEnables": ["gap_close", "skill_clone", "swap_position"],
-      "counterMethod": "W 이동 방향 확인 후 반대로. W 사용 직후가 제드 도주기 없는 타이밍.",
+      "counterMethod": "650 거리 그림자 투사. **그림자 착지 위치가 제드의 올인 각** → 그림자 사거리 밖으로 빠져 풀콤 차단. W 사용 후 22초간 이동기 제로 (풀쿨 올인 타이밍).",
       "range": 650, "cooldownEarly": 22, "cooldownMaxRank": 18 },
     { "key": "E", "name": "그림자 베기", "type": "aoe", "roles": ["secondary_damage", "cc"], "missPenalty": "low",
-      "hitEnables": ["slow"], "counterMethod": "근접 범위. 사거리 밖에서 견제.",
+      "hitEnables": ["slow"],
+      "counterMethod": "290 범위 슬로우 + 뎀. **E 슬로우 걸리면 Q 확정** → 290 밖 유지가 핵심. 그림자도 E 범위가 있으니 그림자 근처 진입 금지.",
       "range": 290, "cooldownEarly": 5, "cooldownMaxRank": 3 },
     { "key": "R", "name": "사형 선고", "type": "dash", "roles": ["execute", "primary_damage", "mobility"], "missPenalty": "critical",
       "hitEnables": ["execute_mark", "untargetable", "shadow_swap"],
-      "counterMethod": "R 직후 착지 위치 예측 가능 (대상 뒤). 즉시 CC로 고정. 존야/스톱워치로 마크 데미지 무효화.",
+      "counterMethod": "**타겟팅 궁 — 회피 불가**. 사거리 625 밖 유지가 유일한 예방. 라인전 예방: (1) W 그림자 설치 각 차단 위해 미니언 뒤 고정, (2) 제드 W 눈에 들어오면 즉시 존야/QSS 슬롯 체크, (3) E 슬로우(290) 범위 밖 유지로 Q 풀히트 셋업 차단. 맞은 뒤 대응: 착지 지점(대상 뒤 600)에 CC 걸거나 존야/수은 발동으로 마크 뎀 무효화. 한타 기준 R 쿨 80초 — 쓰고 나면 80초가 오브젝트 타이밍.",
       "range": 625, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [
