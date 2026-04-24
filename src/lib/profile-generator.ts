@@ -335,7 +335,7 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
     case "Tank":
       return [
         { key: "Q", name: `${n} 근접 CC`, type: "point_click", roles: ["cc"], missPenalty: "high",
-          hitEnables: ["stun_or_slow"],
+          hitEnables: ["stun_1s"],
           counterMethod: counterFor({ type: "point_click", role: "cc", range: 300, cooldown: 7, key: "Q" }),
           range: 300, cooldownEarly: 10, cooldownMaxRank: 7 },
         { key: "W", name: `${n} 방어 버프`, type: "self_buff", roles: ["defense"], missPenalty: "none",
@@ -343,11 +343,11 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
           counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 9, key: "W" }),
           cooldownEarly: 14, cooldownMaxRank: 9 },
         { key: "E", name: `${n} 돌진 이니시`, type: "dash", roles: ["engage", "cc"], missPenalty: "high",
-          hitEnables: ["gap_close", "knockup"],
+          hitEnables: ["knockup_1s"],
           counterMethod: counterFor({ type: "dash", role: "mobility", range: 700, cooldown: 10, key: "E" }),
           range: 700, cooldownEarly: 16, cooldownMaxRank: 10 },
         { key: "R", name: `${n} 광역 CC 궁`, type: "aoe", roles: ["engage", "cc"], missPenalty: "high",
-          hitEnables: ["aoe_cc"],
+          hitEnables: ["knockup_aoe_1s"],
           counterMethod: counterFor({ type: "aoe", role: "ultimate", range: 600, cooldown: 80, key: "R" }),
           range: 600, cooldownEarly: 120, cooldownMaxRank: 80 },
       ];
@@ -362,7 +362,7 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
           counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 8, key: "W" }),
           cooldownEarly: 12, cooldownMaxRank: 8 },
         { key: "E", name: `${n} 이동기`, type: "dash", roles: ["mobility", "cc"], missPenalty: "high",
-          hitEnables: ["gap_close", "cc_combo"],
+          hitEnables: ["slow_1.5s"],
           counterMethod: counterFor({ type: "dash", role: "mobility", range: 500, cooldown: 10, key: "E" }),
           range: 500, cooldownEarly: 18, cooldownMaxRank: 10 },
         { key: "R", name: `${n} 강화 궁`, type: "self_buff", roles: ["primary_damage", "defense"], missPenalty: "none",
@@ -377,7 +377,7 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
           counterMethod: counterFor({ type: "skillshot", role: "damage", range: 900, cooldown: 5, key: "Q" }),
           range: 900, cooldownEarly: 7, cooldownMaxRank: 5 },
         { key: "W", name: `${n} CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
-          hitEnables: ["slow_or_stun"],
+          hitEnables: ["root_1.25s"],
           counterMethod: counterFor({ type: "skillshot", role: "cc", range: 700, cooldown: 9, key: "W" }),
           range: 700, cooldownEarly: 14, cooldownMaxRank: 9 },
         { key: "E", name: `${n} 유틸/방어`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
@@ -430,7 +430,7 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
     case "Support":
       return [
         { key: "Q", name: `${n} 포크/CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
-          hitEnables: ["hook_or_damage"],
+          hitEnables: ["hook_1.5s"],
           counterMethod: counterFor({ type: "skillshot", role: "cc", range: 950, cooldown: 8, key: "Q" }),
           range: 950, cooldownEarly: 12, cooldownMaxRank: 8 },
         { key: "W", name: `${n} 쉴드/체젠`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
@@ -442,7 +442,7 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
           counterMethod: counterFor({ type: "self_buff", role: "buff", cooldown: 10, key: "E" }),
           cooldownEarly: 14, cooldownMaxRank: 10 },
         { key: "R", name: `${n} 팀 궁`, type: "aoe", roles: ["cc", "defense"], missPenalty: "high",
-          hitEnables: ["team_buff_or_aoe_cc"],
+          hitEnables: ["knockup_aoe"],
           counterMethod: counterFor({ type: "aoe", role: "ultimate", range: 800, cooldown: 80, key: "R" }),
           range: 800, cooldownEarly: 140, cooldownMaxRank: 80 },
       ];

@@ -1,5 +1,55 @@
 import type { ChampionSkill, JungleChampionProfile, MustDodgeSkill } from "@/types/matchup-engine";
 
+/** CC 타입 토큰 → 한국어 매핑. */
+const CC_TYPE_KR: Record<string, string> = {
+  stun: "기절",
+  slow: "슬로우",
+  root: "속박",
+  fear: "공포",
+  charm: "매혹",
+  suppress: "진압",
+  silence: "침묵",
+  knockup: "넉업",
+  knockback: "넉백",
+  polymorph: "변이",
+  taunt: "도발",
+  ground: "접지",
+  hook: "끌어당김",
+  pull: "끌어당김",
+  nearsight: "근접 시야",
+  blind: "실명",
+  sleep: "수면",
+  disarm: "무장 해제",
+};
+
+/**
+ * skill.hitEnables 배열에서 구체적 CC 정보를 뽑아 "1.25초 기절" / "슬로우" 형태로 변환.
+ * 알려진 토큰이 없으면 null 반환.
+ */
+function extractCcInfo(skill: ChampionSkill): string | null {
+  for (const token of skill.hitEnables) {
+    // 1) 타입_지속시간 패턴: "stun_1.25s", "knockup_0.75s", "slow_2s"
+    const durMatch = token.match(/^(stun|slow|root|fear|charm|suppress|silence|knockup|knockback|polymorph|taunt|hook|pull|nearsight|blind|sleep|disarm)_(\d+(?:\.\d+)?)s?$/);
+    if (durMatch) {
+      const [, type, dur] = durMatch;
+      const typeKr = CC_TYPE_KR[type] ?? type;
+      return `${dur}초 ${typeKr}`;
+    }
+    // 2) 단순 토큰: "stun", "slow", "knockup"
+    if (CC_TYPE_KR[token]) return CC_TYPE_KR[token];
+    // 3) 복합 토큰: "knockup_aoe", "slow_aoe", "hook_pull", "stun_chain"
+    for (const [key, kr] of Object.entries(CC_TYPE_KR)) {
+      if (token.startsWith(key + "_") || token.endsWith("_" + key)) {
+        // 광역/체인 수식어 추가
+        if (token.includes("aoe")) return `광역 ${kr}`;
+        if (token.includes("chain")) return `연쇄 ${kr}`;
+        return kr;
+      }
+    }
+  }
+  return null;
+}
+
 /**
  * L2 카드 1 — 라인전 핵심 스킬 추출.
  *
@@ -66,19 +116,25 @@ function generateHitConsequence(skill: ChampionSkill): string {
   const isEngage = skill.roles.includes("engage");
   const penalty = skill.missPenalty;
 
+  // CC 정보 (예: "1.25초 기절", "슬로우", "넉업")
+  const cc = extractCcInfo(skill);
+
   // critical: 풀콤 성립 또는 게임 뒤집힐 수준
   if (penalty === "critical") {
     if (isCC && skill.type === "skillshot") {
-      return "맞으면 CC 걸림 → 상대 풀콤 확정. 즉시 점멸/수은 준비.";
+      const ccText = cc ?? "CC";
+      return `맞으면 ${ccText} → 상대 풀콤 확정. 즉시 점멸/수은 준비.`;
     }
     if (isCC && skill.type === "point_click") {
-      return "타겟팅이라 회피 불가. 맞으면 CC + 풀콤 연결. 사거리 밖 유지가 유일한 방어.";
+      const ccText = cc ?? "CC";
+      return `타겟팅이라 회피 불가. 맞으면 ${ccText} + 풀콤 연결. 사거리 밖 유지가 유일한 방어.`;
     }
     if (isExec) {
       return "맞으면 처형 각. 저체력 상태면 즉사, 풀체력이어도 큰 폭 손해.";
     }
     if (isEngage) {
-      return "맞으면 근접 허용 + 풀콤 이어짐. 점멸로 벗어나야 생존.";
+      const ccText = cc ? ` + ${cc}` : "";
+      return `맞으면 근접 허용${ccText} + 풀콤 이어짐. 점멸로 벗어나야 생존.`;
     }
     if (skill.type === "dash") {
       return "맞으면 상대가 거리 좁힘 + 추가 스킬 확정 적중. 트레이드 완패.";
@@ -88,7 +144,8 @@ function generateHitConsequence(skill: ChampionSkill): string {
 
   // high: 불리하지만 회복 가능한 수준
   if (isCC) {
-    return "맞으면 짧은 CC + 주요 딜 연결. 체력 큰 폭 손해.";
+    const ccText = cc ?? "CC";
+    return `맞으면 ${ccText} + 주요 딜 연결. 체력 큰 폭 손해.`;
   }
   if (isBurst && skill.type === "skillshot") {
     return "맞으면 체력 크게 깎임. 쿨마다 견제라 누적되면 라인전 밀림.";
