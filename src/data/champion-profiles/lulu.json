@@ -64,7 +64,7 @@
       "roles": ["defense", "cc"],
       "missPenalty": "none",
       "hitEnables": ["hp_buff", "knockup_aoe", "speed"],
-      "counterMethod": "아군 체력 버프 + 주변 적 넉업. R 맞은 아군 죽이기 어려움. CC로 고정.",
+      "counterMethod": "**아군 대상 타겟팅 버프** (900 거리) — 회피/차단 불가. 진짜 위협은 **R 맞은 ADC가 거의 불사**. 예방: (1) 룰루 R 대상이 되기 전 ADC 먼저 잘라내기, (2) 물몸 룰루 먼저 노려서 R 강제 사용, (3) R 쿨 80초 — 쿨 중이 한타 타이밍. 대응: R 맞은 아군 공격 포기 → 룰루/다른 목표 전환. R 발동 시 광역 넉업 — 아군 4인 뭉치지 말 것.",
       "range": 900,
       "cooldownEarly": 120,
       "cooldownMaxRank": 80

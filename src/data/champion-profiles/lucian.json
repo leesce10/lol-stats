@@ -24,7 +24,7 @@
       "range": 425, "cooldownEarly": 22, "cooldownMaxRank": 10 },
     { "key": "R", "name": "치명타 사격", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "low",
       "hitEnables": ["channel_dps", "passive_refresh"],
-      "counterMethod": "채널링 연발 사격. CC로 끊거나 사거리 밖 이탈.",
+      "counterMethod": "**1400 거리 채널링 연발 사격** (3초). 예방: (1) 루시안이 Q/W 맞춘 직후 R 각 → Q 피하면 R 연계 차단, (2) 1400 밖 이탈 가능, (3) 채널링 중 루시안 이동 느림 → 벽 뒤 숨기 or 우회. 대응: **CC(기절/침묵) 걸면 즉시 중단** (수은 해제 가능). 한타 시 루시안 R 채널링 타이밍에 측면 진입이 효과적.",
       "range": 1400, "cooldownEarly": 110, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

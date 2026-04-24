@@ -24,7 +24,7 @@
       "range": 925, "cooldownEarly": 18, "cooldownMaxRank": 14 },
     { "key": "R", "name": "부패의 사슬", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
       "hitEnables": ["root_chain", "aoe_spread"],
-      "counterMethod": "직선 스킬샷 속박 + 퍼짐. 측면 회피. 뭉쳐있으면 다중 속박.",
+      "counterMethod": "1200 거리 직선 속박 + **첫 적중 후 주변 적에게 전파**. 예방: (1) **뭉치지 말 것** — 1명 맞으면 주변 다 속박, (2) 측면 회피 가능한 직선 스킬샷, (3) 바루스가 Q 차징하면 R 연계 각 → Q 회피가 R 예방. 대응: 속박 2초간 지속 → 즉시 수은/QSS/점멸. 한타에서 아군 2~3명 연쇄 속박 시 전멸 — 분산 포지션이 핵심.",
       "range": 1200, "cooldownEarly": 100, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

@@ -20,7 +20,8 @@
       "hitEnables": ["dash_stun"], "counterMethod": "2단계 E. E1은 짧은 대시, E2는 긴 대시 + 기절. E2 거리 주시.",
       "range": 850, "cooldownEarly": 10, "cooldownMaxRank": 8 },
     { "key": "R", "name": "약탈", "type": "self_buff", "roles": ["utility"], "missPenalty": "none",
-      "hitEnables": ["steal_ult"], "counterMethod": "상대 궁극 탈취 + 사용. 탈취 가능한 범위 외 이탈.",
+      "hitEnables": ["steal_ult"],
+      "counterMethod": "**적 챔프 궁 탈취** (900 거리). 예방: (1) **내 R 먼저 쓰지 말기** — 사일러스가 대기 중이면 내 궁이 적 손에 들어감, (2) 900 거리 밖 유지, (3) 탈취 채널링 2초 → 채널링 도중 거리 벌리면 탈취 실패. 대응: 내 궁 탈취되면 해당 궁 효과 2번 맞을 각오 (내 사용 + 사일러스 사용). 특히 정글(자르반·리신·녹턴 R)이 훔쳐지면 치명적. 한타 전 **훔칠 가치 있는 궁 사용 타이밍 조절**.",
       "range": 900, "cooldownEarly": 90, "cooldownMaxRank": 50 }
   ],
   "punishTriggers": [

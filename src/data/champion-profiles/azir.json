@@ -22,7 +22,7 @@
       "range": 1200, "cooldownEarly": 26, "cooldownMaxRank": 18 },
     { "key": "R", "name": "황제의 진영", "type": "aoe", "roles": ["cc", "defense"], "missPenalty": "high",
       "hitEnables": ["wall_knockback", "ms_ally"],
-      "counterMethod": "벽 생성 + 넉백. 점멸로 벽 넘거나 밴시로 방어.",
+      "counterMethod": "**벽 소환 + 벽 닿은 적 넉백 + 슬로우**. 예방: (1) 아지르 주변 625 거리 내 진입 시 항상 R 주의, (2) 병사 쓴 뒤 R 타이밍 — 병사 위치가 벽 방향 암시, (3) 한타 뭉치면 다중 넉백 위험. 대응: 벽 생성 순간 넉백 방향 체크 → 점멸로 벽 넘거나 밴시 장막으로 1회 방어. 한타 승리 공식은 아지르 R을 역이용해 적 팀 분리시키기.",
       "cooldownEarly": 140, "cooldownMaxRank": 100 }
   ],
   "punishTriggers": [

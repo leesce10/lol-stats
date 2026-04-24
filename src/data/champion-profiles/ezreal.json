@@ -23,7 +23,7 @@
       "range": 475, "cooldownEarly": 26, "cooldownMaxRank": 18 },
     { "key": "R", "name": "정조준 일격", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
       "hitEnables": ["global_range", "multi_hit"],
-      "counterMethod": "글로벌 + 다중 적중. 적 많을수록 뎀 감소. 미니언 앞 숨기.",
+      "counterMethod": "**글로벌 직선 투사체** — 맵 어디든 저격 가능, 적중할 때마다 뎀 감소. 예방: (1) 저체력 상태 직선 경로 이동 피하기 (이즈는 미니맵 보며 조준), (2) 미니언/아군 뒤에 서면 다중 적중으로 뎀 감소 → 저체력 시 뒤에 서기, (3) R 쿨 80초 — 쿨 중 오브젝트 싸움 유리. 대응: 글로벌이라 회피 어려움, 체력 관리가 최우선.",
       "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

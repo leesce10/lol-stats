@@ -19,7 +19,7 @@
       "cooldownEarly": 6, "cooldownMaxRank": 6 },
     { "key": "R", "name": "달의 불길", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
       "hitEnables": ["wide_line", "weapon_effect"],
-      "counterMethod": "장거리 직선 뎀. 무기 효과 다양. 측면 회피.",
+      "counterMethod": "1300 거리 **광역 직선 뎀 + 현재 무기 효과 광역 적용** (세베룸=치유, 칼리스토=속박, 그라비툼=슬로우 등). 예방: (1) 아펠리오스 현재 무기 확인 → 무기마다 위협도 다름, (2) 1300 장거리 직선 스킬샷 — 측면 회피 가능하나 길이가 압도적으로 김, (3) R 쿨 80초 — 쿨 중 교전 유도. 대응: R 맞으면 무기 효과 발동되므로 즉시 범위 밖 이탈. 한타 뭉치면 다중 적용.",
       "range": 1300, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

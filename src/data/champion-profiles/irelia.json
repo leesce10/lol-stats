@@ -22,7 +22,7 @@
       "range": 775, "cooldownEarly": 14, "cooldownMaxRank": 10 },
     { "key": "R", "name": "선혈검무", "type": "skillshot", "roles": ["cc", "primary_damage"], "missPenalty": "high",
       "hitEnables": ["slow", "blade_barrier"],
-      "counterMethod": "원뿔형 범위. 범위 안에 있으면 슬로우. 칼날 벽 통과 시 슬로우 갱신.",
+      "counterMethod": "950 원뿔 직선 + **칼날 벽** (5초 지속). 예방: (1) 원뿔 범위 밖 측면 회피, (2) 이렐리아 E(기절) 뒤에 R 이어지는 콤보 → E 피하면 R도 자연 회피, (3) R 칼날 벽 경로 왕복 시 슬로우 갱신 → 벽 넘지 말고 우회. 대응: 벽 맞으면 슬로우 걸려 Q 리셋 콤보 셋업됨 → 즉시 점멸로 벽 너머 이탈 or 수은. 한타 시 적 4인 뭉치면 R 적중 가능성 커지니 분산.",
       "range": 950, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

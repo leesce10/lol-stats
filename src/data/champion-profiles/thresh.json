@@ -24,7 +24,7 @@
       "cooldownEarly": 9, "cooldownMaxRank": 9 },
     { "key": "R", "name": "어둠의 장막", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "medium",
       "hitEnables": ["aoe_slow_wall", "damage"],
-      "counterMethod": "벽 생성 + 통과 시 슬로우 + 뎀. 벽 넘지 말고 우회.",
+      "counterMethod": "450 주변 **벽 5개 소환 — 벽 통과 시 슬로우 + 뎀** (8초 지속). 예방: (1) 쓰레쉬 주변 450 밖 유지 — 근접 시 R 감옥 효과, (2) Q(후크) 성공 후 R 각 연결 → Q 회피가 R 예방, (3) 벽 사이 공간이 쓰레쉬 진입 루트. 대응: **벽 넘지 말고 우회** or 점멸로 넘어가기. 한타 지역을 R로 정하는 경우가 많음 → 외곽에서 싸움.",
       "range": 450, "cooldownEarly": 140, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

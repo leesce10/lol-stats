@@ -23,7 +23,7 @@
       "cooldownEarly": 28, "cooldownMaxRank": 20 },
     { "key": "R", "name": "성녀 여명", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
       "hitEnables": ["global_line", "shield_allies"],
-      "counterMethod": "글로벌 직선 뎀 + 아군 방패. 조준 예측 회피.",
+      "counterMethod": "**글로벌 직선 레이저** — 맵 어디든 저격 + 적중 시 세나 아군에게 방패. 예방: (1) 저체력 상태 직선 경로 피하기, (2) 차징 1초 중 세나 이동 불가 → 사거리 내면 역공, (3) 아군 방패 효과 있어 수비적 활용도 많음 — 한타 후반 체크. 대응: 글로벌이라 회피 어려움. 체력 관리 + 측면 회피.",
       "cooldownEarly": 160, "cooldownMaxRank": 120 }
   ],
   "punishTriggers": [

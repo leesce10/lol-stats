@@ -24,7 +24,7 @@
       "range": 825, "cooldownEarly": 26, "cooldownMaxRank": 18 },
     { "key": "R", "name": "월광 참격", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "high",
       "hitEnables": ["pull_enemies", "aoe_burst"],
-      "counterMethod": "광역 원형 뎀 + 범위 내 적 끌기. 3명 이상 뭉치면 치명적. 분산 포지션.",
+      "counterMethod": "450 원형 범위 뎀 + 범위 내 적 **중앙으로 끌기**. 예방: (1) **3인 이상 뭉치지 말 것** (1명 맞으면 R 쿨 반감), (2) 다이애나 E(대시) 거리 밖 유지 — E 없이는 R 사거리 진입 불가, (3) Q 맞은 상대는 달빛 디버프로 E 타겟 → Q 회피가 사실상 R 예방. 대응: R 중앙으로 끌린 뒤 연속 Q+W+AA 풀콤 — 존야/수은 즉시 발동.",
       "range": 450, "cooldownEarly": 100, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

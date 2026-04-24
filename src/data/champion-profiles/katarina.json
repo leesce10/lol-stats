@@ -22,7 +22,7 @@
       "range": 700, "cooldownEarly": 10, "cooldownMaxRank": 10 },
     { "key": "R", "name": "죽음의 연꽃", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "high",
       "hitEnables": ["channel_aoe_dps"],
-      "counterMethod": "채널링. CC로 끊거나 범위 밖 이탈.",
+      "counterMethod": "550 주변 **채널링 AoE 폭딜** (2.5초). 예방: (1) E 단검 순간이동 각 차단 → 단검 낙하 지점 밟고 있으면 R 당할 위험, (2) 카타리나가 리셋(킬/어시) 했을 때 R 연쇄 사용 가능 → 저체력 아군 근처 경계. 대응: **CC(기절/에어본/침묵) 걸면 즉시 중단** — 수은으로는 해제 안 됨(채널링 자체를 끊어야 함). 범위 550 밖 이탈도 가능. 한타 승리 열쇠는 카타 R 중단 CC.",
       "range": 550, "cooldownEarly": 90, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

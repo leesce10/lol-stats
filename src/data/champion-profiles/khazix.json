@@ -22,7 +22,8 @@
       "counterMethod": "긴 대시. E 쿨 중이면 이동기 제로. E 사용 타이밍 주시.",
       "range": 700, "cooldownEarly": 22, "cooldownMaxRank": 14 },
     { "key": "R", "name": "공허 강림", "type": "self_buff", "roles": ["defense"], "missPenalty": "none",
-      "hitEnables": ["invisibility_1.25s", "ms"], "counterMethod": "은신 + 이속. 제어와드/핑크 와드로 시야 확보.",
+      "hitEnables": ["invisibility_1.25s", "ms"],
+      "counterMethod": "**1.25초 은신 + 이속 부스트** (R 진화 시 3회 사용). 예방: (1) **제어 와드 필수** — 특히 한타 전 주요 포지션에 배치, (2) 카직스 R 타이밍은 주로 아군 이니시 직후 → 한타 시작 시 후방 시야 유지, (3) 고립된 라이너 + 카직스 근처 = R 기습 각. 대응: 은신 풀린 순간 CC or 은신 중 주변에 핑크 와드 설치. 풀코어 카직스는 R 3회로 한타 한 번에 2~3킬 가능하므로 **고립 방지**가 최우선.",
       "cooldownEarly": 100, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

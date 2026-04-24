@@ -53,7 +53,7 @@
       "roles": ["cc"],
       "missPenalty": "high",
       "hitEnables": ["stun_chain", "slow_aoe"],
-      "counterMethod": "원형 스킬샷. 느린 캐스팅. 미리 외곽 회피 or 점멸.",
+      "counterMethod": "1200 거리 **지연 발동 원형 기절 + 주변 적 슬로우**. 예방: (1) 0.8초 지연 — 보라 원 표시되면 즉시 외곽 이탈, (2) 레오나 E(대시) 맞았으면 R 연계 각 → 즉시 점멸 준비, (3) 한타 뭉치지 말 것 (중앙 기절 + 주변 슬로우로 전멸). 대응: 기절 1.5초 → 수은/QSS로 해제. 점멸로 외곽 이탈.",
       "range": 1200,
       "cooldownEarly": 90,
       "cooldownMaxRank": 60

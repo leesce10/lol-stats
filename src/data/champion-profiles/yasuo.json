@@ -64,7 +64,7 @@
       "roles": ["engage", "primary_damage"],
       "missPenalty": "none",
       "hitEnables": ["gap_close", "armor_pen", "untargetable"],
-      "counterMethod": "공중에 뜬 대상에게 발동. 아군 넉업 스킬 사용 시점 주의. CC로 고정 필요.",
+      "counterMethod": "**공중에 뜬 적만 대상** (1400 거리 타겟팅) — 넉업 없으면 R 불가. 예방: (1) **넉업 챔프(알리스타·말파·자르반) 있는 팀 상대 시 넉업 타이밍 회피가 핵심**, (2) Q3 토네이도가 야스오의 자체 넉업 → Q 스택 2 상태 시 거리 유지, (3) 아군 넉업과 겹치지 않게 포지션. 대응: R 걸리면 수은/QSS/점멸로 이탈 — 야스오 R 중 2초 무적 프레임 있어서 반격 타이밍 놓치지 말 것.",
       "range": 1400,
       "cooldownEarly": 90,
       "cooldownMaxRank": 70

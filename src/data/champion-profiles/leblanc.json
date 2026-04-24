@@ -24,7 +24,7 @@
       "range": 955, "cooldownEarly": 14, "cooldownMaxRank": 10 },
     { "key": "R", "name": "흉내 내기", "type": "self_buff", "roles": ["primary_damage", "utility"], "missPenalty": "none",
       "hitEnables": ["copy_last_skill"],
-      "counterMethod": "마지막 스킬 복사. R 사용 시점 예측.",
+      "counterMethod": "**마지막 사용 스킬 복사** (Q/W/E 중 하나). 예방: (1) 르블랑이 Q 맞췄으면 R로 Q 재사용 예상 → Q 풀콤 뎀(약 70% 체력) 대비 존야 슬롯 확인, (2) E 속박 맞았으면 R-E 연속 속박 → 점멸 미리 준비, (3) W로 진입 후 R-W로 이탈 — 추격 불가. 대응: 어느 스킬이든 풀콤 대응은 **맞은 즉시 수은/점멸/존야**. R 쿨 40초로 매우 짧음 — 한 번 피했다고 안심 금물.",
       "cooldownEarly": 40, "cooldownMaxRank": 40 }
   ],
   "punishTriggers": [

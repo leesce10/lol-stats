@@ -23,7 +23,7 @@
       "range": 700, "cooldownEarly": 16, "cooldownMaxRank": 10 },
     { "key": "R", "name": "암흑 난무", "type": "point_click", "roles": ["execute", "primary_damage"], "missPenalty": "none",
       "hitEnables": ["multi_orb_burst"],
-      "counterMethod": "타겟 지정 다중 구체 투척. 킬 가능 체력에서 뒤빠지기.",
+      "counterMethod": "**타겟팅 다중 구체 처형 궁** (675 거리). 회피 불가. 예방: (1) 675 사거리 밖 유지 — 주변 구체 많을수록 뎀 누적, (2) 신드라 주변에 떠있는 구체 수 체크 (많을수록 R 즉사 가능), (3) 체력 관리 — 3~4구체 모이면 풀체력 반토막 날아감. 대응: 체력 낮으면 즉시 존야/QSS 슬롯 확인. R 쿨 90초 = 쿨 중이 진입 타이밍.",
       "range": 675, "cooldownEarly": 120, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

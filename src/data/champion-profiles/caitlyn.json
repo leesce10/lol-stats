@@ -64,7 +64,7 @@
       "roles": ["execute", "primary_damage"],
       "missPenalty": "low",
       "hitEnables": ["long_range_finish"],
-      "counterMethod": "차징 중 아군이 앞에 서면 차단 가능. 낮은 체력 적 장거리 처형.",
+      "counterMethod": "**타겟팅 장거리 처형** (2000+ 거리, 1.25초 차징). 예방: (1) 체력 처형 임계치 이상 유지, (2) **차징 중 아군/동물이 앞에 서면 대신 맞음** — 탱커 앞세우기, (3) 차징 동안 케이틀린 이동 불가 → 사거리 들어가면 역공 타이밍. 대응: 차징 표시 보면 즉시 벽 뒤/아군 뒤 or 점멸. 저체력 상태로 R 사거리 내 이동 절대 금지.",
       "cooldownEarly": 90,
       "cooldownMaxRank": 60
     }

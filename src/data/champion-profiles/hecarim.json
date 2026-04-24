@@ -21,7 +21,8 @@
       "hitEnables": ["ms", "knockback_on_hit"], "counterMethod": "이속 급증 + 첫 적 넉백. 점멸로 회피.",
       "cooldownEarly": 24, "cooldownMaxRank": 16 },
     { "key": "R", "name": "공포의 돌격", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
-      "hitEnables": ["fear_aoe", "range"], "counterMethod": "유령 돌격 + 공포. 점멸 or 밴시로 해제.",
+      "hitEnables": ["fear_aoe", "range"],
+      "counterMethod": "1000 거리 **유령 돌격 + 주변 적 공포** (시야 미확보 돌격 가능). 예방: (1) 적 정글/강 입구 제어 와드 필수 (시야 확보 시 착지 지점 예측), (2) 헤카림 없으면 R 언제든 나온다고 가정하고 분산, (3) R 쿨 100초 — 쿨 중 오브젝트 타이밍. 대응: 공포 걸리면 2초 동안 조작 불가 → 점멸 or 밴시/수은으로 즉시 해제. R 착지 시 말파처럼 광역이므로 아군 뭉치지 말 것.",
       "range": 1000, "cooldownEarly": 140, "cooldownMaxRank": 100 }
   ],
   "punishTriggers": [

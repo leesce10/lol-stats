@@ -23,7 +23,7 @@
       "range": 800, "cooldownEarly": 16, "cooldownMaxRank": 8 },
     { "key": "R", "name": "쌍권총 난사", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "high",
       "hitEnables": ["channel_aoe_dps"],
-      "counterMethod": "채널링. CC로 끊거나 범위 밖 이탈.",
+      "counterMethod": "**1400 원뿔 채널링 AoE** (2초). 예방: (1) **채널링 중 MF 이동 불가** → 즉시 측면으로 빠져 원뿔 밖 이탈, (2) 아군 CC 있으면 MF에 적극 사용 (수은 불가, 채널링 자체를 끊어야 함), (3) 미니언/벽/부쉬를 원뿔 차단용으로 활용. 대응: **CC로 R 중단하면 한타 뒤집힘** — MF 보이자마자 CC 스킬 아껴두기. 한타 뭉치면 R 뎀 치명적 → 분산 포지션.",
       "range": 1400, "cooldownEarly": 120, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

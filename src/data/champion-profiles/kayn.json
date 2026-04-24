@@ -22,7 +22,7 @@
       "cooldownEarly": 14, "cooldownMaxRank": 9 },
     { "key": "R", "name": "암살자의 길", "type": "point_click", "roles": ["engage", "primary_damage"], "missPenalty": "none",
       "hitEnables": ["untargetable", "execute_damage"],
-      "counterMethod": "대상 안으로 들어가 무적 + 출현. R 타겟 되면 즉시 점멸 or 부활.",
+      "counterMethod": "**타겟팅 — 대상 안으로 들어가 2초 무적 후 출현하며 풀딜**. 회피 불가. 예방: (1) 400 거리 밖 유지, (2) 케인 E(벽 통과) 쓴 직후 R 각 노림 → 벽 근처 포지션 피하기, (3) R 타겟되는 순간 주변 아군 시야 확보(2초 안에 대응 준비). 대응: R 대상 찍히면 즉시 **아군 방향으로 이동** + 타겟 지속시간 동안 수호천사/존야 대기. 출현 시점에 CC 걸면 풀콤 무력화.",
       "range": 400, "cooldownEarly": 140, "cooldownMaxRank": 120 }
   ],
   "punishTriggers": [

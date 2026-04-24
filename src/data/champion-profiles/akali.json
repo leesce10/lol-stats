@@ -24,7 +24,7 @@
       "range": 800, "cooldownEarly": 21, "cooldownMaxRank": 5 },
     { "key": "R", "name": "표창 쇄도", "type": "dash", "roles": ["primary_damage", "mobility", "execute"], "missPenalty": "low",
       "hitEnables": ["2_dashes", "execute"],
-      "counterMethod": "2회 대시. R2는 처형 뎀. 저체력 시 대시 거리 밖 이탈.",
+      "counterMethod": "2회 돌진 (R1 진입, R2 처형). 예방: (1) R1 돌진 시 CC로 고정하면 R2 처형 봉쇄, (2) 체력 처형 임계치(30% 미만) 이상 유지 — R2는 저체력 대상 확정 처형 수준 뎀, (3) 아칼리 W(연막) 안 들어가면 R 진입 각 어려움 → 와드 유지. 대응: R1 맞으면 즉시 수은/점멸로 이탈 + 아군 근처 이동. R2 쿨(3초) 안에 지속 CC 걸면 처형 못 함.",
       "range": 650, "cooldownEarly": 120, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

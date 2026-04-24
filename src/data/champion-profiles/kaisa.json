@@ -23,7 +23,7 @@
       "cooldownEarly": 16, "cooldownMaxRank": 12 },
     { "key": "R", "name": "살상 본능", "type": "dash", "roles": ["engage"], "missPenalty": "none",
       "hitEnables": ["dash_to_plasma", "shield"],
-      "counterMethod": "플라즈마 스택 있는 적 근처로 도약. 플라즈마 찍힌 대상 주의.",
+      "counterMethod": "**플라즈마 스택 찍힌 적 근처로 장거리 도약 + 방패** (W로 먼저 스택 쌓아야 가능). 예방: (1) 카이사 W(플라즈마) 맞으면 R 표적 → 즉시 아군 가까이 이동 (카이사가 혼자 진입해오도록), (2) 플라즈마 스택 있는 아군 근처에 서면 카이사 R이 우리한테 올 수 있음 — 스택 있는 아군과 거리 두기, (3) R 쿨 80초. 대응: R 착지 시 방패 보호 있으므로 즉시 풀콤 금지 — 방패 깨고 공격.",
       "cooldownEarly": 130, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

@@ -22,7 +22,8 @@
       "hitEnables": ["gap_close"], "counterMethod": "짧은 대시 2스택. E 빠지면 추격기 제로.",
       "range": 450, "cooldownEarly": 9, "cooldownMaxRank": 5 },
     { "key": "R", "name": "세계 종결자", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
-      "hitEnables": ["heal_revive", "ad_boost"], "counterMethod": "킬 당 지속시간 연장. R 중 점멸만큼 붙여서 빠르게 처치.",
+      "hitEnables": ["heal_revive", "ad_boost"],
+      "counterMethod": "자가 강화 궁 — **킬/어시 시 부활**. 예방: (1) 아트록스 R 켠 상태 체력 낮아도 **킬 주지 않기** (부활 + 쿨 리셋), (2) R 발동 시 주변 원 표시 → 표시 밖에서 카이팅, (3) R 지속 10초 버티면 75초 쿨로 약해짐. 대응: R 중엔 뎀+저항 급증이라 정면 교전 금지 — 주변 아군/미니언 빼서 킬 피니시 포기. Q 빗나갈 때가 유일한 반격 창 (14초 쿨 주시).",
       "cooldownEarly": 120, "cooldownMaxRank": 75 }
   ],
   "punishTriggers": [

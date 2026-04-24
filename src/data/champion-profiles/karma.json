@@ -22,8 +22,9 @@
       "hitEnables": ["shield", "ms"],
       "counterMethod": "방패 + 이속. R 강화 시 AoE. E 타이밍 주시.",
       "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "R", "name": "선승", "type": "self_buff", "roles": ["utility"], "missPenalty": "none",
-      "hitEnables": ["empower_next_qwe"], "counterMethod": "다음 스킬 강화. Q 폭발/W 글로벌 슬로우/E AoE 방패.",
+    { "key": "R", "name": "선승", "type": "self_buff", "roles": ["utility"],
+      "missPenalty": "none", "hitEnables": ["empower_next_qwe"],
+      "counterMethod": "**다음 Q/W/E 하나를 강화** (쿨 42초로 짧음). 예방: (1) R-Q = Q 폭발 광역 뎀, R-W = 글로벌 슬로우, R-E = 광역 아군 보호막/이속. 카르마가 어떤 스킬 셋업 중인지 주시, (2) R 쿨 짧아서 거의 항상 가능, (3) R-W 먼저 맞으면 슬로우 걸려 후속 스킬 회피 불가. 대응: R-Q 광역 뎀 맞으면 즉시 이탈, R-E는 아군 생존력 급증이라 무리한 추격 금지.",
       "cooldownEarly": 58, "cooldownMaxRank": 42 }
   ],
   "punishTriggers": [

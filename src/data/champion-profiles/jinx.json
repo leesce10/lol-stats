@@ -63,7 +63,7 @@
       "roles": ["execute", "primary_damage"],
       "missPenalty": "medium",
       "hitEnables": ["global_finish", "heal_jinx"],
-      "counterMethod": "글로벌 처형 스킬. 체력 부족 상태에서 R 사거리 밖으로 빠지기.",
+      "counterMethod": "**글로벌 직선 로켓** — 이동 거리 길수록 뎀 증가, 적중 시 징크스 힐. 예방: (1) 저체력 상태 직선 경로 피하기, (2) 미니언/아군을 직선 경로에 두면 차단 가능 (가장 가까운 대상이 맞음), (3) 징크스가 리셋(킬/어시) 받으면 이속 급증 + R 콤보 위험. 대응: 사거리 한계 없지만 미니언 차단 활용. R 쿨 75초.",
       "cooldownEarly": 90,
       "cooldownMaxRank": 75
     }

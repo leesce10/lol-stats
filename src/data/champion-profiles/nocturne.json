@@ -23,7 +23,7 @@
       "range": 425, "cooldownEarly": 15, "cooldownMaxRank": 11 },
     { "key": "R", "name": "공포에 몰아넣기", "type": "dash", "roles": ["engage", "utility"], "missPenalty": "medium",
       "hitEnables": ["global_dash", "blind_allies"],
-      "counterMethod": "글로벌 도약. 아군 시야 차단. 뒤쪽 아군 시야 확인 불가. 피난처 이동.",
+      "counterMethod": "**글로벌 R** — 녹턴이 아군 시야 차단 후 2500 거리까지 도약. 예방: (1) 녹턴 시야 놓치지 말 것 — 시야 잃으면 R 준비 중이라 가정, (2) 1인 고립 상태 피하기 (R은 단일 타겟), (3) 녹턴 레벨 6/11/16 시점 쿨 주시. 대응: R 발동 순간 **어둠 화면** 표시 → 즉시 안전 지역으로 점멸/부쉬 이동. 착지 후 녹턴은 이동기 소진 → Q/W 없으면 카이팅 가능.",
       "cooldownEarly": 150, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

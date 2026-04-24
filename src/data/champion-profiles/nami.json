@@ -23,7 +23,7 @@
       "cooldownEarly": 14, "cooldownMaxRank": 10 },
     { "key": "R", "name": "해일", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
       "hitEnables": ["knockup", "slow_aoe"],
-      "counterMethod": "장거리 직선 넉업. 점멸로 회피 or 벽 뒤 숨기.",
+      "counterMethod": "2750 거리 **광역 직선 파도 — 적 전부 넉업 + 긴 슬로우**. 예방: (1) 장거리지만 투사체 속도 느려 측면 회피 가능, (2) 한타 뭉치면 다중 넉업 위험 — 분산 포지션, (3) 나미 Q 맞으면 R 연계 각 → Q 회피가 R 예방. 대응: 넉업 1초 후 슬로우 지속 → 수은/점멸로 즉시 이탈. 한타 시작 이니시 궁으로 자주 사용되므로 포지션 체크.",
       "range": 2750, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

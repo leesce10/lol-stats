@@ -22,7 +22,7 @@
       "range": 550, "cooldownEarly": 18, "cooldownMaxRank": 14 },
     { "key": "R", "name": "결전", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
       "hitEnables": ["stealth_in_q", "ad_boost"],
-      "counterMethod": "R 중 Q 구르기마다 은신. 제어와드/Q 없는 순간 공격.",
+      "counterMethod": "**자가 버프 — R 지속 10초 동안 Q 구르기마다 1초 은신 + AD 증가**. 예방: (1) **제어 와드 필수** — 베인 은신 간파 핵심, (2) R 쿨 60초 — 쿨 중 올인 강제, (3) R 지속 10초 버티면 쿨 60초 동안 평범한 베인. 대응: Q 은신 1초 뒤 탐지되는 순간에 CC/버스트. 한타 시 베인 풀코어라도 R 없으면 카이팅 가능.",
       "cooldownEarly": 100, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

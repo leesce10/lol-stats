@@ -22,7 +22,7 @@
       "range": 800, "cooldownEarly": 18, "cooldownMaxRank": 10 },
     { "key": "R", "name": "그림자 숨결", "type": "skillshot", "roles": ["execute", "primary_damage"], "missPenalty": "high",
       "hitEnables": ["long_range_dash", "stun_if_reset"],
-      "counterMethod": "첫 투사체 적중 시 돌진 + 기절. 범위 밖 이탈.",
+      "counterMethod": "**2단계 R** — 첫 투사체(스킬샷) 적중 → 벡스 텔레포트하며 2단계 처형. 예방: (1) 미니언 뒤 서서 첫 투사체 차단, (2) 대시 많이 쓴 직후 E(공포) 맞았으면 R 셋업 각 → 거리 유지, (3) 체력 처형 임계치 이상 유지. 대응: 첫 타 맞으면 2단계 처형이 짧은 지연 있음 → 즉시 점멸/부쉬 이탈. R 쿨 80초.",
       "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

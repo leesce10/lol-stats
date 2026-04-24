@@ -23,7 +23,7 @@
       "range": 425, "cooldownEarly": 16, "cooldownMaxRank": 8 },
     { "key": "R", "name": "콜래터럴 데미지", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
       "hitEnables": ["long_range_burst", "cone_damage"],
-      "counterMethod": "장거리 + 원뿔. 직선 스킬샷 측면 회피. 미니언 앞 숨기.",
+      "counterMethod": "1000 직선 포탄 + **적중 후 원뿔로 퍼짐**. 예방: (1) 직선 측면 회피 가능, (2) 첫 적중 대상 뒤에 원뿔 확산 → **아군 뒤에 서면 광역 피해**, 원딜/물몸은 옆으로 분산, (3) 그레이브즈 E 스택 2 + R 조합 = 풀콤 셋업. 대응: R 맞으면 풀콤 위험이라 즉시 존야 or Q 사거리 밖 이탈. R 쿨 90초 쿨 중이 주요 교전 타이밍.",
       "range": 1000, "cooldownEarly": 120, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

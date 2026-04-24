@@ -24,7 +24,7 @@
       "cooldownEarly": 9, "cooldownMaxRank": 5 },
     { "key": "R", "name": "정전기장", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "medium",
       "hitEnables": ["silence", "damage_aoe"],
-      "counterMethod": "주변 침묵 + 뎀. 근접 범위. 거리 유지.",
+      "counterMethod": "600 주변 **1초 침묵 + 뎀** (2회 발동 가능). 예방: (1) Q 후크 맞으면 R-E-R 콤보로 침묵 + 기절 풀콤 → Q 회피가 R 예방, (2) 블리츠 주변 600 거리 밖 유지, (3) R 쿨 30초 매우 짧음. 대응: 침묵 걸리면 1초간 스킬 사용 불가 → 수은 장식띠 우선. 한타 시작 전 블리츠 R 먼저 빼게 유도.",
       "range": 600, "cooldownEarly": 60, "cooldownMaxRank": 30 }
   ],
   "punishTriggers": [

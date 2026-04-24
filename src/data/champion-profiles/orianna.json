@@ -23,7 +23,7 @@
       "cooldownEarly": 9, "cooldownMaxRank": 9 },
     { "key": "R", "name": "지시: 충격파", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "high",
       "hitEnables": ["knockup_aoe", "pull_to_ball"],
-      "counterMethod": "공 주변 범위 내 적 당김 + 넉업. R 타이밍 예측 + 거리 유지.",
+      "counterMethod": "**공 주변 400 범위 적 당김 + 넉업**. 예방: (1) **공 위치가 곧 R 위치** — 공이 적/미니언/아군에게 있으면 그 주변 진입 금지, (2) 오리아나 Q/W로 공 던지면 즉시 멀리, (3) 아군 뭉칠 때 오리아나 공이 우리 팀에 있으면 즉시 분산. 대응: R 발동 순간 넉업 1초 → 즉시 수은/QSS/점멸. 한타에서 오리 R 맞고 2명 이상 갇히면 한타 패배 — 포지션이 전부.",
       "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

@@ -52,7 +52,7 @@
       "roles": ["mobility", "secondary_damage"],
       "missPenalty": "low",
       "hitEnables": ["triple_dash", "gap_close_or_escape"],
-      "counterMethod": "3회 대시. R 사용 시 추격 중 CC 필수. R 없는 10초가 올인 타이밍.",
+      "counterMethod": "3회 연속 대시 (각 450). 예방: (1) 아리 R 쿨타임(100초) 트래킹 — R 없는 구간이 올인 타이밍, (2) E(매혹) 맞지 않으면 아리는 진입 리스크 큼 → 미니언 뒤 유지, (3) 첫 대시 직후 CC 걸면 남은 2회 대시 무력화. 대응: R 첫 대시로 진입 시 점멸/수은으로 이탈 or CC로 2·3번째 대시 봉쇄. R 풀콤 후 10초간 이동기 제로 = 올인 리셋.",
       "range": 450,
       "cooldownEarly": 130,
       "cooldownMaxRank": 100

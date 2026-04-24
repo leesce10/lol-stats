@@ -22,7 +22,8 @@
       "counterMethod": "벽 대상 후크샷. 벽 없으면 짧은 대시. E2는 직선 스킬샷, 측면 회피.",
       "range": 800, "cooldownEarly": 18, "cooldownMaxRank": 10 },
     { "key": "R", "name": "반격의 고리", "type": "point_click", "roles": ["cc", "engage"], "missPenalty": "none",
-      "hitEnables": ["zone_trap", "slow"], "counterMethod": "고리 안 가둠. QSS로 해제 가능. 고리 끝단이 짧으면 점멸로 벗어나기.",
+      "hitEnables": ["zone_trap", "slow"],
+      "counterMethod": "**타겟팅 가둠 존** (475 거리) — 회피 불가. 3.5초 동안 고리 밖으로 못 나감. 예방: (1) 475 밖 유지, (2) 카밀이 E(후크) 썼으면 R 각 들어온 상태 → 바로 후퇴, (3) R 쿨 80초 — 쿨 중 안전한 진입 타이밍. 대응: 즉시 QSS/수은으로 해제 (고리 자체는 안 풀리지만 슬로우/침묵은 풀림). 주변 아군이 고리 안 카밀 공격 → 1:1 구도로 끌려가지 말기.",
       "range": 475, "cooldownEarly": 100, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

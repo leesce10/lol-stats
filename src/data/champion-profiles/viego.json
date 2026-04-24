@@ -23,7 +23,7 @@
       "range": 400, "cooldownEarly": 14, "cooldownMaxRank": 10 },
     { "key": "R", "name": "심판의 왕", "type": "aoe", "roles": ["execute"], "missPenalty": "high",
       "hitEnables": ["execute_low_hp", "possess_body"],
-      "counterMethod": "저체력 적 처형 + 탈취. R 범위 밖으로 이탈 필수.",
+      "counterMethod": "500 원형 범위 **처형 + 시체 탈취** (체력 낮은 적 즉사 후 비에고가 빙의). 예방: (1) 체력 임계치(25%) 이하에서 500 사거리 밖 유지, (2) 비에고 빙의 중이면 R 쿨 회복 중 — 한타 시작 전 **아군 중 낮은 체력 인원이 비에고 근처 금지**, (3) 비에고 R 여러 적 있으면 가장 약한 대상 처형 → 물몸 분산. 대응: 저체력 아군은 즉시 포지션 뒤로 빠지기. 빙의된 비에고는 원본 체력 리셋이므로 R 사용 직후가 가장 위험한 5초.",
       "range": 500, "cooldownEarly": 140, "cooldownMaxRank": 100 }
   ],
   "punishTriggers": [

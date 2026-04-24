@@ -24,7 +24,7 @@
       "range": 925, "cooldownEarly": 20, "cooldownMaxRank": 12 },
     { "key": "R", "name": "소원", "type": "self_buff", "roles": ["sustain"], "missPenalty": "none",
       "hitEnables": ["global_heal_allies"],
-      "counterMethod": "글로벌 아군 힐. 대응 불가. 한타 전 R 소진 유도.",
+      "counterMethod": "**글로벌 전 아군 힐** — 직접 차단 불가. 예방: (1) **소라카에 치명적 치유 감소 적용** (모렐로/독사/처형 등) → 힐량 40% 감소, (2) 한타 전 아군 체력 쥐어짜서 R 강제 사용 유도, (3) R 쿨 90초 — 쿨 중 한타 강제. 대응: 힐 맞은 아군 재공격보다 **소라카 본체(물몸) 암살** 우선. 소라카 잘리면 아군 체젠 0.",
       "cooldownEarly": 150, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

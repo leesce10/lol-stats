@@ -21,7 +21,7 @@
       "range": 475, "cooldownEarly": 16, "cooldownMaxRank": 10 },
     { "key": "R", "name": "GNAR!", "type": "aoe", "roles": ["cc", "engage"], "missPenalty": "high",
       "hitEnables": ["knockback", "stun_if_wall"],
-      "counterMethod": "메가 나르 전용. 넉백 후 벽에 부딪히면 기절. 벽 피해 이동.",
+      "counterMethod": "**메가 나르 전용** 광역 넉백 + 벽 충돌 시 기절. 예방: (1) 나르 분노 95% 이상 + 메가 폼 상태 = R 준비 완료 → 벽 근처 포지션 금지, (2) 개활지/중앙에서 교전 유도, (3) 미니 나르 폼에선 R 불가 → 분노 관리 주시. 대응: 넉백 궤적에 벽 있으면 점멸 or QSS 준비. 한타 R 맞으면 **아군 2~3인 벽 기절 시 전멸**이므로 초기 포지션이 전부.",
       "range": 600, "cooldownEarly": 100, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

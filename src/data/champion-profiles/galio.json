@@ -23,7 +23,7 @@
       "range": 650, "cooldownEarly": 13, "cooldownMaxRank": 9 },
     { "key": "R", "name": "영웅의 부름", "type": "aoe", "roles": ["engage", "cc"], "missPenalty": "high",
       "hitEnables": ["knockup_aoe", "ms_boost_ally"],
-      "counterMethod": "글로벌 도약 + 넉업. 착지 지점 미리 이동. 점멸 아끼기.",
+      "counterMethod": "**글로벌 R** (맵 반대편도 이동 가능) — 지정 아군에게 도약 + 착지 시 주변 적 광역 넉업. 예방: (1) 갈리오 시야 유실 시 R 준비 가정, (2) 미드 웨이브 밀려있고 갈리오 포지션 미확인 = 바텀/탑 갱 위험, (3) 갈리오 이니시 아군(블리츠·레오나) 근처 서면 표적. 대응: R 채널링 1.75초 있음 — 보라 원 표시되면 즉시 범위 이탈. 점멸 아끼지 말고 즉시 사용.",
       "cooldownEarly": 200, "cooldownMaxRank": 160 }
   ],
   "punishTriggers": [
