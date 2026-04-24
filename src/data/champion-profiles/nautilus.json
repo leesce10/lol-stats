@@ -1,0 +1,65 @@
+{
+  "id": "Nautilus",
+  "name": "노틸러스",
+  "nameEn": "Nautilus",
+  "position": "support",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "D", "earlyDuel": "A", "midDuel": "B", "lateDuel": "B", "gankPower": "A",
+    "scaling": "mid", "mobility": "medium", "burst": "low", "sustain": "low", "ccTypes": ["hook", "slow", "knockup", "stun"]
+  },
+  "powerSpikes": [2, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "닻", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
+      "hitEnables": ["hook_pull", "slow"],
+      "counterMethod": "장거리 직선 후크. 벽/미니언에 맞으면 취소. 미니언 뒤 숨기.",
+      "range": 925, "cooldownEarly": 14, "cooldownMaxRank": 10 },
+    { "key": "W", "name": "피더 타이탄", "type": "self_buff", "roles": ["defense", "primary_damage"], "missPenalty": "none",
+      "hitEnables": ["shield", "aa_empower"],
+      "counterMethod": "방패 + 강화 AA. 근접 교전 주의.",
+      "cooldownEarly": 11, "cooldownMaxRank": 7 },
+    { "key": "E", "name": "차가운 대기", "type": "aoe", "roles": ["primary_damage", "cc"], "missPenalty": "medium",
+      "hitEnables": ["aoe_slow", "damage"], "counterMethod": "주변 AoE 뎀 + 슬로우. 범위 밖 이탈.",
+      "range": 500, "cooldownEarly": 10, "cooldownMaxRank": 6 },
+    { "key": "R", "name": "심해로 향하는 길", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["knockup_chain", "slow_aoe"],
+      "counterMethod": "타겟 지정 + 경로 적 넉업. 점멸로 경로 회피.",
+      "range": 825, "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 10, "severity": "critical",
+      "explanation": "Q 빠지면 이니시 수단 제로. 10초간 올인 대응 가능." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
+      "explanation": "R 빠진 노틸 이니시 반감. 대응 가능." }
+  ],
+  "phases": {
+    "early": { "goal": "2렙 Q 솔킬 시도. 공격적 라인전.",
+      "danger": "Q 빗나가면 체력 손해. 느린 이속.",
+      "opportunity": "부시 Q + E + 풀콤 2렙 솔킬.",
+      "pathing": "부시 시야. Q 각 잡기.",
+      "objective": "3분 이전 부시 체크. 5분경 강 와드.",
+      "gank": "Q 후크 + R 넉업 체인 확정 킬." },
+    "mid": { "goal": "시야 장악 + 한타 이니시.",
+      "danger": "후반 스케일링 약함. 탱 빌드 유지.",
+      "opportunity": "R 글로벌 이니시 + Q 연계.",
+      "pathing": "드래곤 주변 와드. 한타 합류.",
+      "objective": "드래곤 한타 R 적극.",
+      "gank": "미드 로밍 가능. R 활용." },
+    "late": { "goal": "한타 R로 후방 적 캐리 CC + 아군 보호.",
+      "danger": "진입 후 CC 체인 맞으면 사망.",
+      "opportunity": "풀 CC 체인으로 한타 기여.",
+      "pathing": "한타 전방 이니시.",
+      "objective": "바론 싸움 R로 캐리 원콜.",
+      "gank": "팀과 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "여진 or 포식자",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 밴시 장막", "reason": "버스트 차단." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호의 역류", "reason": "CC 감소." },
+    { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
+    { "condition": "enemy_poke_heavy", "recommendation": "도란의 반지 → 지크", "reason": "포크 버티기." }
+  ],
+  "vulnerabilities": ["q_missed", "slow_mobility", "low_damage", "vision_dependent", "kited_by_range"],
+  "keyStrengths": ["long_hook_q", "multi_cc_chain", "r_global_cc", "engage_initiator", "aoe_slow_e"]
+}

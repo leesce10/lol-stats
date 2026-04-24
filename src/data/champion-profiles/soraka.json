@@ -1,0 +1,66 @@
+{
+  "id": "Soraka",
+  "name": "소라카",
+  "nameEn": "Soraka",
+  "position": "support",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "D", "earlyDuel": "B", "midDuel": "B", "lateDuel": "B", "gankPower": "C",
+    "scaling": "mid", "mobility": "low", "burst": "medium", "sustain": "high", "ccTypes": ["silence", "root"]
+  },
+  "powerSpikes": [6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "시작의 소생", "type": "skillshot", "roles": ["primary_damage", "sustain"], "missPenalty": "high",
+      "hitEnables": ["heal_self_aoe", "damage"],
+      "counterMethod": "지연 지점 AoE 뎀 + 본인 힐. 범위 밖 이탈.",
+      "range": 925, "cooldownEarly": 7, "cooldownMaxRank": 5 },
+    { "key": "W", "name": "별의 축복", "type": "point_click", "roles": ["defense", "sustain"], "missPenalty": "none",
+      "hitEnables": ["heal_ally"],
+      "counterMethod": "아군 타겟 힐. 본인 체력 소모. 소라카 저체력 때 W 제약.",
+      "cooldownEarly": 4, "cooldownMaxRank": 2 },
+    { "key": "E", "name": "신성한 일격", "type": "aoe", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["silence", "root_if_cast"],
+      "counterMethod": "원형 범위. 범위 내에서 스킬 사용 시 속박. 침묵 1초.",
+      "range": 925, "cooldownEarly": 20, "cooldownMaxRank": 12 },
+    { "key": "R", "name": "소원", "type": "self_buff", "roles": ["sustain"], "missPenalty": "none",
+      "hitEnables": ["global_heal_allies"],
+      "counterMethod": "글로벌 아군 힐. 대응 불가. 한타 전 R 소진 유도.",
+      "cooldownEarly": 150, "cooldownMaxRank": 90 }
+  ],
+  "punishTriggers": [
+    { "condition": "low_hp_soraka", "windowSec": 5, "severity": "critical",
+      "explanation": "소라카 저체력 시 W 불가 (체력 소모). 한타 기여도 제로." },
+    { "condition": "E_missed", "skillKey": "E", "windowSec": 12, "severity": "high",
+      "explanation": "E 침묵 빠지면 CC 수단 없음." }
+  ],
+  "phases": {
+    "early": { "goal": "Q로 견제 + 본인 힐. W로 ADC 체력 유지.",
+      "danger": "이동기 없음. 이니시 서폿 hook에 죽음.",
+      "opportunity": "지속 힐로 라인전 지배.",
+      "pathing": "라인 뒤쪽. ADC 옆 고정.",
+      "objective": "라인 유지 우선. 소울 안 터짐 중요.",
+      "gank": "E 침묵 + Q + 아군 연계." },
+    "mid": { "goal": "아르덴트 선구자 완성. 아군 힐 극대화.",
+      "danger": "이동기 없어 즉사 위험.",
+      "opportunity": "R 글로벌로 한타 뒤집기.",
+      "pathing": "드래곤 근처. 시야 유지.",
+      "objective": "드래곤 한타 R 아껴두기.",
+      "gank": "미드 로밍 자제. ADC 옆 고정." },
+    "late": { "goal": "한타 W 스팸 + R 글로벌 힐.",
+      "danger": "진입 당하면 즉사. 포지션 실수 치명적.",
+      "opportunity": "풀빌드 소라카 무한 체젠. 한타 기여 최상.",
+      "pathing": "한타 후방 아군 보호.",
+      "objective": "바론 싸움 R 아껴두기.",
+      "gank": "혼자 움직이지 말 것." }
+  },
+  "defaultSpells": "점멸 + 정화",
+  "defaultRunes": "소환: 아이리",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호자 룬 + 수호천사", "reason": "즉사 방지." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
+    { "condition": "enemy_sustain_high", "recommendation": "지크의 융합 (힐 무력화 X)", "reason": "아군 AA 강화." },
+    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 에테르 환상", "reason": "포크 버티기 + 보호막." }
+  ],
+  "vulnerabilities": ["no_mobility", "engage_vulnerable", "low_hp_sacrifice", "squishy", "hook_weak"],
+  "keyStrengths": ["global_heal_r", "infinite_sustain", "silence_e", "poke_q", "team_utility"]
+}

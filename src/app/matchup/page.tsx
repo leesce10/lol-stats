@@ -13,44 +13,124 @@ import { POSITION_ICON_URLS } from "@/types";
 // 정글
 import zedProfile from "@/data/champion-profiles/zed.json";
 import leesinProfile from "@/data/champion-profiles/leesin.json";
+import gravesProfile from "@/data/champion-profiles/graves.json";
+import viegoProfile from "@/data/champion-profiles/viego.json";
+import khazixProfile from "@/data/champion-profiles/khazix.json";
+import kaynProfile from "@/data/champion-profiles/kayn.json";
+import hecarimProfile from "@/data/champion-profiles/hecarim.json";
+import warwickProfile from "@/data/champion-profiles/warwick.json";
+import nocturneProfile from "@/data/champion-profiles/nocturne.json";
+import dianaProfile from "@/data/champion-profiles/diana.json";
 // 탑
 import dariusProfile from "@/data/champion-profiles/darius.json";
 import fioraProfile from "@/data/champion-profiles/fiora.json";
+import aatroxProfile from "@/data/champion-profiles/aatrox.json";
+import jaxProfile from "@/data/champion-profiles/jax.json";
+import ireliaProfile from "@/data/champion-profiles/irelia.json";
+import camilleProfile from "@/data/champion-profiles/camille.json";
+import renektonProfile from "@/data/champion-profiles/renekton.json";
+import settProfile from "@/data/champion-profiles/sett.json";
+import gnarProfile from "@/data/champion-profiles/gnar.json";
+import malphiteProfile from "@/data/champion-profiles/malphite.json";
 // 미드
 import ahriProfile from "@/data/champion-profiles/ahri.json";
 import yasuoProfile from "@/data/champion-profiles/yasuo.json";
+import oriannaProfile from "@/data/champion-profiles/orianna.json";
+import azirProfile from "@/data/champion-profiles/azir.json";
+import syndraProfile from "@/data/champion-profiles/syndra.json";
+import sylasProfile from "@/data/champion-profiles/sylas.json";
+import viktorProfile from "@/data/champion-profiles/viktor.json";
+import katarinaProfile from "@/data/champion-profiles/katarina.json";
+import akaliProfile from "@/data/champion-profiles/akali.json";
+import leblancProfile from "@/data/champion-profiles/leblanc.json";
 // ADC
 import jinxProfile from "@/data/champion-profiles/jinx.json";
 import caitlynProfile from "@/data/champion-profiles/caitlyn.json";
+import apheliosProfile from "@/data/champion-profiles/aphelios.json";
+import ezrealProfile from "@/data/champion-profiles/ezreal.json";
+import kaisaProfile from "@/data/champion-profiles/kaisa.json";
+import lucianProfile from "@/data/champion-profiles/lucian.json";
+import missFortuneProfile from "@/data/champion-profiles/missfortune.json";
+import vayneProfile from "@/data/champion-profiles/vayne.json";
+import varusProfile from "@/data/champion-profiles/varus.json";
+import samiraProfile from "@/data/champion-profiles/samira.json";
 // 서포터
 import leonaProfile from "@/data/champion-profiles/leona.json";
 import luluProfile from "@/data/champion-profiles/lulu.json";
+import threshProfile from "@/data/champion-profiles/thresh.json";
+import nautilusProfile from "@/data/champion-profiles/nautilus.json";
+import blitzcrankProfile from "@/data/champion-profiles/blitzcrank.json";
+import pykeProfile from "@/data/champion-profiles/pyke.json";
+import sennaProfile from "@/data/champion-profiles/senna.json";
+import sorakaProfile from "@/data/champion-profiles/soraka.json";
+import namiProfile from "@/data/champion-profiles/nami.json";
+import karmaProfile from "@/data/champion-profiles/karma.json";
 
 type Lane = "top" | "jungle" | "mid" | "bottom";
 
 type ProfileLane = "top" | "jungle" | "mid" | "adc" | "support";
 
-// 라인별 프로파일 레지스트리
+// 라인별 프로파일 레지스트리 (라인당 10개)
 const PROFILE_REGISTRY: Record<ProfileLane, Record<string, ChampionProfile>> = {
   top: {
     Darius: dariusProfile as unknown as ChampionProfile,
     Fiora: fioraProfile as unknown as ChampionProfile,
+    Aatrox: aatroxProfile as unknown as ChampionProfile,
+    Jax: jaxProfile as unknown as ChampionProfile,
+    Irelia: ireliaProfile as unknown as ChampionProfile,
+    Camille: camilleProfile as unknown as ChampionProfile,
+    Renekton: renektonProfile as unknown as ChampionProfile,
+    Sett: settProfile as unknown as ChampionProfile,
+    Gnar: gnarProfile as unknown as ChampionProfile,
+    Malphite: malphiteProfile as unknown as ChampionProfile,
   },
   jungle: {
     Zed: zedProfile as unknown as ChampionProfile,
     LeeSin: leesinProfile as unknown as ChampionProfile,
+    Graves: gravesProfile as unknown as ChampionProfile,
+    Viego: viegoProfile as unknown as ChampionProfile,
+    Khazix: khazixProfile as unknown as ChampionProfile,
+    Kayn: kaynProfile as unknown as ChampionProfile,
+    Hecarim: hecarimProfile as unknown as ChampionProfile,
+    Warwick: warwickProfile as unknown as ChampionProfile,
+    Nocturne: nocturneProfile as unknown as ChampionProfile,
+    Diana: dianaProfile as unknown as ChampionProfile,
   },
   mid: {
     Ahri: ahriProfile as unknown as ChampionProfile,
     Yasuo: yasuoProfile as unknown as ChampionProfile,
+    Orianna: oriannaProfile as unknown as ChampionProfile,
+    Azir: azirProfile as unknown as ChampionProfile,
+    Syndra: syndraProfile as unknown as ChampionProfile,
+    Sylas: sylasProfile as unknown as ChampionProfile,
+    Viktor: viktorProfile as unknown as ChampionProfile,
+    Katarina: katarinaProfile as unknown as ChampionProfile,
+    Akali: akaliProfile as unknown as ChampionProfile,
+    Leblanc: leblancProfile as unknown as ChampionProfile,
   },
   adc: {
     Jinx: jinxProfile as unknown as ChampionProfile,
     Caitlyn: caitlynProfile as unknown as ChampionProfile,
+    Aphelios: apheliosProfile as unknown as ChampionProfile,
+    Ezreal: ezrealProfile as unknown as ChampionProfile,
+    Kaisa: kaisaProfile as unknown as ChampionProfile,
+    Lucian: lucianProfile as unknown as ChampionProfile,
+    MissFortune: missFortuneProfile as unknown as ChampionProfile,
+    Vayne: vayneProfile as unknown as ChampionProfile,
+    Varus: varusProfile as unknown as ChampionProfile,
+    Samira: samiraProfile as unknown as ChampionProfile,
   },
   support: {
     Leona: leonaProfile as unknown as ChampionProfile,
     Lulu: luluProfile as unknown as ChampionProfile,
+    Thresh: threshProfile as unknown as ChampionProfile,
+    Nautilus: nautilusProfile as unknown as ChampionProfile,
+    Blitzcrank: blitzcrankProfile as unknown as ChampionProfile,
+    Pyke: pykeProfile as unknown as ChampionProfile,
+    Senna: sennaProfile as unknown as ChampionProfile,
+    Soraka: sorakaProfile as unknown as ChampionProfile,
+    Nami: namiProfile as unknown as ChampionProfile,
+    Karma: karmaProfile as unknown as ChampionProfile,
   },
 };
 

@@ -1,0 +1,63 @@
+{
+  "id": "Hecarim",
+  "name": "헤카림",
+  "nameEn": "Hecarim",
+  "position": "jungle",
+  "patch": "15.7",
+  "junglePath": ["블루", "늑대", "두꺼비", "레드", "개미"],
+  "profile": {
+    "clearSpeed": "A", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "S",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "medium", "ccTypes": ["knockback", "fear"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "황폐화", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "low",
+      "hitEnables": ["aoe_cone", "reduced_cd"], "counterMethod": "원뿔형 AoE. 근접. 거리 유지.",
+      "cooldownEarly": 8, "cooldownMaxRank": 4 },
+    { "key": "W", "name": "영혼의 추격자", "type": "self_buff", "roles": ["sustain"], "missPenalty": "none",
+      "hitEnables": ["heal_aoe"], "counterMethod": "2초 AoE 피해 + 힐. 범위 밖으로 이탈.",
+      "cooldownEarly": 14, "cooldownMaxRank": 10 },
+    { "key": "E", "name": "질주", "type": "self_buff", "roles": ["mobility", "cc"], "missPenalty": "medium",
+      "hitEnables": ["ms", "knockback_on_hit"], "counterMethod": "이속 급증 + 첫 적 넉백. 점멸로 회피.",
+      "cooldownEarly": 24, "cooldownMaxRank": 16 },
+    { "key": "R", "name": "공포의 돌격", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
+      "hitEnables": ["fear_aoe", "range"], "counterMethod": "유령 돌격 + 공포. 점멸 or 밴시로 해제.",
+      "range": 1000, "cooldownEarly": 140, "cooldownMaxRank": 100 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 16, "severity": "high",
+      "explanation": "E 이속 빠지면 갱/이탈 수단 약화." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 100, "severity": "critical",
+      "explanation": "R 빠진 헤카림 이니시 제로. 100초간 위협도 급감." }
+  ],
+  "phases": {
+    "early": { "goal": "빠른 풀클 + 갱. 3렙 4갱.",
+      "danger": "초반 듀얼 중간. 카정 당함.",
+      "opportunity": "E 질주 + Q 풀콤 갱 성공률 최상.",
+      "pathing": "블루→늑대→두꺼비→레드 풀클. 3갱 이상.",
+      "objective": "첫 드래곤 확보. 갱 주도권.",
+      "gank": "E 질주 + 넉백 CC. Q 풀콤." },
+    "mid": { "goal": "스트라이드브레이커 완성. R 이니시.",
+      "danger": "팀파이트 CC 조합에 취약. 진입 후 즉사.",
+      "opportunity": "R로 한타 시작. 드래곤 싸움 이니시.",
+      "pathing": "정글 풀클 + 사이드 갱.",
+      "objective": "드래곤 한타 R 적극.",
+      "gank": "R로 바텀 다중 CC." },
+    "late": { "goal": "한타 R 공포 이니시. 후방 진입.",
+      "danger": "CC 체인 맞으면 즉사. 진입 타이밍 중요.",
+      "opportunity": "풀빌드 헤카림 후방 원콜 강함.",
+      "pathing": "한타 측면 진입. R 각 잡기.",
+      "objective": "바론 싸움 R로 적 딜러 공포.",
+      "gank": "팀과 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 강타",
+  "defaultRunes": "집행자",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 수호천사", "reason": "이니시 후 생존." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 밴시 장막", "reason": "CC 감소 + R 활용." },
+    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 세릴다의 원한", "reason": "방관 + 지속딜." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["cc_locked", "r_cancelled", "e_used", "squishy_late", "predictable_r"],
+  "keyStrengths": ["fast_clear", "3lv_gank", "fear_r", "wall_r_jump", "sustain_w"]
+}

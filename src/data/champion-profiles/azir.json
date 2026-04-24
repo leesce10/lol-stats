@@ -1,0 +1,64 @@
+{
+  "id": "Azir",
+  "name": "아지르",
+  "nameEn": "Azir",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "C", "midDuel": "B", "lateDuel": "S", "gankPower": "C",
+    "scaling": "late", "mobility": "medium", "burst": "medium", "sustain": "low", "ccTypes": ["knockback"]
+  },
+  "powerSpikes": [6, 11, 16],
+  "keySkills": [
+    { "key": "Q", "name": "정복하라!", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["soldier_dash", "poke"], "counterMethod": "병사 이동 스킬. 병사 위치 추적.",
+      "range": 875, "cooldownEarly": 15, "cooldownMaxRank": 7 },
+    { "key": "W", "name": "모래 병사 소환", "type": "self_buff", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["soldier_aa_range"], "counterMethod": "병사 소환. 병사 사거리 610. 거리 계산 필수.",
+      "range": 525, "cooldownEarly": 12, "cooldownMaxRank": 12 },
+    { "key": "E", "name": "진격! 공격!", "type": "dash", "roles": ["mobility", "cc"], "missPenalty": "medium",
+      "hitEnables": ["dash_to_soldier", "stun_first_hit"],
+      "counterMethod": "병사로 대시. 병사 뒤에 서면 기절 위험. 병사 위치 주시.",
+      "range": 1200, "cooldownEarly": 26, "cooldownMaxRank": 18 },
+    { "key": "R", "name": "황제의 진영", "type": "aoe", "roles": ["cc", "defense"], "missPenalty": "high",
+      "hitEnables": ["wall_knockback", "ms_ally"],
+      "counterMethod": "벽 생성 + 넉백. 점멸로 벽 넘거나 밴시로 방어.",
+      "cooldownEarly": 140, "cooldownMaxRank": 100 }
+  ],
+  "punishTriggers": [
+    { "condition": "no_soldier", "windowSec": 3, "severity": "critical",
+      "explanation": "병사 없는 아지르 딜 제로. 사거리 125 AA만 가능." },
+    { "condition": "E_used", "skillKey": "E", "windowSec": 18, "severity": "high",
+      "explanation": "E 이동기 빠진 아지르 취약. 18초간 풀콤 가능." }
+  ],
+  "phases": {
+    "early": { "goal": "병사로 CS + 견제. 안정적 파밍 최우선.",
+      "danger": "근접 암살자 접근 시 사망. 초반 병사 운영 실수로 CS 손해.",
+      "opportunity": "원거리 Q+W 견제. AA 회피 + 견제.",
+      "pathing": "포탑 아래 CS. 무리 금지.",
+      "objective": "6렙 R 전까지 파밍만.",
+      "gank": "아군 정글 갱 시 E 병사 기절 + W 뎀." },
+    "mid": { "goal": "루덴의 동반자 완성. R로 한타 변주.",
+      "danger": "중반 애매한 시기. 풀코어 전까지 물몸.",
+      "opportunity": "R로 적 분리. 아군 캐리.",
+      "pathing": "미드 웨이브 밀고 합류.",
+      "objective": "드래곤 싸움 R로 이니시 차단.",
+      "gank": "바텀 로밍 가능." },
+    "late": { "goal": "한타 후방 병사 DPS. R로 아군 보호.",
+      "danger": "앞라인 뚫리면 즉사. 포지션 실수 치명적.",
+      "opportunity": "풀빌드 아지르 AP 캐리. 무한 사거리.",
+      "pathing": "한타 후방 포지션. 병사 앞으로.",
+      "objective": "바론 싸움 병사 DPS. 엘더도.",
+      "gank": "혼자 움직이지 말 것." }
+  },
+  "defaultSpells": "점멸 + 순간이동",
+  "defaultRunes": "신비로운 보석",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "암살자 버스트 무적." },
+    { "condition": "enemy_cc_hard", "recommendation": "수은 장식띠 + 밴시 장막", "reason": "CC 감소 + 주요 CC 방어." },
+    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 라바돈", "reason": "% 마관 + AP 극대화." },
+    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["weak_early", "no_soldier", "cc_locked", "melee_assassin", "hard_to_pilot"],
+  "keyStrengths": ["infinite_range", "r_wall_peel", "hyper_scaling", "dps_soldiers", "team_utility"]
+}

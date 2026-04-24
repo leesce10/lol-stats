@@ -1,0 +1,62 @@
+{
+  "id": "Malphite",
+  "name": "말파이트",
+  "nameEn": "Malphite",
+  "position": "top",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "B", "lateDuel": "B", "gankPower": "A",
+    "scaling": "mid", "mobility": "low", "burst": "high", "sustain": "low", "ccTypes": ["knockup", "slow"]
+  },
+  "powerSpikes": [6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "지진파", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "medium",
+      "hitEnables": ["slow", "ms_malph"], "counterMethod": "직선 투사체. 슬로우 + 본인 이속 증가. 미니언 뒤 회피.",
+      "range": 625, "cooldownEarly": 6, "cooldownMaxRank": 6 },
+    { "key": "W", "name": "천둥소리", "type": "self_buff", "roles": ["defense", "primary_damage"], "missPenalty": "none",
+      "hitEnables": ["armor_boost", "aoe_aa"], "counterMethod": "방어력 증가 + 다음 AA 강화. 탱커화 진입.",
+      "cooldownEarly": 12, "cooldownMaxRank": 6 },
+    { "key": "E", "name": "지진의 여파", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["aoe_damage", "slow_aa"], "counterMethod": "주변 AoE 뎀. 범위 밖으로 이동.",
+      "range": 400, "cooldownEarly": 7, "cooldownMaxRank": 7 },
+    { "key": "R", "name": "멈출 수 없는 힘", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
+      "hitEnables": ["knockup_aoe"], "counterMethod": "광역 넉업 이니시. 점멸 + R은 거리 길어짐. 와드로 시야 + 회피.",
+      "range": 1000, "cooldownEarly": 130, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "critical",
+      "explanation": "R 빠진 말파이트 이니시 제로. 80초간 위협도 급감." },
+    { "condition": "W_used", "skillKey": "W", "windowSec": 6, "severity": "medium",
+      "explanation": "방어력 버프 빠지면 탱킹 약화. 버스트 가능." }
+  ],
+  "phases": {
+    "early": { "goal": "Q로 CS + 견제. 6렙까지 생존 우선.",
+      "danger": "근접 브루저에게 1:1 밀림. 스택 없는 Q 약함.",
+      "opportunity": "AD 챔프 상대 W 방어력으로 카운터. 안정적 CS.",
+      "pathing": "포탑 아래 CS. 무리 안 함.",
+      "objective": "6렙 R 전까지 파밍 유지.",
+      "gank": "6렙 R + Q 슬로우 갱 연계. 아군 시그널 적극." },
+    "mid": { "goal": "R 쿨마다 한타 이니시. 용/전령 맞춰 진입.",
+      "danger": "R 쿨 중이면 솔로 한타 약함.",
+      "opportunity": "R + 아군 AoE 딜러 시너지. 예신 조로 시너지.",
+      "pathing": "탑 웨이브 밀고 TP 합류. R 거리 계산.",
+      "objective": "드래곤 한타 R 적극.",
+      "gank": "바텀 드래곤 TP + R 이니시." },
+    "late": { "goal": "한타 R로 다중 넉업. 아군 AoE 딜러 폭딜 유도.",
+      "danger": "R 쿨 중이면 존재감 낮음. 스케일링 밀림.",
+      "opportunity": "아군 이니시 후 R 추가로 한타 승리.",
+      "pathing": "한타 사이드 포지션. R 각 잡기.",
+      "objective": "바론 싸움 R로 한타 이니시.",
+      "gank": "팀 동선 따라감. 혼자 움직이지 말 것." }
+  },
+  "defaultSpells": "점멸 + 순간이동",
+  "defaultRunes": "여진",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high_ap", "recommendation": "밴시 장막 + 가고일 돌갑옷", "reason": "AP 버스트 차단." },
+    { "condition": "enemy_ad_heavy", "recommendation": "탑가시 갑옷 + 쇠사슬 조끼", "reason": "AD 팀 구성 상대 탱킹 강화." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호천사", "reason": "CC 감소 + 한타 유지력." },
+    { "condition": "enemy_poke_heavy", "recommendation": "도란의 방패 + 바람의 망토", "reason": "포크 버티기." }
+  ],
+  "vulnerabilities": ["kited_by_ranged", "r_used_weak", "no_mobility_no_r", "stackless_q_weak", "scaling_weak"],
+  "keyStrengths": ["armor_stack", "aoe_knockup_r", "ad_counter", "team_engage", "long_flash_r"]
+}

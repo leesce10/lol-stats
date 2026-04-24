@@ -1,0 +1,64 @@
+{
+  "id": "Aatrox",
+  "name": "아트록스",
+  "nameEn": "Aatrox",
+  "position": "top",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "C", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "B",
+    "scaling": "mid", "mobility": "medium", "burst": "high", "sustain": "high", "ccTypes": ["knockup", "slow"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "weakAfter": 14,
+  "keySkills": [
+    { "key": "Q", "name": "어둠의 검", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "high",
+      "hitEnables": ["sweet_spot_damage", "knockup"],
+      "counterMethod": "3번 연타. 스윗스팟(검 끝)에 맞지 않게 거리 조절. 세 번째 Q는 넉업 있음.",
+      "range": 650, "cooldownEarly": 14, "cooldownMaxRank": 9 },
+    { "key": "W", "name": "지옥의 사슬", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["root_if_stay"], "counterMethod": "원형 범위 1.25초 후 족쇄 발동. 반드시 범위 이탈.",
+      "range": 825, "cooldownEarly": 22, "cooldownMaxRank": 14 },
+    { "key": "E", "name": "죽음의 도약", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
+      "hitEnables": ["gap_close"], "counterMethod": "짧은 대시 2스택. E 빠지면 추격기 제로.",
+      "range": 450, "cooldownEarly": 9, "cooldownMaxRank": 5 },
+    { "key": "R", "name": "세계 종결자", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
+      "hitEnables": ["heal_revive", "ad_boost"], "counterMethod": "킬 당 지속시간 연장. R 중 점멸만큼 붙여서 빠르게 처치.",
+      "cooldownEarly": 120, "cooldownMaxRank": 75 }
+  ],
+  "punishTriggers": [
+    { "condition": "Q3_used", "skillKey": "Q", "windowSec": 9, "severity": "high",
+      "explanation": "세 번째 Q 스윗스팟 빠지면 넉업 제거. 9초간 올인 대응 불가." },
+    { "condition": "W_missed", "skillKey": "W", "windowSec": 14, "severity": "critical",
+      "explanation": "족쇄 놓치면 지속 교전 수단 상실. 아트록스 위협도 급감." }
+  ],
+  "phases": {
+    "early": { "goal": "2~3렙 Q 중첩으로 올인 노리기. E로 Q 맞추기.",
+      "danger": "원거리 포크 챔프에게 견제당함. Q 맞추기 어려우면 CS 손해.",
+      "opportunity": "근접 브루저 상대 Q2~Q3 풀콤 스윗스팟으로 킬각.",
+      "pathing": "웨이브 상대 쪽으로 밀어 견제 + 다이브 각.",
+      "objective": "초반 솔킬 우선. 전령 타이밍 맞춰 킬.",
+      "gank": "아군 정글 갱 시 W 족쇄 + Q 콤보로 확정 킬." },
+    "mid": { "goal": "에클립스 완성. 사이드 스플릿 압박.",
+      "danger": "12렙 이후 스케일링 딜러에게 밀림. CC 조합 한타에 취약.",
+      "opportunity": "R로 한타 이니시. 풀콤 버스트.",
+      "pathing": "탑 웨이브 밀고 드래곤 합류 TP.",
+      "objective": "전령 확보 우선. 스플릿 위협 유지.",
+      "gank": "바텀 드래곤 시 TP 필수. 탑 웨이브 손해 감수." },
+    "late": { "goal": "한타 Q3 넉업 맞춰 아군 딜러 R 활용.",
+      "danger": "앞라인 뚫리면 무의미. 딜 스케일 밀림.",
+      "opportunity": "물몸 딜러 접근 차단 + 넉업 원콜.",
+      "pathing": "사이드 1-3-1 운영. 한타 시 측면 진입.",
+      "objective": "바론 싸움 Q3 넉업 + R로 이니시.",
+      "gank": "아군 팀파이트 합류 우선. 픽오프 자제." }
+  },
+  "defaultSpells": "점멸 + 순간이동",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "사신의 돌검 + 가고일 돌갑옷", "reason": "버스트 분산. R 활용 시간 확보." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 체인 차단. Q 맞출 타이밍 확보." },
+    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 데스 댄스", "reason": "방관 + 출혈 뎀 유지." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "체젠 탱커 치유 감소." }
+  ],
+  "vulnerabilities": ["kited_by_ranged", "cc_locked", "q3_predicted", "late_scale_weak", "long_cd_e"],
+  "keyStrengths": ["sweet_spot_burst", "revive_r", "sustained_heal", "aoe_teamfight", "sidelane_threat"]
+}

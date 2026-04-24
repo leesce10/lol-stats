@@ -1,0 +1,65 @@
+{
+  "id": "Ezreal",
+  "name": "이즈리얼",
+  "nameEn": "Ezreal",
+  "position": "adc",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["slow"]
+  },
+  "powerSpikes": [6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "신비로운 화살", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["cd_reduction", "onhit_damage"],
+      "counterMethod": "직선 투사체. 미니언 뒤 회피. 모든 스킬 쿨감이 Q 의존.",
+      "range": 1150, "cooldownEarly": 6, "cooldownMaxRank": 4 },
+    { "key": "W", "name": "정수의 이동", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
+      "hitEnables": ["delayed_burst"], "counterMethod": "지연 폭발 투사체. 범위 밖 이탈.",
+      "range": 1150, "cooldownEarly": 12, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "비전 이동", "type": "dash", "roles": ["mobility", "primary_damage"], "missPenalty": "low",
+      "hitEnables": ["teleport", "damage"],
+      "counterMethod": "475 거리 순간이동. E 쿨 중이면 이동기 제로.",
+      "range": 475, "cooldownEarly": 26, "cooldownMaxRank": 18 },
+    { "key": "R", "name": "정조준 일격", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
+      "hitEnables": ["global_range", "multi_hit"],
+      "counterMethod": "글로벌 + 다중 적중. 적 많을수록 뎀 감소. 미니언 앞 숨기.",
+      "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 18, "severity": "critical",
+      "explanation": "E 빠진 이즈 이동기 제로. 18초간 올인 확정." },
+    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 4, "severity": "high",
+      "explanation": "Q 빗나가면 모든 스킬 쿨감 멈춤. 딜 감소." }
+  ],
+  "phases": {
+    "early": { "goal": "Q로 CS + 견제. E는 이탈용 아낌.",
+      "danger": "마나 부족. E 낭비 시 올인 당함.",
+      "opportunity": "Q 견제 지배. 원거리 포크.",
+      "pathing": "라인 중앙. 서폿과 Q 콤보.",
+      "objective": "CS 우위 확보. 무리 금지.",
+      "gank": "Q 슬로우 + W 풀콤. 서폿 이니시 연계." },
+    "mid": { "goal": "무라마나 완성. Q 쿨 최소화.",
+      "danger": "뎀 부족. 아이템 나오기 전 약함.",
+      "opportunity": "Q 연발로 지속 포크. 사이드 원콜 R.",
+      "pathing": "드래곤 근처. Q 포크.",
+      "objective": "드래곤 싸움 Q+W 풀콤.",
+      "gank": "서폿 이니시 + E 추가 뎀." },
+    "late": { "goal": "한타 후방 Q 지속딜 + 풀콤.",
+      "danger": "앞라인 뚫리면 즉사. E 쿨 관리 중요.",
+      "opportunity": "풀빌드 이즈 무라마나로 AA 폭딜.",
+      "pathing": "한타 후방. E로 이탈.",
+      "objective": "바론 스틸 R 노리기.",
+      "gank": "팀 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 회복",
+  "defaultRunes": "점화",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 맬모셔스", "reason": "버스트 방패." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
+    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 독사의 송곳니", "reason": "% 뎀 + 치감." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["mana_starved", "e_used", "cc_locked", "all_skillshots", "cd_dependent"],
+  "keyStrengths": ["long_range_q", "mobility_e", "global_r", "muramana_stack", "safe_laner"]
+}

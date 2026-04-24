@@ -1,0 +1,65 @@
+{
+  "id": "Kaisa",
+  "name": "카이사",
+  "nameEn": "Kaisa",
+  "position": "adc",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "C",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": []
+  },
+  "powerSpikes": [6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "이카시아 폭우", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "low",
+      "hitEnables": ["multi_rockets"], "counterMethod": "미사일 다수 발사. 미니언/본인에게 분산. 아군 뒤 숨기.",
+      "cooldownEarly": 10, "cooldownMaxRank": 4 },
+    { "key": "W", "name": "공허 추적자", "type": "skillshot", "roles": ["primary_damage", "utility"], "missPenalty": "high",
+      "hitEnables": ["plasma_stack", "long_range_burst"],
+      "counterMethod": "장거리 투사체. 플라즈마 스택 활용. 미니언 뒤 회피.",
+      "range": 3000, "cooldownEarly": 22, "cooldownMaxRank": 16 },
+    { "key": "E", "name": "초지능 폭주", "type": "self_buff", "roles": ["mobility", "defense"], "missPenalty": "none",
+      "hitEnables": ["ms_as", "invisibility"],
+      "counterMethod": "이속 + 은신. E 빠지면 이동기 감소. 제어와드로 시야.",
+      "cooldownEarly": 16, "cooldownMaxRank": 12 },
+    { "key": "R", "name": "살상 본능", "type": "dash", "roles": ["engage"], "missPenalty": "none",
+      "hitEnables": ["dash_to_plasma", "shield"],
+      "counterMethod": "플라즈마 스택 있는 적 근처로 도약. 플라즈마 찍힌 대상 주의.",
+      "cooldownEarly": 130, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 12, "severity": "high",
+      "explanation": "E 이속/은신 빠진 카이사 이동기 감소. 풀콤 대응 가능." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "critical",
+      "explanation": "R 빠진 카이사 이동기 제로. 한타 진입 수단 없음." }
+  ],
+  "phases": {
+    "early": { "goal": "안정적 CS + Q 견제. 6렙까지 생존.",
+      "danger": "초반 뎀 낮음. 서폿 없으면 죽음.",
+      "opportunity": "W 플라즈마 찍힌 상대 추가 뎀.",
+      "pathing": "포탑 아래 CS. 서폿 보호.",
+      "objective": "6렙 R 확보까지 파밍.",
+      "gank": "서폿 이니시 + R 연계. 플라즈마 활용." },
+    "mid": { "goal": "크라켄 슬레이어 완성. R로 한타 진입.",
+      "danger": "앞라인 없으면 진입 후 죽음.",
+      "opportunity": "R로 플라즈마 찍힌 상대 후방 원콜.",
+      "pathing": "드래곤 근처. 서폿과 조율.",
+      "objective": "드래곤 싸움 R 이니시.",
+      "gank": "서폿 hook + R 진입." },
+    "late": { "goal": "한타 R로 후방 진입 + 풀콤 + E 이탈.",
+      "danger": "진입 타이밍 실수 시 즉사.",
+      "opportunity": "풀빌드 카이사 R 진입으로 캐리 원콜.",
+      "pathing": "한타 측면 진입. R 각 잡기.",
+      "objective": "바론 싸움 R 원콜.",
+      "gank": "팀과 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 회복",
+  "defaultRunes": "집중 공격",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 맬모셔스", "reason": "진입 후 생존." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + R 유지." },
+    { "condition": "enemy_tank_heavy", "recommendation": "구인수의 격노검 + 몰락한 왕의 검", "reason": "혼합 뎀 + 치감." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["early_weak", "support_dependent", "cc_locked", "r_cooldown", "item_dependent"],
+  "keyStrengths": ["r_reengage", "plasma_burst", "long_range_w", "hybrid_scaling", "late_hypercarry"]
+}

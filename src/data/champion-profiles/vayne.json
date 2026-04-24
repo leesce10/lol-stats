@@ -1,0 +1,64 @@
+{
+  "id": "Vayne",
+  "name": "베인",
+  "nameEn": "Vayne",
+  "position": "adc",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "C", "earlyDuel": "C", "midDuel": "B", "lateDuel": "S", "gankPower": "B",
+    "scaling": "late", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["knockback"]
+  },
+  "powerSpikes": [6, 11, 16],
+  "keySkills": [
+    { "key": "Q", "name": "구르기", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
+      "hitEnables": ["tumble", "empowered_aa"], "counterMethod": "짧은 구르기. 다음 AA 강화. Q 쿨 타이밍 주시.",
+      "range": 300, "cooldownEarly": 6, "cooldownMaxRank": 2 },
+    { "key": "W", "name": "은화살", "type": "self_buff", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["3rd_aa_true_damage"], "counterMethod": "3번째 AA 고정딜. 연속 AA 2번 맞았으면 뒤빠지기.",
+      "cooldownEarly": 0, "cooldownMaxRank": 0 },
+    { "key": "E", "name": "선고", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["knockback", "stun_if_wall"],
+      "counterMethod": "직선 넉백. 벽에 부딪히면 기절. 벽 근처 서지 말기.",
+      "range": 550, "cooldownEarly": 18, "cooldownMaxRank": 14 },
+    { "key": "R", "name": "결전", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
+      "hitEnables": ["stealth_in_q", "ad_boost"],
+      "counterMethod": "R 중 Q 구르기마다 은신. 제어와드/Q 없는 순간 공격.",
+      "cooldownEarly": 100, "cooldownMaxRank": 60 }
+  ],
+  "punishTriggers": [
+    { "condition": "Q_on_cd", "windowSec": 2, "severity": "critical",
+      "explanation": "Q 쿨 중이면 이동기 제로. 근접 접근으로 즉사 가능." },
+    { "condition": "no_silver_stack", "windowSec": 4, "severity": "high",
+      "explanation": "은화살 3스택 없으면 고정딜 부재. 뎀 감소." }
+  ],
+  "phases": {
+    "early": { "goal": "CS 안정. 사거리 짧으니 안전 파밍.",
+      "danger": "사거리 550. 이동기 Q 제외 없음. 서폿 hook 약함.",
+      "opportunity": "3번째 AA 고정딜 트레이드 지배.",
+      "pathing": "포탑 아래 CS. 서폿 보호.",
+      "objective": "6렙 R 전까지 파밍만.",
+      "gank": "E 넉백 + 은화살 고정딜. 서폿 이니시 연계." },
+    "mid": { "goal": "몰락한 왕의 검 완성. 사거리 부족 보완.",
+      "danger": "중반 애매. 풀코어 전까지 약함.",
+      "opportunity": "R 은신으로 한타 기습.",
+      "pathing": "드래곤 근처. 서폿과 조율.",
+      "objective": "드래곤 싸움 R 기습.",
+      "gank": "서폿 engage + R." },
+    "late": { "goal": "한타 R + Q 은신 + AA 폭딜.",
+      "danger": "포지션 실수 시 즉사. CC 맞으면 끝.",
+      "opportunity": "풀빌드 베인 1:1 최강. 한타 캐리 처형.",
+      "pathing": "한타 측면. R 은신 진입.",
+      "objective": "바론/엘더 DPS 핵심.",
+      "gank": "팀 동선 맞춤. 스플릿 가능." }
+  },
+  "defaultSpells": "점멸 + 회복",
+  "defaultRunes": "치명적 속도",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 죽음의 무도", "reason": "버스트 후 부활." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
+    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 독사의 송곳니", "reason": "% 뎀 + 치감." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["short_range", "early_weak", "cc_locked", "support_dependent", "q_cd_vulnerable"],
+  "keyStrengths": ["true_damage_w", "stealth_r_q", "wall_stun_e", "late_hypercarry_1v1", "mobility_q"]
+}

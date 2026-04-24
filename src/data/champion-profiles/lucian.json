@@ -1,0 +1,66 @@
+{
+  "id": "Lucian",
+  "name": "루시안",
+  "nameEn": "Lucian",
+  "position": "adc",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "B",
+    "scaling": "early", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": []
+  },
+  "powerSpikes": [2, 6, 11],
+  "weakAfter": 14,
+  "keySkills": [
+    { "key": "Q", "name": "꿰뚫는 빛", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["long_line_damage", "through_target"],
+      "counterMethod": "대상 통과 직선 뎀. 거리 조절로 추가 적 적중 방지.",
+      "range": 900, "cooldownEarly": 9, "cooldownMaxRank": 5 },
+    { "key": "W", "name": "불꽃 돌격", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
+      "hitEnables": ["ms_bonus", "vital_burst"],
+      "counterMethod": "원거리 투사체. 적중 시 루시안 이속 증가. 미니언 뒤 회피.",
+      "range": 1000, "cooldownEarly": 14, "cooldownMaxRank": 10 },
+    { "key": "E", "name": "이동 사격", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
+      "hitEnables": ["dash", "aa_stack"], "counterMethod": "짧은 대시. 패시브 이중 사격 활용. E 후 풀콤.",
+      "range": 425, "cooldownEarly": 22, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "치명타 사격", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "low",
+      "hitEnables": ["channel_dps", "passive_refresh"],
+      "counterMethod": "채널링 연발 사격. CC로 끊거나 사거리 밖 이탈.",
+      "range": 1400, "cooldownEarly": 110, "cooldownMaxRank": 90 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
+      "explanation": "E 빠진 루시안 이동기 제로. 10초간 올인 확정." },
+    { "condition": "no_passive_stack", "windowSec": 4, "severity": "medium",
+      "explanation": "패시브 2타 없는 루시안 뎀 50% 감소. 스킬 후 AA 즉시 사용." }
+  ],
+  "phases": {
+    "early": { "goal": "2렙 풀콤 견제. 패시브 활용 트레이드.",
+      "danger": "이동기 짧음. 서폿 hook 취약.",
+      "opportunity": "2~3렙 공격적 트레이드 지배. 솔킬 각.",
+      "pathing": "라인 푸시 주도. 패시브 2타.",
+      "objective": "초반 킬 + CS 스노우볼.",
+      "gank": "서폿 이니시 + E 진입 + 풀콤." },
+    "mid": { "goal": "에센스 레이버 완성. 사이드 갱.",
+      "danger": "스케일링 밀림. 15분 후 뎀 부족.",
+      "opportunity": "E 활용 기동성. R로 고립 적 원콜.",
+      "pathing": "미드 합류 + 드래곤 싸움.",
+      "objective": "드래곤 싸움 R 후방 원콜.",
+      "gank": "서폿 + 정글 갱 호응." },
+    "late": { "goal": "한타 후방 DPS. 패시브 연발로 폭딜.",
+      "danger": "후반 스케일링 약함. 뭉쳐 있는 적에게 뎀 분산.",
+      "opportunity": "패시브 리셋 + E로 지속 교전.",
+      "pathing": "한타 후방. E 각 잡기.",
+      "objective": "바론/엘더 R 피니시.",
+      "gank": "팀 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 회복",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 죽음의 무도", "reason": "버스트 분산." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + R 유지." },
+    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 흑요석 절단기", "reason": "% 뎀 + 방관." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["short_dash", "late_scale_weak", "cc_locked", "no_sustain", "item_dependent"],
+  "keyStrengths": ["passive_double_shot", "early_pressure", "r_channel_dps", "dash_kite", "hypercarry_mid"]
+}

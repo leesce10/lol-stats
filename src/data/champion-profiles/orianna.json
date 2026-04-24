@@ -1,0 +1,65 @@
+{
+  "id": "Orianna",
+  "name": "오리아나",
+  "nameEn": "Orianna",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "S", "gankPower": "B",
+    "scaling": "late", "mobility": "low", "burst": "medium", "sustain": "low", "ccTypes": ["slow", "pull", "knockup"]
+  },
+  "powerSpikes": [6, 11, 16],
+  "keySkills": [
+    { "key": "Q", "name": "지시: 공격 명령", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["ball_placement", "damage"],
+      "counterMethod": "공 이동 스킬. 공 위치 추적. 미니언 뒤 회피.",
+      "range": 825, "cooldownEarly": 6, "cooldownMaxRank": 6 },
+    { "key": "W", "name": "지시: 불협화음", "type": "aoe", "roles": ["primary_damage", "cc"], "missPenalty": "medium",
+      "hitEnables": ["slow_aoe", "damage"], "counterMethod": "공 주변 AoE 슬로우. 범위 밖으로 이탈.",
+      "cooldownEarly": 10, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "지시: 보호", "type": "point_click", "roles": ["defense", "cc"], "missPenalty": "none",
+      "hitEnables": ["shield_ally", "knockback_enemies"],
+      "counterMethod": "아군 공 부착 방패. 공 경로 적 넉백. 공 경로 예측 이탈.",
+      "cooldownEarly": 9, "cooldownMaxRank": 9 },
+    { "key": "R", "name": "지시: 충격파", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "high",
+      "hitEnables": ["knockup_aoe", "pull_to_ball"],
+      "counterMethod": "공 주변 범위 내 적 당김 + 넉업. R 타이밍 예측 + 거리 유지.",
+      "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "ball_far_away", "windowSec": 5, "severity": "critical",
+      "explanation": "공 멀리 있으면 오리아나 자체 방어력 제로. 올인 확정." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
+      "explanation": "R 빠진 오리아나 한타 가치 급감. 80초간 대응 가능." }
+  ],
+  "phases": {
+    "early": { "goal": "공으로 CS + 견제. 6렙 R 확보까지 생존.",
+      "danger": "근접 암살자 접근 시 죽음. E 아껴야 생존.",
+      "opportunity": "원거리 상대 Q+W 견제 지배.",
+      "pathing": "포탑 아래 CS. 공 방어 활용.",
+      "objective": "6렙 전까지 파밍 유지.",
+      "gank": "R로 원콜 + 미드 솔킬각. 아군 정글 갱 연계." },
+    "mid": { "goal": "루덴의 동반자 완성. R 쿨마다 한타 이니시.",
+      "danger": "R 쿨 중 한타 시작하면 불리.",
+      "opportunity": "R로 뭉친 적 원콜. 3명 이상 맞으면 승리.",
+      "pathing": "미드 웨이브 밀고 사이드 합류.",
+      "objective": "드래곤/전령 R 적극.",
+      "gank": "바텀 로밍 시 R 거리 계산." },
+    "late": { "goal": "한타 R로 3명 이상 원콜. 아군 AoE 시너지.",
+      "danger": "앞라인 뚫리면 즉사. 포지션 실수 치명적.",
+      "opportunity": "풀빌드 오리아나 AP 캐리. 무한 CC.",
+      "pathing": "한타 후방 포지션. 공 배치 활용.",
+      "objective": "바론/엘더 싸움 R 핵심.",
+      "gank": "혼자 움직이지 말 것. 공 없으면 죽음." }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "신비로운 보석",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "암살자 버스트 무적 회피." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 밴시 장막", "reason": "CC 감소 + 주요 CC 방어." },
+    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
+    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["ball_position", "no_mobility", "cc_locked", "r_cancelled", "melee_assassin"],
+  "keyStrengths": ["aoe_r_teamfight", "shield_e", "pull_r", "safe_laner", "team_scaling"]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "Viego",
+  "name": "비에고",
+  "nameEn": "Viego",
+  "position": "jungle",
+  "patch": "15.7",
+  "junglePath": ["레드", "두꺼비", "늑대", "블루", "개미", "닭"],
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "medium", "ccTypes": ["stun", "slow"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "파괴된 왕의 검", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["onhit_damage", "range_stack"], "counterMethod": "일반 AA + 강화 Q. 거리 유지로 회피.",
+      "cooldownEarly": 4, "cooldownMaxRank": 2 },
+    { "key": "W", "name": "감염의 안개", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
+      "hitEnables": ["stun_1.25s_full_charge"],
+      "counterMethod": "차징 중 이동 느림. 풀차지 시 기절 + 뎀. 차징 바로 회피.",
+      "range": 660, "cooldownEarly": 12, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "영혼을 꿰뚫기", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
+      "hitEnables": ["pass_through_units", "ms"], "counterMethod": "유닛 통과 대시. 이속 부스트. E 활용으로 끝없이 추격.",
+      "range": 400, "cooldownEarly": 14, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "심판의 왕", "type": "aoe", "roles": ["execute"], "missPenalty": "high",
+      "hitEnables": ["execute_low_hp", "possess_body"],
+      "counterMethod": "저체력 적 처형 + 탈취. R 범위 밖으로 이탈 필수.",
+      "range": 500, "cooldownEarly": 140, "cooldownMaxRank": 100 }
+  ],
+  "punishTriggers": [
+    { "condition": "no_possession", "windowSec": 5, "severity": "high",
+      "explanation": "빙의 없는 비에고 딜 낮음. 처형 실패 후 취약." },
+    { "condition": "W_missed", "skillKey": "W", "windowSec": 8, "severity": "critical",
+      "explanation": "W 풀차지 기절 빠지면 이니시 수단 제로." }
+  ],
+  "phases": {
+    "early": { "goal": "풀클 후 갱. 빙의 활용 파밍.",
+      "danger": "초반 듀얼 약함. 1:1 강한 정글에게 짐.",
+      "opportunity": "갱 성공 후 빙의로 추가 킬 연계.",
+      "pathing": "블루→레드 풀클. 아군 리쉬 받기.",
+      "objective": "드래곤 경쟁. 빙의 활용 한타 시작.",
+      "gank": "W 기절 + E 추격 + Q 강화 AA. 빙의로 재갱." },
+    "mid": { "goal": "콜렉터 완성. 빙의 체인으로 원콜.",
+      "danger": "빙의 실패 시 물몸. CC 연계 맞으면 즉사.",
+      "opportunity": "1:1 솔킬 지속. 빙의 한타 기여.",
+      "pathing": "정글 풀클 + 갱. 용 시야 먼저.",
+      "objective": "드래곤 한타 R 처형으로 오브젝트 확보.",
+      "gank": "적극 갱. 빙의로 연계 플레이." },
+    "late": { "goal": "한타 R 처형 + 빙의 체인.",
+      "danger": "빙의 타겟 잘못 선택 시 사망. R 타이밍 실수.",
+      "opportunity": "풀빌드 비에고 캐리 처형 가능.",
+      "pathing": "한타 측면 진입. 픽오프 시도.",
+      "objective": "바론 싸움 R 처형으로 원콜.",
+      "gank": "팀 동선 따라감. 혼자 빙의 탐욕 금지." }
+  },
+  "defaultSpells": "점멸 + 강타",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 죽음의 무도", "reason": "물몸 보완." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." },
+    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 몰락한 왕의 검", "reason": "방관 + % 뎀." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." }
+  ],
+  "vulnerabilities": ["w_predicted", "possession_dependent", "cc_locked", "squishy", "r_miss"],
+  "keyStrengths": ["possession_chain", "reset_on_kill", "execute_r", "dash_specialist", "teamfight_reset"]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "Irelia",
+  "name": "이렐리아",
+  "nameEn": "Irelia",
+  "position": "top",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "C", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "medium", "ccTypes": ["stun", "slow"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "필사의 칼날", "type": "dash", "roles": ["primary_damage", "mobility"], "missPenalty": "low",
+      "hitEnables": ["gap_close", "reset_on_kill"],
+      "counterMethod": "4스택 후 쿨 리셋. 미니언/적 대상. 잡몹 쓸기로 재활용. Q 쿨 타이밍 추적.",
+      "range": 600, "cooldownEarly": 7, "cooldownMaxRank": 4 },
+    { "key": "W", "name": "수호자의 자세", "type": "self_buff", "roles": ["defense"], "missPenalty": "none",
+      "hitEnables": ["damage_reduction", "charge_dash"], "counterMethod": "차징 중 이동 불가. 차징 풀리면 돌진. 이속 느림 때 좋은 타겟.",
+      "cooldownEarly": 16, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "칼날 돌풍", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
+      "hitEnables": ["stun_if_both_hit"], "counterMethod": "두 칼날 사이에 걸리면 1.5초 기절. 한 칼날 쪽으로 이동하여 회피.",
+      "range": 775, "cooldownEarly": 14, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "선혈검무", "type": "skillshot", "roles": ["cc", "primary_damage"], "missPenalty": "high",
+      "hitEnables": ["slow", "blade_barrier"],
+      "counterMethod": "원뿔형 범위. 범위 안에 있으면 슬로우. 칼날 벽 통과 시 슬로우 갱신.",
+      "range": 950, "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_missed", "skillKey": "E", "windowSec": 10, "severity": "critical",
+      "explanation": "E 스턴 빠지면 풀콤 성립 불가. 10초간 올인 대응 불가." },
+    { "condition": "no_q_stacks", "skillKey": "Q", "windowSec": 5, "severity": "high",
+      "explanation": "Q 스택 0 + 쿨 중이면 이동기 제로. 근접 교전 최적." }
+  ],
+  "phases": {
+    "early": { "goal": "3렙 풀스킬로 올인. Q 스택 관리.",
+      "danger": "견제 챔프에게 체력 손해. E 빗나가면 무장해제.",
+      "opportunity": "3렙 E 스턴 + Q 콤보로 솔킬각.",
+      "pathing": "웨이브 중립 유지. 잡몹 Q로 갭 메우기.",
+      "objective": "3분 이후 올인 시도. 정글 협공 유도.",
+      "gank": "E 스턴 맞추기 + Q 연타. 잡몹 이용 추격." },
+    "mid": { "goal": "삼위일체 완성. 한타 이니시 역할.",
+      "danger": "R 빠지면 한타 기여도 낮음. 6~8렙 파워 유지.",
+      "opportunity": "R + E 콤보로 다중 CC. 드래곤 싸움 이니시.",
+      "pathing": "탑 웨이브 밀고 TP 합류.",
+      "objective": "드래곤 한타 R 적극. 전령은 상황.",
+      "gank": "바텀 드래곤 TP. R로 광역 CC." },
+    "late": { "goal": "한타 R + 전방 진입. Q 리셋 지속.",
+      "danger": "CC 체인 맞으면 즉사. 앞라인 뚫기 어려움.",
+      "opportunity": "풀빌드 이렐리아 지속 교전 강함. Q 리셋으로 한타 유지.",
+      "pathing": "사이드 스플릿 + 한타 합류.",
+      "objective": "바론 싸움 R 광역 슬로우. 스플릿 압박.",
+      "gank": "혼자 움직이지 말고 팀과 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 순간이동",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 가고일 돌갑옷", "reason": "버스트 한 번 버티기. Q 리셋 유지." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + E 타이밍 확보." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "체젠 브루저 치유 감소." },
+    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기", "reason": "방관 + 삼위일체 시너지." }
+  ],
+  "vulnerabilities": ["e_predicted", "no_q_stacks", "cc_locked", "long_cd_r", "burst_vulnerable"],
+  "keyStrengths": ["q_reset_mobility", "stun_combo", "minion_reset", "sustained_dps", "r_teamfight"]
+}

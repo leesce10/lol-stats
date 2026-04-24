@@ -1,0 +1,64 @@
+{
+  "id": "Khazix",
+  "name": "카직스",
+  "nameEn": "KhaZix",
+  "position": "jungle",
+  "patch": "15.7",
+  "junglePath": ["레드", "두꺼비", "늑대", "블루", "개미"],
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "B",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["slow"]
+  },
+  "powerSpikes": [3, 6, 11, 16],
+  "keySkills": [
+    { "key": "Q", "name": "맛보기", "type": "point_click", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["isolated_burst", "reset"], "counterMethod": "고립 대상 추가 뎀. 미니언/아군 근처 서기로 고립 해제.",
+      "range": 325, "cooldownEarly": 4, "cooldownMaxRank": 3 },
+    { "key": "W", "name": "공허 가시", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "high",
+      "hitEnables": ["slow", "evolved_heal"], "counterMethod": "3갈래 투사체. 중앙 가장 강함. 측면으로 회피.",
+      "range": 1025, "cooldownEarly": 10, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "도약", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
+      "hitEnables": ["gap_close", "reset_on_kill_evolved"],
+      "counterMethod": "긴 대시. E 쿨 중이면 이동기 제로. E 사용 타이밍 주시.",
+      "range": 700, "cooldownEarly": 22, "cooldownMaxRank": 14 },
+    { "key": "R", "name": "공허 강림", "type": "self_buff", "roles": ["defense"], "missPenalty": "none",
+      "hitEnables": ["invisibility_1.25s", "ms"], "counterMethod": "은신 + 이속. 제어와드/핑크 와드로 시야 확보.",
+      "cooldownEarly": 100, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 14, "severity": "critical",
+      "explanation": "E 빠진 카직스 추격/이탈기 없음. 14초간 1:1 확정 킬." },
+    { "condition": "not_isolated", "windowSec": 10, "severity": "high",
+      "explanation": "고립 안 된 대상 Q 뎀 50% 감소. 뭉쳐 있으면 카직스 무력." }
+  ],
+  "phases": {
+    "early": { "goal": "Q 진화(고립 암살). 레드 스타트 풀클.",
+      "danger": "대시 정글러에게 E 쿨 중 취약. 시야 없는 갱 실패 시 사망.",
+      "opportunity": "고립 라이너 1타 킬. 아군 정글 카정.",
+      "pathing": "레드→두꺼비→블루 풀클. 상대 정글 시야.",
+      "objective": "첫 드래곤 경쟁. 1:1 자신 있음.",
+      "gank": "갱 시 W 슬로우 + E + Q. 고립 타겟 원콜." },
+    "mid": { "goal": "콜렉터 완성. E 진화(리셋) 타이밍.",
+      "danger": "팀파이트 뭉침 대응 어려움. CC 걸리면 즉사.",
+      "opportunity": "사이드 고립 라이너 픽오프.",
+      "pathing": "적 정글 침입. 사이드 로밍.",
+      "objective": "드래곤 싸움은 시야 장악 후 진입.",
+      "gank": "고립 라이너 갱 우선. 바텀 뭉침 시 자제." },
+    "late": { "goal": "한타 진입 타이밍 중요. R 은신으로 후방 원콜.",
+      "danger": "앞라인 뚫기 전 CC 맞으면 죽음. 진입 실수 치명적.",
+      "opportunity": "풀빌드 카직스 고립 캐리 원콜.",
+      "pathing": "한타 측면 우회. 시야 밖 진입.",
+      "objective": "바론 싸움 고립 캐리 원콜.",
+      "gank": "팀 동선 맞춤. 혼자 진입 금지." }
+  },
+  "defaultSpells": "점멸 + 강타",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "맬모셔스의 아귀", "reason": "버스트 방패로 생존." },
+    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 세릴다의 원한", "reason": "방관 필수." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호천사", "reason": "CC 감소 + 부활." },
+    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["cc_locked", "no_e_trapped", "tanky_mid_enemies", "isolation_required", "ward_counter"],
+  "keyStrengths": ["isolated_burst", "e_reset_jump", "invisibility_r", "pick_off_specialist", "assassin_specialist"]
+}

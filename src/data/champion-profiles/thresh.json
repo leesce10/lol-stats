@@ -1,0 +1,66 @@
+{
+  "id": "Thresh",
+  "name": "쓰레쉬",
+  "nameEn": "Thresh",
+  "position": "support",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "D", "earlyDuel": "B", "midDuel": "B", "lateDuel": "A", "gankPower": "A",
+    "scaling": "late", "mobility": "medium", "burst": "low", "sustain": "low", "ccTypes": ["hook", "slow", "knockback"]
+  },
+  "powerSpikes": [2, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "사형 선고", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
+      "hitEnables": ["hook_pull", "combo_start"],
+      "counterMethod": "장거리 직선 후크. 가장 중요한 스킬. 미니언 뒤 숨기 필수.",
+      "range": 1100, "cooldownEarly": 20, "cooldownMaxRank": 10 },
+    { "key": "W", "name": "어둠의 등불", "type": "utility", "roles": ["defense", "mobility"], "missPenalty": "none",
+      "hitEnables": ["shield_ally", "lantern_dash"],
+      "counterMethod": "아군 등불 타고 이동. 아군 구출용. 등불 깨기 가능.",
+      "cooldownEarly": 22, "cooldownMaxRank": 18 },
+    { "key": "E", "name": "휘둘러치기", "type": "aoe", "roles": ["cc"], "missPenalty": "medium",
+      "hitEnables": ["push_or_pull", "slow"],
+      "counterMethod": "근접 AoE. 밀기/당기기 양방향. 거리 유지.",
+      "cooldownEarly": 9, "cooldownMaxRank": 9 },
+    { "key": "R", "name": "어둠의 장막", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["aoe_slow_wall", "damage"],
+      "counterMethod": "벽 생성 + 통과 시 슬로우 + 뎀. 벽 넘지 말고 우회.",
+      "range": 450, "cooldownEarly": 140, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 10, "severity": "critical",
+      "explanation": "Q 빠지면 이니시 수단 제로. 10초간 올인 확정." },
+    { "condition": "W_used", "skillKey": "W", "windowSec": 18, "severity": "high",
+      "explanation": "등불 빠지면 아군 구출 수단 없음." }
+  ],
+  "phases": {
+    "early": { "goal": "Q 후크 맞추기 + E 펀치. 2렙 솔킬 시도.",
+      "danger": "Q 빗나가면 체력 손해. 방어력 부족.",
+      "opportunity": "부시 Q 후크로 솔킬 각. 2렙 풀콤.",
+      "pathing": "부시 시야 잠복. Q 각 잡기.",
+      "objective": "3분 이전 적 부시 체크. 5분경 강 와드.",
+      "gank": "Q 후크 + E 펀치 + ADC 풀콤." },
+    "mid": { "goal": "시야 장악. 아군 로밍 지원.",
+      "danger": "후반 스케일링 애매. 탱 빌드 유지.",
+      "opportunity": "R로 한타 구역 설정. Q로 고립 적 원콜.",
+      "pathing": "드래곤/바론 주변 와드. 핑크 와드 관리.",
+      "objective": "드래곤 한타 Q 이니시.",
+      "gank": "아군 ADC 옆 고정. 로밍 자제." },
+    "late": { "goal": "한타 Q 이니시 + R 구역 설정.",
+      "danger": "Q 실수 시 한타 패배. 혼자 이동 금지.",
+      "opportunity": "영혼 수집으로 방어력 급증. 탱킹 강화.",
+      "pathing": "한타 측면 Q 각 잡기.",
+      "objective": "바론 싸움 R로 구역 설정.",
+      "gank": "팀과 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "포식자 or 여진",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 밴시 장막", "reason": "버스트 차단." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + Q 유지." },
+    { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
+    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 에테르 환상", "reason": "포크 버티기." }
+  ],
+  "vulnerabilities": ["q_missed", "early_squishy", "hook_predicted", "low_damage", "vision_dependent"],
+  "keyStrengths": ["long_range_hook", "lantern_save", "soul_scaling", "zone_r", "playmaking_cc"]
+}

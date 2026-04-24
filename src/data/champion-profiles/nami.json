@@ -1,0 +1,65 @@
+{
+  "id": "Nami",
+  "name": "나미",
+  "nameEn": "Nami",
+  "position": "support",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "D", "earlyDuel": "B", "midDuel": "B", "lateDuel": "A", "gankPower": "B",
+    "scaling": "mid", "mobility": "low", "burst": "medium", "sustain": "high", "ccTypes": ["stun", "slow", "knockup"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "거품 스플래시", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
+      "hitEnables": ["stun_1.25s"], "counterMethod": "지연 발동 원형 기절. 범위 보이면 즉시 이탈.",
+      "range": 875, "cooldownEarly": 13, "cooldownMaxRank": 9 },
+    { "key": "W", "name": "치유의 파도", "type": "point_click", "roles": ["sustain", "primary_damage"], "missPenalty": "none",
+      "hitEnables": ["heal_ally", "damage_enemy"],
+      "counterMethod": "아군-적 사이 튕기는 힐/뎀. 3번 튕김. 아군 없으면 뎀만.",
+      "range": 725, "cooldownEarly": 10, "cooldownMaxRank": 10 },
+    { "key": "E", "name": "물의 기운", "type": "point_click", "roles": ["primary_damage", "cc"], "missPenalty": "none",
+      "hitEnables": ["slow_aa", "damage_aa"],
+      "counterMethod": "아군 강화. 3회 AA 슬로우 + 뎀. 아군 AA 타깃 주시.",
+      "cooldownEarly": 14, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "해일", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["knockup", "slow_aoe"],
+      "counterMethod": "장거리 직선 넉업. 점멸로 회피 or 벽 뒤 숨기.",
+      "range": 2750, "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 9, "severity": "critical",
+      "explanation": "Q 기절 빠지면 CC 수단 약화. 올인 대응 가능." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
+      "explanation": "R 빠진 나미 한타 이니시 반감." }
+  ],
+  "phases": {
+    "early": { "goal": "W로 체젠 + E로 ADC 강화. Q 견제.",
+      "danger": "이동기 없음. 느린 이속.",
+      "opportunity": "E 3회 AA 슬로우로 올인 기회.",
+      "pathing": "라인 뒤쪽. ADC 옆 고정.",
+      "objective": "지속 교전. 라인전 유지.",
+      "gank": "Q 기절 + E + ADC 풀콤." },
+    "mid": { "goal": "아르덴트 선구자 완성. ADC 보호.",
+      "danger": "이동기 없어 즉사 위험.",
+      "opportunity": "R로 다중 넉업. 한타 변주.",
+      "pathing": "드래곤 근처. 시야 유지.",
+      "objective": "드래곤 한타 R 이니시.",
+      "gank": "미드 로밍 자제." },
+    "late": { "goal": "한타 R 다중 넉업 + W/E 지원.",
+      "danger": "진입 당하면 즉사. 포지션 중요.",
+      "opportunity": "풀빌드 나미 지속 교전 최상.",
+      "pathing": "한타 후방 R 각 잡기.",
+      "objective": "바론 싸움 R 적극.",
+      "gank": "혼자 움직이지 말 것." }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "소환: 아이리",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호자 룬 + 수호천사", "reason": "진입 방지." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
+    { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
+    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 에테르 환상", "reason": "포크 버티기." }
+  ],
+  "vulnerabilities": ["no_mobility", "engage_vulnerable", "q_predicted", "squishy", "slow_cast"],
+  "keyStrengths": ["bouncing_heal_w", "aa_empower_e", "knockup_r", "team_utility", "aoe_r_range"]
+}

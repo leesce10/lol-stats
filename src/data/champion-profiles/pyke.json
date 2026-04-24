@@ -1,0 +1,65 @@
+{
+  "id": "Pyke",
+  "name": "파이크",
+  "nameEn": "Pyke",
+  "position": "support",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "D", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "A",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["hook", "stun", "slow"]
+  },
+  "powerSpikes": [2, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "뼈송곳", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["pull_enemy", "slow"],
+      "counterMethod": "차징 직선 후크 or 근접 찌르기. 차징 중 이동 느림.",
+      "range": 1100, "cooldownEarly": 13, "cooldownMaxRank": 11 },
+    { "key": "W", "name": "유령이 된 전초병", "type": "self_buff", "roles": ["mobility"], "missPenalty": "none",
+      "hitEnables": ["invisibility", "ms"], "counterMethod": "은신 + 이속. 제어와드로 시야 확보.",
+      "cooldownEarly": 16, "cooldownMaxRank": 12 },
+    { "key": "E", "name": "유령닻", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["stun_return"],
+      "counterMethod": "직선 이동 + 귀환 시 기절. 귀환 경로 예측 회피.",
+      "range": 550, "cooldownEarly": 14, "cooldownMaxRank": 14 },
+    { "key": "R", "name": "죽음의 맞춤 처형", "type": "skillshot", "roles": ["execute"], "missPenalty": "high",
+      "hitEnables": ["execute_below_threshold", "reset_on_kill"],
+      "counterMethod": "십자 범위 처형. 저체력 시 범위 밖 이탈. 아군 킬 어시 제공.",
+      "range": 750, "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 14, "severity": "critical",
+      "explanation": "E 기절 빠지면 파이크 이니시 수단 없음. 14초간 올인 확정." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
+      "explanation": "R 빠진 파이크 처형 수단 없음." }
+  ],
+  "phases": {
+    "early": { "goal": "Q 후크 + E 기절로 올인. 2렙 솔킬.",
+      "danger": "Q 빗나가면 체력 손해. 올인 실패 시 죽음.",
+      "opportunity": "부시 Q + E 기절 + 풀콤. W 은신 활용.",
+      "pathing": "부시 시야. W 은신 기습.",
+      "objective": "3분 이전 부시 체크. 5분경 강 와드.",
+      "gank": "Q + E + ADC 풀콤 + R 처형." },
+    "mid": { "goal": "콜렉터 완성. R 골드로 아군 전체 버프.",
+      "danger": "후반 스케일링 약함. 탱킹 부족.",
+      "opportunity": "R로 적 처형 + 아군 킬 어시 제공.",
+      "pathing": "미드 로밍 + 사이드 원콜.",
+      "objective": "드래곤 싸움 R 처형.",
+      "gank": "로밍 적극. 혼자 이동 시 W 은신 활용." },
+    "late": { "goal": "한타 R 다중 처형 + 아군 킬 어시.",
+      "danger": "진입 후 CC 맞으면 즉사.",
+      "opportunity": "R 골드로 팀 전체 아이템 가속.",
+      "pathing": "한타 측면 Q+E 각 잡기.",
+      "objective": "바론 싸움 R 처형 적극.",
+      "gank": "팀과 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 맬모셔스", "reason": "진입 후 생존." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
+    { "condition": "enemy_sustain_high", "recommendation": "흑요석 절단기 + 영겁의 창", "reason": "방관 + 지속딜." },
+    { "condition": "enemy_poke_heavy", "recommendation": "맬모셔스의 아귀", "reason": "포크 버티기." }
+  ],
+  "vulnerabilities": ["e_predicted", "no_tank", "long_cd_e", "squishy", "mana_reliant"],
+  "keyStrengths": ["invisibility_w", "global_execute_r", "dual_cc_qe", "roaming_specialist", "gold_share_r"]
+}

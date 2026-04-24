@@ -1,0 +1,64 @@
+{
+  "id": "Katarina",
+  "name": "카타리나",
+  "nameEn": "Katarina",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "C",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": []
+  },
+  "powerSpikes": [6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "단검 투척", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["dagger_drop", "bounce"], "counterMethod": "튕기는 투사체. 3초 후 단검 낙하. 낙하 지점 회피.",
+      "range": 625, "cooldownEarly": 10, "cooldownMaxRank": 10 },
+    { "key": "W", "name": "스커프 스텝", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["dagger_drop"], "counterMethod": "단검 낙하. 1.25초 후 뎀. 즉시 범위 이탈.",
+      "cooldownEarly": 15, "cooldownMaxRank": 9 },
+    { "key": "E", "name": "흔들어베기", "type": "dash", "roles": ["mobility", "primary_damage"], "missPenalty": "low",
+      "hitEnables": ["dagger_pickup", "teleport"],
+      "counterMethod": "단검으로 즉시 순간이동. 단검 위치 통제 필수. 단검 밟고 순간이동 방지.",
+      "range": 700, "cooldownEarly": 10, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "죽음의 연꽃", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "high",
+      "hitEnables": ["channel_aoe_dps"],
+      "counterMethod": "채널링. CC로 끊거나 범위 밖 이탈.",
+      "range": 550, "cooldownEarly": 90, "cooldownMaxRank": 60 }
+  ],
+  "punishTriggers": [
+    { "condition": "no_daggers", "windowSec": 4, "severity": "critical",
+      "explanation": "단검 없는 카타리나 이동기 제로. 4초간 올인 확정." },
+    { "condition": "R_channeling", "skillKey": "R", "windowSec": 2.5, "severity": "critical",
+      "explanation": "R 채널링 중 CC로 끊으면 한타 가치 제로." }
+  ],
+  "phases": {
+    "early": { "goal": "Q+W 단검 수급으로 CS. 6렙까지 생존.",
+      "danger": "원거리 견제 챔프에게 짐. 단검 없으면 풀콤 불가.",
+      "opportunity": "3렙 단검 콤보로 솔킬. W+E 빠른 뎀.",
+      "pathing": "포탑 아래 CS. 단검 활용.",
+      "objective": "6렙 R 확보 후 올인.",
+      "gank": "E 단검 순간이동으로 갱 연계. R 풀콤." },
+    "mid": { "goal": "콜렉터 완성. 사이드 로밍으로 리셋 만들기.",
+      "danger": "CC 체인 맞으면 즉사. R 끊기면 무용.",
+      "opportunity": "킬 시 모든 쿨 리셋. 연쇄 킬 가능.",
+      "pathing": "미드 웨이브 밀고 사이드 로밍.",
+      "objective": "드래곤 싸움 한타 중 사이드 진입.",
+      "gank": "바텀 로밍 + R 폭딜." },
+    "late": { "goal": "한타 후방 R + 리셋 연쇄.",
+      "danger": "CC 체인 맞으면 사망. R 끊기면 치명적.",
+      "opportunity": "풀빌드 카타리나 4~5킬 한타 가능.",
+      "pathing": "한타 측면 진입. 단검 각 잡기.",
+      "objective": "바론 싸움 R 후방 진입.",
+      "gank": "혼자 움직이지 말 것. 팀 동선 맞춤." }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계 + 수호천사", "reason": "진입 후 생존." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + R 유지." },
+    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + 지속딜." },
+    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소 (AP 암살자에겐 필수)." }
+  ],
+  "vulnerabilities": ["cc_locked", "r_interrupted", "dagger_denied", "early_weak", "no_mana_regen"],
+  "keyStrengths": ["reset_on_kill", "dagger_teleport", "aoe_r", "assassin_teamfight", "snowball_potential"]
+}
