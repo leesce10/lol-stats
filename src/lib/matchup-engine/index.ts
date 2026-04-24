@@ -1,4 +1,4 @@
-import type { JungleChampionProfile, MatchupGuide } from "@/types/matchup-engine";
+import type { ChampionProfile, MatchupGuide } from "@/types/matchup-engine";
 import { generateVerdict } from "./rules/verdict";
 import { generateSummary } from "./rules/summary";
 import { generateMustDodge } from "./rules/must-dodge";
@@ -12,10 +12,12 @@ import { generateChampOverride } from "./rules/champ-override";
  * 매치업 가이드 생성.
  * 두 챔피언 프로파일을 받아 L0~L4-B 전체를 결정론적으로 생성.
  * LLM 호출 없음. 순수 룰 엔진.
+ *
+ * 두 프로파일의 position은 같아야 한다 (타입 체크는 호출자 책임).
  */
 export function generateMatchupGuide(
-  my: JungleChampionProfile,
-  enemy: JungleChampionProfile
+  my: ChampionProfile,
+  enemy: ChampionProfile
 ): MatchupGuide {
   const verdict = generateVerdict(my, enemy);
   const summary = generateSummary(my, enemy, verdict);
@@ -29,7 +31,7 @@ export function generateMatchupGuide(
   return {
     myChampion: my.id,
     enemyChampion: enemy.id,
-    position: "jungle",
+    position: my.position,
     verdict,
     summary,
     mustDodge,
@@ -41,4 +43,5 @@ export function generateMatchupGuide(
   };
 }
 
-export { type JungleChampionProfile, type MatchupGuide };
+export { type ChampionProfile, type MatchupGuide };
+export type { JungleChampionProfile } from "@/types/matchup-engine";

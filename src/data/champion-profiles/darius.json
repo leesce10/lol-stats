@@ -1,0 +1,157 @@
+{
+  "id": "Darius",
+  "name": "다리우스",
+  "nameEn": "Darius",
+  "position": "top",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "C",
+    "earlyDuel": "S",
+    "midDuel": "A",
+    "lateDuel": "B",
+    "gankPower": "B",
+    "scaling": "early",
+    "mobility": "low",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": ["slow", "pull"]
+  },
+
+  "powerSpikes": [2, 6, 9],
+  "weakAfter": 14,
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "학살",
+      "type": "aoe",
+      "roles": ["primary_damage", "defense"],
+      "missPenalty": "high",
+      "hitEnables": ["heal", "max_damage"],
+      "counterMethod": "Q 바깥 테두리(칼날)가 최대 뎀. 근접 거리 유지 or 뒤쪽 붙기로 뎀 반감.",
+      "range": 425,
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "꺾기",
+      "type": "point_click",
+      "roles": ["primary_damage", "cc"],
+      "missPenalty": "none",
+      "hitEnables": ["slow_massive", "onhit_damage"],
+      "counterMethod": "논타겟 불가. 9초 쿨. W 직후 5중첩 쌓였는지 체크.",
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "E",
+      "name": "붙잡기",
+      "type": "skillshot",
+      "roles": ["cc", "engage"],
+      "missPenalty": "critical",
+      "hitEnables": ["pull_into_range", "combo_start"],
+      "counterMethod": "직선 스킬샷. 측면 회피 가능. E 빠지면 다리우스 올인각 사라짐.",
+      "range": 540,
+      "cooldownEarly": 26,
+      "cooldownMaxRank": 20
+    },
+    {
+      "key": "R",
+      "name": "노쿠스의 단두대",
+      "type": "point_click",
+      "roles": ["execute", "primary_damage"],
+      "missPenalty": "none",
+      "hitEnables": ["execute", "reset_on_kill"],
+      "counterMethod": "처형 스킬. 쿨이 초기화되므로 연쇄 처형 위험. 체력 관리 철저.",
+      "range": 460,
+      "cooldownEarly": 100,
+      "cooldownMaxRank": 80
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "E_missed",
+      "skillKey": "E",
+      "windowSec": 20,
+      "severity": "critical",
+      "explanation": "풀콤보 시작점인 E가 빠지면 슬로우/끌기 없음. 20초간 올인 각 사라짐."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "high",
+      "explanation": "처형 R 빠지면 끝내기 수단 부재. 낮은 체력에서 안전."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "5중첩 출혈로 올인. 2렙 E+Q로 솔킬 각 찾기.",
+      "danger": "원거리 챔프에게 견제당하며 CS 놓침. E 빗나가면 무장해제.",
+      "opportunity": "근접 브루저/탱커 상대 2~3렙 올인 가장 강함. 출혈 중첩 풀스택 타이밍.",
+      "pathing": "프리즈보다 웨이브 고정해서 상대 포탑 밖 끌어내기. 3웨이브 슬로우 푸시.",
+      "objective": "초반 솔킬 1회가 드래곤·전령 다 잡는 것보다 중요.",
+      "gank": "E로 끌기 가능하면 아군 정글 갱 성공률 90%. 갱 신호 적극 보내기."
+    },
+    "mid": {
+      "goal": "첫 코어템(스트라이드브레이커 or 트리니티) 완성. 스플릿 위협으로 맵 압박.",
+      "danger": "CC 조합 한타에 취약. 진입하다 녹음.",
+      "opportunity": "1:1 탑 솔킬 지속 가능. 텔로 아군 지원 후 탑 복귀 템포.",
+      "pathing": "탑 웨이브 크게 밀고 텔 거점 확보. 상대 정글 시야 먼저.",
+      "objective": "전령 치기보다 탑 1차 포탑 쪼개서 스플릿 기반 마련.",
+      "gank": "바텀 드래곤 시 텔 필수. 탑 CS 2웨이브 손해 감수."
+    },
+    "late": {
+      "goal": "한타에서 후방 딜러 원콜. R 연쇄로 한타 뒤집기.",
+      "danger": "CC 체인 맞으면 접근 불가. 풀빌드 딜러에게 근접 전에 녹음.",
+      "opportunity": "물몸 딜러 2명 이상 뭉쳐있으면 Q+R 연쇄로 멀티킬.",
+      "pathing": "사이드 스플릿 위협 유지. 한타 시 측면 우회 진입.",
+      "objective": "오브젝트 싸움 전 상대 딜러 체력 미리 깎기 (E+Q).",
+      "gank": "혼자 사이드 라인 밀고 4명 오게 만들기. 아군 바론 각."
+    }
+  },
+
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_ranged_poke",
+      "recommendation": "도란의 방패 + 바람의 망토",
+      "reason": "원거리 견제 버티기용. 초반 CS 수급 안정."
+    },
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "죽음의 무도 → 가고일 돌갑옷",
+      "reason": "한 방에 터지기 전 딜 분산."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 정수 약탈자",
+      "reason": "방관 기반 딜. 탱커 상대 출혈 뎀 유지."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "체젠 많은 상대에게 현재 체력 비례 뎀 + 치유 감소."
+    }
+  ],
+
+  "vulnerabilities": [
+    "kited_by_ranged",
+    "cc_locked",
+    "e_missed_disarmed",
+    "late_scale_weak",
+    "slow_immobile"
+  ],
+  "keyStrengths": [
+    "level2_allin",
+    "execute_reset",
+    "5stack_burst",
+    "sidelane_threat",
+    "tower_dive_strong"
+  ]
+}

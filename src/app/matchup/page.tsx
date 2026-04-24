@@ -5,20 +5,59 @@ import Image from "next/image";
 import { externalStats, EXTERNAL_DATA_INFO, ExternalChampionStats } from "@/data/external-stats";
 import { DDRAGON_VERSION } from "@/data/champions";
 import { generateMatchupGuide } from "@/lib/matchup-engine";
-import type { JungleChampionProfile } from "@/types/matchup-engine";
+import type { ChampionProfile } from "@/types/matchup-engine";
 import MatchupGuideResult from "@/components/MatchupGuideResult";
 import PositionIcon from "@/components/PositionIcon";
 import { POSITION_ICON_URLS } from "@/types";
+
+// 정글
 import zedProfile from "@/data/champion-profiles/zed.json";
 import leesinProfile from "@/data/champion-profiles/leesin.json";
-
-// 프로파일이 있는 정글 챔피언 맵
-const JUNGLE_PROFILES: Record<string, JungleChampionProfile> = {
-  Zed: zedProfile as unknown as JungleChampionProfile,
-  LeeSin: leesinProfile as unknown as JungleChampionProfile,
-};
+// 탑
+import dariusProfile from "@/data/champion-profiles/darius.json";
+import fioraProfile from "@/data/champion-profiles/fiora.json";
+// 미드
+import ahriProfile from "@/data/champion-profiles/ahri.json";
+import yasuoProfile from "@/data/champion-profiles/yasuo.json";
+// ADC
+import jinxProfile from "@/data/champion-profiles/jinx.json";
+import caitlynProfile from "@/data/champion-profiles/caitlyn.json";
+// 서포터
+import leonaProfile from "@/data/champion-profiles/leona.json";
+import luluProfile from "@/data/champion-profiles/lulu.json";
 
 type Lane = "top" | "jungle" | "mid" | "bottom";
+
+type ProfileLane = "top" | "jungle" | "mid" | "adc" | "support";
+
+// 라인별 프로파일 레지스트리
+const PROFILE_REGISTRY: Record<ProfileLane, Record<string, ChampionProfile>> = {
+  top: {
+    Darius: dariusProfile as unknown as ChampionProfile,
+    Fiora: fioraProfile as unknown as ChampionProfile,
+  },
+  jungle: {
+    Zed: zedProfile as unknown as ChampionProfile,
+    LeeSin: leesinProfile as unknown as ChampionProfile,
+  },
+  mid: {
+    Ahri: ahriProfile as unknown as ChampionProfile,
+    Yasuo: yasuoProfile as unknown as ChampionProfile,
+  },
+  adc: {
+    Jinx: jinxProfile as unknown as ChampionProfile,
+    Caitlyn: caitlynProfile as unknown as ChampionProfile,
+  },
+  support: {
+    Leona: leonaProfile as unknown as ChampionProfile,
+    Lulu: luluProfile as unknown as ChampionProfile,
+  },
+};
+
+function getProfile(lane: ProfileLane, champName: string | null): ChampionProfile | null {
+  if (!champName) return null;
+  return PROFILE_REGISTRY[lane][champName] ?? null;
+}
 
 const LANE_CONFIG: { key: Lane; label: string; iconUrl: string }[] = [
   { key: "top", label: "탑", iconUrl: POSITION_ICON_URLS.top },
@@ -79,11 +118,11 @@ function ChampionGrid({ position, search, onSelect, selectedName, excludeNames, 
 }
 
 function SelectedChampion({ name, position, borderColor }: {
-  name: string | null; position: "top" | "jungle" | "mid" | "adc" | "support"; borderColor: string;
+  name: string | null; position: ProfileLane; borderColor: string;
 }) {
   const champ = name ? externalStats.find((s) => s.name === name && s.position === position) : null;
-  // 프로파일 전용 챔프 폴백 (정글 제드 등 비주류 포지션)
-  const profile = name ? JUNGLE_PROFILES[name] : null;
+  // 프로파일 전용 챔프 폴백 (비주류 포지션 등)
+  const profile = getProfile(position, name);
   const displayName = champ?.nameKr ?? profile?.name;
   const displayId = champ?.name ?? profile?.id ?? name;
 
@@ -377,20 +416,32 @@ export default function MatchupPage() {
   const hasSoloResult = !isBottom && myChamp && enemyChamp;
   const hasBottomResult = isBottom && myAdcChamp && mySupChamp && enemyAdcChamp && enemySupChamp;
 
-  // 룰 엔진 매치업 가이드 (정글 + 프로파일 있는 챔프 두 개)
-  const myProfile = myChampName ? JUNGLE_PROFILES[myChampName] : null;
-  const enemyProfile = enemyChampName ? JUNGLE_PROFILES[enemyChampName] : null;
-  const hasMatchupGuide = lane === "jungle" && myProfile && enemyProfile;
-  const matchupGuide = useMemo(() => {
-    if (!hasMatchupGuide || !myProfile || !enemyProfile) return null;
+  // 룰 엔진: 솔로라인 (탑/정글/미드)
+  const myProfile = !isBottom ? getProfile(soloPosition, myChampName) : null;
+  const enemyProfile = !isBottom ? getProfile(soloPosition, enemyChampName) : null;
+  const hasSoloMatchupGuide = !!(myProfile && enemyProfile);
+  const soloMatchupGuide = useMemo(() => {
+    if (!hasSoloMatchupGuide || !myProfile || !enemyProfile) return null;
     return generateMatchupGuide(myProfile, enemyProfile);
-  }, [hasMatchupGuide, myProfile, enemyProfile]);
+  }, [hasSoloMatchupGuide, myProfile, enemyProfile]);
 
-  // 프로파일 전용 챔프 목록 (ChampionGrid extraChamps용)
-  const profileExtraChamps = Object.values(JUNGLE_PROFILES).map(p => ({
-    name: p.id,
-    nameKr: p.name,
-  }));
+  // 룰 엔진: 바텀 (ADC 1v1, 서포터 1v1 각각)
+  const myAdcProfile = isBottom ? getProfile("adc", myAdc) : null;
+  const enemyAdcProfile = isBottom ? getProfile("adc", enemyAdc) : null;
+  const mySupProfile = isBottom ? getProfile("support", mySup) : null;
+  const enemySupProfile = isBottom ? getProfile("support", enemySup) : null;
+  const adcMatchupGuide = useMemo(() => {
+    if (!myAdcProfile || !enemyAdcProfile) return null;
+    return generateMatchupGuide(myAdcProfile, enemyAdcProfile);
+  }, [myAdcProfile, enemyAdcProfile]);
+  const supMatchupGuide = useMemo(() => {
+    if (!mySupProfile || !enemySupProfile) return null;
+    return generateMatchupGuide(mySupProfile, enemySupProfile);
+  }, [mySupProfile, enemySupProfile]);
+
+  // 라인별 프로파일 전용 챔프 목록 (ChampionGrid extraChamps용)
+  const profileExtraChamps = (pos: ProfileLane) =>
+    Object.values(PROFILE_REGISTRY[pos]).map(p => ({ name: p.id, nameKr: p.name }));
 
   function handleLaneChange(l: Lane) {
     setLane(l);
@@ -444,7 +495,7 @@ export default function MatchupPage() {
               className="champion-search w-full px-3 py-1.5 text-xs my-2" />
             <ChampionGrid position={soloPosition} search={mySearch} onSelect={setMyChampName}
               selectedName={myChampName} excludeNames={soloSelected}
-              extraChamps={lane === "jungle" ? profileExtraChamps : undefined} />
+              extraChamps={profileExtraChamps(soloPosition)} />
           </div>
           <div className="glass-card p-4">
             <div className="flex items-center justify-between mb-3">
@@ -456,7 +507,7 @@ export default function MatchupPage() {
               className="champion-search w-full px-3 py-1.5 text-xs my-2" />
             <ChampionGrid position={soloPosition} search={enemySearch} onSelect={setEnemyChampName}
               selectedName={enemyChampName} excludeNames={soloSelected}
-              extraChamps={lane === "jungle" ? profileExtraChamps : undefined} />
+              extraChamps={profileExtraChamps(soloPosition)} />
           </div>
         </div>
       )}
@@ -474,7 +525,8 @@ export default function MatchupPage() {
                 <input type="text" placeholder="원딜 검색..." value={myAdcSearch} onChange={(e) => setMyAdcSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
                 <ChampionGrid position="adc" search={myAdcSearch} onSelect={setMyAdc}
-                  selectedName={myAdc} excludeNames={allSelectedBottom} />
+                  selectedName={myAdc} excludeNames={allSelectedBottom}
+                  extraChamps={profileExtraChamps("adc")} />
               </div>
               <div className="border-t border-[var(--border-color)] pt-3">
                 <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] mb-1"><PositionIcon position="support" size={12} className="opacity-60" /> 서포터</div>
@@ -482,7 +534,8 @@ export default function MatchupPage() {
                 <input type="text" placeholder="서포터 검색..." value={mySupSearch} onChange={(e) => setMySupSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
                 <ChampionGrid position="support" search={mySupSearch} onSelect={setMySup}
-                  selectedName={mySup} excludeNames={allSelectedBottom} />
+                  selectedName={mySup} excludeNames={allSelectedBottom}
+                  extraChamps={profileExtraChamps("support")} />
               </div>
             </div>
           </div>
@@ -497,7 +550,8 @@ export default function MatchupPage() {
                 <input type="text" placeholder="원딜 검색..." value={enemyAdcSearch} onChange={(e) => setEnemyAdcSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
                 <ChampionGrid position="adc" search={enemyAdcSearch} onSelect={setEnemyAdc}
-                  selectedName={enemyAdc} excludeNames={allSelectedBottom} />
+                  selectedName={enemyAdc} excludeNames={allSelectedBottom}
+                  extraChamps={profileExtraChamps("adc")} />
               </div>
               <div className="border-t border-[var(--border-color)] pt-3">
                 <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] mb-1"><PositionIcon position="support" size={12} className="opacity-60" /> 서포터</div>
@@ -505,20 +559,52 @@ export default function MatchupPage() {
                 <input type="text" placeholder="서포터 검색..." value={enemySupSearch} onChange={(e) => setEnemySupSearch(e.target.value)}
                   className="champion-search w-full px-3 py-1.5 text-xs my-1.5" />
                 <ChampionGrid position="support" search={enemySupSearch} onSelect={setEnemySup}
-                  selectedName={enemySup} excludeNames={allSelectedBottom} />
+                  selectedName={enemySup} excludeNames={allSelectedBottom}
+                  extraChamps={profileExtraChamps("support")} />
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Results — 룰 엔진 가이드 우선, 없으면 기존 방식 폴백 */}
-      {matchupGuide && <MatchupGuideResult guide={matchupGuide} myJunglePath={myProfile?.junglePath} />}
-      {hasSoloResult && !matchupGuide && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
+      {/* Results — 솔로라인: 룰 엔진 가이드 우선, 없으면 기존 방식 폴백 */}
+      {soloMatchupGuide && <MatchupGuideResult guide={soloMatchupGuide} myJunglePath={myProfile?.junglePath} />}
+      {hasSoloResult && !soloMatchupGuide && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
+
+      {/* 바텀: 듀오 분석 (항상 표시) */}
       {hasBottomResult && <BottomMatchupResult myAdc={myAdcChamp} mySup={mySupChamp} enemyAdc={enemyAdcChamp} enemySup={enemySupChamp} />}
 
+      {/* 바텀 ADC 1v1 심층 가이드 */}
+      {adcMatchupGuide && (
+        <div className="mt-8">
+          <div className="mb-3 flex items-center gap-2">
+            <PositionIcon position="adc" size={18} />
+            <h2 className="text-sm font-bold text-[var(--text-primary)]">ADC 매치업 심층 가이드</h2>
+          </div>
+          <MatchupGuideResult guide={adcMatchupGuide} />
+        </div>
+      )}
+
+      {/* 바텀 서포터 1v1 심층 가이드 */}
+      {supMatchupGuide && (
+        <div className="mt-8">
+          <div className="mb-3 flex items-center gap-2">
+            <PositionIcon position="support" size={18} />
+            <h2 className="text-sm font-bold text-[var(--text-primary)]">서포터 매치업 심층 가이드</h2>
+          </div>
+          <MatchupGuideResult guide={supMatchupGuide} />
+        </div>
+      )}
+
+      {/* 프로파일 없는 선택 안내 (솔로라인에서 룰엔진 폴백 없는 경우) */}
+      {!isBottom && hasSoloResult && !soloMatchupGuide && (
+        <div className="mt-4 rounded-lg border border-blue-500/20 bg-blue-500/5 p-3 text-xs text-[var(--text-muted)]">
+          💡 이 매치업은 기본 승률 데이터만 표시됩니다. L0~L4 심층 가이드는 프로파일이 등록된 챔프 조합에서 제공됩니다.
+        </div>
+      )}
+
       {/* Empty state */}
-      {!hasSoloResult && !hasBottomResult && !matchupGuide && (
+      {!hasSoloResult && !hasBottomResult && !soloMatchupGuide && (
         <div className="glass-card p-12 text-center">
           <div className="flex justify-center gap-2 mb-4">{isBottom ? (<><PositionIcon position="adc" size={40} /><PositionIcon position="support" size={40} /></>) : <PositionIcon position="top" size={40} />}</div>
           <p className="text-lg font-medium text-[var(--text-secondary)]">

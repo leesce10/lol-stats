@@ -1,0 +1,157 @@
+{
+  "id": "Lulu",
+  "name": "룰루",
+  "nameEn": "Lulu",
+  "position": "support",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "D",
+    "earlyDuel": "B",
+    "midDuel": "B",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "medium",
+    "burst": "medium",
+    "sustain": "medium",
+    "ccTypes": ["slow", "polymorph", "knockup"]
+  },
+
+  "powerSpikes": [3, 6, 11],
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "반짝반짝 창",
+      "type": "skillshot",
+      "roles": ["primary_damage", "cc"],
+      "missPenalty": "medium",
+      "hitEnables": ["slow_short", "poke"],
+      "counterMethod": "직선 투사체. 미니언 뒤 회피. 슬로우 1.5초 주의.",
+      "range": 925,
+      "cooldownEarly": 7,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "W",
+      "name": "야 너!",
+      "type": "point_click",
+      "roles": ["cc", "defense"],
+      "missPenalty": "none",
+      "hitEnables": ["polymorph_enemy", "speed_ally"],
+      "counterMethod": "1.75초 변이. QSS로 해제 가능. 핵심 CC 스킬 사용 전 W 미리 뺴라.",
+      "range": 650,
+      "cooldownEarly": 17,
+      "cooldownMaxRank": 13
+    },
+    {
+      "key": "E",
+      "name": "마법 술수",
+      "type": "point_click",
+      "roles": ["defense", "utility"],
+      "missPenalty": "none",
+      "hitEnables": ["shield_ally", "damage_enemy", "reveal_trinket"],
+      "counterMethod": "보호막 + 뎀. 쿨 10초 빠름. 견제는 무력화됨.",
+      "range": 650,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "R",
+      "name": "엄청나게 커!",
+      "type": "point_click",
+      "roles": ["defense", "cc"],
+      "missPenalty": "none",
+      "hitEnables": ["hp_buff", "knockup_aoe", "speed"],
+      "counterMethod": "아군 체력 버프 + 주변 적 넉업. R 맞은 아군 죽이기 어려움. CC로 고정.",
+      "range": 900,
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 80
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 13,
+      "severity": "high",
+      "explanation": "변이 W 빠지면 룰루 CC 수단 제거. 핵심 스킬 안전하게 사용 가능."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "critical",
+      "explanation": "R 맞은 ADC는 거의 불사. R 쿨 중 아군 ADC 캐치가 유일한 기회."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "Q+E로 라인 견제. ADC 보호막 유지.",
+      "danger": "이니시 서폿(레오나)에게 all-in 당함. W 스킬 아껴야 CC 면역.",
+      "opportunity": "원거리 견제 구도 지배. 상대 체력 낮추면 ADC 올인 가능.",
+      "pathing": "라인 뒤쪽 포지션. 부시는 시야만 확보.",
+      "objective": "2렙 E 보호막 타이밍으로 안전 확보.",
+      "gank": "정글 갱 호응 시 W 변이로 킬 확정."
+    },
+    "mid": {
+      "goal": "ADC 옆 상주. 서폿 아이템 완성 + 지크 완성.",
+      "danger": "혼자 움직이면 잘림. ADC 시야 밖 이탈 금지.",
+      "opportunity": "드래곤 한타에서 W로 적 이니시에이터 변이.",
+      "pathing": "강 부시 + 드래곤 부시 와드 유지.",
+      "objective": "드래곤 한타 적극. 아군 ADC 옆 고정.",
+      "gank": "미드 로밍 자제. ADC 보호가 최우선."
+    },
+    "late": {
+      "goal": "한타에서 아군 ADC에게 R + 보호막 풀스택. 변이로 암살자 차단.",
+      "danger": "ADC 죽으면 한타 끝. 본인 위치 부주의로 사망 시 치명적.",
+      "opportunity": "R 맞은 캐리 녹이기 극도로 어려움. 한타 결정자.",
+      "pathing": "ADC 바로 뒤/옆 고정. 벽 옆 포지션.",
+      "objective": "바론/엘더 한타에서 ADC R로 1인자 만들기.",
+      "gank": "픽오프 금지. 한타 합류 우선."
+    }
+  },
+
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "소환: 아이리",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호자 룬 + 에테르 환상",
+      "reason": "암살자 상대 보호막 극대화. ADC 보호 우선."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "지크의 융합",
+      "reason": "아군 ADC AA 강화로 탱커 녹이기."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "수은 장식띠",
+      "reason": "CC 체인 해제. 한타 이니시 후 생존."
+    },
+    {
+      "condition": "enemy_ranged_poke",
+      "recommendation": "달의 돌 재탄생",
+      "reason": "견제 버티기 + 보호막 유지."
+    }
+  ],
+
+  "vulnerabilities": [
+    "engage_vulnerable",
+    "w_used_noncc",
+    "low_mobility",
+    "adc_dependent",
+    "squishy"
+  ],
+  "keyStrengths": [
+    "polymorph_cc",
+    "save_ally_r",
+    "peel_specialist",
+    "shield_poke_e",
+    "late_game_utility"
+  ]
+}

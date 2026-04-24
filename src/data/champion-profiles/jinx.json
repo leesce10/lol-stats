@@ -1,0 +1,161 @@
+{
+  "id": "Jinx",
+  "name": "징크스",
+  "nameEn": "Jinx",
+  "position": "adc",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "B",
+    "earlyDuel": "C",
+    "midDuel": "B",
+    "lateDuel": "S",
+    "gankPower": "C",
+    "scaling": "late",
+    "mobility": "low",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": ["slow", "root"]
+  },
+
+  "powerSpikes": [6, 11, 16],
+  "weakAfter": null,
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "탈! 포포!",
+      "type": "toggle",
+      "roles": ["primary_damage"],
+      "missPenalty": "none",
+      "hitEnables": ["range_switch", "aoe_rockets"],
+      "counterMethod": "로켓 모드는 사거리 600, 기관총은 525. 로켓 모드에 맞춰 거리 조절.",
+      "range": 600
+    },
+    {
+      "key": "W",
+      "name": "철컥, 꽝꽝꽝!",
+      "type": "skillshot",
+      "roles": ["primary_damage", "utility"],
+      "missPenalty": "high",
+      "hitEnables": ["long_range_poke", "reveal"],
+      "counterMethod": "1.2초 차징 후 발사. 직선. 측면 회피 or 미니언 차단.",
+      "range": 1500,
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "E",
+      "name": "날 잡아봐라!",
+      "type": "aoe",
+      "roles": ["cc"],
+      "missPenalty": "high",
+      "hitEnables": ["root_trap"],
+      "counterMethod": "지연 설치형. 발동 위치 보이면 회피 가능. 점프기/대시 있으면 안전.",
+      "range": 900,
+      "cooldownEarly": 28,
+      "cooldownMaxRank": 20
+    },
+    {
+      "key": "R",
+      "name": "초강력! 메가 죽음의 로켓!",
+      "type": "skillshot",
+      "roles": ["execute", "primary_damage"],
+      "missPenalty": "medium",
+      "hitEnables": ["global_finish", "heal_jinx"],
+      "counterMethod": "글로벌 처형 스킬. 체력 부족 상태에서 R 사거리 밖으로 빠지기.",
+      "cooldownEarly": 90,
+      "cooldownMaxRank": 75
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "minigun_mode",
+      "skillKey": "Q",
+      "windowSec": 5,
+      "severity": "high",
+      "explanation": "기관총 모드 시 사거리 525. 근접 올인 가능 거리. 서폿 이니시로 덮쳐라."
+    },
+    {
+      "condition": "W_cast_anim",
+      "skillKey": "W",
+      "windowSec": 3,
+      "severity": "medium",
+      "explanation": "W 차징 중 이동 불가(1.2초). 이 순간 버스트 풀콤."
+    },
+    {
+      "condition": "no_excited",
+      "windowSec": 6,
+      "severity": "critical",
+      "explanation": "킬/어시 없는 징크스는 이속 없음. 올인 최적 시점."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "CS 안정 + 사거리 확인. 6렙까지 생존 우선.",
+      "danger": "이동기 없음. 서폿 hook에 죽음. 기관총 모드 사거리 525.",
+      "opportunity": "로켓 모드(600)로 장거리 견제. E 설치로 수비선 확보.",
+      "pathing": "포탑 아래 라인. 서폿이 이니시 아니면 부시 회피.",
+      "objective": "2웨이브 이상 먼저 포기. 안전이 최우선.",
+      "gank": "W로 장거리 견제. 서폿 hook 시 연계. 단독 딜보다 듀오."
+    },
+    "mid": {
+      "goal": "2코어(크라켄+정수약탈자) 완성. 오브젝트 싸움 딜 포지션.",
+      "danger": "암살자/이니시에이터에게 노출. 서폿 없으면 즉사.",
+      "opportunity": "아이템 쌓이면서 딜 급증. R로 킬 피니시 가능.",
+      "pathing": "드래곤 근처 상주. 부시 와드 + 서폿 보호선 안에서 딜.",
+      "objective": "드래곤/전령 싸움 적극 참여. W + Q로 오브젝트 견제.",
+      "gank": "아군 이니시 맞춰 Q 기관총 + E로 추격. R로 도주 상대 처형."
+    },
+    "late": {
+      "goal": "한타에서 탱커부터 풀 AA. 이속 중첩 유지하며 폭딜.",
+      "danger": "앞라인 뚫리면 즉사. 스플릿 따라가다 고립 금지.",
+      "opportunity": "풀빌드 징크스 한타 DPS 최상. 이속 중첩 + 리셋으로 전원 쓸기.",
+      "pathing": "한타 뒷열 유지. 벽 바로 옆 포지션으로 암살자 차단.",
+      "objective": "바론/엘더 싸움 중심. 한타 DPS로 오브젝트 스틸 위협.",
+      "gank": "혼자 이동 금지. 서폿/탱커와 같이 움직임."
+    }
+  },
+
+  "defaultSpells": "점멸 + 회복",
+  "defaultRunes": "집중 공격",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호 천사 2코어",
+      "reason": "암살자 버스트 후 부활로 한타 유지. 이속 중첩 리셋도 유지."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 루난 허리케인",
+      "reason": "% 체력 뎀 + 다중 타겟. 탱커 앞라인 녹이기."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 걸리면 즉사. 수은으로 1회 해제."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검 + 독사의 송곳니",
+      "reason": "치유 감소. 브루저/탱커 체젠 차단."
+    }
+  ],
+
+  "vulnerabilities": [
+    "no_mobility",
+    "assassin_vulnerable",
+    "cc_locked",
+    "early_weak",
+    "positioning_dependent"
+  ],
+  "keyStrengths": [
+    "dual_range_q",
+    "global_execute_r",
+    "excited_speed_stack",
+    "aoe_rocket_teamfight",
+    "late_hypercarry"
+  ]
+}

@@ -81,13 +81,23 @@ export interface BuildAdaptation {
   reason: string;
 }
 
+// --- 라인 ---
+
+export type Lane = "top" | "jungle" | "mid" | "adc" | "support";
+
 // --- 페이즈 전략 ---
 
+/**
+ * 모든 라인 공통 페이즈 전략.
+ * 필드 의미는 라인에 따라 약간 다르게 해석된다:
+ * - pathing: 정글=동선, 솔로라인=웨이브 관리, 바텀=포지셔닝, 서폿=시야/와드
+ * - objective: 모든 라인 공통 (우선 순위 오브젝트)
+ * - gank: 정글=갱/카정, 솔로라인=텔/로밍, 바텀=듀오 콤보, 서폿=로밍/어시스트
+ */
 export interface PhaseStrategy {
   goal: string;
   danger: string;
   opportunity: string;
-  // 정글 전용 (다른 포지션 프레임 추가 시 optional로 유지)
   pathing?: string;
   objective?: string;
   gank?: string;
@@ -97,15 +107,15 @@ export interface PhaseStrategy {
 // 챔피언 프로파일 (입력 데이터)
 // ============================================================
 
-/** 정글 챔피언 프로파일. 룰 엔진의 입력 데이터. */
-export interface JungleChampionProfile {
+/** 챔피언 프로파일. 룰 엔진의 입력 데이터. 라인별로 position 값만 다르다. */
+export interface ChampionProfile {
   id: string;
   name: string;
   nameEn: string;
-  position: "jungle";
+  position: Lane;
   patch: string; // 태깅 시점 패치 (예: "15.7")
 
-  // --- 추천 정글 동선 (캠프명 순서) ---
+  // --- 추천 정글 동선 (정글 챔프 한정) ---
   junglePath?: string[];
 
   // --- 정량 프로파일 ---
@@ -148,6 +158,9 @@ export interface JungleChampionProfile {
   vulnerabilities: string[];
   keyStrengths: string[];
 }
+
+/** @deprecated ChampionProfile을 사용하라. 타입 호환용 별칭. */
+export type JungleChampionProfile = ChampionProfile;
 
 // ============================================================
 // 룰 엔진 출력 타입 (MatchupGuide)
@@ -211,15 +224,17 @@ export interface PhaseGuide {
   enemyIntent: string; // 상대가 노리는 것
   dangerTiming: string; // 언제가 위험한가
   opportunityTiming: string; // 언제가 기회인가
-  pathing: string; // 동선/오브젝트
-  gankCounterjungle: string; // 카정/갱 가이드
+  /** 라벨은 position에 따라 UI에서 달라진다 (정글=동선/오브젝트, 솔로=웨이브 관리, 바텀=포지셔닝, 서폿=시야). */
+  pathing: string;
+  /** 라벨은 position에 따라 UI에서 달라진다 (정글=카정/갱, 솔로=텔/로밍, 바텀=듀오 콤보, 서폿=로밍/어시스트). */
+  gankCounterjungle: string;
 }
 
 // --- 최종 출력: 매치업 가이드 ---
 export interface MatchupGuide {
   myChampion: string;
   enemyChampion: string;
-  position: "jungle";
+  position: Lane;
 
   // L0
   verdict: MatchupVerdict;

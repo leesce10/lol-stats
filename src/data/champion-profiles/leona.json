@@ -1,0 +1,146 @@
+{
+  "id": "Leona",
+  "name": "레오나",
+  "nameEn": "Leona",
+  "position": "support",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "D",
+    "earlyDuel": "A",
+    "midDuel": "B",
+    "lateDuel": "B",
+    "gankPower": "A",
+    "scaling": "early",
+    "mobility": "medium",
+    "burst": "low",
+    "sustain": "low",
+    "ccTypes": ["stun", "root", "slow"]
+  },
+
+  "powerSpikes": [2, 6],
+  "weakAfter": 14,
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "방패 강타",
+      "type": "point_click",
+      "roles": ["cc"],
+      "missPenalty": "none",
+      "hitEnables": ["stun_1.25s"],
+      "counterMethod": "기본 사거리 125. 근접 대상만. 거리 유지가 최고 카운터.",
+      "range": 125,
+      "cooldownEarly": 6,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "E",
+      "name": "천상의 검",
+      "type": "dash",
+      "roles": ["engage"],
+      "missPenalty": "high",
+      "hitEnables": ["gap_close", "attach_to_target", "sun_light_debuff"],
+      "counterMethod": "875 사거리 대시. E 빠지면 레오나 이니시 불가. 부시 시야 중요.",
+      "range": 875,
+      "cooldownEarly": 12,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "R",
+      "name": "태양섬광",
+      "type": "skillshot",
+      "roles": ["cc"],
+      "missPenalty": "high",
+      "hitEnables": ["stun_chain", "slow_aoe"],
+      "counterMethod": "원형 스킬샷. 느린 캐스팅. 미리 외곽 회피 or 점멸.",
+      "range": 1200,
+      "cooldownEarly": 90,
+      "cooldownMaxRank": 60
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 8,
+      "severity": "critical",
+      "explanation": "이니시 수단 E 빠지면 레오나 무력화. 풀콤보 부재."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 60,
+      "severity": "high",
+      "explanation": "60초간 광역 CC 부재. 한타 이니시 가치 급감."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "2렙 E+Q 이니시 솔킬. 레벨 2 선 확보 급습.",
+      "danger": "원거리 서폿(룰루, 카르마) 상대 사거리 밀림. Q 닿기 전에 터짐.",
+      "opportunity": "부시 시야 + E로 기습. 2~3렙 풀콤보 킬 확률 높음.",
+      "pathing": "3분 이전 적 부시 시야. 5분경 강 스커틀 와드.",
+      "objective": "드래곤 시야 먼저. 이니시로 적 ADC 자르기.",
+      "gank": "아군 정글 갱 맞춰 E 이니시. Q+R로 킬 확정."
+    },
+    "mid": {
+      "goal": "아군 합류 시 광역 이니시. 시야 장악.",
+      "danger": "혼자 이니시 금지. 체력 관리 실패 시 즉사.",
+      "opportunity": "드래곤/바론 한타 선 이니시. R로 다중 CC.",
+      "pathing": "강 부시/바론 입구 와드. 와드 3개 꾸준히 유지.",
+      "objective": "드래곤 1분 전 시야 먼저. 이니시 타이밍 조절.",
+      "gank": "미드 로밍 시 ADC에게 점멸 1회 요청. 복귀 시점 조율."
+    },
+    "late": {
+      "goal": "한타 선 이니시 R+E 콤보. 적 캐리 원콜.",
+      "danger": "후반 스케일링 부족. 탱 빌드로 버티기.",
+      "opportunity": "풀 CC로 한타 기여. 아군 DPS가 R 맞은 적 녹임.",
+      "pathing": "바론/엘더 시야 절대 사수. 핑크 와드 아끼지 말 것.",
+      "objective": "바론 시작 전 R 아껴두기. 스틸 시도 접근 차단.",
+      "gank": "한타 우선. 픽오프보다 팀과 같이 움직임."
+    }
+  },
+
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "여진",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷 + 밴시 장막",
+      "reason": "AP 버스트 대응. 한타 이니시 후 생존력."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "지크의 융합",
+      "reason": "아군 AA 강화로 체젠 극복."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호의 역류",
+      "reason": "CC 체인 차단. 이니시 안전성 확보."
+    },
+    {
+      "condition": "enemy_ranged_poke",
+      "recommendation": "도란의 반지 → 지크 융합",
+      "reason": "라인 견제 버티기. 레벨링 유지."
+    }
+  ],
+
+  "vulnerabilities": [
+    "long_range_poke",
+    "e_missed_vulnerable",
+    "low_damage",
+    "late_scale_weak",
+    "vision_dependent"
+  ],
+  "keyStrengths": [
+    "multi_cc_chain",
+    "engage_initiator",
+    "level2_allin",
+    "tanky_frontline",
+    "aoe_cc_ult"
+  ]
+}

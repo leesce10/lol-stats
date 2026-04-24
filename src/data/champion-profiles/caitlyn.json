@@ -1,0 +1,156 @@
+{
+  "id": "Caitlyn",
+  "name": "케이틀린",
+  "nameEn": "Caitlyn",
+  "position": "adc",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "B",
+    "earlyDuel": "A",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "low",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": ["root", "slow"]
+  },
+
+  "powerSpikes": [2, 6, 11],
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "피스메이커",
+      "type": "skillshot",
+      "roles": ["primary_damage"],
+      "missPenalty": "medium",
+      "hitEnables": ["extended_range_poke"],
+      "counterMethod": "1.25초 차징 후 긴 직선. 미니언 통과 시 뎀 감소. 라인 진입 타이밍 회피.",
+      "range": 1300,
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "W",
+      "name": "요들 덫",
+      "type": "aoe",
+      "roles": ["cc"],
+      "missPenalty": "high",
+      "hitEnables": ["root", "empowered_aa"],
+      "counterMethod": "지상 설치. 보이는 덫 회피. 덫 밟으면 1.5초 속박 + 강화 자동공격 확정.",
+      "range": 800,
+      "cooldownEarly": 30,
+      "cooldownMaxRank": 18
+    },
+    {
+      "key": "E",
+      "name": "90구경 그물",
+      "type": "skillshot",
+      "roles": ["mobility", "cc"],
+      "missPenalty": "medium",
+      "hitEnables": ["knockback_jump", "slow"],
+      "counterMethod": "후방 대시 스킬. 케이틀린 이탈기. E 빠지면 추격 가능.",
+      "range": 750,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "저격",
+      "type": "point_click",
+      "roles": ["execute", "primary_damage"],
+      "missPenalty": "low",
+      "hitEnables": ["long_range_finish"],
+      "counterMethod": "차징 중 아군이 앞에 서면 차단 가능. 낮은 체력 적 장거리 처형.",
+      "cooldownEarly": 90,
+      "cooldownMaxRank": 60
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "critical",
+      "explanation": "이탈기 E 빠진 케이틀린은 이동기 없음. 10초간 올인 확정."
+    },
+    {
+      "condition": "Q_missed",
+      "skillKey": "Q",
+      "windowSec": 7,
+      "severity": "medium",
+      "explanation": "피스메이커 빠지면 견제 수단 감소. 7초간 케이틀린 파밍만 가능."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "2렙 W 덫 + Q로 적극 견제. 사거리 650 활용 견제 지배.",
+      "danger": "서폿 대신 혼자 이니시 시도 금지. 이동기 E 남겨두기.",
+      "opportunity": "ADC 중 최장 사거리. 올인 각 잡으면 2렙 킬 가능. 덫 밟히면 확정 킬각.",
+      "pathing": "라인 푸시 주도권. 상대 포탑 압박 + 덫 시야 설치.",
+      "objective": "탑 전령 지원보다 바텀 1차 포탑 우선. 사거리로 포탑 딜.",
+      "gank": "아군 정글 갱 시 덫 배치 + Q + E 넉백으로 완벽 호응."
+    },
+    "mid": {
+      "goal": "크라켄 슬레이어 2코어 완성. 오브젝트 장악.",
+      "danger": "E 쓴 후 추격 당함. 풀템 근접 암살자에게 터짐.",
+      "opportunity": "장거리 견제 유지. 덫 + 오브젝트 시야로 맵 컨트롤.",
+      "pathing": "드래곤 근처 상주. 주변 부시에 덫 3개 설치.",
+      "objective": "드래곤 싸움 적극. 피스메이커로 오브젝트에 차감 딜.",
+      "gank": "서폿 hook 호응. E 아껴서 이탈 보장."
+    },
+    "late": {
+      "goal": "한타 사거리 내 최대한 AA. R로 도주 적 피니시.",
+      "danger": "포지션 실수 시 즉사. 이속 중첩 없어 도주 어려움.",
+      "opportunity": "가장 먼 DPS 포지션 유지. 탱커 접근 전 반딜 이상.",
+      "pathing": "벽 옆 포지션. E는 비상용.",
+      "objective": "바론 스틸 시도 가능(R 처형). 엘더 한타 DPS 핵심.",
+      "gank": "혼자 이동 금지. 한타 합류 우선."
+    }
+  },
+
+  "defaultSpells": "점멸 + 회복",
+  "defaultRunes": "집중 공격",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호 천사",
+      "reason": "CC 한 번에 죽음. 부활로 한타 유지."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 독사의 송곳니",
+      "reason": "% 체력 뎀 + 치감. 탱커 녹이기 + 브루저 대응."
+    },
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "정수 약탈자 → 수호 천사",
+      "reason": "암살자 버스트 버티기. 치명타 유지하며 생존."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검 → 치감 2번째",
+      "reason": "체젠 많은 상대 치유 감소 필수."
+    }
+  ],
+
+  "vulnerabilities": [
+    "no_mobility",
+    "e_used_vulnerable",
+    "assassin_dive",
+    "cc_locked",
+    "mid_late_fall_off"
+  ],
+  "keyStrengths": [
+    "longest_aa_range",
+    "trap_setup",
+    "level2_spike",
+    "headshot_empower",
+    "siege_specialist"
+  ]
+}

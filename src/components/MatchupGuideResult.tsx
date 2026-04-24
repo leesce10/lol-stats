@@ -1,8 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import type { MatchupGuide } from "@/types/matchup-engine";
+import type { Lane, MatchupGuide } from "@/types/matchup-engine";
 import JunglePathMap from "./JunglePathMap";
+
+// 라인별 L3 하단 2줄 라벨
+const LANE_PHASE_LABELS: Record<Lane, { pathing: string; tactic: string }> = {
+  jungle: { pathing: "동선/오브젝트", tactic: "카정/갱" },
+  top: { pathing: "웨이브 관리", tactic: "텔/로밍" },
+  mid: { pathing: "웨이브 관리", tactic: "로밍/시야" },
+  adc: { pathing: "포지셔닝", tactic: "듀오 콤보" },
+  support: { pathing: "시야/와드", tactic: "로밍/어시스트" },
+};
 
 // ============================================================
 // L0 — 한 줄 판정
@@ -273,8 +282,8 @@ function PhaseGuideSection({ guide }: { guide: MatchupGuide }) {
             <PhaseRow label="상대의 의도" text={phase.enemyIntent} color="text-red-400" />
             <PhaseRow label="주의 타이밍" text={phase.dangerTiming} color="text-orange-400" />
             <PhaseRow label="활용 타이밍" text={phase.opportunityTiming} color="text-green-400" />
-            <PhaseRow label="동선/오브젝트" text={phase.pathing} color="text-cyan-400" />
-            <PhaseRow label="카정/갱" text={phase.gankCounterjungle} color="text-yellow-400" />
+            <PhaseRow label={LANE_PHASE_LABELS[guide.position].pathing} text={phase.pathing} color="text-cyan-400" />
+            <PhaseRow label={LANE_PHASE_LABELS[guide.position].tactic} text={phase.gankCounterjungle} color="text-yellow-400" />
           </div>
         </div>
       )}
@@ -344,8 +353,8 @@ export default function MatchupGuideResult({ guide, myJunglePath }: { guide: Mat
         <BuildAdviceCard guide={guide} />
       </div>
 
-      {/* 추천 정글 동선 미니맵 */}
-      {myJunglePath && myJunglePath.length > 0 && (
+      {/* 추천 정글 동선 미니맵 (정글 한정) */}
+      {guide.position === "jungle" && myJunglePath && myJunglePath.length > 0 && (
         <div className="glass-card p-5">
           <h3 className="text-sm font-bold text-[var(--text-primary)] mb-4">추천 초반 동선</h3>
           {/* 미니맵 (크게, 중앙 정렬) */}

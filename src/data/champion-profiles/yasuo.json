@@ -1,0 +1,163 @@
+{
+  "id": "Yasuo",
+  "name": "야스오",
+  "nameEn": "Yasuo",
+  "position": "mid",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": ["knockup"]
+  },
+
+  "powerSpikes": [3, 6, 11],
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "칼날 폭풍",
+      "type": "skillshot",
+      "roles": ["primary_damage", "cc"],
+      "missPenalty": "medium",
+      "hitEnables": ["q3_knockup", "tornado"],
+      "counterMethod": "3중첩 후 Q는 직선 스킬샷 토네이도. 측면 회피. 토네이도 준비 시 CS 접근 금지.",
+      "range": 475,
+      "cooldownEarly": 4,
+      "cooldownMaxRank": 1
+    },
+    {
+      "key": "E",
+      "name": "질풍검",
+      "type": "dash",
+      "roles": ["mobility", "secondary_damage"],
+      "missPenalty": "low",
+      "hitEnables": ["gap_close", "stack_q", "reset_on_kill"],
+      "counterMethod": "적/미니언 대상으로만 대시. 미니언 없으면 E 불가. 고립시키거나 웨이브 클리어.",
+      "range": 475,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "바람 장막",
+      "type": "aoe",
+      "roles": ["defense"],
+      "missPenalty": "low",
+      "hitEnables": ["block_projectiles"],
+      "counterMethod": "투사체 전부 차단. AP/원거리 챔프는 W 쿨 빠질 때까지 근접 금지.",
+      "range": 400,
+      "cooldownEarly": 26,
+      "cooldownMaxRank": 18
+    },
+    {
+      "key": "R",
+      "name": "최후의 숨결",
+      "type": "point_click",
+      "roles": ["engage", "primary_damage"],
+      "missPenalty": "none",
+      "hitEnables": ["gap_close", "armor_pen", "untargetable"],
+      "counterMethod": "공중에 뜬 대상에게 발동. 아군 넉업 스킬 사용 시점 주의. CC로 고정 필요.",
+      "range": 1400,
+      "cooldownEarly": 90,
+      "cooldownMaxRank": 70
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "Q3_tornado_used",
+      "skillKey": "Q",
+      "windowSec": 4,
+      "severity": "high",
+      "explanation": "토네이도 발사 직후 4초간 3중첩 리셋. 넉업 없으면 R 불가. 올인 타이밍."
+    },
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 18,
+      "severity": "critical",
+      "explanation": "바람장막 빠지면 모든 원거리 스킬 적중. AP/ADC는 이 시간에 풀콤."
+    },
+    {
+      "condition": "no_minions_nearby",
+      "windowSec": 5,
+      "severity": "high",
+      "explanation": "주변 미니언/적 없으면 E 불가. 고립된 야스오는 이동기 없는 근접 챔프와 동일."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "Q 중첩 쌓으면서 CS. 6렙 이전 넉업 아군과 갱 협공.",
+      "danger": "원거리 견제 챔프에게 체력 손해. Q 중첩 쌓는 시간에 노출.",
+      "opportunity": "근접 챔프 상대 E로 미니언 이용 버스트. W로 스펠 차단 후 역공.",
+      "pathing": "웨이브 내쪽 프리즈 후 정글 협공 유도. 단, 체력 관리 필수.",
+      "objective": "초반 솔킬 어려움. 정글 갱 호응으로 킬 확보.",
+      "gank": "넉업 있는 아군 갱 (말파이트, 세주아니)과 합류 시 R 확실. 단독 갱 비추."
+    },
+    "mid": {
+      "goal": "무한의 대검 완성. 풀 아이템 치명타 빌드 진입.",
+      "danger": "아이템 안 나오면 애매함. 0/5 이상 밀리면 한타 가치 소멸.",
+      "opportunity": "무한의 대검 이후 E 리셋 + Q 토네이도로 폭딜. 아군 넉업 합류로 R 폭격.",
+      "pathing": "미드 웨이브 밀고 사이드 로밍. 탑/바텀 아군 넉업 있으면 적극 합류.",
+      "objective": "드래곤/전령 싸움에 넉업 맞춰 R. 아군 이니시에이터와 합 중요.",
+      "gank": "로밍 가능 시 바텀 우선 (서폿 넉업 활용). 미드는 웨이브 밀고 합류."
+    },
+    "late": {
+      "goal": "한타에서 아군 넉업 → R → E 리셋 폭딜 → 생존.",
+      "danger": "CC 체인 맞으면 즉사. 진입 타이밍 실수로 솔로 사망.",
+      "opportunity": "무한대검 + 죽무 풀빌드 야스오의 한타 가치 최상. R 터지면 한타 승.",
+      "pathing": "한타 전 아군 넉업 스킬 확인. 사이드 스플릿보다 한타 합류.",
+      "objective": "바론 싸움에 R로 적 딜러 후방 원콜. 엘더 한타에서 가장 강함.",
+      "gank": "픽오프보다 한타 이니시 호응. 혼자 먼저 진입 금지."
+    }
+  },
+
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "치명적 속도",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "죽음의 무도 2코어",
+      "reason": "AP 암살자 버스트 분산. 피흡 유지."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호 천사",
+      "reason": "CC 길이 감소 + 한 번 부활로 생존력."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "% 체력 뎀 추가. 야스오 기본 방관이 부족."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검 (처형) + 치명 템",
+      "reason": "치유 감소. 탱커/브루저 체젠 차단."
+    }
+  ],
+
+  "vulnerabilities": [
+    "cc_locked",
+    "no_sustain",
+    "isolated_no_dash",
+    "item_dependent",
+    "squishy_early"
+  ],
+  "keyStrengths": [
+    "projectile_block_w",
+    "reset_on_kill_e",
+    "knockup_synergy",
+    "global_ult_r",
+    "dueling_midgame"
+  ]
+}

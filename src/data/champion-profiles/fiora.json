@@ -1,0 +1,144 @@
+{
+  "id": "Fiora",
+  "name": "피오라",
+  "nameEn": "Fiora",
+  "position": "top",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "C",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "S",
+    "gankPower": "C",
+    "scaling": "late",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": ["stun"]
+  },
+
+  "powerSpikes": [3, 6, 11],
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "찌르기",
+      "type": "dash",
+      "roles": ["primary_damage", "mobility"],
+      "missPenalty": "low",
+      "hitEnables": ["gap_close", "reset_on_vital"],
+      "counterMethod": "짧은 대시. 벽 넘기 불가. Q 방향 예측 후 넉백/에어본으로 차단.",
+      "range": 400,
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "W",
+      "name": "회피 타격",
+      "type": "aoe",
+      "roles": ["defense", "cc"],
+      "missPenalty": "high",
+      "hitEnables": ["parry", "stun"],
+      "counterMethod": "1초 패리 윈도우. 핵심 CC/딜 스킬은 W 후 사용. W 사용 타이밍 읽기가 승패 결정.",
+      "range": 750,
+      "cooldownEarly": 24,
+      "cooldownMaxRank": 16
+    },
+    {
+      "key": "R",
+      "name": "대결",
+      "type": "self_buff",
+      "roles": ["primary_damage", "defense"],
+      "missPenalty": "none",
+      "hitEnables": ["4vitals_heal", "slow"],
+      "counterMethod": "급소 4개 중 2개 이상 찍히면 1:1 불가능. 벽 뒤 숨기 or CC로 접근 차단.",
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 80
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 16,
+      "severity": "critical",
+      "explanation": "패리 빠지면 모든 CC/버스트 성립. 피오라 방어 수단 제로."
+    },
+    {
+      "condition": "Q_used_no_vital",
+      "skillKey": "Q",
+      "windowSec": 5,
+      "severity": "medium",
+      "explanation": "급소 찍지 못한 Q는 쿨 9초. 5초 이내 역공 가능."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "급소 찍으면서 CS 안정. 포탑 밖에서 Q 찌르기로 견제.",
+      "danger": "초반 2~3렙 강한 근접 챔프(다리우스)에게 밀림. E로 공속 뽑기 전까지 맞딜 약함.",
+      "opportunity": "원거리 챔프 상대 Q로 접근해 급소 찍기. 치명타 룬으로 초반 버스트.",
+      "pathing": "파밍 우선. 6렙 후부터 견제/올인 전환. 웨이브 중립 상태 유지.",
+      "objective": "초반 킬 없어도 됨. 급소 1개 찍고 CS 유지가 승리 조건.",
+      "gank": "E로 CC 무력화. 갱 호출 가능하나 이동기 짧음. 정글 강타 의존."
+    },
+    "mid": {
+      "goal": "첫 코어템(트리니티) 완성. 사이드 스플릿 주도.",
+      "danger": "아직 풀템 아님. 한타에서 물몸 노출.",
+      "opportunity": "1:1 탑 솔킬 기본. 순간 이동 없는 상대 완전 제압.",
+      "pathing": "탑 라인 크게 밀고 사이드 웨이브 관리. 바론 시야는 아군에게 맡김.",
+      "objective": "전령보다 탑 포탑. 스플릿으로 인원 차 만들기.",
+      "gank": "사이드 라인 우위 + 텔로 한타 합류. 단, 5초 텔이라 타이밍 중요."
+    },
+    "late": {
+      "goal": "한타에서 R로 적 탱커 처치 후 후방 진입. 급소 4개 치유로 풀템 캐리 녹이기.",
+      "danger": "CC 체인 맞으면 죽음. 위치 선정 실수 한 번으로 한타 패배.",
+      "opportunity": "풀빌드 피오라는 1v2 가능. 스플릿 위협 극대화.",
+      "pathing": "한타는 최후 옵션. 우선은 사이드 1v1/1v2 압박.",
+      "objective": "바론/엘더 직접 참여보다 반대쪽 스플릿으로 4-1 유도.",
+      "gank": "아군 혼자 남은 상대 캐치 시 합류. 급소 찍어서 빠른 처형."
+    }
+  },
+
+  "defaultSpells": "점멸 + 순간이동",
+  "defaultRunes": "정복자",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "체젠 탱커 상대 현재 체력 비례 뎀 + 치유 감소."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 길이 감소. R 사용 전 CC 끊기 필수."
+    },
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷 or 수호 천사",
+      "reason": "풀콤보 버티기용. R 지속시간 확보."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 흑절",
+      "reason": "급소 4개로 % 체력 뎀 + 방관 결합."
+    }
+  ],
+
+  "vulnerabilities": [
+    "weak_early_2_3lv",
+    "cc_locked",
+    "w_predicted",
+    "short_dash",
+    "level1_duel_low"
+  ],
+  "keyStrengths": [
+    "vital_scaling",
+    "1v2_splitpush",
+    "parry_playmaking",
+    "true_damage_vitals",
+    "late_hypercarry"
+  ]
+}

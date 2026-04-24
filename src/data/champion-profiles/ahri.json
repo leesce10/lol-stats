@@ -1,0 +1,145 @@
+{
+  "id": "Ahri",
+  "name": "아리",
+  "nameEn": "Ahri",
+  "position": "mid",
+  "patch": "15.7",
+
+  "profile": {
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "B",
+    "gankPower": "A",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "medium",
+    "sustain": "low",
+    "ccTypes": ["charm"]
+  },
+
+  "powerSpikes": [3, 6, 11],
+
+  "keySkills": [
+    {
+      "key": "Q",
+      "name": "홀리는 구슬",
+      "type": "skillshot",
+      "roles": ["primary_damage"],
+      "missPenalty": "medium",
+      "hitEnables": ["return_true_damage"],
+      "counterMethod": "왕복 딜. 미니언 뒤 or 옆 회피. 되돌아오는 궤적 예측 필수.",
+      "range": 880,
+      "cooldownEarly": 7,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "E",
+      "name": "매혹",
+      "type": "skillshot",
+      "roles": ["cc"],
+      "missPenalty": "critical",
+      "hitEnables": ["charm", "combo_start"],
+      "counterMethod": "느린 투사체. 미니언 뒤 숨기. E 피하면 아리 킬각 제거.",
+      "range": 975,
+      "cooldownEarly": 12,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "영혼 질주",
+      "type": "dash",
+      "roles": ["mobility", "secondary_damage"],
+      "missPenalty": "low",
+      "hitEnables": ["triple_dash", "gap_close_or_escape"],
+      "counterMethod": "3회 대시. R 사용 시 추격 중 CC 필수. R 없는 10초가 올인 타이밍.",
+      "range": 450,
+      "cooldownEarly": 130,
+      "cooldownMaxRank": 100
+    }
+  ],
+
+  "punishTriggers": [
+    {
+      "condition": "E_missed",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "high",
+      "explanation": "매혹 빠지면 콤보 시작 불가. 10초간 아리 킬각 제거."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 100,
+      "severity": "critical",
+      "explanation": "도주/추격 모두 R 의존. R 없는 상태는 아리가 가장 무력한 순간."
+    }
+  ],
+
+  "phases": {
+    "early": {
+      "goal": "Q로 CS + 견제. E 쿨마다 라인 컨트롤. 6렙까지 생존.",
+      "danger": "근접 암살자(야스오, 제드)에게 all-in 약함. 체력 관리 실패 시 솔킬.",
+      "opportunity": "원거리 챔프 상대 Q 견제 우위. E 명중 시 2렙 솔킬 각도 있음.",
+      "pathing": "웨이브 중립 유지. 포탑 아래 안전 CS.",
+      "objective": "6렙 전 갱 주도 어려움. 정글 갱 타이밍 대기.",
+      "gank": "6렙 R 확보 후 사이드 합류. Q+E 세트로 갱 성공률 높음."
+    },
+    "mid": {
+      "goal": "루덴의 동반자 완성. R 쿨마다 로밍 시도.",
+      "danger": "R 없을 때 한타 참여 금지. 진입 후 빠져나올 수단 부재.",
+      "opportunity": "R 3회 진입/이탈로 픽오프. 적 사이드 라이너 고립 시 킬각.",
+      "pathing": "미드 웨이브 크게 밀고 사이드 합류. 적 정글 시야 먼저.",
+      "objective": "드래곤 한타 전 상대 1명 픽오프 → 오브젝트 유리.",
+      "gank": "바텀 로밍 최우선. R로 빠르게 진입, E로 원콜."
+    },
+    "late": {
+      "goal": "한타에서 R로 후방 진입 → E 원콜 → Q 버스트 → R로 이탈.",
+      "danger": "정확한 E 필요. 앞라인 뚫기 어려우면 한타 무용.",
+      "opportunity": "픽오프 구도 최상. 시야 사각 캐치 특화.",
+      "pathing": "한타 전 적 딜러 위치 확인. 측면 각 잡기.",
+      "objective": "바론/엘더 전 R로 고립 적 원콜. 한타 전 인원 차.",
+      "gank": "로밍/픽오프 지속. 혼자 움직이는 상대 E 캐치."
+    }
+  },
+
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "존야의 모래시계",
+      "reason": "버스트 받을 때 무적 프레임. 팀 합류 시간 확보."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 밴시 장막",
+      "reason": "CC 걸리면 R도 무용. 수은으로 시간 감소."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "공허의 지팡이 + 라이라이 수정홀",
+      "reason": "탱커 상대 % 마관 필수. 슬로우 추가로 캐치력 보완."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검은 NO / 모렐로 대신",
+      "reason": "AP 기반이라 치감템은 모렐로노미콘."
+    }
+  ],
+
+  "vulnerabilities": [
+    "melee_allin",
+    "cc_locked",
+    "e_missed",
+    "r_dependent",
+    "squishy"
+  ],
+  "keyStrengths": [
+    "triple_dash_mobility",
+    "pick_off_specialist",
+    "global_roam_threat",
+    "safe_laner",
+    "charm_playmaking"
+  ]
+}
