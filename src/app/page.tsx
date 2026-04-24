@@ -142,18 +142,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 예고 */}
+      {/* 챔셀 코치 */}
       <section className="py-10 border-t border-[var(--border-color)] mb-8">
-        <div className="rounded-xl border border-dashed border-[var(--border-color)] bg-[var(--bg-secondary)]/50 p-5 sm:p-6 text-center">
-          <div className="text-xs font-bold text-[var(--accent-blue)] mb-2">COMING SOON</div>
+        <Link
+          href="/champ-select"
+          className="group block rounded-xl border-2 border-[var(--accent-blue)]/40 bg-gradient-to-br from-blue-500/10 to-purple-600/10 p-5 sm:p-6 text-center hover:border-[var(--accent-blue)] hover:from-blue-500/15 hover:to-purple-600/15 transition-all"
+        >
+          <div className="text-xs font-bold text-[var(--accent-blue)] mb-2">BETA · 신규 기능</div>
           <h3 className="text-lg sm:text-xl font-bold text-[var(--text-primary)] mb-2">
-            챔셀 코치 · 10명 조합 동시 분석
+            🎯 챔셀 코치 · 10명 조합 동시 분석
           </h3>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto">
+          <p className="text-sm text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto mb-3">
             블루/레드 10명을 한 번에 입력하면, 시간대별 행동 지침 · 흔한 함정 · 한타 우선순위를
-            <br className="hidden sm:inline" /> 30초 안에 답합니다. 한국어·모바일·광고 없음.
+            <br className="hidden sm:inline" /> 30초 안에 답합니다.
           </p>
-        </div>
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent-blue)]">
+            지금 써보기 <span className="transition-transform group-hover:translate-x-0.5">→</span>
+          </span>
+        </Link>
       </section>
     </div>
   );
