@@ -108,7 +108,7 @@ function MustDodgeCard({ guide }: { guide: MatchupGuide }) {
     <div className="glass-card p-4 border-l-4 border-red-500/50">
       <h3 className="text-xs font-bold text-red-400 mb-3 flex items-center gap-1.5">
         <span className="w-2 h-2 rounded-full bg-red-500" />
-        핵심 위협 대응
+        라인전 핵심 스킬 & 거리 관리
       </h3>
       <div className="space-y-3">
         {guide.mustDodge.map((skill) => (
@@ -140,7 +140,7 @@ function PunishWindowCard({ guide }: { guide: MatchupGuide }) {
     <div className="glass-card p-4 border-l-4 border-green-500/50">
       <h3 className="text-xs font-bold text-green-400 mb-3 flex items-center gap-1.5">
         <span className="w-2 h-2 rounded-full bg-green-500" />
-        반격 윈도우
+        라인전 약점 타이밍 (공격 창)
       </h3>
       <div className="space-y-3">
         {guide.punishWindows.map((pw, i) => (

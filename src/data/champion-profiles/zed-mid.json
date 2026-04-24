@@ -28,10 +28,14 @@
       "range": 625, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [
-    { "condition": "W_used", "skillKey": "W", "windowSec": 20, "severity": "high",
-      "explanation": "이동기+딜 증폭 모두 빠진 상태. 도주 불가, W 없이 교전하면 올인 대응력 급감." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "critical",
-      "explanation": "킬 캐치 + 무적 프레임 소실. R 쿨 중 한타 가치 급감." }
+    { "condition": "W_used", "skillKey": "W", "windowSec": 20, "severity": "critical",
+      "explanation": "제드 W 그림자 사용 후 20초간 이동기/딜 증폭 모두 없음. 도주 불가 + 풀콤 불가 → 이 20초가 라인전 솔킬 타이밍 1순위." },
+    { "condition": "E_used", "skillKey": "E", "windowSec": 4, "severity": "high",
+      "explanation": "E 슬로우 빠진 직후 4초. Q 맞추기 어려워져서 풀콤 연결 안 됨 → 거리 좁혀 트레이드 시도." },
+    { "condition": "no_energy", "windowSec": 8, "severity": "high",
+      "explanation": "제드 에너지 40 이하면 풀콤(W+E+Q) 불가. 라인에서 에너지 바 관찰 — 낮을 때 푸시 + 근접 트레이드." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "medium",
+      "explanation": "킬 캐치 + 무적 프레임 소실. 쿨 80초 — 오브젝트 싸움 타이밍." }
   ],
   "phases": {
     "early": {

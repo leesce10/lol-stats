@@ -449,50 +449,100 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
   }
 }
 
-/** 태그별 반격 윈도우 템플릿. */
-function tagPunishTriggers(tag: PrimaryTag): PunishTrigger[] {
+/**
+ * 라인 인식 반격 윈도우 템플릿.
+ *
+ * 유저 피드백: "R 빠진 후 80초" 같은 큰 창보다 **라인전 짧은 쿨** 윈도우가 더 실전적.
+ * 그래서 Q/E 같은 짧은 쿨 스킬 사용 직후 + 자원(마나/에너지) 고갈 창을 앞세우고,
+ * R 윈도우는 참고용으로 뒤에 배치.
+ *
+ * 라인 컨텍스트:
+ *  - adc 라인: 서폿 의존 윈도우 적용 가능
+ *  - top/jungle/mid/support: 서폿 윈도우 대신 마나/레벨 기반 윈도우
+ */
+function tagPunishTriggers(tag: PrimaryTag, lane: Lane, champName: string): PunishTrigger[] {
+  const n = champName;
+
   switch (tag) {
     case "Tank":
       return [
         { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
-          explanation: "주요 이니시 E가 빠진 탱커는 거리 유지만 해도 위협도 제로. 10초간 올인 확정." },
-        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "high",
-          explanation: "광역 CC 궁 빠진 탱커는 한타 기여도 크게 감소." },
+          explanation: `${n} 주 이니시 E 빠진 직후 10초. 이동기/CC 사용 불가 — 거리 유지만 해도 위협도 제로, 트레이드 우위.` },
+        { condition: "Q_missed", skillKey: "Q", windowSec: 6, severity: "high",
+          explanation: `${n} Q(CC) 빗나가면 6초간 붙잡을 수단 없음. 이 창에 포크 or 라인 푸시.` },
+        { condition: "no_mana_resource", windowSec: 20, severity: "medium",
+          explanation: `${n} 마나 40% 이하면 스킬 연발 불가. 파밍 약해지므로 웨이브 밀어 다이브 or 로밍.` },
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "medium",
+          explanation: `R 한타 기여 기대치 급감 — 오브젝트 타이밍 활용.` },
       ];
     case "Fighter":
       return [
         { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
-          explanation: "유일 이동기 E 빠지면 추격 불가. 10초간 카이팅으로 확정." },
-        { condition: "R_used", skillKey: "R", windowSec: 60, severity: "high",
-          explanation: "R 강화 빠지면 버스트/탱킹 반감." },
+          explanation: `${n} 이동기 E 빠진 직후 10초. 추격/이탈 불가 — 카이팅 or 역공 타이밍.` },
+        { condition: "Q_used", skillKey: "Q", windowSec: 5, severity: "high",
+          explanation: `${n} 주 딜 Q 사용 직후 5초. 쿨 돌기 전이 트레이드 창.` },
+        { condition: "pre_level_6", windowSec: 300, severity: "high",
+          explanation: `6렙 이전 ${n} 파이터는 R 강화 없어 1:1 약함. 솔킬/견제 적극.` },
+        { condition: "R_used", skillKey: "R", windowSec: 60, severity: "medium",
+          explanation: `R 강화 버프 끝난 뒤 60초는 평범한 근접 — 카이팅 교전 유도.` },
       ];
     case "Mage":
       return [
-        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "critical",
-          explanation: "버스트 궁 빠진 메이지 올인 수단 제로. 근접 올인 최적." },
-        { condition: "no_mana", windowSec: 8, severity: "high",
-          explanation: "마나 고갈 메이지는 스킬 연발 불가. 적극 올인." },
+        { condition: "Q_used_missed", skillKey: "Q", windowSec: 5, severity: "critical",
+          explanation: `${n} 주 포크 Q 쿨 돌기 전 5초. 메이지의 유일한 견제 수단 → 이 창에 거리 좁혀 트레이드.` },
+        { condition: "no_mana", windowSec: 15, severity: "critical",
+          explanation: `${n} 마나 30% 이하면 스킬 1~2개만 사용 가능. 포크 불가 상태 — 적극 올인.` },
+        { condition: "E_used", skillKey: "E", windowSec: 10, severity: "high",
+          explanation: `${n} 방어/블링크 E 빠진 직후 10초. 암살/근접 올인 최적 창.` },
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "medium",
+          explanation: `버스트 궁 쿨 중 80초 — 메이지 한타 위협도 급감. 오브젝트 타이밍.` },
       ];
     case "Assassin":
       return [
         { condition: "E_used", skillKey: "E", windowSec: 12, severity: "critical",
-          explanation: "이동기 E 빠진 암살자는 진입/이탈 불가. 12초간 CC + 올인 확정." },
-        { condition: "R_used", skillKey: "R", windowSec: 70, severity: "high",
-          explanation: "처형 R 빠진 암살자 킬 피니시 수단 감소." },
+          explanation: `${n} 이동기 E 빠진 직후 12초. 진입/이탈 수단 제로 — CC 걸고 올인 확정.` },
+        { condition: "Q_cd", skillKey: "Q", windowSec: 4, severity: "high",
+          explanation: `${n} 주 버스트 Q 쿨 중 4초. 버스트 반감 — 트레이드 창.` },
+        { condition: "no_energy_mana", windowSec: 10, severity: "high",
+          explanation: `${n} 자원(에너지/마나) 고갈 = 풀콤 불가. 10초간 올인 대응 가능.` },
+        { condition: "R_used", skillKey: "R", windowSec: 70, severity: "medium",
+          explanation: `처형/진입 R 쿨 중. 한타 시작 타이밍 양보 가능.` },
       ];
     case "Marksman":
+      // adc 라인은 서폿 의존 윈도우 적용, 미드/탑 마크스맨(코르키·애쉬 등)은 별도
+      if (lane === "adc") {
+        return [
+          { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
+            explanation: `${n} 이탈/회피 E 빠진 직후 10초. 이동기 제로 — 서폿 이니시 + 풀콤.` },
+          { condition: "Q_used", skillKey: "Q", windowSec: 5, severity: "high",
+            explanation: `${n} 주 포크 Q 사용 직후. 쿨 돌기 전 5초가 거리 좁히는 창.` },
+          { condition: "no_support", windowSec: 15, severity: "high",
+            explanation: `${n} 서폿 사이드 로밍/귀환 시 1:1 약함. 미니맵에서 상대 서폿 위치 확인.` },
+          { condition: "R_used", skillKey: "R", windowSec: 80, severity: "medium",
+            explanation: `ADC R 피니시 빠짐. 한타 지속딜만 남은 상태.` },
+        ];
+      }
+      // 미드/탑 마크스맨 (코르키·애쉬-지원·아크샨 등): 서폿 의존 없음
       return [
         { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
-          explanation: "이탈기/덫 E 빠지면 이동기 제로. 암살자/이니시 서폿 진입 최적." },
-        { condition: "no_support", windowSec: 15, severity: "high",
-          explanation: "서폿 없는 원딜은 1:1 약함. 서폿 로밍 타이밍 확인." },
+          explanation: `${n} 이동기 E 빠진 직후 10초. 솔로라인에서 도주 수단 제로 — 암살 올인 최적.` },
+        { condition: "Q_used", skillKey: "Q", windowSec: 5, severity: "high",
+          explanation: `${n} 주 포크 Q 사용 직후 5초. 쿨 돌기 전이 거리 좁히는 창.` },
+        { condition: "no_mana", windowSec: 12, severity: "high",
+          explanation: `${n} 마나 30% 이하면 포크/스킬 연발 불가. 이 창에 웨이브 푸시 + 올인.` },
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "medium",
+          explanation: `장거리 피니시 R 빠짐. 로밍 영향력 감소.` },
       ];
     case "Support":
       return [
         { condition: "Q_missed", skillKey: "Q", windowSec: 8, severity: "critical",
-          explanation: "주요 hook/CC 빠지면 이니시 수단 제로. 8초간 올인 대응 가능." },
-        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "high",
-          explanation: "팀 궁 빠진 서폿 한타 기여도 급감." },
+          explanation: `${n} 주 hook/CC Q 빗나간 직후 8초. 이니시 수단 제로 — 이 창에 공격적 트레이드.` },
+        { condition: "E_used", skillKey: "E", windowSec: 12, severity: "high",
+          explanation: `${n} E(이동/추가 CC) 빠진 직후 12초. 풀콤 연결 불가.` },
+        { condition: "no_mana_low_level", windowSec: 15, severity: "high",
+          explanation: `${n} 마나 부족 + 6렙 이하면 스킬 연발 불가. ADC 보호력 약화 상태.` },
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "medium",
+          explanation: `팀 궁 쿨 중. 한타 기여도 반감.` },
       ];
   }
 }
@@ -509,7 +559,7 @@ export function generateProfile(champ: ChampionMeta, lane: Lane): ChampionProfil
     profile: { ...TAG_PROFILE[tag] },
     powerSpikes: [...TAG_SPIKES[tag]],
     keySkills: tagKeySkills(tag, champ.nameKr),
-    punishTriggers: tagPunishTriggers(tag),
+    punishTriggers: tagPunishTriggers(tag, lane, champ.nameKr),
     phases: personalizePhases(LANE_BASE_PHASES[lane], champ.nameKr),
     defaultSpells: DEFAULT_SPELLS[lane],
     defaultRunes: DEFAULT_RUNES[tag],
