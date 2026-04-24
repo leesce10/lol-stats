@@ -52,7 +52,7 @@
       "roles": ["cc", "engage"],
       "missPenalty": "critical",
       "hitEnables": ["pull_into_range", "combo_start"],
-      "counterMethod": "직선 스킬샷. 측면 회피 가능. E 빠지면 다리우스 올인각 사라짐.",
+      "counterMethod": "540 거리 직선 스킬샷 **풀콤 시작점**. 예방: (1) 540 밖 거리 유지 — 다리우스 E 사거리 경계 학습, (2) 미니언 뒤/측면 회피 가능, (3) E 쿨 20~26초 = 라인전에서 E 빠진 20초가 CS 안전 창. 맞으면: Q 학살 외곽 뎀 (최대) 피하기 위해 **바로 다리우스 품속으로** 붙기 + W 5스택 채우기 전에 이탈. 플래시로 끌려가도 다시 끌어당길 여지.",
       "range": 540,
       "cooldownEarly": 26,
       "cooldownMaxRank": 20

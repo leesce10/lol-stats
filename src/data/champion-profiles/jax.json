@@ -22,7 +22,7 @@
       "counterMethod": "2초 발동. AA 회피 + 2초 후 기절. 스킬은 회피 불가. E 중 AA 금지.",
       "cooldownEarly": 18, "cooldownMaxRank": 10 },
     { "key": "R", "name": "초월한 챔피언", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
-      "hitEnables": ["aa_empower", "armor_mr"], "counterMethod": "3회 AA에 AoE 뎀. 5초간 방어력 + 마방 급증.",
+      "hitEnables": ["aa_empower", "armor_mr"], "counterMethod": "자가 강화 궁 — R 켜짐 = 한타 뎀/탱킹 급증. 예방: (1) R 발동 후 5초 동안 **교전 회피·카이팅**으로 지속시간 버티기, (2) 3회 AA마다 주변 AoE 스턴 — 근접 챔프 주변 있지 말 것. 대응: R 종료 후 쿨 40초 동안은 평범한 근접. 존야는 R 직후 무력화용보다 R 풀콤보 시간 벌기용. 풀코어 잭스라면 R 유지 동안 꺼지길 기다리는 편이 유리.",
       "cooldownEarly": 80, "cooldownMaxRank": 40 }
   ],
   "punishTriggers": [

@@ -52,7 +52,7 @@
       "roles": ["primary_damage", "defense"],
       "missPenalty": "none",
       "hitEnables": ["4vitals_heal", "slow"],
-      "counterMethod": "급소 4개 중 2개 이상 찍히면 1:1 불가능. 벽 뒤 숨기 or CC로 접근 차단.",
+      "counterMethod": "자가 강화 궁 — 회피 대상이 아님. **진짜 위협은 급소(vital) 시스템** — 피오라 주변에 4방향 급소가 순차 표시됨. 예방: (1) 급소 찍히면 피오라 이속+뎀 급증 → **급소 방향 반대로 포지션**, (2) 벽 옆/모서리로 급소 접근 경로 제한, (3) CC 체인으로 급소 도달 차단. 4급소 모두 찍히면 아군/본인 광역 힐 발동 → 2개 찍히기 전에 한타 정리 필수. R 지속 8초.",
       "cooldownEarly": 120,
       "cooldownMaxRank": 80
     }

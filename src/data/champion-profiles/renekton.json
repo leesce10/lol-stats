@@ -21,7 +21,8 @@
       "hitEnables": ["dash_in", "dash_back"], "counterMethod": "2회 대시(진입+이탈). 양방향 모두 써야 이탈 가능. 한 방향 사용 시 추격 가능.",
       "range": 450, "cooldownEarly": 18, "cooldownMaxRank": 10 },
     { "key": "R", "name": "최후의 구경거리", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
-      "hitEnables": ["hp_boost", "aoe_slow"], "counterMethod": "변신 R. HP + 뎀 급증. R 중 풀콤 회피 or 거리 유지.",
+      "hitEnables": ["hp_boost", "aoe_slow"],
+      "counterMethod": "변신 자가 버프 — 발동 순간 HP 급증 + 지속 뎀. 예방: (1) R 발동 시 주변 AoE 슬로우 → **선빠지기 준비**, (2) R 지속 15초 동안 피흡/뎀 최상이므로 **교전 회피·카이팅**으로 버티기, (3) 레넥톤이 E 진입기 쓰고 R 켜면 풀콤 각이므로 피아노 피해. 대응: R 종료 후 본체 체력 낮음 + 쿨 90초 → 종료 후가 역공 타이밍. 풀체력으로 싸우지 말고 R 깎고 진입.",
       "cooldownEarly": 120, "cooldownMaxRank": 90 }
   ],
   "punishTriggers": [

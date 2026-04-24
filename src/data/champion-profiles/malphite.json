@@ -20,7 +20,7 @@
       "hitEnables": ["aoe_damage", "slow_aa"], "counterMethod": "주변 AoE 뎀. 범위 밖으로 이동.",
       "range": 400, "cooldownEarly": 7, "cooldownMaxRank": 7 },
     { "key": "R", "name": "멈출 수 없는 힘", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
-      "hitEnables": ["knockup_aoe"], "counterMethod": "광역 넉업 이니시. 점멸 + R은 거리 길어짐. 와드로 시야 + 회피.",
+      "hitEnables": ["knockup_aoe"], "counterMethod": "1000 거리 광역 넉업 돌진. **점멸+R 콤보로 실질 1400+ 사거리** — 시야 밖에서 각 잡힘. 예방: (1) 적 정글/강 입구에 제어 와드, 말파이트 위치 상시 확인, (2) 한타 진입 전 말파이트 시야 없으면 밴시 장막/점멸 슬롯 확인, (3) 팀원 뭉쳐있지 말 것(광역). 맞으면: 넉업 중 존야 발동 불가 — 사전에 예측하고 존야/QSS는 직후 활용. R 쿨 80초 = 오브젝트 싸움 타이밍.",
       "range": 1000, "cooldownEarly": 130, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

@@ -23,7 +23,7 @@
       "range": 450, "cooldownEarly": 18, "cooldownMaxRank": 10 },
     { "key": "R", "name": "대강림", "type": "skillshot", "roles": ["engage", "cc"], "missPenalty": "high",
       "hitEnables": ["suppress_center", "slow"],
-      "counterMethod": "도약 + 중앙 진압. 범위 밖으로 빠지면 슬로우만. 범위 예측 후 이동.",
+      "counterMethod": "700 거리 도약 지면 타격 스킬샷. **중앙 1명 잡아서 슬램 → 주변 적 슬로우**. 예방: (1) 세트 주변 700 거리 밖 포지션, (2) 적 1명만 고립되지 말고 뭉쳐 있기 (중앙 타겟 1명만 슬램됨), (3) 세트가 E/점멸 썼으면 R 셋업 신호. 중앙 타겟되면: 바로 점멸/QSS — 슬램 발동 순간 무적/회피 불가. 슬램 범위 밖에 있으면 슬로우만 받음.",
       "range": 700, "cooldownEarly": 120, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

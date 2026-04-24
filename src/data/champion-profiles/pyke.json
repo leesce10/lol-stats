@@ -23,7 +23,7 @@
       "range": 550, "cooldownEarly": 14, "cooldownMaxRank": 14 },
     { "key": "R", "name": "죽음의 맞춤 처형", "type": "skillshot", "roles": ["execute"], "missPenalty": "high",
       "hitEnables": ["execute_below_threshold", "reset_on_kill"],
-      "counterMethod": "십자 범위 처형. 저체력 시 범위 밖 이탈. 아군 킬 어시 제공.",
+      "counterMethod": "750 거리 십자(X) 범위 **처형 스킬**. 일정 체력 이하면 확정 처형. 예방: (1) 체력을 처형 임계치 이상 유지 (레벨+아이템마다 다름, 중반 기준 약 30%), (2) 파이크 W 은신 or Q 후크 직후가 R 각이니 E/Q 쿨 쓰고 있으면 R 각 준비 중, (3) 파이크 시야 놓치지 말 것 (W 은신). 저체력 상태면: 범위 밖(750+)까지 이탈 or 점멸/존야로 R 발동 순간 무적화. 킬 어시 제공하므로 1번 터지면 연쇄 처형 위험.",
       "range": 750, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

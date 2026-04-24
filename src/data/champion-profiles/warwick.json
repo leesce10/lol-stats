@@ -24,7 +24,7 @@
       "cooldownEarly": 14, "cooldownMaxRank": 10 },
     { "key": "R", "name": "무한한 식욕", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
       "hitEnables": ["suppress_1.5s", "auto_target"],
-      "counterMethod": "장거리 도약 + 진압. 점멸 or QSS로 해제.",
+      "counterMethod": "**타겟팅 도약 + 진압(1.5초)** — 회피 불가. 예방: (1) 체력 50% 이하로 떨어지지 않기 (저체력일수록 사거리 급증, 최대 1600), (2) 아군 근처 포지션으로 진압 해제 대기, (3) 워윅 E 차징(강인함 보유) 상태면 R 셋업 신호. 맞으면: 즉시 QSS/수은/점멸로 해제. 아군이 워윅에게 CC 걸어 진압 취소 유도.",
       "range": 1600, "cooldownEarly": 110, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

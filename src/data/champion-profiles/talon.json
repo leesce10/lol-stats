@@ -17,15 +17,15 @@
       "range": 700, "cooldownEarly": 8, "cooldownMaxRank": 6 },
     { "key": "W", "name": "단도 세례", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
       "hitEnables": ["return_damage", "slow"],
-      "counterMethod": "왕복 투사체. 복귀 시 치명 뎀. 미니언 뒤 숨거나 옆걸음 회피.",
+      "counterMethod": "650 거리 왕복 투사체. **복귀 시 치명 뎀 + 단검 스택 쌓임** (풀콤 대비 출혈 셋업). 예방: 던지는 궤적과 복귀 궤적 **모두** 피해야 함 → 미니언 뒤 고정. 옆걸음으로 나간 방향 다시 가지 말 것. 단도 스택 쌓이면 풀콤 뎀 1.5배.",
       "range": 650, "cooldownEarly": 10, "cooldownMaxRank": 8 },
     { "key": "E", "name": "측면 이동", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
       "hitEnables": ["wall_parkour", "stack_on_target"],
-      "counterMethod": "벽/지형 통과 대시. 시야 밖 기습 가능. 제어 와드 필수.",
+      "counterMethod": "**벽/지형 통과 대시 — 탈론의 기습 핵심**. 예방: (1) 부시/정글 입구/강 벽 근처 **제어 와드 필수** (시야 밖 진입 차단), (2) 탈론 동선 예측 가능한 라인/위치 피하기, (3) 벽 근처 포지션 시 항상 E 각 확인. 솔로라인에서도 사이드 로밍 시 E 각 주의.",
       "range": 750, "cooldownEarly": 16, "cooldownMaxRank": 10 },
     { "key": "R", "name": "어둠의 살수", "type": "self_buff", "roles": ["mobility", "primary_damage"], "missPenalty": "none",
       "hitEnables": ["invisibility", "daggers_explode"],
-      "counterMethod": "은신 + 단도 폭발. 제어 와드로 시야. 단도 낙하 지점 피하기.",
+      "counterMethod": "자가 은신 + 단도 폭발. 예방: (1) **제어 와드 상시** (은신 간파), (2) 탈론이 R 쓰면 주변 500 거리에 숨어있다는 것 — 서로 피함, (3) R 사용 즉시 단도 낙하 지점 표시 → 낙하 지점 밖 이탈. R 쿨 60초 = 진입/이탈 사이클 빠름, 제어 와드는 R 쿨마다 확인.",
       "cooldownEarly": 75, "cooldownMaxRank": 60 }
   ],
   "punishTriggers": [

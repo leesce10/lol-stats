@@ -18,11 +18,11 @@
       "cooldownEarly": 10, "cooldownMaxRank": 10 },
     { "key": "E", "name": "장난꾸러기 꼬리", "type": "self_buff", "roles": ["defense", "mobility"], "missPenalty": "none",
       "hitEnables": ["untargetable", "aoe_slow"],
-      "counterMethod": "0.75초 무적 점프. 모든 타겟팅 스킬 무효. E 사용 타이밍 주시.",
+      "counterMethod": "**0.75초 무적 점프** — 타겟팅 CC/스킬 전부 무효화. 예방: (1) 타겟팅 스킬 섣불리 쓰지 말기 → E로 회피 후 역공, (2) 스킬샷/지연 CC 위주로 압박, (3) E 쿨 10~16초 중일 때 올인 각. 대응: E 사용 직후 착지 시점에 CC 연계 (E 쿨 풀릴 때까지 무력).",
       "cooldownEarly": 16, "cooldownMaxRank": 10 },
     { "key": "R", "name": "파도", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "high",
       "hitEnables": ["knockup", "delayed_burst", "sticks_on_enemy"],
-      "counterMethod": "낚시 투사체 적중 시 제거 불가. 피즈에게 가까이 가서 떨구기. 2.5초 지연 뎀.",
+      "counterMethod": "1300 거리 **낚시 투사체** 적중 시 2.5초 지연 후 넉업 + 광역 AoE. **낚시 제거 방법: 피즈 본체 쪽으로 가서 떨구기** (낚시는 맞은 대상에 붙음). 예방: R 투사체 측면 회피 (느린 속도라 가능), 맞으면 즉시 피즈 위치로 이동 or 점멸로 거리 벌려 아군 피해 차단. 2.5초 동안 주변 아군과 거리 유지 필수.",
       "range": 1300, "cooldownEarly": 130, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

@@ -23,7 +23,7 @@
       "range": 500, "cooldownEarly": 10, "cooldownMaxRank": 6 },
     { "key": "R", "name": "심해로 향하는 길", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
       "hitEnables": ["knockup_chain", "slow_aoe"],
-      "counterMethod": "타겟 지정 + 경로 적 넉업. 점멸로 경로 회피.",
+      "counterMethod": "825 거리 **타겟팅 대상 돌진 + 착지 주변 적 슬로우 + 경로상 적 넉업**. 예방: (1) 노틸 주변 825 밖 유지 (한타 포지션), (2) 타겟된 아군이 있으면 팀 분산 (경로 넉업 막기), (3) 노틸 Q+E+W 쿨 쓰고 있을 때 R 진입 각이므로 이 조합 나오면 한 템포 뒤로. 타겟되면: 점멸로 경로 최단화 or 수은/QSS로 해제. Q+R 체인(광역 CC 4회) 콤보 위험.",
       "range": 825, "cooldownEarly": 120, "cooldownMaxRank": 80 }
   ],
   "punishTriggers": [

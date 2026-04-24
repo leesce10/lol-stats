@@ -28,7 +28,7 @@
       "roles": ["primary_damage", "cc"],
       "missPenalty": "medium",
       "hitEnables": ["q3_knockup", "tornado"],
-      "counterMethod": "3중첩 후 Q는 직선 스킬샷 토네이도. 측면 회피. 토네이도 준비 시 CS 접근 금지.",
+      "counterMethod": "**Q3(토네이도) 셋업 감지가 핵심**. Q1~Q2는 475 근접 찌르기 — 거리 유지 쉬움. Q2 맞은 뒤 3스택 차면 **Q3가 1100 거리 직선 토네이도 넉업** 발사 → R 확정 셋업. 예방: Q 중첩 수 주시, 3중첩 시 CS 접근 금지 + 미니언 뒤/측면 대기. E 대시 직후 Q는 연속 히트 주의.",
       "range": 475,
       "cooldownEarly": 4,
       "cooldownMaxRank": 1
@@ -40,7 +40,7 @@
       "roles": ["mobility", "secondary_damage"],
       "missPenalty": "low",
       "hitEnables": ["gap_close", "stack_q", "reset_on_kill"],
-      "counterMethod": "적/미니언 대상으로만 대시. 미니언 없으면 E 불가. 고립시키거나 웨이브 클리어.",
+      "counterMethod": "대상(적/미니언) 필요 대시 — **미니언 없이 고립된 야스오는 이동기 제로**. 예방: (1) 웨이브 클리어해서 E 스택 차단, (2) 정글/강에서 미니언 없는 구역으로 유도, (3) 연쇄 E 주의 — 적 챔프에 E 후 Q, 또다른 적에 E 반복. 킬 시 쿨 리셋 → 기절 건 직후 킬 어시 전에 추격 차단 필수.",
       "range": 475,
       "cooldownEarly": 10,
       "cooldownMaxRank": 6
