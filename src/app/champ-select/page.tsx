@@ -188,10 +188,10 @@ export default function ChampSelectPage() {
       <div className="mb-6">
         <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] px-3 py-1 text-[10px] text-[var(--text-secondary)] mb-3">
           <span className="h-2 w-2 rounded-full bg-[var(--accent-blue)] animate-pulse" />
-          BETA · 챔셀 코치
+          BETA · 밴픽 코치
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">
-          챔셀 코치
+          밴픽 코치
         </h1>
         <p className="text-sm text-[var(--text-secondary)] mt-1">
           블루/레드 10명 입력 → 시간대별 행동 지침과 한타 우선순위까지 30초 안에.
@@ -364,7 +364,7 @@ export default function ChampSelectPage() {
 
           {/* 메타 */}
           <p className="text-center text-[10px] text-[var(--text-muted)]">
-            챔셀 코치 BETA · 룰 엔진 기반 분석 · 패치 15.7
+            밴픽 코치 BETA · 룰 엔진 기반 분석 · 패치 15.7
           </p>
         </div>
       )}

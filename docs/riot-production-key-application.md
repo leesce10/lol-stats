@@ -99,7 +99,7 @@ Single developer (hobbyist). Patch 15.7.
 - [x] **타 서비스 브랜드 언급 제거** — op.gg, lol.ps 등 문자열 0건 확인
 - [x] **타 서비스 데이터 직접 사용 표기 제거** — 데이터 출처 라벨을 중립적인 "KR Emerald+ 벤치마크"로 교체
 - [x] **연락 가능한 이메일** — hobbying.dev1@gmail.com (Privacy/Terms에 명시)
-- [x] **명확한 사용 용도** — 챔셀 의사결정 도구 (op.gg 대체가 아닌 보완)
+- [x] **명확한 사용 용도** — 밴픽 의사결정 도구 (op.gg 대체가 아닌 보완)
 - [x] **Rate limit 준수 로직** — `src/lib/riot-api.ts`에 내장된 재시도 + backoff
 
 ---

@@ -2,9 +2,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LOL Stats - 챔셀 60초, 게임 전에 답을 준다",
+  title: "LOL Stats - 이 판 어떻게 이겨? 밴픽부터 답을 준다",
   description:
-    "챔피언 셀렉트 단계에서 승리 전략을 제시합니다. 맞라인 실전 가이드, 팀 조합 분석, 시간대별 운영 지침까지.",
+    "밴픽 단계에서 승리 전략을 제시합니다. 맞라인 실전 가이드, 팀 조합 분석, 시간대별 운영 지침까지.",
 };
 
 export default function Home() {
@@ -14,13 +14,13 @@ export default function Home() {
       <section className="py-12 sm:py-20 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] px-3 py-1 text-xs sm:text-sm text-[var(--text-secondary)] mb-6">
           <span className="h-2 w-2 rounded-full bg-[var(--accent-blue)] animate-pulse" />
-          Patch 15.7 · 챔셀 70초 의사결정 도구
+          Patch 15.7 · 밴픽 단계 의사결정 도구
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight text-[var(--text-primary)]">
-          챔셀 60초,
+          이 판 어떻게 이겨?
           <br />
-          <span className="gradient-text">이 판 어떻게 이겨?</span>
+          <span className="gradient-text">밴픽부터 답을 준다</span>
         </h1>
 
         <p className="mt-5 sm:mt-6 text-sm sm:text-base md:text-lg text-[var(--text-secondary)] max-w-xl mx-auto leading-relaxed">
@@ -83,7 +83,7 @@ export default function Home() {
       <section className="py-10 border-t border-[var(--border-color)]">
         <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] mb-2">핵심 기능</h2>
         <p className="text-sm text-[var(--text-muted)] mb-6">
-          챔피언 셀렉트 70초 안에 의사결정을 돕는 3가지 도구
+          밴픽 단계 의사결정을 돕는 3가지 도구
         </p>
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -142,7 +142,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 챔셀 코치 */}
+      {/* 밴픽 코치 */}
       <section className="py-10 border-t border-[var(--border-color)] mb-8">
         <Link
           href="/champ-select"
@@ -150,7 +150,7 @@ export default function Home() {
         >
           <div className="text-xs font-bold text-[var(--accent-blue)] mb-2">BETA · 신규 기능</div>
           <h3 className="text-lg sm:text-xl font-bold text-[var(--text-primary)] mb-2">
-            🎯 챔셀 코치 · 10명 조합 동시 분석
+            🎯 밴픽 코치 · 10명 조합 동시 분석
           </h3>
           <p className="text-sm text-[var(--text-secondary)] leading-relaxed max-w-xl mx-auto mb-3">
             블루/레드 10명을 한 번에 입력하면, 시간대별 행동 지침 · 흔한 함정 · 한타 우선순위를
