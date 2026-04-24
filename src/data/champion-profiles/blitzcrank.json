@@ -54,7 +54,7 @@
       "gank": "팀과 동선 맞춤." }
   },
   "defaultSpells": "점멸 + 점화",
-  "defaultRunes": "기만자의 유산",
+  "defaultRunes": "어둠의 수확",
   "buildAdaptations": [
     { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷", "reason": "이니시 후 생존." },
     { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },

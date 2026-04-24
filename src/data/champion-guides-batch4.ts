@@ -11,8 +11,8 @@ const RUNES_TANK = { primary: "결의 - 여진 / 재생의 바람 / 사명감 / 
 const RUNES_ENCHANTER = { primary: "마법 - 콩콩이 소환 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "콩콩이로 견제 강화" };
 
 const ITEMS_BRUISER = { core: ["삼위일체", "수은 장식띠", "스테락의 도전"], situational: ["가시 갑옷", "데스 댄스", "타곤 산의 수호물"] };
-const ITEMS_MAGE = { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] };
-const ITEMS_ASSASSIN = { core: ["루덴의 메아리", "마법사의 신발", "공허의 지팡이"], situational: ["존야의 모래시계", "라반돈의 죽음모자", "수은 장식띠"] };
+const ITEMS_MAGE = { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] };
+const ITEMS_ASSASSIN = { core: ["루덴의 동반자", "마법사의 신발", "공허의 지팡이"], situational: ["존야의 모래시계", "라반돈의 죽음모자", "수은 장식띠"] };
 const ITEMS_ADC = { core: ["크라켄 학살자", "광전사의 군화", "무한의 대검"], situational: ["수호 천사", "고통의 지팡이", "구인수의 격노검"] };
 const ITEMS_TANK = { core: ["고대유물 방패", "강철의 솔라리 펜던트", "기동력의 장화"], situational: ["거울 갑옷", "가시 갑옷", "구원"] };
 const ITEMS_ENCHANTER = { core: ["월석 부활기", "이오니아의 광휘", "고대유물 방패"], situational: ["미카엘의 축복", "구원", "공허의 지팡이"] };

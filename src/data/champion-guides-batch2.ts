@@ -466,7 +466,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
       note: "유성으로 견제 강화",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [
@@ -932,7 +932,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
       note: "유성으로 견제 강화",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [],
@@ -996,7 +996,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
       note: "유성으로 견제 강화",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [],
@@ -1059,7 +1059,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
       note: "정복자로 지속 딜 + 회복",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [
@@ -1126,7 +1126,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
       note: "유성으로 견제 강화",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [],
@@ -1342,7 +1342,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
     ],
     weaknesses: [
       "다루기 어려움 (스킬 콤보)",
-      "마나 부족 (에너지)",
+      "마나/기력 부족",
       "라인전 약함",
       "강한 포커 상대 어려움",
     ],
@@ -1352,7 +1352,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
     ],
     earlyGame: [
       "Q로 안전한 라인 클리어",
-      "마나 (에너지) 관리 신중히",
+      "자원(마나·기력) 관리 신중히",
       "정글 갱크 시 E 호응",
       "킬보다 CS 우선",
       "6렙 직후 올인 가능",
@@ -1386,7 +1386,7 @@ export const championGuidesBatch2: ChampionGuide[] = [
       note: "감전으로 폭딜",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [

@@ -62,7 +62,7 @@
   "defaultRunes": "여진",
   "buildAdaptations": [
     { "condition": "enemy_burst_high_ap", "recommendation": "밴시 장막 + 가고일 돌갑옷", "reason": "AP 팀 상대 마저 + 한타 이니시 후 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호의 역류", "reason": "CC 감소." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호자", "reason": "CC 감소." },
     { "condition": "enemy_ad_heavy", "recommendation": "탑가시 갑옷 + 쇠사슬 조끼", "reason": "AD 팀 상대 탱킹 강화." },
     { "condition": "enemy_sustain_high", "recommendation": "리안드리의 고뇌", "reason": "지속딜 + 체젠 감소." }
   ],

@@ -12,7 +12,7 @@
   "keySkills": [
     { "key": "Q", "name": "은밀한 오의: 다섯 점 폭풍", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
       "hitEnables": ["energy_refund", "damage"],
-      "counterMethod": "원뿔 투사체. 측면 회피. 에너지 관리 활용.",
+      "counterMethod": "원뿔 투사체. 측면 회피. 기력 관리 활용.",
       "range": 575, "cooldownEarly": 4, "cooldownMaxRank": 2 },
     { "key": "W", "name": "황혼의 장막", "type": "aoe", "roles": ["defense", "utility"], "missPenalty": "none",
       "hitEnables": ["invisibility", "ms"],
@@ -29,7 +29,7 @@
   ],
   "punishTriggers": [
     { "condition": "no_energy", "windowSec": 4, "severity": "critical",
-      "explanation": "에너지 0 아칼리 스킬 불가. 4초간 무력." },
+      "explanation": "기력 0 아칼리 스킬 불가. 4초간 무력." },
     { "condition": "R_used", "skillKey": "R", "windowSec": 60, "severity": "high",
       "explanation": "R 빠지면 이동기 감소. 60초간 대응 가능." }
   ],
@@ -37,7 +37,7 @@
     "early": { "goal": "Q로 CS + 견제. 6렙까지 생존.",
       "danger": "초반 Q 뎀 낮음. 근거리 접근 후 포크 시 죽음.",
       "opportunity": "3렙 Q+E 풀콤. 솔킬 각.",
-      "pathing": "포탑 아래 CS. 에너지 관리 중요.",
+      "pathing": "포탑 아래 CS. 기력 관리 중요.",
       "objective": "6렙 R 확보 후 올인.",
       "gank": "E 맞추면 확정. R2 처형 연계." },
     "mid": { "goal": "헥스테크 로켓벨트 완성. 사이드 픽오프.",

@@ -59,7 +59,7 @@
     { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 밴시 장막", "reason": "버스트 차단." },
     { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + Q 유지." },
     { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
-    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 에테르 환상", "reason": "포크 버티기." }
+    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 조율", "reason": "포크 버티기." }
   ],
   "vulnerabilities": ["q_missed", "early_squishy", "hook_predicted", "low_damage", "vision_dependent"],
   "keyStrengths": ["long_range_hook", "lantern_save", "soul_scaling", "zone_r", "playmaking_cc"]

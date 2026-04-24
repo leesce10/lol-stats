@@ -56,7 +56,7 @@
   "buildAdaptations": [
     { "condition": "enemy_burst_high", "recommendation": "수호천사 + 가고일 돌갑옷", "reason": "버스트 한 번 버티고 R 지속시간 활용." },
     { "condition": "enemy_ranged_poke", "recommendation": "도란의 방패 + 바람의 망토", "reason": "원거리 견제 버티기용." },
-    { "condition": "enemy_tank_heavy", "recommendation": "헤르메스의 발걸음 + 데스 댄스", "reason": "이속 + 피흡으로 지속 교전." },
+    { "condition": "enemy_tank_heavy", "recommendation": "기동의 장화 + 데스 댄스", "reason": "이속 + 피흡으로 지속 교전." },
     { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 정의의 손길", "reason": "CC 감소 + 대응력 확보." }
   ],
   "vulnerabilities": ["weak_early_1_5lv", "cc_locked", "kited_pre6", "item_dependent", "no_ranged_poke"],

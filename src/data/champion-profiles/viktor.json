@@ -54,7 +54,7 @@
       "gank": "혼자 움직이지 말 것." }
   },
   "defaultSpells": "점멸 + 점화",
-  "defaultRunes": "신비로운 보석",
+  "defaultRunes": "신비로운 유성",
   "buildAdaptations": [
     { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "버스트 회피 + 한타 지속." },
     { "condition": "enemy_cc_hard", "recommendation": "수은 장식띠 + 밴시 장막", "reason": "CC 감소 + 주요 CC 방어." },

@@ -59,7 +59,7 @@
     { "condition": "enemy_burst_high", "recommendation": "수호자 룬 + 수호천사", "reason": "즉사 방지." },
     { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
     { "condition": "enemy_sustain_high", "recommendation": "지크의 융합 (힐 무력화 X)", "reason": "아군 AA 강화." },
-    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 에테르 환상", "reason": "포크 버티기 + 보호막." }
+    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 조율", "reason": "포크 버티기 + 보호막." }
   ],
   "vulnerabilities": ["no_mobility", "engage_vulnerable", "low_hp_sacrifice", "squishy", "hook_weak"],
   "keyStrengths": ["global_heal_r", "infinite_sustain", "silence_e", "poke_q", "team_utility"]

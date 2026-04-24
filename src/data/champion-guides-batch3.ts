@@ -131,7 +131,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     badAgainst: ["카사딘", "프레드", "아칼리", "이렐리아", "사일러스"],
     recommendedRunes: { primary: "마법 - 비전 혜성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "비전 혜성으로 견제" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -330,7 +330,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["야스오", "요네", "라이즈", "아지르", "베이가"],
     badAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     recommendedRunes: { primary: "마법 - 신비로운 유성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "유성으로 견제 강화" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -440,7 +440,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["빅토르", "오리아나", "라이즈", "아지르", "베이가"],
     badAgainst: ["갈리오", "리산드라", "말자하", "카사딘", "신드라"],
     recommendedRunes: { primary: "지배 - 감전 / 피의 맛 / 사냥의 증표 / 사냥꾼", secondary: "정밀 - 침착 / 최후의 일격", note: "감전으로 폭딜" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "공허의 지팡이"], situational: ["존야의 모래시계", "라반돈의 죽음모자", "수은 장식띠"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "공허의 지팡이"], situational: ["존야의 모래시계", "라반돈의 죽음모자", "수은 장식띠"] },
     sources: [],
   },
 
@@ -528,7 +528,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["야스오", "요네", "트린다미어", "리븐", "잭스"],
     badAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     recommendedRunes: { primary: "마법 - 비전 혜성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "비전 혜성으로 견제" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -596,7 +596,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     badAgainst: ["빅토르", "오리아나", "라이즈", "아지르", "베이가"],
     recommendedRunes: { primary: "마법 - 신비로운 유성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "유성으로 견제 강화" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -618,7 +618,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     badAgainst: ["빅토르", "오리아나", "라이즈", "아지르", "베이가"],
     recommendedRunes: { primary: "마법 - 신비로운 유성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "유성으로 견제 강화" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -706,7 +706,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["니달리", "엘리스", "리신", "카직스", "이블린"],
     badAgainst: ["워윅", "쉔", "람머스", "아무무", "마오카이"],
     recommendedRunes: { primary: "지배 - 감전 / 피의 맛 / 사냥의 증표 / 사냥꾼", secondary: "정밀 - 침착 / 최후의 일격", note: "감전으로 폭딜" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "라이안드리의 고통"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "라이안드리의 고통"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -750,7 +750,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["쓰레쉬", "노틸러스", "레오나", "유미", "소라카"],
     badAgainst: ["모르가나", "자이라", "브랜드", "벨코즈", "카르마"],
     recommendedRunes: { primary: "마법 - 신비로운 유성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "유성으로 견제 강화" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -794,7 +794,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["야스오", "요네", "트린다미어", "리븐", "잭스"],
     badAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     recommendedRunes: { primary: "마법 - 신비로운 유성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "유성으로 견제 강화" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -816,7 +816,7 @@ export const championGuidesBatch3: ChampionGuide[] = [
     goodAgainst: ["빅토르", "오리아나", "라이즈", "아지르", "베이가"],
     badAgainst: ["야스오", "제드", "카타리나", "탈론", "리븐"],
     recommendedRunes: { primary: "마법 - 신비로운 유성 / 마나순환 팔찌 / 초월 / 폭풍 모으기", secondary: "영감 - 비스킷 배달 / 시간 왜곡 물약", note: "유성으로 견제 강화" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"], situational: ["존야의 모래시계", "공허의 지팡이", "라반돈의 죽음모자"] },
     sources: [],
   },
 
@@ -877,14 +877,14 @@ export const championGuidesBatch3: ChampionGuide[] = [
       { name: "기본", sequence: "Q → E (대시) → A", description: "Q + E + 평타." },
       { name: "올인", sequence: "Q → W → E → R", description: "풀콤보 + 궁." },
     ],
-    earlyGame: ["Q로 견제", "마나 (에너지) 관리", "정글 갱크 시 E 호응", "킬보다 CS 우선", "초반 안전 우선"],
+    earlyGame: ["Q로 견제", "자원(마나·기력) 관리", "정글 갱크 시 E 호응", "킬보다 CS 우선", "초반 안전 우선"],
     midGame: ["로밍으로 사이드 압박", "팀 합류 우선시", "오브젝트 한타 적극", "본인 위치 신중히", "와드 적극적으로"],
     lateGame: ["한타에서 R로 광역 폭딜", "적 처치 시 쿨타임 초기화", "E + 평타 도배", "본인 진입 후 즉시 백", "탱커 뒤 진입"],
     tips: ["E는 단검 또는 적/아군 대시", "Q는 단검 던지기 (E로 회수)", "R은 채널링 (적 또는 시야)", "포커 + 어쌔신 빌드", "스노우볼 챔피언"],
     goodAgainst: ["빅토르", "오리아나", "라이즈", "아지르", "베이가"],
     badAgainst: ["갈리오", "리산드라", "말자하", "카사딘", "신드라"],
     recommendedRunes: { primary: "지배 - 감전 / 피의 맛 / 사냥의 증표 / 사냥꾼", secondary: "정밀 - 침착 / 최후의 일격", note: "감전으로 폭딜" },
-    recommendedItems: { core: ["루덴의 메아리", "마법사의 신발", "공허의 지팡이"], situational: ["존야의 모래시계", "라반돈의 죽음모자", "수은 장식띠"] },
+    recommendedItems: { core: ["루덴의 동반자", "마법사의 신발", "공허의 지팡이"], situational: ["존야의 모래시계", "라반돈의 죽음모자", "수은 장식띠"] },
     sources: [
       { videoId: "XhTiojoohj4", title: "쉬운 카타리나 강의", channel: "?", duration: "?", viewCount: "?" },
     ],

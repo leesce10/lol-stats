@@ -191,7 +191,7 @@ const TAG_BUILDS: Record<PrimaryTag, ChampionProfile["buildAdaptations"]> = {
   Tank: [
     { condition: "enemy_burst_high_ap", recommendation: "밴시 장막 + 가고일 돌갑옷", reason: "AP 버스트 차단." },
     { condition: "enemy_burst_high_ad", recommendation: "가고일 돌갑옷 + 쇠사슬 조끼", reason: "AD 버스트 방어." },
-    { condition: "enemy_cc_hard", recommendation: "머큐리 부츠 + 수호의 역류", reason: "CC 감소." },
+    { condition: "enemy_cc_hard", recommendation: "머큐리 부츠 + 수호자", reason: "CC 감소." },
     { condition: "enemy_sustain_high", recommendation: "지크의 융합", reason: "아군 DPS 강화." },
   ],
   Fighter: [
@@ -222,7 +222,7 @@ const TAG_BUILDS: Record<PrimaryTag, ChampionProfile["buildAdaptations"]> = {
     { condition: "enemy_burst_high", recommendation: "수호자 룬 + 수호천사", reason: "팀 보호." },
     { condition: "enemy_cc_hard", recommendation: "머큐리 부츠 + 수은 장식띠", reason: "CC 감소." },
     { condition: "enemy_tank_heavy", recommendation: "지크의 융합", reason: "아군 AA 강화." },
-    { condition: "enemy_poke_heavy", recommendation: "수호자 룬 + 에테르 환상", reason: "포크 버티기." },
+    { condition: "enemy_poke_heavy", recommendation: "수호자 룬 + 조율", reason: "포크 버티기." },
   ],
 };
 
@@ -255,7 +255,7 @@ const DEFAULT_SPELLS: Record<Lane, string> = {
 const DEFAULT_RUNES: Record<PrimaryTag, string> = {
   Tank: "여진",
   Fighter: "정복자",
-  Mage: "신비로운 보석",
+  Mage: "신비로운 유성",
   Assassin: "감전",
   Marksman: "치명적 속도",
   Support: "소환: 아이리",
@@ -322,7 +322,7 @@ function counterFor(params: {
       return `자가 버프. 발동 중 뎀/체젠 급증. 교전 시작 전이면 소진 유도 후 공격. ${cdNote}.`;
     }
     case "toggle":
-      return `스탠스 토글. 켜진 상태에서 상성 변화. 끄는 타이밍(보통 에너지/마나 고갈) 주시.`;
+      return `스탠스 토글. 켜진 상태에서 상성 변화. 끄는 타이밍(보통 기력/마나 고갈) 주시.`;
     case "summon":
       return `소환물 생성. 소환물 먼저 제거 or 범위 밖 이동. 소환물 있는 동안 ${cdNote}.`;
   }
@@ -453,7 +453,7 @@ function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
  * 라인 인식 반격 윈도우 템플릿.
  *
  * 유저 피드백: "R 빠진 후 80초" 같은 큰 창보다 **라인전 짧은 쿨** 윈도우가 더 실전적.
- * 그래서 Q/E 같은 짧은 쿨 스킬 사용 직후 + 자원(마나/에너지) 고갈 창을 앞세우고,
+ * 그래서 Q/E 같은 짧은 쿨 스킬 사용 직후 + 자원(마나/기력) 고갈 창을 앞세우고,
  * R 윈도우는 참고용으로 뒤에 배치.
  *
  * 라인 컨텍스트:
@@ -504,7 +504,7 @@ function tagPunishTriggers(tag: PrimaryTag, lane: Lane, champName: string): Puni
         { condition: "Q_cd", skillKey: "Q", windowSec: 4, severity: "high",
           explanation: `${n} 주 버스트 Q 쿨 중 4초. 버스트 반감 — 트레이드 창.` },
         { condition: "no_energy_mana", windowSec: 10, severity: "high",
-          explanation: `${n} 자원(에너지/마나) 고갈 = 풀콤 불가. 10초간 올인 대응 가능.` },
+          explanation: `${n} 자원(기력/마나) 고갈 = 풀콤 불가. 10초간 올인 대응 가능.` },
         { condition: "R_used", skillKey: "R", windowSec: 70, severity: "medium",
           explanation: `처형/진입 R 쿨 중. 한타 시작 타이밍 양보 가능.` },
       ];

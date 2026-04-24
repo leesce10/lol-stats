@@ -763,7 +763,7 @@ export const championGuides: ChampionGuide[] = [
       note: "유성으로 견제 강화, 폭풍 모으기로 후반 깡딜",
     },
     recommendedItems: {
-      core: ["루덴의 메아리", "마법사의 신발", "비전 형광 막대"],
+      core: ["루덴의 동반자", "마법사의 신발", "비전 형광 막대"],
       situational: ["존야의 모래시계 (위험 상황)", "공허의 지팡이", "라반돈의 죽음모자"],
     },
     sources: [

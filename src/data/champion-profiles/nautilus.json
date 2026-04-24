@@ -56,7 +56,7 @@
   "defaultRunes": "여진 or 포식자",
   "buildAdaptations": [
     { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 밴시 장막", "reason": "버스트 차단." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호의 역류", "reason": "CC 감소." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호자", "reason": "CC 감소." },
     { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
     { "condition": "enemy_poke_heavy", "recommendation": "도란의 반지 → 지크", "reason": "포크 버티기." }
   ],
