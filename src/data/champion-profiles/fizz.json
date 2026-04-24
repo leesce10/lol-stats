@@ -1,0 +1,70 @@
+{
+  "id": "Fizz",
+  "name": "피즈",
+  "nameEn": "Fizz",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "C", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["knockup", "slow"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "사나운 상어 공격", "type": "dash", "roles": ["primary_damage", "mobility"], "missPenalty": "low",
+      "hitEnables": ["gap_close", "onhit"], "counterMethod": "짧은 대시. Q 쿨 타이밍 주시.",
+      "range": 550, "cooldownEarly": 10, "cooldownMaxRank": 6 },
+    { "key": "W", "name": "바다의 쇠창살", "type": "self_buff", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["next_aa_true_damage"], "counterMethod": "다음 AA 고정딜 + 지속 뎀. 근접 피하기.",
+      "cooldownEarly": 10, "cooldownMaxRank": 10 },
+    { "key": "E", "name": "장난꾸러기 꼬리", "type": "self_buff", "roles": ["defense", "mobility"], "missPenalty": "none",
+      "hitEnables": ["untargetable", "aoe_slow"],
+      "counterMethod": "0.75초 무적 점프. 모든 타겟팅 스킬 무효. E 사용 타이밍 주시.",
+      "cooldownEarly": 16, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "파도", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "high",
+      "hitEnables": ["knockup", "delayed_burst", "sticks_on_enemy"],
+      "counterMethod": "낚시 투사체 적중 시 제거 불가. 피즈에게 가까이 가서 떨구기. 2.5초 지연 뎀.",
+      "range": 1300, "cooldownEarly": 130, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
+      "explanation": "E 무적 빠진 피즈 풀콤 성립 불가. 10초간 올인 확정." },
+    { "condition": "R_missed", "skillKey": "R", "windowSec": 80, "severity": "high",
+      "explanation": "R 빠진 피즈 원거리 견제 수단 없음. 80초간 안전." }
+  ],
+  "phases": {
+    "early": {
+      "goal": "Q 찌르기 + E 회피로 견제. W 강화 AA 활용.",
+      "danger": "초반 Q+W 뎀 낮음. 원거리 견제에 체력 손해.",
+      "opportunity": "E로 중요 CC 회피하며 Q 풀콤. 솔킬 각.",
+      "pathing": "웨이브 중립 유지. E 사용 타이밍 관리.",
+      "objective": "6렙 R 확보 후 사이드 로밍.",
+      "gank": "Q 진입 + E 회피 + 풀콤. 아군 정글 협공."
+    },
+    "mid": {
+      "goal": "리치베인 완성. 사이드 로밍 + R 원콜.",
+      "danger": "E 쿨 중 CC 맞으면 즉사.",
+      "opportunity": "R 장거리 + E 진입 + 풀콤 원콜.",
+      "pathing": "미드 웨이브 밀고 R로 사이드 원콜.",
+      "objective": "드래곤 싸움 R로 물몸 원콜.",
+      "gank": "바텀 로밍 + R 장거리 이니시."
+    },
+    "late": {
+      "goal": "한타 R + E 진입으로 후방 원콜.",
+      "danger": "앞라인 뚫기 전 CC 맞으면 사망.",
+      "opportunity": "풀빌드 피즈 후방 캐리 처형 가능.",
+      "pathing": "한타 측면 진입. E 무적 활용.",
+      "objective": "바론 싸움 R 원콜.",
+      "gank": "팀과 동선 맞춤."
+    }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "진입 후 무적 회피." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + E 활용." },
+    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
+    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["cc_locked_no_e", "r_missed", "squishy", "melee_range", "long_cd_r"],
+  "keyStrengths": ["untargetable_e", "long_range_r", "true_damage_w", "pick_off_specialist", "safe_assassin"]
+}

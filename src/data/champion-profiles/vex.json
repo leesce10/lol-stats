@@ -1,0 +1,70 @@
+{
+  "id": "Vex",
+  "name": "벡스",
+  "nameEn": "Vex",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
+    "scaling": "mid", "mobility": "medium", "burst": "high", "sustain": "low", "ccTypes": ["fear", "slow", "stun"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "신나는 척", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
+      "hitEnables": ["line_damage"], "counterMethod": "직선 투사체. 미니언 뒤 회피.",
+      "range": 775, "cooldownEarly": 10, "cooldownMaxRank": 6 },
+    { "key": "W", "name": "개인 공간", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["aoe_burst"], "counterMethod": "주변 AoE 뎀. 근접 시 뎀. 거리 유지.",
+      "cooldownEarly": 12, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "걸리기 싫어", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
+      "hitEnables": ["fear", "slow"],
+      "counterMethod": "범위 지정 공포. 대시/이동기 사용 적에게 뎀 증폭. 대시 후 이동 자제.",
+      "range": 800, "cooldownEarly": 18, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "그림자 숨결", "type": "skillshot", "roles": ["execute", "primary_damage"], "missPenalty": "high",
+      "hitEnables": ["long_range_dash", "stun_if_reset"],
+      "counterMethod": "첫 투사체 적중 시 돌진 + 기절. 범위 밖 이탈.",
+      "cooldownEarly": 120, "cooldownMaxRank": 80 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_missed", "skillKey": "E", "windowSec": 10, "severity": "high",
+      "explanation": "E 공포 빠지면 주요 CC 수단 없음. 10초간 대응 가능." },
+    { "condition": "no_doom_stack", "windowSec": 12, "severity": "medium",
+      "explanation": "패시브 둠 스택 없으면 AA 추가 뎀 없음. 뎀 감소." }
+  ],
+  "phases": {
+    "early": {
+      "goal": "Q+W 견제. 대시 사용 적에게 E 풀콤.",
+      "danger": "원거리 견제에 체력 손해.",
+      "opportunity": "이동기 많은 상대(야스오, 제드) 카운터. E+Q+W 풀콤.",
+      "pathing": "포탑 아래 CS. 대시 사용 타이밍 주시.",
+      "objective": "6렙 R 확보 후 원콜.",
+      "gank": "E 공포 + Q + 정글 연계."
+    },
+    "mid": {
+      "goal": "리안드리 완성. R로 장거리 원콜.",
+      "danger": "CC 체인 맞으면 사망.",
+      "opportunity": "R로 글로벌 원콜. 사이드 라이너 캐치.",
+      "pathing": "미드 웨이브 밀고 R 각 잡기.",
+      "objective": "드래곤 싸움 R로 저체력 적 처형.",
+      "gank": "R 글로벌 + E 풀콤."
+    },
+    "late": {
+      "goal": "한타 R로 후방 원콜 + E 공포.",
+      "danger": "포지션 실수 시 즉사.",
+      "opportunity": "풀빌드 벡스 암살자 카운터. 이동기 많은 팀 상대 강함.",
+      "pathing": "한타 측면 R 진입.",
+      "objective": "바론 싸움 R 피니시.",
+      "gank": "팀과 동선 맞춤."
+    }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "어둠의 수확",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "암살자 버스트 무적." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 밴시 장막", "reason": "CC 감소." },
+    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
+    { "condition": "enemy_mobile_team", "recommendation": "리안드리 → 공허의 지팡이", "reason": "이동기 많은 팀 대상 E 공포 극대화." }
+  ],
+  "vulnerabilities": ["cc_locked", "no_mobility_no_r", "e_predicted", "r_first_hit_missed", "melee_assassin"],
+  "keyStrengths": ["anti_mobility", "global_r", "fear_cc", "long_range_kit", "counter_dash_comps"]
+}

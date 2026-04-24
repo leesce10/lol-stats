@@ -1,0 +1,73 @@
+{
+  "id": "Talon",
+  "name": "탈론",
+  "nameEn": "Talon",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "C", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "B",
+    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["slow"]
+  },
+  "powerSpikes": [2, 6, 11],
+  "weakAfter": 14,
+  "keySkills": [
+    { "key": "Q", "name": "천개의 상처", "type": "dash", "roles": ["primary_damage", "mobility"], "missPenalty": "low",
+      "hitEnables": ["gap_close", "critical_strike"],
+      "counterMethod": "근접 대시 + 치명타. 이동기 Q 쿨 중이면 추격 약함.",
+      "range": 700, "cooldownEarly": 8, "cooldownMaxRank": 6 },
+    { "key": "W", "name": "단도 세례", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
+      "hitEnables": ["return_damage", "slow"],
+      "counterMethod": "왕복 투사체. 복귀 시 치명 뎀. 미니언 뒤 숨거나 옆걸음 회피.",
+      "range": 650, "cooldownEarly": 10, "cooldownMaxRank": 8 },
+    { "key": "E", "name": "측면 이동", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
+      "hitEnables": ["wall_parkour", "stack_on_target"],
+      "counterMethod": "벽/지형 통과 대시. 시야 밖 기습 가능. 제어 와드 필수.",
+      "range": 750, "cooldownEarly": 16, "cooldownMaxRank": 10 },
+    { "key": "R", "name": "어둠의 살수", "type": "self_buff", "roles": ["mobility", "primary_damage"], "missPenalty": "none",
+      "hitEnables": ["invisibility", "daggers_explode"],
+      "counterMethod": "은신 + 단도 폭발. 제어 와드로 시야. 단도 낙하 지점 피하기.",
+      "cooldownEarly": 75, "cooldownMaxRank": 60 }
+  ],
+  "punishTriggers": [
+    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
+      "explanation": "E 벽 통과기 빠진 탈론 이동기 감소. 10초간 1:1 대응 가능." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 60, "severity": "high",
+      "explanation": "R 은신 빠진 탈론 이탈/진입 수단 감소. 60초간 견제 가능." }
+  ],
+  "phases": {
+    "early": {
+      "goal": "2~3렙 Q+W 풀콤으로 솔킬 시도. 치명타 룬 활용.",
+      "danger": "원거리 컨트롤 메이지 상대 마나 소모 큼. 단검 스택 쌓기 전 뎀 낮음.",
+      "opportunity": "E 벽 넘기 기습으로 2~3렙 솔킬. 부시 측면 진입.",
+      "pathing": "웨이브 중립 유지. E 벽 넘기 각 확보.",
+      "objective": "6렙 R 확보 후 사이드 로밍 적극.",
+      "gank": "E 벽 넘기 측면 갱. 아군 정글과 합동."
+    },
+    "mid": {
+      "goal": "영겁의 창 완성. 로밍으로 리셋 만들기.",
+      "danger": "R 없으면 진입 후 이탈 어려움. CC 맞으면 즉사.",
+      "opportunity": "R 은신으로 사이드 라이너 원콜 + 복귀.",
+      "pathing": "미드 웨이브 밀고 R 은신으로 사이드 이동.",
+      "objective": "드래곤 전 상대 딜러 픽오프. 시야 사각 기습.",
+      "gank": "R 은신 + E 벽 넘기로 기습. 바텀 로밍 특화."
+    },
+    "late": {
+      "goal": "한타 R 은신 진입 + 후방 원콜.",
+      "danger": "앞라인 뚫기 전 CC 맞으면 즉사. 진입 타이밍 실수 치명적.",
+      "opportunity": "풀빌드 탈론 물몸 캐리 원콜 가능.",
+      "pathing": "한타 측면 R 은신 진입. 제어 와드 체크.",
+      "objective": "바론 싸움 R로 고립 캐리 원콜.",
+      "gank": "혼자 이동 금지. 팀 동선 맞춤."
+    }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "감전",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 맬모셔스", "reason": "버스트 한 번 버티고 R 이탈." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + 풀콤 유지." },
+    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 세릴다의 원한", "reason": "방관 기반 탱커 딜." },
+    { "condition": "enemy_sustain_high", "recommendation": "처형인의 대검 → 몰왕검", "reason": "체젠 상대 치유 감소." }
+  ],
+  "vulnerabilities": ["cc_locked", "e_used", "r_on_cd", "late_scale_weak", "predictable_roam"],
+  "keyStrengths": ["wall_parkour_e", "invisibility_r", "global_roam", "pick_off_specialist", "early_pressure"]
+}

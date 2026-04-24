@@ -43,6 +43,11 @@ import viktorProfile from "@/data/champion-profiles/viktor.json";
 import katarinaProfile from "@/data/champion-profiles/katarina.json";
 import akaliProfile from "@/data/champion-profiles/akali.json";
 import leblancProfile from "@/data/champion-profiles/leblanc.json";
+import zedMidProfile from "@/data/champion-profiles/zed-mid.json";
+import talonProfile from "@/data/champion-profiles/talon.json";
+import fizzProfile from "@/data/champion-profiles/fizz.json";
+import galioProfile from "@/data/champion-profiles/galio.json";
+import vexProfile from "@/data/champion-profiles/vex.json";
 // ADC
 import jinxProfile from "@/data/champion-profiles/jinx.json";
 import caitlynProfile from "@/data/champion-profiles/caitlyn.json";
@@ -107,6 +112,11 @@ const PROFILE_REGISTRY: Record<ProfileLane, Record<string, ChampionProfile>> = {
     Katarina: katarinaProfile as unknown as ChampionProfile,
     Akali: akaliProfile as unknown as ChampionProfile,
     Leblanc: leblancProfile as unknown as ChampionProfile,
+    Zed: zedMidProfile as unknown as ChampionProfile,
+    Talon: talonProfile as unknown as ChampionProfile,
+    Fizz: fizzProfile as unknown as ChampionProfile,
+    Galio: galioProfile as unknown as ChampionProfile,
+    Vex: vexProfile as unknown as ChampionProfile,
   },
   adc: {
     Jinx: jinxProfile as unknown as ChampionProfile,
@@ -167,10 +177,16 @@ function ChampionGrid({ position, search, onSelect, selectedName, excludeNames, 
     .filter(e => !existingNames.has(e.name))
     .map(e => ({ name: e.name, nameKr: e.nameKr, isExtra: true }));
 
+  // 이 라인에서 프로파일(심층 가이드)이 있는 챔프 이름 집합
+  const profileNames = new Set(Object.keys(PROFILE_REGISTRY[position]));
+
   const allChamps = [
-    ...posChamps.map(c => ({ name: c.name, nameKr: c.nameKr, isExtra: false })),
-    ...extras,
+    ...posChamps.map(c => ({ name: c.name, nameKr: c.nameKr, isExtra: false, hasGuide: profileNames.has(c.name) })),
+    ...extras.map(e => ({ ...e, hasGuide: profileNames.has(e.name) })),
   ];
+
+  // 공략 있는 챔프 먼저 정렬
+  allChamps.sort((a, b) => Number(b.hasGuide) - Number(a.hasGuide));
 
   const filtered = allChamps.filter((c) => {
     if (excludeNames.includes(c.name) && c.name !== selectedName) return false;
@@ -185,8 +201,14 @@ function ChampionGrid({ position, search, onSelect, selectedName, excludeNames, 
         <button
           key={c.name}
           onClick={() => onSelect(c.name)}
-          className={`champion-grid-item p-1 flex flex-col items-center ${c.name === selectedName ? "selected" : ""} ${c.isExtra ? "ring-1 ring-purple-500/30" : ""}`}
+          title={c.hasGuide ? `${c.nameKr} · 심층 공략 제공` : c.nameKr}
+          className={`champion-grid-item relative p-1 flex flex-col items-center ${c.name === selectedName ? "selected" : ""} ${c.hasGuide ? "ring-2 ring-blue-400/70 bg-blue-500/5" : "opacity-60 hover:opacity-100"}`}
         >
+          {c.hasGuide && (
+            <span className="absolute top-0.5 right-0.5 z-10 text-[8px] font-bold text-white bg-gradient-to-br from-blue-500 to-purple-600 rounded px-1 py-0 leading-tight shadow">
+              공략
+            </span>
+          )}
           <div className="relative h-9 w-9 overflow-hidden rounded-lg">
             <Image src={getChampionImageUrl(c.name)} alt={c.nameKr} width={36} height={36} className="object-cover" unoptimized />
           </div>
@@ -679,7 +701,10 @@ export default function MatchupPage() {
       {/* 프로파일 없는 선택 안내 (솔로라인에서 룰엔진 폴백 없는 경우) */}
       {!isBottom && hasSoloResult && !soloMatchupGuide && (
         <div className="mt-4 rounded-lg border border-blue-500/20 bg-blue-500/5 p-3 text-xs text-[var(--text-muted)]">
-          💡 이 매치업은 기본 승률 데이터만 표시됩니다. L0~L4 심층 가이드는 프로파일이 등록된 챔프 조합에서 제공됩니다.
+          💡 이 매치업은 기본 승률 데이터만 표시됩니다. <b>파란 테두리 + &quot;공략&quot; 배지</b>가 붙은 챔프끼리 선택하면 L0~L4 심층 가이드가 활성화됩니다.
+          <div className="mt-1.5 text-[10px]">
+            {soloPosition} 라인 공략 제공 챔프: {Object.values(PROFILE_REGISTRY[soloPosition]).map(p => p.name).join(", ")}
+          </div>
         </div>
       )}
 
