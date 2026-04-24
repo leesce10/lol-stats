@@ -102,6 +102,46 @@ function SummarySection({ guide }: { guide: MatchupGuide }) {
 // L2 — 4개 카드
 // ============================================================
 
+function KeyCombosCard({ guide }: { guide: MatchupGuide }) {
+  if (!guide.keyCombos || guide.keyCombos.length === 0) return null;
+  return (
+    <div className="glass-card p-5 border-l-4 border-amber-500/60">
+      <h3 className="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">
+        <span className="w-2 h-2 rounded-full bg-amber-500" />
+        상대의 핵심 콤보 (이걸 당하면 반피)
+      </h3>
+      <div className="space-y-4">
+        {guide.keyCombos.map((c, i) => (
+          <div key={i} className="border-l-2 border-amber-500/40 pl-3">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-xs font-bold text-amber-300">{c.name}</span>
+              <span className="text-[10px] text-[var(--text-muted)]">· {c.whenUsed}</span>
+            </div>
+            <div className="space-y-1 text-xs">
+              <div className="flex gap-2">
+                <span className="text-red-400 font-bold shrink-0 w-10">셋업</span>
+                <span className="text-[var(--text-secondary)]">{c.setup}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-orange-400 font-bold shrink-0 w-10">→ 연결</span>
+                <span className="text-[var(--text-secondary)]">{c.payoff}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-yellow-400 font-bold shrink-0 w-10">뎀</span>
+                <span className="text-[var(--text-primary)] font-medium">{c.damage}</span>
+              </div>
+              <div className="flex gap-2">
+                <span className="text-green-400 font-bold shrink-0 w-10">대응</span>
+                <span className="text-green-300/90">{c.counter}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function MustDodgeCard({ guide }: { guide: MatchupGuide }) {
   if (guide.mustDodge.length === 0) return null;
   return (
@@ -344,6 +384,9 @@ export default function MatchupGuideResult({ guide, myJunglePath }: { guide: Mat
 
       {/* L1 */}
       <SummarySection guide={guide} />
+
+      {/* 핵심 콤보 (전폭 카드, 라인전 위협의 실체) */}
+      <KeyCombosCard guide={guide} />
 
       {/* L2 — 2x2 그리드 (데스크탑), 스택 (모바일) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

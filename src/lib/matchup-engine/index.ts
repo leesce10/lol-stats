@@ -7,6 +7,7 @@ import { generatePowerSpikes } from "./rules/power-spikes";
 import { generateBuildAdvice } from "./rules/build-advice";
 import { generatePhaseGuides } from "./rules/phase-guide";
 import { generateChampOverride } from "./rules/champ-override";
+import { generateKeyCombos } from "./rules/key-combos";
 
 /**
  * 매치업 가이드 생성.
@@ -21,6 +22,7 @@ export function generateMatchupGuide(
 ): MatchupGuide {
   const verdict = generateVerdict(my, enemy);
   const summary = generateSummary(my, enemy, verdict);
+  const keyCombos = generateKeyCombos(my, enemy);
   const mustDodge = generateMustDodge(my, enemy);
   const punishWindows = generatePunishWindows(my, enemy);
   const powerSpikes = generatePowerSpikes(my, enemy);
@@ -34,6 +36,7 @@ export function generateMatchupGuide(
     position: my.position,
     verdict,
     summary,
+    keyCombos,
     mustDodge,
     punishWindows,
     powerSpikes,

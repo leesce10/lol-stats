@@ -50,6 +50,7 @@ import talonProfile from "@/data/champion-profiles/talon.json";
 import fizzProfile from "@/data/champion-profiles/fizz.json";
 import galioProfile from "@/data/champion-profiles/galio.json";
 import vexProfile from "@/data/champion-profiles/vex.json";
+import twistedFateProfile from "@/data/champion-profiles/twistedfate.json";
 // ADC
 import jinxProfile from "@/data/champion-profiles/jinx.json";
 import caitlynProfile from "@/data/champion-profiles/caitlyn.json";
@@ -119,6 +120,7 @@ const PROFILE_REGISTRY: Record<ProfileLane, Record<string, ChampionProfile>> = {
     Fizz: fizzProfile as unknown as ChampionProfile,
     Galio: galioProfile as unknown as ChampionProfile,
     Vex: vexProfile as unknown as ChampionProfile,
+    TwistedFate: twistedFateProfile as unknown as ChampionProfile,
   },
   adc: {
     Jinx: jinxProfile as unknown as ChampionProfile,

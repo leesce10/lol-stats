@@ -1,0 +1,102 @@
+{
+  "id": "TwistedFate",
+  "name": "트위스티드 페이트",
+  "nameEn": "TwistedFate",
+  "position": "mid",
+  "patch": "15.7",
+  "profile": {
+    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "S",
+    "scaling": "mid", "mobility": "low", "burst": "medium", "sustain": "low", "ccTypes": ["stun", "slow"]
+  },
+  "powerSpikes": [3, 6, 11],
+  "keySkills": [
+    { "key": "Q", "name": "와일드 카드", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "low",
+      "hitEnables": ["damage"],
+      "counterMethod": "1450 거리 3갈래 투사체이지만 **속도가 매우 느려** 단독으로는 거의 못 맞힘. 진짜 위협은 W 금색 기절 이후 확정으로 들어오는 Q. W 색 돌아갈 때 주시.",
+      "range": 1450, "cooldownEarly": 6, "cooldownMaxRank": 6 },
+    { "key": "W", "name": "카드 선택", "type": "self_buff", "roles": ["cc", "primary_damage"], "missPenalty": "critical",
+      "hitEnables": ["stun_1.5s"],
+      "counterMethod": "**트페의 모든 콤보 시작점**. 파랑/빨강/금색 3색 순환. **금색 카드 = 1.5초 기절** → 바로 Q+평타 풀콤 확정. 파랑/빨강 들고 있을 때 안전, **금색 고정되면 즉시 사거리(550) 밖으로**. 미니언에도 카드 적중 가능 → 미니언 웨이브 관리 필요.",
+      "range": 550, "cooldownEarly": 6, "cooldownMaxRank": 6 },
+    { "key": "E", "name": "카드 섞기", "type": "self_buff", "roles": ["primary_damage"], "missPenalty": "none",
+      "hitEnables": ["aa_crit"],
+      "counterMethod": "패시브 AA 강화 — 3타마다 치명타 + 추가 뎀. 근접 견제 누적용. 거리 있으면 무의미.",
+      "cooldownEarly": 0, "cooldownMaxRank": 0 },
+    { "key": "R", "name": "운명", "type": "self_buff", "roles": ["utility"], "missPenalty": "none",
+      "hitEnables": ["global_teleport", "reveal_enemies"],
+      "counterMethod": "**글로벌 순간이동**. 모든 적 시야 노출 → 트페가 R 켜면 맵 어디든 갱 가능. R 시전 채널링 1.5초 동안 미니언 병사에서 1분 후 어디로든 TP. 트페 R 표시 보이면 **즉시 아군에게 핑** + 부시 벗어나기.",
+      "cooldownEarly": 180, "cooldownMaxRank": 150 }
+  ],
+  "punishTriggers": [
+    { "condition": "W_blue_or_red", "skillKey": "W", "windowSec": 6, "severity": "critical",
+      "explanation": "W 카드가 파랑/빨강으로 고정된 순간 = **금색 없음 → 6초간 스턴 불가**. 이 창에 거리 좁혀 트레이드 or 올인." },
+    { "condition": "R_used", "skillKey": "R", "windowSec": 150, "severity": "high",
+      "explanation": "R(운명)은 쿨 150초. 사용 후 5분은 사이드 로밍 위협 제로 — 미드 웨이브 강하게 밀 타이밍." },
+    { "condition": "no_mana", "windowSec": 10, "severity": "high",
+      "explanation": "트페 마나 30% 이하면 W 연속 사용 불가. 스턴 셋업 없이 무력." },
+    { "condition": "Q_missed_solo", "skillKey": "Q", "windowSec": 6, "severity": "medium",
+      "explanation": "W 스턴 없이 날린 Q는 거의 다 빗나감. 6초 쿨 동안 트페 견제 수단 제로." }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 핵심 콤보 — W 금색 풀콤",
+      "setup": "**W 카드 색을 금색으로 고정**한 순간 (3색 순환 중 금색 선택)",
+      "payoff": "금색 카드 적중 → 1.5초 기절 → 평타 2~3대 + Q(와일드 카드) 3갈래 전부 풀히트 + E 치명타 AA",
+      "damage": "초반 25~35% 체력 · 6렙 이후 35~45% (풀콤 사실상 반피)",
+      "whenUsed": "라인전 상시 (W 쿨 6초). 트페가 W 돌리는 소리/이펙트가 트리거",
+      "counter": "**W 색깔이 금색에 멈추는 순간을 보고 즉시 사거리 550 밖으로**. 미니언 뒤에 서도 금색은 미니언에 튕긴 뒤에도 적중 가능하니 거리 확보가 답. 금색 없는 동안(파랑·빨강 선택 시)이 역공 창."
+    },
+    {
+      "name": "6렙 로밍 콤보 — R 순간이동 갱",
+      "setup": "**R(운명) 시전 — 전체 맵 적 위치 노출**. 사이드 라인에 TP",
+      "payoff": "TP 착지 → W 금색 셋업 → Q + 아군 정글 합류 풀콤",
+      "damage": "사이드 라인 킬 1개 거의 확정 (TP 예방 못하면)",
+      "whenUsed": "6렙 이후 R 쿨마다 (쿨 150초). 미드 웨이브 밀린 상태에서 자주",
+      "counter": "**트페 R 시전 채널링 표시(1.5초) 보이자마자 전 팀 핑** + 부시·강 이탈. 아군 사이드 라이너에게 점멸 여부 확인 요청. R 켜지면 미니맵 안 보이는 와드 위치도 주의."
+    },
+    {
+      "name": "블루 카드 스팸 포크",
+      "setup": "W를 파랑(블루) 카드로 고정 — 마나 환급형 견제",
+      "payoff": "원거리 카드 던지기 (1450 사거리) 누적 견제 + Q 포크 섞기",
+      "damage": "단발 5~8% · 마나 무한이라 10분 이상 누적 시 30%+ 손해",
+      "whenUsed": "라인전 중반부 (마나 관리 시점)",
+      "counter": "사거리가 엄청 김 — 미니언 뒤 고정 + 포션/도란방패로 누적 피해 복구. 블루 카드는 스턴 없으니 트레이드 타이밍으로 활용."
+    }
+  ],
+  "phases": {
+    "early": {
+      "goal": "카드 색 관찰로 W 셋업 차단. CS 포기해서라도 금색 카드 거리 확보.",
+      "danger": "W 금색 → Q + 평타 확정. 한 번 맞으면 체력 반토막.",
+      "opportunity": "W가 파랑/빨강으로 고정된 순간 트페는 스턴 없음 → 거리 좁혀 역공.",
+      "pathing": "미니언 뒤 고정. 카드 색 주시하며 CS.",
+      "objective": "6렙 이전 파밍 안정. 6렙 R 이후 로밍 위험 시작.",
+      "gank": "W 스턴으로 아군 정글 갱 연계 — 금색 카드 → 정글 풀콤."
+    },
+    "mid": {
+      "goal": "R 로밍으로 사이드 갱. 글로벌 TP로 팀 기여.",
+      "danger": "R 쿨 중 단독 전투력 약함. 근접 암살자에게 즉사 위험.",
+      "opportunity": "R 글로벌 갱으로 1킬 = 팀 골드 리드. 미드 웨이브 관리만 잘하면 어느 라인도 지원 가능.",
+      "pathing": "미드 웨이브 밀고 R 켤 타이밍 확보.",
+      "objective": "드래곤 싸움 R로 합류 or 반대 사이드 갱.",
+      "gank": "R + W 금색 풀콤 = 사이드 라인 확정 킬."
+    },
+    "late": {
+      "goal": "한타 후방 W+Q AoE 뎀 + R로 오브젝트 영향력.",
+      "danger": "이동기 없음. 앞라인 뚫리면 즉사. 암살자 타겟 1순위.",
+      "opportunity": "R로 사이드 스플릿 + 한타 합류 양쪽 선택 가능.",
+      "pathing": "한타 후방 포지션. W 카드 적중으로 원콜 셋업.",
+      "objective": "바론/엘더 한타 R 합류 or 반대 라인 압박.",
+      "gank": "혼자 이동 금지 — 이동기 제로라 잘리면 즉사."
+    }
+  },
+  "defaultSpells": "점멸 + 점화",
+  "defaultRunes": "신비로운 유성",
+  "buildAdaptations": [
+    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계 + 밴시 장막", "reason": "암살자 버스트 회피 + 스펠 차단." },
+    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 — 트페는 이동기 없어 CC에 특히 취약." },
+    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리의 고뇌", "reason": "% 마관 + % 체력 뎀." },
+    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+  ],
+  "vulnerabilities": ["no_mobility", "cc_locked", "mana_starved", "assassin_target", "low_self_damage_without_w"],
+  "keyStrengths": ["global_ult_r", "gold_card_stun", "wave_clear_q", "roaming_pressure", "ad_ap_hybrid"]
+}

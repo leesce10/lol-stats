@@ -85,6 +85,27 @@ export interface BuildAdaptation {
 
 export type Lane = "top" | "jungle" | "mid" | "adc" | "support";
 
+// --- 핵심 콤보 ---
+
+/**
+ * 챔피언의 실전 콤보/스킬 연계.
+ * "이 스킬 하나 조심" 수준이 아니라 "이 셋업 맞으면 뭐가 확정으로 따라와서 체력 몇 % 날아가는지"를 설명.
+ */
+export interface KeyCombo {
+  /** 콤보 이름 (예: "W 금색 카드 풀콤") */
+  name: string;
+  /** 셋업 스킬 (예: "W(카드 선택) 금색 적중") */
+  setup: string;
+  /** 연결되는 페이오프 (예: "1.25초 기절 → 평타 2~3대 + Q 확정 히트") */
+  payoff: string;
+  /** 뎀 밴드 (예: "초반 20~25% 체력 · 6렙 후 30%+") */
+  damage: string;
+  /** 언제 쓰이는지 (예: "라인전 상시 (W 쿨 6초)") */
+  whenUsed: string;
+  /** 대응/예방 (예: "W 색 순환 주시 — 금색 떠있으면 거리 확보") */
+  counter: string;
+}
+
 // --- 페이즈 전략 ---
 
 /**
@@ -141,6 +162,9 @@ export interface ChampionProfile {
 
   // --- 반격 트리거 ---
   punishTriggers: PunishTrigger[];
+
+  // --- 핵심 콤보/스킬 연계 ---
+  keyCombos?: KeyCombo[];
 
   // --- 페이즈별 전략 ---
   phases: {
@@ -232,6 +256,8 @@ export interface PhaseGuide {
 
 // --- 최종 출력: 매치업 가이드 ---
 export interface MatchupGuide {
+  /** 상대 챔피언의 실전 콤보 (상위 2~3개) */
+  keyCombos: KeyCombo[];
   myChampion: string;
   enemyChampion: string;
   position: Lane;
