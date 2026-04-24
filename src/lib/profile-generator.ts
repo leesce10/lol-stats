@@ -5,7 +5,7 @@
  * 카드는 숨겨지지만 verdict/summary/power-spikes/build/phase-guide는 정상 동작한다.
  */
 
-import type { ChampionProfile, Lane, PhaseStrategy } from "@/types/matchup-engine";
+import type { ChampionProfile, ChampionSkill, Lane, PhaseStrategy, PunishTrigger } from "@/types/matchup-engine";
 import type { ChampionMeta } from "@/data/all-champions";
 
 type PrimaryTag = "Tank" | "Fighter" | "Mage" | "Assassin" | "Marksman" | "Support";
@@ -272,6 +272,151 @@ function personalizePhases(phases: ChampionProfile["phases"], champName: string)
   return { early: add(phases.early), mid: add(phases.mid), late: add(phases.late) };
 }
 
+/** 태그별 4스킬 템플릿. L2 "필수 회피" 카드 생성용. */
+function tagKeySkills(tag: PrimaryTag, champName: string): ChampionSkill[] {
+  const name = champName;
+  switch (tag) {
+    case "Tank":
+      return [
+        { key: "Q", name: `${name} 핵심 CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
+          hitEnables: ["stun_or_slow"], counterMethod: "근거리 이니시. 사거리 밖으로 빠지기. 스킬샷이면 측면 회피.",
+          range: 600, cooldownEarly: 10, cooldownMaxRank: 7 },
+        { key: "W", name: `${name} 방어기/버프`, type: "self_buff", roles: ["defense"], missPenalty: "none",
+          hitEnables: ["shield_or_tenacity"], counterMethod: "방어 버프 차징 중 이탈. 주요 CC/버스트 아껴뒀다가 버프 끝난 뒤 사용.",
+          cooldownEarly: 14, cooldownMaxRank: 9 },
+        { key: "E", name: `${name} 돌진/이니시`, type: "dash", roles: ["engage", "cc"], missPenalty: "high",
+          hitEnables: ["gap_close", "knockup"], counterMethod: "돌진 궤적 예측 후 점멸/이동기로 회피. E 빠지면 이니시 수단 제로.",
+          range: 700, cooldownEarly: 16, cooldownMaxRank: 10 },
+        { key: "R", name: `${name} 궁극기`, type: "aoe", roles: ["engage", "cc"], missPenalty: "high",
+          hitEnables: ["aoe_cc"], counterMethod: "광역 CC 궁. 밴시/수은/점멸로 차단. 한타 전 R 사용 유도.",
+          cooldownEarly: 120, cooldownMaxRank: 80 },
+      ];
+    case "Fighter":
+      return [
+        { key: "Q", name: `${name} 주 딜 스킬`, type: "skillshot", roles: ["primary_damage"], "missPenalty": "medium",
+          hitEnables: ["core_damage"], counterMethod: "쿨마다 날아오는 견제. 미니언 뒤/측면 회피.",
+          range: 500, cooldownEarly: 8, cooldownMaxRank: 5 },
+        { key: "W", name: `${name} 보조 스킬`, type: "self_buff", roles: ["defense"], missPenalty: "none",
+          hitEnables: ["heal_or_empower"], counterMethod: "지속 교전 유지 스킬. 버프 타이밍 주시.",
+          cooldownEarly: 12, cooldownMaxRank: 8 },
+        { key: "E", name: `${name} 이동기/CC`, type: "dash", roles: ["mobility", "cc"], missPenalty: "high",
+          hitEnables: ["gap_close", "cc_combo"], counterMethod: "유일 이동기. E 빠지면 추격 불가. 12~18초 쿨.",
+          range: 500, cooldownEarly: 18, cooldownMaxRank: 10 },
+        { key: "R", name: `${name} 강화 궁`, type: "self_buff", roles: ["primary_damage", "defense"], missPenalty: "none",
+          hitEnables: ["burst_window"], counterMethod: "R 사용 시 뎀/탱킹 급증. R 끝날 때까지 버티기.",
+          cooldownEarly: 100, cooldownMaxRank: 60 },
+      ];
+    case "Mage":
+      return [
+        { key: "Q", name: `${name} 포크 스킬`, type: "skillshot", roles: ["primary_damage"], missPenalty: "high",
+          hitEnables: ["long_range_poke"], counterMethod: "장거리 스킬샷. 미니언 뒤 회피. 쿨마다 뎀 누적 주의.",
+          range: 900, cooldownEarly: 7, cooldownMaxRank: 5 },
+        { key: "W", name: `${name} CC/보조`, type: "skillshot", roles: ["cc"], missPenalty: "high",
+          hitEnables: ["slow_or_stun"], counterMethod: "지연 발동 or 차징형. 범위 밖 이탈.",
+          range: 700, cooldownEarly: 14, cooldownMaxRank: 9 },
+        { key: "E", name: `${name} 유틸 스킬`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
+          hitEnables: ["shield_or_blink"], counterMethod: "보호막/짧은 블링크. 풀콤 진입 전 소진 유도.",
+          cooldownEarly: 18, cooldownMaxRank: 10 },
+        { key: "R", name: `${name} 버스트 궁`, type: "aoe", roles: ["primary_damage"], missPenalty: "high",
+          hitEnables: ["aoe_burst"], counterMethod: "광역 버스트. 뭉치지 말 것. 밴시/존야로 차단.",
+          range: 700, cooldownEarly: 120, cooldownMaxRank: 80 },
+      ];
+    case "Assassin":
+      return [
+        { key: "Q", name: `${name} 주 버스트`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
+          hitEnables: ["burst_damage"], counterMethod: "가장 큰 뎀 원천. 맞으면 풀콤 성립. 측면 회피.",
+          range: 600, cooldownEarly: 7, cooldownMaxRank: 4 },
+        { key: "W", name: `${name} 유틸/표식`, type: "self_buff", roles: ["utility"], missPenalty: "none",
+          hitEnables: ["mark_or_empower"], counterMethod: "표식 찍히면 갭클로즈 가능. 거리 유지.",
+          cooldownEarly: 12, cooldownMaxRank: 8 },
+        { key: "E", name: `${name} 이동기`, type: "dash", roles: ["mobility"], missPenalty: "low",
+          hitEnables: ["gap_close", "escape"], counterMethod: "긴 대시. E 쿨 중이면 이동기 제로. 12~18초 쿨 주시.",
+          range: 700, cooldownEarly: 18, cooldownMaxRank: 12 },
+        { key: "R", name: `${name} 처형 궁`, type: "dash", roles: ["execute"], missPenalty: "high",
+          hitEnables: ["execute_or_reset"], counterMethod: "저체력 상태 피하기. R 사용 후 쿨 긴 타이밍 공격.",
+          cooldownEarly: 100, cooldownMaxRank: 70 },
+      ];
+    case "Marksman":
+      return [
+        { key: "Q", name: `${name} 견제기`, type: "skillshot", roles: ["primary_damage"], missPenalty: "medium",
+          hitEnables: ["aa_empower_or_poke"], counterMethod: "AA 사거리 확장 or 포크. 미니언 뒤 회피.",
+          range: 900, cooldownEarly: 8, cooldownMaxRank: 5 },
+        { key: "W", name: `${name} 온히트/유틸`, type: "self_buff", roles: ["primary_damage"], missPenalty: "none",
+          hitEnables: ["true_damage_or_vision"], counterMethod: "스택/은화살 형 강화. 3번째 AA 고정딜 주의.",
+          cooldownEarly: 10, cooldownMaxRank: 6 },
+        { key: "E", name: `${name} 회피/CC`, type: "dash", roles: ["mobility"], missPenalty: "medium",
+          hitEnables: ["escape", "trap"], counterMethod: "짧은 대시 or 덫. E 빠지면 이탈 수단 제로.",
+          range: 450, cooldownEarly: 18, cooldownMaxRank: 10 },
+        { key: "R", name: `${name} 피니시 궁`, type: "skillshot", roles: ["execute", "primary_damage"], missPenalty: "high",
+          hitEnables: ["long_range_finish"], counterMethod: "장거리 처형. 저체력 시 시야 밖 이탈.",
+          range: 1500, cooldownEarly: 100, cooldownMaxRank: 70 },
+      ];
+    case "Support":
+      return [
+        { key: "Q", name: `${name} 포크/CC`, type: "skillshot", roles: ["cc"], missPenalty: "high",
+          hitEnables: ["hook_or_damage"], counterMethod: "장거리 CC 스킬. 미니언 뒤 숨기 필수.",
+          range: 950, cooldownEarly: 12, cooldownMaxRank: 8 },
+        { key: "W", name: `${name} 쉴드/체젠`, type: "self_buff", roles: ["defense", "utility"], missPenalty: "none",
+          hitEnables: ["shield_ally", "heal"], counterMethod: "ADC 보호막/힐. 쉴드 깨고 올인 or 치감템 준비.",
+          cooldownEarly: 12, cooldownMaxRank: 6 },
+        { key: "E", name: `${name} 유틸`, type: "self_buff", roles: ["utility"], missPenalty: "low",
+          hitEnables: ["ms_or_cc"], counterMethod: "이동기 or 추가 CC. 사용 타이밍 주시.",
+          cooldownEarly: 14, cooldownMaxRank: 10 },
+        { key: "R", name: `${name} 팀 버프/CC`, type: "aoe", roles: ["cc", "defense"], missPenalty: "high",
+          hitEnables: ["team_buff_or_aoe_cc"], counterMethod: "팀 전체 영향. R 사용 시 한타 시작. 차단 or 대응 준비.",
+          cooldownEarly: 140, cooldownMaxRank: 80 },
+      ];
+  }
+}
+
+/** 태그별 반격 윈도우 템플릿. */
+function tagPunishTriggers(tag: PrimaryTag): PunishTrigger[] {
+  switch (tag) {
+    case "Tank":
+      return [
+        { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
+          explanation: "주요 이니시 E가 빠진 탱커는 거리 유지만 해도 위협도 제로. 10초간 올인 확정." },
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "high",
+          explanation: "광역 CC 궁 빠진 탱커는 한타 기여도 크게 감소." },
+      ];
+    case "Fighter":
+      return [
+        { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
+          explanation: "유일 이동기 E 빠지면 추격 불가. 10초간 카이팅으로 확정." },
+        { condition: "R_used", skillKey: "R", windowSec: 60, severity: "high",
+          explanation: "R 강화 빠지면 버스트/탱킹 반감." },
+      ];
+    case "Mage":
+      return [
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "critical",
+          explanation: "버스트 궁 빠진 메이지 올인 수단 제로. 근접 올인 최적." },
+        { condition: "no_mana", windowSec: 8, severity: "high",
+          explanation: "마나 고갈 메이지는 스킬 연발 불가. 적극 올인." },
+      ];
+    case "Assassin":
+      return [
+        { condition: "E_used", skillKey: "E", windowSec: 12, severity: "critical",
+          explanation: "이동기 E 빠진 암살자는 진입/이탈 불가. 12초간 CC + 올인 확정." },
+        { condition: "R_used", skillKey: "R", windowSec: 70, severity: "high",
+          explanation: "처형 R 빠진 암살자 킬 피니시 수단 감소." },
+      ];
+    case "Marksman":
+      return [
+        { condition: "E_used", skillKey: "E", windowSec: 10, severity: "critical",
+          explanation: "이탈기/덫 E 빠지면 이동기 제로. 암살자/이니시 서폿 진입 최적." },
+        { condition: "no_support", windowSec: 15, severity: "high",
+          explanation: "서폿 없는 원딜은 1:1 약함. 서폿 로밍 타이밍 확인." },
+      ];
+    case "Support":
+      return [
+        { condition: "Q_missed", skillKey: "Q", windowSec: 8, severity: "critical",
+          explanation: "주요 hook/CC 빠지면 이니시 수단 제로. 8초간 올인 대응 가능." },
+        { condition: "R_used", skillKey: "R", windowSec: 80, severity: "high",
+          explanation: "팀 궁 빠진 서폿 한타 기여도 급감." },
+      ];
+  }
+}
+
 /** 챔피언 메타 + 라인으로 기본 프로파일 생성. */
 export function generateProfile(champ: ChampionMeta, lane: Lane): ChampionProfile {
   const tag = getPrimaryTag(champ);
@@ -283,8 +428,8 @@ export function generateProfile(champ: ChampionMeta, lane: Lane): ChampionProfil
     patch: "15.7",
     profile: { ...TAG_PROFILE[tag] },
     powerSpikes: [...TAG_SPIKES[tag]],
-    keySkills: [],
-    punishTriggers: [],
+    keySkills: tagKeySkills(tag, champ.nameKr),
+    punishTriggers: tagPunishTriggers(tag),
     phases: personalizePhases(LANE_BASE_PHASES[lane], champ.nameKr),
     defaultSpells: DEFAULT_SPELLS[lane],
     defaultRunes: DEFAULT_RUNES[tag],

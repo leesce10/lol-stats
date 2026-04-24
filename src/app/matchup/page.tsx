@@ -151,15 +151,10 @@ function getProfile(lane: ProfileLane, champName: string | null): ChampionProfil
   // 1순위: 핸드크래프트 프로파일
   const crafted = PROFILE_REGISTRY[lane][champName];
   if (crafted) return crafted;
-  // 2순위: 태그 기반 자동 생성 프로파일
+  // 2순위: 태그 기반 자동 생성 프로파일 (모든 챔프 커버)
   const meta = allChampions.find((c) => c.id === champName);
   if (!meta) return null;
   return generateProfile(meta, lane);
-}
-
-function isHandcrafted(lane: ProfileLane, champName: string | null): boolean {
-  if (!champName) return false;
-  return champName in PROFILE_REGISTRY[lane];
 }
 
 const LANE_CONFIG: { key: Lane; label: string; iconUrl: string }[] = [
@@ -190,16 +185,10 @@ function ChampionGrid({ position, search, onSelect, selectedName, excludeNames, 
     .filter(e => !existingNames.has(e.name))
     .map(e => ({ name: e.name, nameKr: e.nameKr, isExtra: true }));
 
-  // 이 라인에서 심층(핸드크래프트) 프로파일이 있는 챔프 이름 집합
-  const craftedNames = new Set(Object.keys(PROFILE_REGISTRY[position]));
-
   const allChamps = [
-    ...posChamps.map(c => ({ name: c.name, nameKr: c.nameKr, isExtra: false, isCrafted: craftedNames.has(c.name) })),
-    ...extras.map(e => ({ ...e, isCrafted: craftedNames.has(e.name) })),
+    ...posChamps.map(c => ({ name: c.name, nameKr: c.nameKr, isExtra: false })),
+    ...extras,
   ];
-
-  // 심층 공략 있는 챔프 먼저 정렬
-  allChamps.sort((a, b) => Number(b.isCrafted) - Number(a.isCrafted));
 
   const filtered = allChamps.filter((c) => {
     if (excludeNames.includes(c.name) && c.name !== selectedName) return false;
@@ -214,14 +203,9 @@ function ChampionGrid({ position, search, onSelect, selectedName, excludeNames, 
         <button
           key={c.name}
           onClick={() => onSelect(c.name)}
-          title={c.isCrafted ? `${c.nameKr} · 심층 공략` : `${c.nameKr} · 기본 가이드`}
-          className={`champion-grid-item relative p-1 flex flex-col items-center ${c.name === selectedName ? "selected" : ""} ${c.isCrafted ? "ring-2 ring-blue-400/70 bg-blue-500/5" : ""}`}
+          title={c.nameKr}
+          className={`champion-grid-item p-1 flex flex-col items-center ${c.name === selectedName ? "selected" : ""}`}
         >
-          {c.isCrafted && (
-            <span className="absolute top-0.5 right-0.5 z-10 text-[8px] font-bold text-white bg-gradient-to-br from-blue-500 to-purple-600 rounded px-1 py-0 leading-tight shadow">
-              심층
-            </span>
-          )}
           <div className="relative h-9 w-9 overflow-hidden rounded-lg">
             <Image src={getChampionImageUrl(c.name)} alt={c.nameKr} width={36} height={36} className="object-cover" unoptimized />
           </div>
@@ -682,17 +666,8 @@ export default function MatchupPage() {
         </div>
       )}
 
-      {/* Results — 솔로라인: 모든 챔프 자동 생성 프로파일 포함, 엔진 가이드 우선 표시 */}
-      {soloMatchupGuide && (
-        <>
-          {!isBottom && (!isHandcrafted(soloPosition, myChampName) || !isHandcrafted(soloPosition, enemyChampName)) && (
-            <div className="mb-4 rounded-lg border border-yellow-500/20 bg-yellow-500/5 p-3 text-xs text-[var(--text-muted)]">
-              ℹ️ 이 가이드의 일부 항목은 <b>태그 기반 기본 템플릿</b>으로 생성되었습니다. <b>심층 배지</b>가 붙은 챔프끼리 선택하면 스킬별 회피/반격 윈도우 등 상세 정보가 추가됩니다.
-            </div>
-          )}
-          <MatchupGuideResult guide={soloMatchupGuide} myJunglePath={myProfile?.junglePath} />
-        </>
-      )}
+      {/* Results — 솔로라인: 모든 챔프 엔진 가이드 표시 */}
+      {soloMatchupGuide && <MatchupGuideResult guide={soloMatchupGuide} myJunglePath={myProfile?.junglePath} />}
       {hasSoloResult && !soloMatchupGuide && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
 
       {/* 바텀: 듀오 분석 (항상 표시) */}
