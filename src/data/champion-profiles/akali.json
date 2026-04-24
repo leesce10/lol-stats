@@ -5,62 +5,190 @@
   "position": "mid",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "C",
-    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "medium", "ccTypes": ["slow"]
+    "clearSpeed": "C",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "C",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "slow"
+    ]
   },
-  "powerSpikes": [6, 11],
+  "powerSpikes": [
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "은밀한 오의: 다섯 점 폭풍", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["energy_refund", "damage"],
+    {
+      "key": "Q",
+      "name": "은밀한 오의: 다섯 점 폭풍",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "energy_refund",
+        "damage"
+      ],
       "counterMethod": "원뿔 투사체. 측면 회피. 기력 관리 활용.",
-      "range": 575, "cooldownEarly": 4, "cooldownMaxRank": 2 },
-    { "key": "W", "name": "황혼의 장막", "type": "aoe", "roles": ["defense", "utility"], "missPenalty": "none",
-      "hitEnables": ["invisibility", "ms"],
+      "range": 575,
+      "cooldownEarly": 4,
+      "cooldownMaxRank": 2
+    },
+    {
+      "key": "W",
+      "name": "황혼의 장막",
+      "type": "aoe",
+      "roles": [
+        "defense",
+        "utility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "invisibility",
+        "ms"
+      ],
       "counterMethod": "장막 안 은신. 제어 와드로 시야 확보. 부쉬 시야 효과 있음.",
-      "cooldownEarly": 18, "cooldownMaxRank": 16 },
-    { "key": "E", "name": "곡선 그리기", "type": "skillshot", "roles": ["mobility", "primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["dash_second_hit"],
+      "cooldownEarly": 18,
+      "cooldownMaxRank": 16
+    },
+    {
+      "key": "E",
+      "name": "곡선 그리기",
+      "type": "skillshot",
+      "roles": [
+        "mobility",
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "dash_second_hit"
+      ],
       "counterMethod": "직선 스킬샷 + 재사용 대시. E2 대시 타이밍 예측.",
-      "range": 800, "cooldownEarly": 21, "cooldownMaxRank": 5 },
-    { "key": "R", "name": "표창 쇄도", "type": "dash", "roles": ["primary_damage", "mobility", "execute"], "missPenalty": "low",
-      "hitEnables": ["2_dashes", "execute"],
+      "range": 800,
+      "cooldownEarly": 21,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "R",
+      "name": "표창 쇄도",
+      "type": "dash",
+      "roles": [
+        "primary_damage",
+        "mobility",
+        "execute"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "2_dashes",
+        "execute"
+      ],
       "counterMethod": "2회 돌진 (R1 진입, R2 처형). 예방: (1) R1 돌진 시 CC로 고정하면 R2 처형 봉쇄, (2) 체력 처형 임계치(30% 미만) 이상 유지 — R2는 저체력 대상 확정 처형 수준 뎀, (3) 아칼리 W(연막) 안 들어가면 R 진입 각 어려움 → 와드 유지. 대응: R1 맞으면 즉시 수은/점멸로 이탈 + 아군 근처 이동. R2 쿨(3초) 안에 지속 CC 걸면 처형 못 함.",
-      "range": 650, "cooldownEarly": 120, "cooldownMaxRank": 60 }
+      "range": 650,
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 60
+    }
   ],
   "punishTriggers": [
-    { "condition": "no_energy", "windowSec": 4, "severity": "critical",
-      "explanation": "기력 0 아칼리 스킬 불가. 4초간 무력." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 60, "severity": "high",
-      "explanation": "R 빠지면 이동기 감소. 60초간 대응 가능." }
+    {
+      "condition": "no_energy",
+      "windowSec": 4,
+      "severity": "critical",
+      "explanation": "기력 0 아칼리 스킬 불가. 4초간 무력."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 60,
+      "severity": "high",
+      "explanation": "R 빠지면 이동기 감소. 60초간 대응 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "W 연막 암살 콤보",
+      "setup": "W(황혼의 장막) 자가 은신 + 이속",
+      "payoff": "은신 중 E(곡선 그리기) 진입 → Q 원뿔 + 평타 + 진의 경지",
+      "damage": "초반 40~55% · 코어템 60%+",
+      "whenUsed": "라인전 솔킬 (W 쿨 16~18초)",
+      "counter": "**제어 와드 필수** — 연막 시야. W 쿨 중 공격적 플레이."
+    },
+    {
+      "name": "R 2대시 처형 콤보",
+      "setup": "Q + W + E 풀콤으로 저체력 유도",
+      "payoff": "R(표창 쇄도) 1대시 진입 → R2 처형 뎀 (저체력 확정)",
+      "damage": "저체력 즉사 · 풀체력 50%+",
+      "whenUsed": "6렙 이후 (R 쿨 60~120초)",
+      "counter": "**R1 맞으면 즉시 수은/점멸** + 아군 근처. R2 쿨 3초 내 CC로 처형 차단."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q로 CS + 견제. 6렙까지 생존.",
+    "early": {
+      "goal": "Q로 CS + 견제. 6렙까지 생존.",
       "danger": "초반 Q 뎀 낮음. 근거리 접근 후 포크 시 죽음.",
       "opportunity": "3렙 Q+E 풀콤. 솔킬 각.",
       "pathing": "포탑 아래 CS. 기력 관리 중요.",
       "objective": "6렙 R 확보 후 올인.",
-      "gank": "E 맞추면 확정. R2 처형 연계." },
-    "mid": { "goal": "헥스테크 로켓벨트 완성. 사이드 픽오프.",
+      "gank": "E 맞추면 확정. R2 처형 연계."
+    },
+    "mid": {
+      "goal": "헥스테크 로켓벨트 완성. 사이드 픽오프.",
       "danger": "CC 체인 취약. R 없으면 추격 수단 약함.",
       "opportunity": "W 은신 + R 2회 대시로 후방 원콜.",
       "pathing": "미드 웨이브 밀고 사이드 로밍.",
       "objective": "드래곤 한타 뒤늦게 진입 + R 원콜.",
-      "gank": "바텀 로밍 + R 처형." },
-    "late": { "goal": "한타 R로 후방 물몸 원콜.",
+      "gank": "바텀 로밍 + R 처형."
+    },
+    "late": {
+      "goal": "한타 R로 후방 물몸 원콜.",
       "danger": "앞라인 뚫기 전 즉사. 포지션 타이밍 중요.",
       "opportunity": "풀빌드 아칼리 한타 캐리 처형 가능.",
       "pathing": "한타 측면 진입. W 은신 활용.",
       "objective": "바론 싸움 R로 원콜.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "감전",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "진입 후 무적." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
-    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
-    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "존야의 모래시계",
+      "reason": "진입 후 무적."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "공허의 지팡이 + 리안드리",
+      "reason": "% 마관 + % 체력 뎀."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "모렐로노미콘",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["cc_locked", "no_energy", "no_sustain", "melee_range", "e2_predictable"],
-  "keyStrengths": ["invisibility_w", "dual_dash_r", "execute_r2", "pick_off_specialist", "high_burst"]
+  "vulnerabilities": [
+    "cc_locked",
+    "no_energy",
+    "no_sustain",
+    "melee_range",
+    "e2_predictable"
+  ],
+  "keyStrengths": [
+    "invisibility_w",
+    "dual_dash_r",
+    "execute_r2",
+    "pick_off_specialist",
+    "high_burst"
+  ]
 }

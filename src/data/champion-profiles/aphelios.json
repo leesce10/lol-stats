@@ -5,57 +5,168 @@
   "position": "adc",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "S", "gankPower": "C",
-    "scaling": "late", "mobility": "low", "burst": "high", "sustain": "medium", "ccTypes": ["slow", "root"]
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "S",
+    "gankPower": "C",
+    "scaling": "late",
+    "mobility": "low",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "slow",
+      "root"
+    ]
   },
-  "powerSpikes": [3, 6, 11],
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "무기별 스킬", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["weapon_specific_effect"],
+    {
+      "key": "Q",
+      "name": "무기별 스킬",
+      "type": "aoe",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "weapon_specific_effect"
+      ],
       "counterMethod": "장착 무기에 따라 다름. 라이트 라이트(AoE), 칼리스토 등. 무기 주시.",
-      "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "무기 교체", "type": "self_buff", "roles": ["utility"], "missPenalty": "none",
-      "hitEnables": ["swap_weapons"], "counterMethod": "무기 교체. 5초 쿨. 교체 후 약한 무기 활용 타이밍.",
-      "cooldownEarly": 6, "cooldownMaxRank": 6 },
-    { "key": "R", "name": "달의 불길", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["wide_line", "weapon_effect"],
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "무기 교체",
+      "type": "self_buff",
+      "roles": [
+        "utility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "swap_weapons"
+      ],
+      "counterMethod": "무기 교체. 5초 쿨. 교체 후 약한 무기 활용 타이밍.",
+      "cooldownEarly": 6,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "R",
+      "name": "달의 불길",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "wide_line",
+        "weapon_effect"
+      ],
       "counterMethod": "1300 거리 **광역 직선 뎀 + 현재 무기 효과 광역 적용** (세베룸=치유, 칼리스토=속박, 그라비툼=슬로우 등). 예방: (1) 아펠리오스 현재 무기 확인 → 무기마다 위협도 다름, (2) 1300 장거리 직선 스킬샷 — 측면 회피 가능하나 길이가 압도적으로 김, (3) R 쿨 80초 — 쿨 중 교전 유도. 대응: R 맞으면 무기 효과 발동되므로 즉시 범위 밖 이탈. 한타 뭉치면 다중 적용.",
-      "range": 1300, "cooldownEarly": 120, "cooldownMaxRank": 80 }
+      "range": 1300,
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 80
+    }
   ],
   "punishTriggers": [
-    { "condition": "no_mobility_weapon", "windowSec": 6, "severity": "critical",
-      "explanation": "세베룸(빨강) 없는 아펠리오스 이동기 제로. 올인 확정." },
-    { "condition": "weak_weapon_pair", "windowSec": 10, "severity": "high",
-      "explanation": "그라비툼+인피아니어 등 약한 무기 조합 시 딜 낮음." }
+    {
+      "condition": "no_mobility_weapon",
+      "windowSec": 6,
+      "severity": "critical",
+      "explanation": "세베룸(빨강) 없는 아펠리오스 이동기 제로. 올인 확정."
+    },
+    {
+      "condition": "weak_weapon_pair",
+      "windowSec": 10,
+      "severity": "high",
+      "explanation": "그라비툼+인피아니어 등 약한 무기 조합 시 딜 낮음."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "세베룸(빨강) 근거리 리셋",
+      "setup": "세베룸 무기 장착 + Q 힐 활용",
+      "payoff": "Q 근거리 대뎀 + 체젠 + AA 리셋",
+      "damage": "근접 상대 40~50%",
+      "whenUsed": "세베룸 활성 시",
+      "counter": "**세베룸 사거리 550 — 거리 유지**. 다른 무기 강제 교체."
+    },
+    {
+      "name": "칼리스토(보라) R 한타 콤보",
+      "setup": "칼리스토 무기 + R(달의 불길) 장거리 직선",
+      "payoff": "R 뎀 + 무기 효과 광역 속박 + 풀콤",
+      "damage": "뭉친 팀 광역 30~50%",
+      "whenUsed": "한타 (R 쿨 80~120초)",
+      "counter": "**측면 회피 + 분산 포지션**. 현재 무기 확인."
+    }
   ],
   "phases": {
-    "early": { "goal": "무기 조합에 따라 라인전. 안정적 CS.",
+    "early": {
+      "goal": "무기 조합에 따라 라인전. 안정적 CS.",
       "danger": "이동기 없음. 서폿 hook 취약.",
       "opportunity": "칼리스토(보라) 대 상대 이동 제한. 라이트 라이트(파랑) 으로 장거리 견제.",
       "pathing": "포탑 아래 안전 CS. 서폿과 거리 유지.",
       "objective": "무리하지 말고 파밍 안정.",
-      "gank": "서폿 이니시 + R로 뎀 증폭." },
-    "mid": { "goal": "2코어 완성. 오브젝트 싸움 뎀.",
+      "gank": "서폿 이니시 + R로 뎀 증폭."
+    },
+    "mid": {
+      "goal": "2코어 완성. 오브젝트 싸움 뎀.",
       "danger": "이동기 없어 암살자에게 취약.",
       "opportunity": "아이템 완성 후 뎀 급증. 무기 조합 활용.",
       "pathing": "드래곤 근처. 서폿 보호선 안.",
       "objective": "드래곤 싸움 R로 이니시.",
-      "gank": "서폿 hook + 풀콤." },
-    "late": { "goal": "한타 무기 조합으로 DPS 극대화.",
+      "gank": "서폿 hook + 풀콤."
+    },
+    "late": {
+      "goal": "한타 무기 조합으로 DPS 극대화.",
       "danger": "앞라인 뚫리면 즉사. 이동기 없음.",
       "opportunity": "풀빌드 아펠리오스 캐리 최상.",
       "pathing": "한타 후방 포지션.",
       "objective": "바론/엘더 DPS 핵심.",
-      "gank": "혼자 움직이지 말 것." }
+      "gank": "혼자 움직이지 말 것."
+    }
   },
   "defaultSpells": "점멸 + 회복",
   "defaultRunes": "치명적 속도",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 죽음의 무도", "reason": "버스트 분산 + 부활." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
-    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 독사의 송곳니", "reason": "% 뎀 + 치감." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 + 죽음의 무도",
+      "reason": "버스트 분산 + 부활."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 독사의 송곳니",
+      "reason": "% 뎀 + 치감."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["no_mobility", "weak_weapon_pairs", "cc_locked", "complex_mechanics", "early_weak"],
-  "keyStrengths": ["5_weapons_flex", "long_range_r", "weapon_combos", "late_hypercarry", "utility_kit"]
+  "vulnerabilities": [
+    "no_mobility",
+    "weak_weapon_pairs",
+    "cc_locked",
+    "complex_mechanics",
+    "early_weak"
+  ],
+  "keyStrengths": [
+    "5_weapons_flex",
+    "long_range_r",
+    "weapon_combos",
+    "late_hypercarry",
+    "utility_kit"
+  ]
 }

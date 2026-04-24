@@ -5,61 +5,191 @@
   "position": "mid",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "S", "gankPower": "B",
-    "scaling": "late", "mobility": "low", "burst": "medium", "sustain": "low", "ccTypes": ["slow", "pull", "knockup"]
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "S",
+    "gankPower": "B",
+    "scaling": "late",
+    "mobility": "low",
+    "burst": "medium",
+    "sustain": "low",
+    "ccTypes": [
+      "slow",
+      "pull",
+      "knockup"
+    ]
   },
-  "powerSpikes": [6, 11, 16],
+  "powerSpikes": [
+    6,
+    11,
+    16
+  ],
   "keySkills": [
-    { "key": "Q", "name": "지시: 공격 명령", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["ball_placement", "damage"],
+    {
+      "key": "Q",
+      "name": "지시: 공격 명령",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "ball_placement",
+        "damage"
+      ],
       "counterMethod": "공 이동 스킬. 공 위치 추적. 미니언 뒤 회피.",
-      "range": 825, "cooldownEarly": 6, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "지시: 불협화음", "type": "aoe", "roles": ["primary_damage", "cc"], "missPenalty": "medium",
-      "hitEnables": ["slow_aoe", "damage"], "counterMethod": "공 주변 AoE 슬로우. 범위 밖으로 이탈.",
-      "cooldownEarly": 10, "cooldownMaxRank": 8 },
-    { "key": "E", "name": "지시: 보호", "type": "point_click", "roles": ["defense", "cc"], "missPenalty": "none",
-      "hitEnables": ["shield_ally", "knockback_enemies"],
+      "range": 825,
+      "cooldownEarly": 6,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "지시: 불협화음",
+      "type": "aoe",
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "slow_aoe",
+        "damage"
+      ],
+      "counterMethod": "공 주변 AoE 슬로우. 범위 밖으로 이탈.",
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "E",
+      "name": "지시: 보호",
+      "type": "point_click",
+      "roles": [
+        "defense",
+        "cc"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "shield_ally",
+        "knockback_enemies"
+      ],
       "counterMethod": "아군 공 부착 방패. 공 경로 적 넉백. 공 경로 예측 이탈.",
-      "cooldownEarly": 9, "cooldownMaxRank": 9 },
-    { "key": "R", "name": "지시: 충격파", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "high",
-      "hitEnables": ["knockup_aoe", "pull_to_ball"],
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 9
+    },
+    {
+      "key": "R",
+      "name": "지시: 충격파",
+      "type": "aoe",
+      "roles": [
+        "cc",
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "knockup_aoe",
+        "pull_to_ball"
+      ],
       "counterMethod": "**공 주변 400 범위 적 당김 + 넉업**. 예방: (1) **공 위치가 곧 R 위치** — 공이 적/미니언/아군에게 있으면 그 주변 진입 금지, (2) 오리아나 Q/W로 공 던지면 즉시 멀리, (3) 아군 뭉칠 때 오리아나 공이 우리 팀에 있으면 즉시 분산. 대응: R 발동 순간 넉업 1초 → 즉시 수은/QSS/점멸. 한타에서 오리 R 맞고 2명 이상 갇히면 한타 패배 — 포지션이 전부.",
-      "cooldownEarly": 120, "cooldownMaxRank": 80 }
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 80
+    }
   ],
   "punishTriggers": [
-    { "condition": "ball_far_away", "windowSec": 5, "severity": "critical",
-      "explanation": "공 멀리 있으면 오리아나 자체 방어력 제로. 올인 확정." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
-      "explanation": "R 빠진 오리아나 한타 가치 급감. 80초간 대응 가능." }
+    {
+      "condition": "ball_far_away",
+      "windowSec": 5,
+      "severity": "critical",
+      "explanation": "공 멀리 있으면 오리아나 자체 방어력 제로. 올인 확정."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "high",
+      "explanation": "R 빠진 오리아나 한타 가치 급감. 80초간 대응 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "공 셋업 + Q+W+E 포크",
+      "setup": "공 상대 쪽으로 Q(공격 명령) 이동",
+      "payoff": "공 위치에서 W(불협화음) 슬로우 + E(보호) 방패 + 평타 포크",
+      "damage": "포크 누적 15~25% 초반 · 코어템 30~40%",
+      "whenUsed": "라인전 상시 (Q 쿨 6초)",
+      "counter": "**공 위치 주시** — 공 있는 지역 진입 금지. 오리 공에서 멀어지면 뎀 반감."
+    },
+    {
+      "name": "한타 R 충격파 — 공 끌기",
+      "setup": "공을 적 팀 중심에 배치 (아군 or 적/미니언에 공 던지기)",
+      "payoff": "R(충격파) 공 주변 적 끌어모으기 + 넉업 1초 → 아군 AoE 폭딜",
+      "damage": "3명 이상 끌면 한타 전멸 각",
+      "whenUsed": "한타 (R 쿨 80초)",
+      "counter": "**공 위치 = R 중심점** — 공 옆에 서지 말기. 넉업 1초 → 즉시 수은/점멸."
+    }
   ],
   "phases": {
-    "early": { "goal": "공으로 CS + 견제. 6렙 R 확보까지 생존.",
+    "early": {
+      "goal": "공으로 CS + 견제. 6렙 R 확보까지 생존.",
       "danger": "근접 암살자 접근 시 죽음. E 아껴야 생존.",
       "opportunity": "원거리 상대 Q+W 견제 지배.",
       "pathing": "포탑 아래 CS. 공 방어 활용.",
       "objective": "6렙 전까지 파밍 유지.",
-      "gank": "R로 원콜 + 미드 솔킬각. 아군 정글 갱 연계." },
-    "mid": { "goal": "루덴의 동반자 완성. R 쿨마다 한타 이니시.",
+      "gank": "R로 원콜 + 미드 솔킬각. 아군 정글 갱 연계."
+    },
+    "mid": {
+      "goal": "루덴의 동반자 완성. R 쿨마다 한타 이니시.",
       "danger": "R 쿨 중 한타 시작하면 불리.",
       "opportunity": "R로 뭉친 적 원콜. 3명 이상 맞으면 승리.",
       "pathing": "미드 웨이브 밀고 사이드 합류.",
       "objective": "드래곤/전령 R 적극.",
-      "gank": "바텀 로밍 시 R 거리 계산." },
-    "late": { "goal": "한타 R로 3명 이상 원콜. 아군 AoE 시너지.",
+      "gank": "바텀 로밍 시 R 거리 계산."
+    },
+    "late": {
+      "goal": "한타 R로 3명 이상 원콜. 아군 AoE 시너지.",
       "danger": "앞라인 뚫리면 즉사. 포지션 실수 치명적.",
       "opportunity": "풀빌드 오리아나 AP 캐리. 무한 CC.",
       "pathing": "한타 후방 포지션. 공 배치 활용.",
       "objective": "바론/엘더 싸움 R 핵심.",
-      "gank": "혼자 움직이지 말 것. 공 없으면 죽음." }
+      "gank": "혼자 움직이지 말 것. 공 없으면 죽음."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "신비로운 유성",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계", "reason": "암살자 버스트 무적 회피." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 밴시 장막", "reason": "CC 감소 + 주요 CC 방어." },
-    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
-    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "존야의 모래시계",
+      "reason": "암살자 버스트 무적 회피."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 밴시 장막",
+      "reason": "CC 감소 + 주요 CC 방어."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "공허의 지팡이 + 리안드리",
+      "reason": "% 마관 + % 체력 뎀."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "모렐로노미콘",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["ball_position", "no_mobility", "cc_locked", "r_cancelled", "melee_assassin"],
-  "keyStrengths": ["aoe_r_teamfight", "shield_e", "pull_r", "safe_laner", "team_scaling"]
+  "vulnerabilities": [
+    "ball_position",
+    "no_mobility",
+    "cc_locked",
+    "r_cancelled",
+    "melee_assassin"
+  ],
+  "keyStrengths": [
+    "aoe_r_teamfight",
+    "shield_e",
+    "pull_r",
+    "safe_laner",
+    "team_scaling"
+  ]
 }

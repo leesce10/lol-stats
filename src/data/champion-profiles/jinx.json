@@ -4,7 +4,6 @@
   "nameEn": "Jinx",
   "position": "adc",
   "patch": "15.7",
-
   "profile": {
     "clearSpeed": "B",
     "earlyDuel": "C",
@@ -15,20 +14,30 @@
     "mobility": "low",
     "burst": "high",
     "sustain": "low",
-    "ccTypes": ["slow", "root"]
+    "ccTypes": [
+      "slow",
+      "root"
+    ]
   },
-
-  "powerSpikes": [6, 11, 16],
+  "powerSpikes": [
+    6,
+    11,
+    16
+  ],
   "weakAfter": null,
-
   "keySkills": [
     {
       "key": "Q",
       "name": "탈! 포포!",
       "type": "toggle",
-      "roles": ["primary_damage"],
+      "roles": [
+        "primary_damage"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["range_switch", "aoe_rockets"],
+      "hitEnables": [
+        "range_switch",
+        "aoe_rockets"
+      ],
       "counterMethod": "로켓 모드는 사거리 600, 기관총은 525. 로켓 모드에 맞춰 거리 조절.",
       "range": 600
     },
@@ -36,9 +45,15 @@
       "key": "W",
       "name": "철컥, 꽝꽝꽝!",
       "type": "skillshot",
-      "roles": ["primary_damage", "utility"],
+      "roles": [
+        "primary_damage",
+        "utility"
+      ],
       "missPenalty": "high",
-      "hitEnables": ["long_range_poke", "reveal"],
+      "hitEnables": [
+        "long_range_poke",
+        "reveal"
+      ],
       "counterMethod": "1.2초 차징 후 발사. 직선. 측면 회피 or 미니언 차단.",
       "range": 1500,
       "cooldownEarly": 9,
@@ -48,9 +63,13 @@
       "key": "E",
       "name": "날 잡아봐라!",
       "type": "aoe",
-      "roles": ["cc"],
+      "roles": [
+        "cc"
+      ],
       "missPenalty": "high",
-      "hitEnables": ["root_trap"],
+      "hitEnables": [
+        "root_trap"
+      ],
       "counterMethod": "지연 설치형. 발동 위치 보이면 회피 가능. 점프기/대시 있으면 안전.",
       "range": 900,
       "cooldownEarly": 28,
@@ -60,15 +79,20 @@
       "key": "R",
       "name": "초강력! 메가 죽음의 로켓!",
       "type": "skillshot",
-      "roles": ["execute", "primary_damage"],
+      "roles": [
+        "execute",
+        "primary_damage"
+      ],
       "missPenalty": "medium",
-      "hitEnables": ["global_finish", "heal_jinx"],
+      "hitEnables": [
+        "global_finish",
+        "heal_jinx"
+      ],
       "counterMethod": "**글로벌 직선 로켓** — 이동 거리 길수록 뎀 증가, 적중 시 징크스 힐. 예방: (1) 저체력 상태 직선 경로 피하기, (2) 미니언/아군을 직선 경로에 두면 차단 가능 (가장 가까운 대상이 맞음), (3) 징크스가 리셋(킬/어시) 받으면 이속 급증 + R 콤보 위험. 대응: 사거리 한계 없지만 미니언 차단 활용. R 쿨 75초.",
       "cooldownEarly": 90,
       "cooldownMaxRank": 75
     }
   ],
-
   "punishTriggers": [
     {
       "condition": "minigun_mode",
@@ -91,7 +115,24 @@
       "explanation": "킬/어시 없는 징크스는 이속 없음. 올인 최적 시점."
     }
   ],
-
+  "keyCombos": [
+    {
+      "name": "패시브 흥분 + 리셋 연쇄",
+      "setup": "킬/어시스트 시 패시브 흥분 — 175% 이속 + 공속",
+      "payoff": "기관총 Q AA 폭딜 + E 덫 슬로우 + R 저격",
+      "damage": "흥분 상태 한타 3~4킬 가능",
+      "whenUsed": "한타/교전 중 킬 확보 시",
+      "counter": "**킬 주지 말기** — 흥분 없는 징크스 이속 느림. 먼저 징크스 타겟팅."
+    },
+    {
+      "name": "R 글로벌 저격 — 초강력 메가",
+      "setup": "**R(초강력! 메가 죽음의 로켓!) 글로벌 직선**",
+      "payoff": "이동 거리 비례 뎀 + 저체력 처형 + 힐",
+      "damage": "저체력 처형 · 풀체력 40%+",
+      "whenUsed": "6렙 이후 (R 쿨 75~90초)",
+      "counter": "**저체력 직선 경로 회피** — 아군 뒤 숨기 (첫 히트 차단). 미니맵 위치 모니터."
+    }
+  ],
   "phases": {
     "early": {
       "goal": "CS 안정 + 사거리 확인. 6렙까지 생존 우선.",
@@ -118,7 +159,6 @@
       "gank": "혼자 이동 금지. 서폿/탱커와 같이 움직임."
     }
   },
-
   "defaultSpells": "점멸 + 회복",
   "defaultRunes": "집중 공격",
   "buildAdaptations": [
@@ -143,7 +183,6 @@
       "reason": "치유 감소. 브루저/탱커 체젠 차단."
     }
   ],
-
   "vulnerabilities": [
     "no_mobility",
     "assassin_vulnerable",

@@ -5,60 +5,190 @@
   "position": "top",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "C", "midDuel": "A", "lateDuel": "S", "gankPower": "B",
-    "scaling": "late", "mobility": "medium", "burst": "high", "sustain": "low", "ccTypes": ["stun", "slow"]
+    "clearSpeed": "C",
+    "earlyDuel": "C",
+    "midDuel": "A",
+    "lateDuel": "S",
+    "gankPower": "B",
+    "scaling": "late",
+    "mobility": "medium",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": [
+      "stun",
+      "slow"
+    ]
   },
-  "powerSpikes": [3, 6, 11],
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "도약 공격", "type": "dash", "roles": ["primary_damage", "mobility"], "missPenalty": "medium",
-      "hitEnables": ["gap_close", "reset_on_kill"],
+    {
+      "key": "Q",
+      "name": "도약 공격",
+      "type": "dash",
+      "roles": [
+        "primary_damage",
+        "mobility"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "gap_close",
+        "reset_on_kill"
+      ],
       "counterMethod": "대상 필요. 미니언 없으면 Q 불가. 점프 궤적 예측 후 CC.",
-      "range": 700, "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "힘의 일격", "type": "self_buff", "roles": ["primary_damage"], "missPenalty": "none",
-      "hitEnables": ["next_aa_empower"], "counterMethod": "자가 버프. 다음 AA 강화. 방관 없으면 무력.",
-      "cooldownEarly": 7, "cooldownMaxRank": 7 },
-    { "key": "E", "name": "반격", "type": "self_buff", "roles": ["defense", "cc"], "missPenalty": "none",
-      "hitEnables": ["dodge_aa", "aoe_stun"],
+      "range": 700,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "힘의 일격",
+      "type": "self_buff",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "next_aa_empower"
+      ],
+      "counterMethod": "자가 버프. 다음 AA 강화. 방관 없으면 무력.",
+      "cooldownEarly": 7,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "E",
+      "name": "반격",
+      "type": "self_buff",
+      "roles": [
+        "defense",
+        "cc"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "dodge_aa",
+        "aoe_stun"
+      ],
       "counterMethod": "2초 발동. AA 회피 + 2초 후 기절. 스킬은 회피 불가. E 중 AA 금지.",
-      "cooldownEarly": 18, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "초월한 챔피언", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
-      "hitEnables": ["aa_empower", "armor_mr"], "counterMethod": "자가 강화 궁 — R 켜짐 = 한타 뎀/탱킹 급증. 예방: (1) R 발동 후 5초 동안 **교전 회피·카이팅**으로 지속시간 버티기, (2) 3회 AA마다 주변 AoE 스턴 — 근접 챔프 주변 있지 말 것. 대응: R 종료 후 쿨 40초 동안은 평범한 근접. 존야는 R 직후 무력화용보다 R 풀콤보 시간 벌기용. 풀코어 잭스라면 R 유지 동안 꺼지길 기다리는 편이 유리.",
-      "cooldownEarly": 80, "cooldownMaxRank": 40 }
+      "cooldownEarly": 18,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "초월한 챔피언",
+      "type": "self_buff",
+      "roles": [
+        "primary_damage",
+        "defense"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "aa_empower",
+        "armor_mr"
+      ],
+      "counterMethod": "자가 강화 궁 — R 켜짐 = 한타 뎀/탱킹 급증. 예방: (1) R 발동 후 5초 동안 **교전 회피·카이팅**으로 지속시간 버티기, (2) 3회 AA마다 주변 AoE 스턴 — 근접 챔프 주변 있지 말 것. 대응: R 종료 후 쿨 40초 동안은 평범한 근접. 존야는 R 직후 무력화용보다 R 풀콤보 시간 벌기용. 풀코어 잭스라면 R 유지 동안 꺼지길 기다리는 편이 유리.",
+      "cooldownEarly": 80,
+      "cooldownMaxRank": 40
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
-      "explanation": "반격 빠지면 AA 회피 + 기절 부재. 10초간 올인 확정." },
-    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 6, "severity": "high",
-      "explanation": "Q 빗나가면 갭클로즈 제로. 잭스 추격 불가." }
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "critical",
+      "explanation": "반격 빠지면 AA 회피 + 기절 부재. 10초간 올인 확정."
+    },
+    {
+      "condition": "Q_missed",
+      "skillKey": "Q",
+      "windowSec": 6,
+      "severity": "high",
+      "explanation": "Q 빗나가면 갭클로즈 제로. 잭스 추격 불가."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 핵심 콤보 — E 스턴 풀콤",
+      "setup": "E(반격) 2초 발동 — 상대 AA 회피 대기",
+      "payoff": "2초 후 E 폭발 AoE 기절 → Q 점프 + W 강화 AA → AA 치명타",
+      "damage": "초반 30~40% 체력 · 풀템 이후 풀콤 즉사 수준",
+      "whenUsed": "3렙 이후 풀스킬부터 (E 쿨 10초)",
+      "counter": "**E 발동 2초 동안 AA 금지** (AA는 회피됨, 스킬은 적중). 스킬로 딜하거나 거리 유지. E 빠지면 10초간 카이팅 우위."
+    },
+    {
+      "name": "6렙 솔킬 콤보 — Q+E+R 올인",
+      "setup": "Q(도약 공격)로 진입 → E 기절 → R(초월한 챔피언) 발동",
+      "payoff": "R의 3AA마다 AoE 뎀 + 방어력/마저 급증으로 지속 교전",
+      "damage": "풀템 잭스 1v2 가능 · 솔킬 60~80%",
+      "whenUsed": "6렙 이후 풀스킬 확보 (R 쿨 40초로 짧음)",
+      "counter": "**R 지속 5초 동안 교전 회피·카이팅**. R 종료 후 쿨 40초는 평범한 근접. 잭스 E 빠진 상태면 즉시 역공."
+    }
   ],
   "phases": {
-    "early": { "goal": "CS 안정 + 3렙 풀스킬. 1~2렙 무리 금지.",
+    "early": {
+      "goal": "CS 안정 + 3렙 풀스킬. 1~2렙 무리 금지.",
       "danger": "초반 1v1 약함. 견제 챔프에게 CS 놓침.",
       "opportunity": "6렙 이후 솔킬 급증. R 있으면 풀HP 상대도 올인.",
       "pathing": "파밍 우선. 3렙부터 E로 견제 시도.",
       "objective": "초반은 정글 협공에 의존. 단독 플레이 금지.",
-      "gank": "E 기절로 갱 호응. Q 점프 거리 활용 다이브." },
-    "mid": { "goal": "삼위일체 완성. 사이드 스플릿 압박.",
+      "gank": "E 기절로 갱 호응. Q 점프 거리 활용 다이브."
+    },
+    "mid": {
+      "goal": "삼위일체 완성. 사이드 스플릿 압박.",
       "danger": "중반 아이템 나오지 않으면 미드게임 존재감 약함.",
       "opportunity": "풀코어 1:1 대부분 이김. 1:2도 가능.",
       "pathing": "탑 스플릿 + TP로 한타 합류.",
       "objective": "드래곤보다 탑 포탑 우선. 오브젝트는 아군에게.",
-      "gank": "사이드 라인 유지. 텔 타이밍 중요." },
-    "late": { "goal": "한타는 후방 진입 or 사이드 스플릿 2옵션.",
+      "gank": "사이드 라인 유지. 텔 타이밍 중요."
+    },
+    "late": {
+      "goal": "한타는 후방 진입 or 사이드 스플릿 2옵션.",
       "danger": "CC 체인 맞으면 즉사. 탱커 없는 한타 불리.",
       "opportunity": "풀빌드 잭스 1v2 가능. 한타 뒷열 원콜.",
       "pathing": "사이드 1-4 운영 최적.",
       "objective": "바론 근처 스플릿 압박. 한타 각 안 나오면 스틸.",
-      "gank": "혼자 이동 금지. 시야 장악 후 진입." }
+      "gank": "혼자 이동 금지. 시야 장악 후 진입."
+    }
   },
   "defaultSpells": "점멸 + 순간이동",
   "defaultRunes": "정복자",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 가고일 돌갑옷", "reason": "버스트 한 번 버티고 R 지속시간 활용." },
-    { "condition": "enemy_ranged_poke", "recommendation": "도란의 방패 + 바람의 망토", "reason": "원거리 견제 버티기용." },
-    { "condition": "enemy_tank_heavy", "recommendation": "기동의 장화 + 데스 댄스", "reason": "이속 + 피흡으로 지속 교전." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 정의의 손길", "reason": "CC 감소 + 대응력 확보." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 + 가고일 돌갑옷",
+      "reason": "버스트 한 번 버티고 R 지속시간 활용."
+    },
+    {
+      "condition": "enemy_ranged_poke",
+      "recommendation": "도란의 방패 + 바람의 망토",
+      "reason": "원거리 견제 버티기용."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "기동의 장화 + 데스 댄스",
+      "reason": "이속 + 피흡으로 지속 교전."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 정의의 손길",
+      "reason": "CC 감소 + 대응력 확보."
+    }
   ],
-  "vulnerabilities": ["weak_early_1_5lv", "cc_locked", "kited_pre6", "item_dependent", "no_ranged_poke"],
-  "keyStrengths": ["stun_counter_aa", "long_jump_q", "reset_e_jump", "r_hypercarry", "splitpush_1v2"]
+  "vulnerabilities": [
+    "weak_early_1_5lv",
+    "cc_locked",
+    "kited_pre6",
+    "item_dependent",
+    "no_ranged_poke"
+  ],
+  "keyStrengths": [
+    "stun_counter_aa",
+    "long_jump_q",
+    "reset_e_jump",
+    "r_hypercarry",
+    "splitpush_1v2"
+  ]
 }

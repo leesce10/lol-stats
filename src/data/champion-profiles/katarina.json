@@ -5,60 +5,184 @@
   "position": "mid",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "C",
-    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": []
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "C",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": []
   },
-  "powerSpikes": [6, 11],
+  "powerSpikes": [
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "단검 투척", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["dagger_drop", "bounce"], "counterMethod": "튕기는 투사체. 3초 후 단검 낙하. 낙하 지점 회피.",
-      "range": 625, "cooldownEarly": 10, "cooldownMaxRank": 10 },
-    { "key": "W", "name": "스커프 스텝", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "none",
-      "hitEnables": ["dagger_drop"], "counterMethod": "단검 낙하. 1.25초 후 뎀. 즉시 범위 이탈.",
-      "cooldownEarly": 15, "cooldownMaxRank": 9 },
-    { "key": "E", "name": "흔들어베기", "type": "dash", "roles": ["mobility", "primary_damage"], "missPenalty": "low",
-      "hitEnables": ["dagger_pickup", "teleport"],
+    {
+      "key": "Q",
+      "name": "단검 투척",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "dagger_drop",
+        "bounce"
+      ],
+      "counterMethod": "튕기는 투사체. 3초 후 단검 낙하. 낙하 지점 회피.",
+      "range": 625,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "W",
+      "name": "스커프 스텝",
+      "type": "aoe",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "dagger_drop"
+      ],
+      "counterMethod": "단검 낙하. 1.25초 후 뎀. 즉시 범위 이탈.",
+      "cooldownEarly": 15,
+      "cooldownMaxRank": 9
+    },
+    {
+      "key": "E",
+      "name": "흔들어베기",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "primary_damage"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "dagger_pickup",
+        "teleport"
+      ],
       "counterMethod": "단검으로 즉시 순간이동. 단검 위치 통제 필수. 단검 밟고 순간이동 방지.",
-      "range": 700, "cooldownEarly": 10, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "죽음의 연꽃", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "high",
-      "hitEnables": ["channel_aoe_dps"],
+      "range": 700,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "죽음의 연꽃",
+      "type": "aoe",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "channel_aoe_dps"
+      ],
       "counterMethod": "550 주변 **채널링 AoE 폭딜** (2.5초). 예방: (1) E 단검 순간이동 각 차단 → 단검 낙하 지점 밟고 있으면 R 당할 위험, (2) 카타리나가 리셋(킬/어시) 했을 때 R 연쇄 사용 가능 → 저체력 아군 근처 경계. 대응: **CC(기절/에어본/침묵) 걸면 즉시 중단** — 수은으로는 해제 안 됨(채널링 자체를 끊어야 함). 범위 550 밖 이탈도 가능. 한타 승리 열쇠는 카타 R 중단 CC.",
-      "range": 550, "cooldownEarly": 90, "cooldownMaxRank": 60 }
+      "range": 550,
+      "cooldownEarly": 90,
+      "cooldownMaxRank": 60
+    }
   ],
   "punishTriggers": [
-    { "condition": "no_daggers", "windowSec": 4, "severity": "critical",
-      "explanation": "단검 없는 카타리나 이동기 제로. 4초간 올인 확정." },
-    { "condition": "R_channeling", "skillKey": "R", "windowSec": 2.5, "severity": "critical",
-      "explanation": "R 채널링 중 CC로 끊으면 한타 가치 제로." }
+    {
+      "condition": "no_daggers",
+      "windowSec": 4,
+      "severity": "critical",
+      "explanation": "단검 없는 카타리나 이동기 제로. 4초간 올인 확정."
+    },
+    {
+      "condition": "R_channeling",
+      "skillKey": "R",
+      "windowSec": 2.5,
+      "severity": "critical",
+      "explanation": "R 채널링 중 CC로 끊으면 한타 가치 제로."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "단검 E 순간이동 리셋 콤보",
+      "setup": "**Q(단검 투척) 튕긴 단검 낙하 지점 + W 단검 배치**",
+      "payoff": "E(흔들어베기) 단검 위치로 순간이동 → R(죽음의 연꽃) 채널링 → 킬 시 쿨 리셋",
+      "damage": "초반 35~50% · 리셋으로 한타 4~5킬 가능",
+      "whenUsed": "6렙 이후 (E 쿨 10초, R 쿨 60초)",
+      "counter": "**단검 낙하 지점 밟기** — 카타 E 차단. R 채널링 시 CC로 중단."
+    },
+    {
+      "name": "R 리셋 한타 콤보",
+      "setup": "한타 중 저체력 적 1명 처치 → 쿨 리셋",
+      "payoff": "E 단검 순간이동 → R 재시전 → 연쇄 처형",
+      "damage": "한타 2~4킬 가능",
+      "whenUsed": "한타 (킬 시 쿨 감소)",
+      "counter": "**저체력 아군이 카타 근처 금지** — 리셋 방지. CC로 R 중단."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q+W 단검 수급으로 CS. 6렙까지 생존.",
+    "early": {
+      "goal": "Q+W 단검 수급으로 CS. 6렙까지 생존.",
       "danger": "원거리 견제 챔프에게 짐. 단검 없으면 풀콤 불가.",
       "opportunity": "3렙 단검 콤보로 솔킬. W+E 빠른 뎀.",
       "pathing": "포탑 아래 CS. 단검 활용.",
       "objective": "6렙 R 확보 후 올인.",
-      "gank": "E 단검 순간이동으로 갱 연계. R 풀콤." },
-    "mid": { "goal": "콜렉터 완성. 사이드 로밍으로 리셋 만들기.",
+      "gank": "E 단검 순간이동으로 갱 연계. R 풀콤."
+    },
+    "mid": {
+      "goal": "콜렉터 완성. 사이드 로밍으로 리셋 만들기.",
       "danger": "CC 체인 맞으면 즉사. R 끊기면 무용.",
       "opportunity": "킬 시 모든 쿨 리셋. 연쇄 킬 가능.",
       "pathing": "미드 웨이브 밀고 사이드 로밍.",
       "objective": "드래곤 싸움 한타 중 사이드 진입.",
-      "gank": "바텀 로밍 + R 폭딜." },
-    "late": { "goal": "한타 후방 R + 리셋 연쇄.",
+      "gank": "바텀 로밍 + R 폭딜."
+    },
+    "late": {
+      "goal": "한타 후방 R + 리셋 연쇄.",
       "danger": "CC 체인 맞으면 사망. R 끊기면 치명적.",
       "opportunity": "풀빌드 카타리나 4~5킬 한타 가능.",
       "pathing": "한타 측면 진입. 단검 각 잡기.",
       "objective": "바론 싸움 R 후방 진입.",
-      "gank": "혼자 움직이지 말 것. 팀 동선 맞춤." }
+      "gank": "혼자 움직이지 말 것. 팀 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "감전",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계 + 수호천사", "reason": "진입 후 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + R 유지." },
-    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + 지속딜." },
-    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소 (AP 암살자에겐 필수)." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "존야의 모래시계 + 수호천사",
+      "reason": "진입 후 생존."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소 + R 유지."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "공허의 지팡이 + 리안드리",
+      "reason": "% 마관 + 지속딜."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "모렐로노미콘",
+      "reason": "치유 감소 (AP 암살자에겐 필수)."
+    }
   ],
-  "vulnerabilities": ["cc_locked", "r_interrupted", "dagger_denied", "early_weak", "no_mana_regen"],
-  "keyStrengths": ["reset_on_kill", "dagger_teleport", "aoe_r", "assassin_teamfight", "snowball_potential"]
+  "vulnerabilities": [
+    "cc_locked",
+    "r_interrupted",
+    "dagger_denied",
+    "early_weak",
+    "no_mana_regen"
+  ],
+  "keyStrengths": [
+    "reset_on_kill",
+    "dagger_teleport",
+    "aoe_r",
+    "assassin_teamfight",
+    "snowball_potential"
+  ]
 }

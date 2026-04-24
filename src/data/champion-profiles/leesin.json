@@ -4,8 +4,11 @@
   "nameEn": "Lee Sin",
   "position": "jungle",
   "patch": "15.7",
-  "junglePath": ["레드", "블루", "개미"],
-
+  "junglePath": [
+    "레드",
+    "블루",
+    "개미"
+  ],
   "profile": {
     "clearSpeed": "A",
     "earlyDuel": "S",
@@ -16,20 +19,31 @@
     "mobility": "high",
     "burst": "high",
     "sustain": "medium",
-    "ccTypes": ["slow", "knockback"]
+    "ccTypes": [
+      "slow",
+      "knockback"
+    ]
   },
-
-  "powerSpikes": [3, 6, 9],
+  "powerSpikes": [
+    3,
+    6,
+    9
+  ],
   "weakAfter": 14,
-
   "keySkills": [
     {
       "key": "Q",
       "name": "음파 / 공명의 일격",
       "type": "skillshot",
-      "roles": ["primary_damage", "execute"],
+      "roles": [
+        "primary_damage",
+        "execute"
+      ],
       "missPenalty": "critical",
-      "hitEnables": ["gap_close", "execute_missing_hp"],
+      "hitEnables": [
+        "gap_close",
+        "execute_missing_hp"
+      ],
       "counterMethod": "벽/엄폐 활용. 미니언 사이에서 차단. 직선 예측 회피 어려우므로 옆걸음보단 시야 차단.",
       "range": 1100,
       "cooldownEarly": 11,
@@ -39,9 +53,15 @@
       "key": "W",
       "name": "보호막 / 무쇠의지",
       "type": "dash",
-      "roles": ["mobility", "defense"],
+      "roles": [
+        "mobility",
+        "defense"
+      ],
       "missPenalty": "medium",
-      "hitEnables": ["shield", "lifesteal_boost"],
+      "hitEnables": [
+        "shield",
+        "lifesteal_boost"
+      ],
       "counterMethod": "W 대상(와드/아군)이 없으면 이동 불가. 와드 소진 시 도주력 급감. 핑크 와드로 와드홉 차단.",
       "range": 700,
       "cooldownEarly": 14,
@@ -51,9 +71,15 @@
       "key": "E",
       "name": "폭풍 / 불구",
       "type": "aoe",
-      "roles": ["secondary_damage", "cc"],
+      "roles": [
+        "secondary_damage",
+        "cc"
+      ],
       "missPenalty": "low",
-      "hitEnables": ["slow", "attack_speed_slow"],
+      "hitEnables": [
+        "slow",
+        "attack_speed_slow"
+      ],
       "counterMethod": "근접 범위(350). 사거리 밖 유지. 슬로우 걸리면 Q2 확정 히트 주의.",
       "range": 350,
       "cooldownEarly": 10,
@@ -63,16 +89,22 @@
       "key": "R",
       "name": "용의 분노",
       "type": "point_click",
-      "roles": ["engage", "cc"],
+      "roles": [
+        "engage",
+        "cc"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["knockback", "aoe_collision_damage", "team_split"],
+      "hitEnables": [
+        "knockback",
+        "aoe_collision_damage",
+        "team_split"
+      ],
       "counterMethod": "논타겟이라 회피 불가. 거리 유지가 유일한 대응. 플래시+R(인섹) 대비로 항상 점멸 보유 필수.",
       "range": 375,
       "cooldownEarly": 110,
       "cooldownMaxRank": 70
     }
   ],
-
   "punishTriggers": [
     {
       "condition": "Q_missed",
@@ -96,7 +128,24 @@
       "explanation": "팀 분리 + 인섹 위협 소실. 한타 이니시 능력 급감. 오브젝트 싸움 유리."
     }
   ],
-
+  "keyCombos": [
+    {
+      "name": "라인전 갱킹 — Q 음파 + 공명 풀콤",
+      "setup": "**Q(음파) 스킬샷 적중** (사거리 1100)",
+      "payoff": "Q 재사용(공명의 일격)으로 갭클로즈 + 저체력 비례 처형급 뎀 → E 슬로우 + AA 3타 패시브",
+      "damage": "초반 30~40% 체력 · 저체력 상대 확정 처형",
+      "whenUsed": "3렙 이후 갱 주요 콤보 (Q 쿨 11초)",
+      "counter": "**시야·엄폐 활용** — Q 직선 스킬샷이지만 사거리 길어 측면 회피 어려움. 미니언/부쉬·벽 뒤 포지션. Q 빠지면 9초간 갭클로즈 없음."
+    },
+    {
+      "name": "6렙 인섹 콤보 — R 킥으로 아군 쪽 던지기",
+      "setup": "Q 적중 → W 와드/아군으로 이동 → R(용의 분노) 대상 뒤로 돌아 **아군 방향 킥**",
+      "payoff": "적을 아군 품속으로 밀어넣어 풀콤 확정 → CC 연계 처형",
+      "damage": "인섹 성공 시 아군 CC+뎀 포함 원콜 즉사",
+      "whenUsed": "6렙 이후 킬 각 상황 (R 쿨 70초)",
+      "counter": "**점멸 보유 필수** — R 맞은 순간 점멸로 이탈. R은 타겟팅이라 회피 불가. 아군 본진 쪽에 서면 인섹 방향 역이용 가능."
+    }
+  ],
   "phases": {
     "early": {
       "goal": "레벨 3 빠르게 도달 후 갱 or 카정. 초반 이니시에이트로 라인 우위 만들기.",
@@ -123,7 +172,6 @@
       "gank": "갱 아닌 픽오프. 부시에서 Q+R 인섹으로 고립된 적 제거."
     }
   },
-
   "defaultSpells": "점멸 + 강타",
   "defaultRunes": "정복자",
   "buildAdaptations": [
@@ -148,7 +196,6 @@
       "reason": "도주 능력 높은 상대 추격용."
     }
   ],
-
   "vulnerabilities": [
     "falls_off_late",
     "q_dependent",

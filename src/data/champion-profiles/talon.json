@@ -5,34 +5,129 @@
   "position": "mid",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "B",
-    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "low", "ccTypes": ["slow"]
+    "clearSpeed": "C",
+    "earlyDuel": "A",
+    "midDuel": "A",
+    "lateDuel": "B",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": [
+      "slow"
+    ]
   },
-  "powerSpikes": [2, 6, 11],
+  "powerSpikes": [
+    2,
+    6,
+    11
+  ],
   "weakAfter": 14,
   "keySkills": [
-    { "key": "Q", "name": "천개의 상처", "type": "dash", "roles": ["primary_damage", "mobility"], "missPenalty": "low",
-      "hitEnables": ["gap_close", "critical_strike"],
+    {
+      "key": "Q",
+      "name": "천개의 상처",
+      "type": "dash",
+      "roles": [
+        "primary_damage",
+        "mobility"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "gap_close",
+        "critical_strike"
+      ],
       "counterMethod": "근접 대시 + 치명타. 이동기 Q 쿨 중이면 추격 약함.",
-      "range": 700, "cooldownEarly": 8, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "단도 세례", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
-      "hitEnables": ["return_damage", "slow"],
+      "range": 700,
+      "cooldownEarly": 8,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "단도 세례",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "return_damage",
+        "slow"
+      ],
       "counterMethod": "650 거리 왕복 투사체. **복귀 시 치명 뎀 + 단검 스택 쌓임** (풀콤 대비 출혈 셋업). 예방: 던지는 궤적과 복귀 궤적 **모두** 피해야 함 → 미니언 뒤 고정. 옆걸음으로 나간 방향 다시 가지 말 것. 단도 스택 쌓이면 풀콤 뎀 1.5배.",
-      "range": 650, "cooldownEarly": 10, "cooldownMaxRank": 8 },
-    { "key": "E", "name": "측면 이동", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
-      "hitEnables": ["wall_parkour", "stack_on_target"],
+      "range": 650,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "E",
+      "name": "측면 이동",
+      "type": "dash",
+      "roles": [
+        "mobility"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "wall_parkour",
+        "stack_on_target"
+      ],
       "counterMethod": "**벽/지형 통과 대시 — 탈론의 기습 핵심**. 예방: (1) 부시/정글 입구/강 벽 근처 **제어 와드 필수** (시야 밖 진입 차단), (2) 탈론 동선 예측 가능한 라인/위치 피하기, (3) 벽 근처 포지션 시 항상 E 각 확인. 솔로라인에서도 사이드 로밍 시 E 각 주의.",
-      "range": 750, "cooldownEarly": 16, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "어둠의 살수", "type": "self_buff", "roles": ["mobility", "primary_damage"], "missPenalty": "none",
-      "hitEnables": ["invisibility", "daggers_explode"],
+      "range": 750,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "어둠의 살수",
+      "type": "self_buff",
+      "roles": [
+        "mobility",
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "invisibility",
+        "daggers_explode"
+      ],
       "counterMethod": "자가 은신 + 단도 폭발. 예방: (1) **제어 와드 상시** (은신 간파), (2) 탈론이 R 쓰면 주변 500 거리에 숨어있다는 것 — 서로 피함, (3) R 사용 즉시 단도 낙하 지점 표시 → 낙하 지점 밖 이탈. R 쿨 60초 = 진입/이탈 사이클 빠름, 제어 와드는 R 쿨마다 확인.",
-      "cooldownEarly": 75, "cooldownMaxRank": 60 }
+      "cooldownEarly": 75,
+      "cooldownMaxRank": 60
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
-      "explanation": "E 벽 통과기 빠진 탈론 이동기 감소. 10초간 1:1 대응 가능." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 60, "severity": "high",
-      "explanation": "R 은신 빠진 탈론 이탈/진입 수단 감소. 60초간 견제 가능." }
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "critical",
+      "explanation": "E 벽 통과기 빠진 탈론 이동기 감소. 10초간 1:1 대응 가능."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 60,
+      "severity": "high",
+      "explanation": "R 은신 빠진 탈론 이탈/진입 수단 감소. 60초간 견제 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "E 벽 기습 풀콤",
+      "setup": "**E(측면 이동) 벽 통과 기습** (750 거리)",
+      "payoff": "W 단도 세례 + Q 치명타 + 단검 스택 출혈 뎀",
+      "damage": "초반 45~60% · 물몸 처형 급",
+      "whenUsed": "라인전 상시, 로밍 (E 쿨 10~16초)",
+      "counter": "**제어 와드 + 벽 근처 금지** — 탈론 E 시야. 벽 경로 파악 후 회피."
+    },
+    {
+      "name": "R 은신 + 단도 폭발",
+      "setup": "R(어둠의 살수) 자가 은신 + 단도 낙하",
+      "payoff": "은신 중 기습 → 단도 폭발 뎀 + 풀콤 Q+W+E",
+      "damage": "풀콤 60%+ 은신 암살",
+      "whenUsed": "6렙 이후 (R 쿨 60~75초)",
+      "counter": "**제어 와드 상시** — R 은신 간파. 단도 낙하 지점 피하기."
+    }
   ],
   "phases": {
     "early": {
@@ -63,11 +158,39 @@
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "감전",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 맬모셔스", "reason": "버스트 한 번 버티고 R 이탈." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + 풀콤 유지." },
-    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 세릴다의 원한", "reason": "방관 기반 탱커 딜." },
-    { "condition": "enemy_sustain_high", "recommendation": "처형인의 대검 → 몰왕검", "reason": "체젠 상대 치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 + 맬모셔스",
+      "reason": "버스트 한 번 버티고 R 이탈."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소 + 풀콤 유지."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 세릴다의 원한",
+      "reason": "방관 기반 탱커 딜."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "처형인의 대검 → 몰왕검",
+      "reason": "체젠 상대 치유 감소."
+    }
   ],
-  "vulnerabilities": ["cc_locked", "e_used", "r_on_cd", "late_scale_weak", "predictable_roam"],
-  "keyStrengths": ["wall_parkour_e", "invisibility_r", "global_roam", "pick_off_specialist", "early_pressure"]
+  "vulnerabilities": [
+    "cc_locked",
+    "e_used",
+    "r_on_cd",
+    "late_scale_weak",
+    "predictable_roam"
+  ],
+  "keyStrengths": [
+    "wall_parkour_e",
+    "invisibility_r",
+    "global_roam",
+    "pick_off_specialist",
+    "early_pressure"
+  ]
 }

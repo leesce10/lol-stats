@@ -4,7 +4,6 @@
   "nameEn": "Lulu",
   "position": "support",
   "patch": "15.7",
-
   "profile": {
     "clearSpeed": "D",
     "earlyDuel": "B",
@@ -15,19 +14,31 @@
     "mobility": "medium",
     "burst": "medium",
     "sustain": "medium",
-    "ccTypes": ["slow", "polymorph", "knockup"]
+    "ccTypes": [
+      "slow",
+      "polymorph",
+      "knockup"
+    ]
   },
-
-  "powerSpikes": [3, 6, 11],
-
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
     {
       "key": "Q",
       "name": "반짝반짝 창",
       "type": "skillshot",
-      "roles": ["primary_damage", "cc"],
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
       "missPenalty": "medium",
-      "hitEnables": ["slow_short", "poke"],
+      "hitEnables": [
+        "slow_short",
+        "poke"
+      ],
       "counterMethod": "직선 투사체. 미니언 뒤 회피. 슬로우 1.5초 주의.",
       "range": 925,
       "cooldownEarly": 7,
@@ -37,9 +48,15 @@
       "key": "W",
       "name": "야 너!",
       "type": "point_click",
-      "roles": ["cc", "defense"],
+      "roles": [
+        "cc",
+        "defense"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["polymorph_enemy", "speed_ally"],
+      "hitEnables": [
+        "polymorph_enemy",
+        "speed_ally"
+      ],
       "counterMethod": "1.75초 변이. QSS로 해제 가능. 핵심 CC 스킬 사용 전 W 미리 뺴라.",
       "range": 650,
       "cooldownEarly": 17,
@@ -49,9 +66,16 @@
       "key": "E",
       "name": "마법 술수",
       "type": "point_click",
-      "roles": ["defense", "utility"],
+      "roles": [
+        "defense",
+        "utility"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["shield_ally", "damage_enemy", "reveal_trinket"],
+      "hitEnables": [
+        "shield_ally",
+        "damage_enemy",
+        "reveal_trinket"
+      ],
       "counterMethod": "보호막 + 뎀. 쿨 10초 빠름. 견제는 무력화됨.",
       "range": 650,
       "cooldownEarly": 10,
@@ -61,16 +85,22 @@
       "key": "R",
       "name": "엄청나게 커!",
       "type": "point_click",
-      "roles": ["defense", "cc"],
+      "roles": [
+        "defense",
+        "cc"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["hp_buff", "knockup_aoe", "speed"],
+      "hitEnables": [
+        "hp_buff",
+        "knockup_aoe",
+        "speed"
+      ],
       "counterMethod": "**아군 대상 타겟팅 버프** (900 거리) — 회피/차단 불가. 진짜 위협은 **R 맞은 ADC가 거의 불사**. 예방: (1) 룰루 R 대상이 되기 전 ADC 먼저 잘라내기, (2) 물몸 룰루 먼저 노려서 R 강제 사용, (3) R 쿨 80초 — 쿨 중이 한타 타이밍. 대응: R 맞은 아군 공격 포기 → 룰루/다른 목표 전환. R 발동 시 광역 넉업 — 아군 4인 뭉치지 말 것.",
       "range": 900,
       "cooldownEarly": 120,
       "cooldownMaxRank": 80
     }
   ],
-
   "punishTriggers": [
     {
       "condition": "W_used",
@@ -87,7 +117,24 @@
       "explanation": "R 맞은 ADC는 거의 불사. R 쿨 중 아군 ADC 캐치가 유일한 기회."
     }
   ],
-
+  "keyCombos": [
+    {
+      "name": "W 변이 피오라/제드 차단",
+      "setup": "**W(야 너!) 적 타겟팅 1.75초 변이**",
+      "payoff": "변이 중 Q 슬로우 + E 뎀 + ADC 평타",
+      "damage": "초반 20~30% + 적 주요 스킬 무력화",
+      "whenUsed": "라인전/한타 (W 쿨 13~17초)",
+      "counter": "**QSS로 변이 해제**. 주요 CC/돌진 스킬 W 이후 사용."
+    },
+    {
+      "name": "R 아군 보호 — 엄청나게 커!",
+      "setup": "아군 ADC 대상 R(엄청나게 커!) 발동",
+      "payoff": "HP 증가 + 주변 넉업 + 이속 → ADC 1v5 가능",
+      "damage": "ADC 거의 불사",
+      "whenUsed": "한타 (R 쿨 80~120초)",
+      "counter": "**R 대상 공격 포기** → 룰루/다른 물몸 타겟. R 쿨 중 올인."
+    }
+  ],
   "phases": {
     "early": {
       "goal": "Q+E로 라인 견제. ADC 보호막 유지.",
@@ -114,7 +161,6 @@
       "gank": "픽오프 금지. 한타 합류 우선."
     }
   },
-
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "소환: 아이리",
   "buildAdaptations": [
@@ -139,7 +185,6 @@
       "reason": "견제 버티기 + 보호막 유지."
     }
   ],
-
   "vulnerabilities": [
     "engage_vulnerable",
     "w_used_noncc",

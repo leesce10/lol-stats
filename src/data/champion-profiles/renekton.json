@@ -5,60 +5,191 @@
   "position": "top",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "S", "midDuel": "B", "lateDuel": "C", "gankPower": "B",
-    "scaling": "early", "mobility": "medium", "burst": "high", "sustain": "medium", "ccTypes": ["stun"]
+    "clearSpeed": "C",
+    "earlyDuel": "S",
+    "midDuel": "B",
+    "lateDuel": "C",
+    "gankPower": "B",
+    "scaling": "early",
+    "mobility": "medium",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "stun"
+    ]
   },
-  "powerSpikes": [2, 6, 9],
+  "powerSpikes": [
+    2,
+    6,
+    9
+  ],
   "weakAfter": 14,
   "keySkills": [
-    { "key": "Q", "name": "난타", "type": "aoe", "roles": ["primary_damage", "sustain"], "missPenalty": "none",
-      "hitEnables": ["aoe_damage", "heal_fury"], "counterMethod": "근접 AoE. 50 분노 시 추가 뎀. 거리 유지.",
-      "range": 275, "cooldownEarly": 8, "cooldownMaxRank": 4 },
-    { "key": "W", "name": "맹공", "type": "point_click", "roles": ["cc", "primary_damage"], "missPenalty": "none",
-      "hitEnables": ["stun_0.75s", "double_aa_fury"], "counterMethod": "논타겟 기절. 50 분노 시 2회 타격. 분노 관리 읽기.",
-      "cooldownEarly": 12, "cooldownMaxRank": 6 },
-    { "key": "E", "name": "격노의 맹습", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
-      "hitEnables": ["dash_in", "dash_back"], "counterMethod": "2회 대시(진입+이탈). 양방향 모두 써야 이탈 가능. 한 방향 사용 시 추격 가능.",
-      "range": 450, "cooldownEarly": 18, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "최후의 구경거리", "type": "self_buff", "roles": ["primary_damage", "defense"], "missPenalty": "none",
-      "hitEnables": ["hp_boost", "aoe_slow"],
+    {
+      "key": "Q",
+      "name": "난타",
+      "type": "aoe",
+      "roles": [
+        "primary_damage",
+        "sustain"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "aoe_damage",
+        "heal_fury"
+      ],
+      "counterMethod": "근접 AoE. 50 분노 시 추가 뎀. 거리 유지.",
+      "range": 275,
+      "cooldownEarly": 8,
+      "cooldownMaxRank": 4
+    },
+    {
+      "key": "W",
+      "name": "맹공",
+      "type": "point_click",
+      "roles": [
+        "cc",
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "stun_0.75s",
+        "double_aa_fury"
+      ],
+      "counterMethod": "논타겟 기절. 50 분노 시 2회 타격. 분노 관리 읽기.",
+      "cooldownEarly": 12,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "E",
+      "name": "격노의 맹습",
+      "type": "dash",
+      "roles": [
+        "mobility"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "dash_in",
+        "dash_back"
+      ],
+      "counterMethod": "2회 대시(진입+이탈). 양방향 모두 써야 이탈 가능. 한 방향 사용 시 추격 가능.",
+      "range": 450,
+      "cooldownEarly": 18,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "최후의 구경거리",
+      "type": "self_buff",
+      "roles": [
+        "primary_damage",
+        "defense"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "hp_boost",
+        "aoe_slow"
+      ],
       "counterMethod": "변신 자가 버프 — 발동 순간 HP 급증 + 지속 뎀. 예방: (1) R 발동 시 주변 AoE 슬로우 → **선빠지기 준비**, (2) R 지속 15초 동안 피흡/뎀 최상이므로 **교전 회피·카이팅**으로 버티기, (3) 레넥톤이 E 진입기 쓰고 R 켜면 풀콤 각이므로 피아노 피해. 대응: R 종료 후 본체 체력 낮음 + 쿨 90초 → 종료 후가 역공 타이밍. 풀체력으로 싸우지 말고 R 깎고 진입.",
-      "cooldownEarly": 120, "cooldownMaxRank": 90 }
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 90
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_both_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
-      "explanation": "E 두 번 모두 사용 시 10초간 이동기 제로. 올인 최적." },
-    { "condition": "no_fury", "windowSec": 5, "severity": "high",
-      "explanation": "분노 0 레넥톤 뎀 크게 감소. 풀콤 위협도 낮음." }
+    {
+      "condition": "E_both_used",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "critical",
+      "explanation": "E 두 번 모두 사용 시 10초간 이동기 제로. 올인 최적."
+    },
+    {
+      "condition": "no_fury",
+      "windowSec": 5,
+      "severity": "high",
+      "explanation": "분노 0 레넥톤 뎀 크게 감소. 풀콤 위협도 낮음."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 핵심 콤보 — 50 분노 강화 풀콤",
+      "setup": "**분노 50 이상 확보** (AA/스킬로 분노 축적) → E 대시 진입",
+      "payoff": "강화 W(맹공) 기절 2회 + 강화 Q 광역 힐 + AA → E 이탈",
+      "damage": "초반 40~55% 체력 · 2~3렙 솔킬 확정",
+      "whenUsed": "2렙 이후 라인전 상시. 분노 관리가 핵심",
+      "counter": "**분노 0 상태에서 올인** — 분노 없는 레넥톤 뎀 반감. E 양방향 대시 모두 쓸 때까지 유도 후 10초 쿨 동안 올인."
+    },
+    {
+      "name": "6렙 변신 올인 — R 최후의 구경거리",
+      "setup": "R(최후의 구경거리) 발동 — HP 급증 + 공격력 증가",
+      "payoff": "강화 W 기절 + Q 광역 힐 지속 → 15초 동안 광역 뎀 누적",
+      "damage": "풀콤 45~60% · 한타에서 2~3인 녹이기 가능",
+      "whenUsed": "6렙 이후 (R 쿨 90초)",
+      "counter": "**R 지속 15초 카이팅** — 종료 시 보너스 HP 사라져서 체력 낮음. 원거리 챔프는 거리 유지만 해도 승리."
+    }
   ],
   "phases": {
-    "early": { "goal": "2~3렙 폭발적 올인. 분노 관리로 버스트 유지.",
+    "early": {
+      "goal": "2~3렙 폭발적 올인. 분노 관리로 버스트 유지.",
       "danger": "견제 챔프에게 CS 놓침. 사거리 짧아 접근 어려움.",
       "opportunity": "1~3렙 솔킬 각 최상. E로 진입, 분노 W 기절, Q 풀콤.",
       "pathing": "웨이브 밀고 상대 압박. 텔 타이밍 확보.",
       "objective": "초반 솔킬 + 첫 피 확보. 전령 다이브.",
-      "gank": "아군 정글 갱 호응 최상. W 기절로 확정 킬." },
-    "mid": { "goal": "첫 코어템 완성. 사이드 스플릿.",
+      "gank": "아군 정글 갱 호응 최상. W 기절로 확정 킬."
+    },
+    "mid": {
+      "goal": "첫 코어템 완성. 사이드 스플릿.",
       "danger": "중반부터 스케일링 밀림. 풀코어 잭스/피오라에게 짐.",
       "opportunity": "아직 1:1 가능. 스플릿으로 탑 포탑 파괴.",
       "pathing": "탑 스플릿 유지. TP로 한타 합류.",
       "objective": "전령 우선. 드래곤보다 탑 포탑.",
-      "gank": "바텀 TP는 필요시. 우선 탑 스플릿." },
-    "late": { "goal": "한타 이니시 + R 변신 탱커.",
+      "gank": "바텀 TP는 필요시. 우선 탑 스플릿."
+    },
+    "late": {
+      "goal": "한타 이니시 + R 변신 탱커.",
       "danger": "후반 스케일링 최약체. 딜 스케일 밀림.",
       "opportunity": "R 변신으로 한타 이니시 탱킹.",
       "pathing": "사이드 스플릿 유지. 한타는 최후 옵션.",
       "objective": "오브젝트 직접 참여보다 스플릿으로 압박.",
-      "gank": "혼자 이동 금지. 팀 동선 따라감." }
+      "gank": "혼자 이동 금지. 팀 동선 따라감."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "정복자",
   "buildAdaptations": [
-    { "condition": "enemy_ranged_poke", "recommendation": "도란의 방패 + 바람의 망토", "reason": "초반 견제 버티기. CS 수급 안정." },
-    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 데스 댄스", "reason": "버스트 분산 + R 활용." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소로 초반 우위 활용." },
-    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 세릴다의 원한", "reason": "방관 기반 탱커 딜." }
+    {
+      "condition": "enemy_ranged_poke",
+      "recommendation": "도란의 방패 + 바람의 망토",
+      "reason": "초반 견제 버티기. CS 수급 안정."
+    },
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷 + 데스 댄스",
+      "reason": "버스트 분산 + R 활용."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소로 초반 우위 활용."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 세릴다의 원한",
+      "reason": "방관 기반 탱커 딜."
+    }
   ],
-  "vulnerabilities": ["kited_by_ranged", "fury_starved", "late_scale_weak", "short_range", "e_both_used"],
-  "keyStrengths": ["lv2_allin", "fury_burst", "stun_reliable", "dash_gap", "early_pressure"]
+  "vulnerabilities": [
+    "kited_by_ranged",
+    "fury_starved",
+    "late_scale_weak",
+    "short_range",
+    "e_both_used"
+  ],
+  "keyStrengths": [
+    "lv2_allin",
+    "fury_burst",
+    "stun_reliable",
+    "dash_gap",
+    "early_pressure"
+  ]
 }

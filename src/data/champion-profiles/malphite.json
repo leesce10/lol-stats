@@ -5,58 +5,191 @@
   "position": "top",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "B", "lateDuel": "B", "gankPower": "A",
-    "scaling": "mid", "mobility": "low", "burst": "high", "sustain": "low", "ccTypes": ["knockup", "slow"]
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "B",
+    "lateDuel": "B",
+    "gankPower": "A",
+    "scaling": "mid",
+    "mobility": "low",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": [
+      "knockup",
+      "slow"
+    ]
   },
-  "powerSpikes": [6, 11],
+  "powerSpikes": [
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "지진파", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "medium",
-      "hitEnables": ["slow", "ms_malph"], "counterMethod": "직선 투사체. 슬로우 + 본인 이속 증가. 미니언 뒤 회피.",
-      "range": 625, "cooldownEarly": 6, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "천둥소리", "type": "self_buff", "roles": ["defense", "primary_damage"], "missPenalty": "none",
-      "hitEnables": ["armor_boost", "aoe_aa"], "counterMethod": "방어력 증가 + 다음 AA 강화. 탱커화 진입.",
-      "cooldownEarly": 12, "cooldownMaxRank": 6 },
-    { "key": "E", "name": "지진의 여파", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["aoe_damage", "slow_aa"], "counterMethod": "주변 AoE 뎀. 범위 밖으로 이동.",
-      "range": 400, "cooldownEarly": 7, "cooldownMaxRank": 7 },
-    { "key": "R", "name": "멈출 수 없는 힘", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
-      "hitEnables": ["knockup_aoe"], "counterMethod": "1000 거리 광역 넉업 돌진. **점멸+R 콤보로 실질 1400+ 사거리** — 시야 밖에서 각 잡힘. 예방: (1) 적 정글/강 입구에 제어 와드, 말파이트 위치 상시 확인, (2) 한타 진입 전 말파이트 시야 없으면 밴시 장막/점멸 슬롯 확인, (3) 팀원 뭉쳐있지 말 것(광역). 맞으면: 넉업 중 존야 발동 불가 — 사전에 예측하고 존야/QSS는 직후 활용. R 쿨 80초 = 오브젝트 싸움 타이밍.",
-      "range": 1000, "cooldownEarly": 130, "cooldownMaxRank": 80 }
+    {
+      "key": "Q",
+      "name": "지진파",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "slow",
+        "ms_malph"
+      ],
+      "counterMethod": "직선 투사체. 슬로우 + 본인 이속 증가. 미니언 뒤 회피.",
+      "range": 625,
+      "cooldownEarly": 6,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "천둥소리",
+      "type": "self_buff",
+      "roles": [
+        "defense",
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "armor_boost",
+        "aoe_aa"
+      ],
+      "counterMethod": "방어력 증가 + 다음 AA 강화. 탱커화 진입.",
+      "cooldownEarly": 12,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "E",
+      "name": "지진의 여파",
+      "type": "aoe",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "aoe_damage",
+        "slow_aa"
+      ],
+      "counterMethod": "주변 AoE 뎀. 범위 밖으로 이동.",
+      "range": 400,
+      "cooldownEarly": 7,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "R",
+      "name": "멈출 수 없는 힘",
+      "type": "dash",
+      "roles": [
+        "engage",
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "knockup_aoe"
+      ],
+      "counterMethod": "1000 거리 광역 넉업 돌진. **점멸+R 콤보로 실질 1400+ 사거리** — 시야 밖에서 각 잡힘. 예방: (1) 적 정글/강 입구에 제어 와드, 말파이트 위치 상시 확인, (2) 한타 진입 전 말파이트 시야 없으면 밴시 장막/점멸 슬롯 확인, (3) 팀원 뭉쳐있지 말 것(광역). 맞으면: 넉업 중 존야 발동 불가 — 사전에 예측하고 존야/QSS는 직후 활용. R 쿨 80초 = 오브젝트 싸움 타이밍.",
+      "range": 1000,
+      "cooldownEarly": 130,
+      "cooldownMaxRank": 80
+    }
   ],
   "punishTriggers": [
-    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "critical",
-      "explanation": "R 빠진 말파이트 이니시 제로. 80초간 위협도 급감." },
-    { "condition": "W_used", "skillKey": "W", "windowSec": 6, "severity": "medium",
-      "explanation": "방어력 버프 빠지면 탱킹 약화. 버스트 가능." }
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "critical",
+      "explanation": "R 빠진 말파이트 이니시 제로. 80초간 위협도 급감."
+    },
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 6,
+      "severity": "medium",
+      "explanation": "방어력 버프 빠지면 탱킹 약화. 버스트 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 스택 콤보 — W+E+Q",
+      "setup": "W(천둥소리) 방어력 스택 1 + AA → E 주변 AoE 뎀",
+      "payoff": "강화 AA + Q 슬로우 + E 반복 → 탱킹 + 포크 동시",
+      "damage": "초반 15~20% 체력 · 탱킹이 핵심이라 뎀은 중간",
+      "whenUsed": "라인전 상시. AD 챔프 상대 카운터",
+      "counter": "**W 방어력 스택 쌓이는 동안 거리 유지** — 스택 풀린 타이밍에 트레이드. AP 상대에겐 말파이트 탱킹 약함."
+    },
+    {
+      "name": "6렙 이니시 콤보 — R 광역 넉업 + 조로 쇼",
+      "setup": "점멸 + R(멈출 수 없는 힘) 장거리 돌진 (점멸 포함 1400+ 사거리)",
+      "payoff": "광역 넉업 1초 → 아군 AP 딜러 AoE 풀딜 (오리아나 R 연계 등)",
+      "damage": "뭉친 팀 기준 아군 AoE 포함 60~80% 한타 즉사",
+      "whenUsed": "6렙 이후 한타 강제 (R 쿨 80초)",
+      "counter": "**시야 확보 + 분산 포지션**. 말파 시야 없을 때 항상 R 준비. 밴시 장막으로 1회 방어 가능. 넉업 중 존야 불가."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q로 CS + 견제. 6렙까지 생존 우선.",
+    "early": {
+      "goal": "Q로 CS + 견제. 6렙까지 생존 우선.",
       "danger": "근접 브루저에게 1:1 밀림. 스택 없는 Q 약함.",
       "opportunity": "AD 챔프 상대 W 방어력으로 카운터. 안정적 CS.",
       "pathing": "포탑 아래 CS. 무리 안 함.",
       "objective": "6렙 R 전까지 파밍 유지.",
-      "gank": "6렙 R + Q 슬로우 갱 연계. 아군 시그널 적극." },
-    "mid": { "goal": "R 쿨마다 한타 이니시. 용/전령 맞춰 진입.",
+      "gank": "6렙 R + Q 슬로우 갱 연계. 아군 시그널 적극."
+    },
+    "mid": {
+      "goal": "R 쿨마다 한타 이니시. 용/전령 맞춰 진입.",
       "danger": "R 쿨 중이면 솔로 한타 약함.",
       "opportunity": "R + 아군 AoE 딜러 시너지. 예신 조로 시너지.",
       "pathing": "탑 웨이브 밀고 TP 합류. R 거리 계산.",
       "objective": "드래곤 한타 R 적극.",
-      "gank": "바텀 드래곤 TP + R 이니시." },
-    "late": { "goal": "한타 R로 다중 넉업. 아군 AoE 딜러 폭딜 유도.",
+      "gank": "바텀 드래곤 TP + R 이니시."
+    },
+    "late": {
+      "goal": "한타 R로 다중 넉업. 아군 AoE 딜러 폭딜 유도.",
       "danger": "R 쿨 중이면 존재감 낮음. 스케일링 밀림.",
       "opportunity": "아군 이니시 후 R 추가로 한타 승리.",
       "pathing": "한타 사이드 포지션. R 각 잡기.",
       "objective": "바론 싸움 R로 한타 이니시.",
-      "gank": "팀 동선 따라감. 혼자 움직이지 말 것." }
+      "gank": "팀 동선 따라감. 혼자 움직이지 말 것."
+    }
   },
   "defaultSpells": "점멸 + 순간이동",
   "defaultRunes": "여진",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high_ap", "recommendation": "밴시 장막 + 가고일 돌갑옷", "reason": "AP 버스트 차단." },
-    { "condition": "enemy_ad_heavy", "recommendation": "탑가시 갑옷 + 쇠사슬 조끼", "reason": "AD 팀 구성 상대 탱킹 강화." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호천사", "reason": "CC 감소 + 한타 유지력." },
-    { "condition": "enemy_poke_heavy", "recommendation": "도란의 방패 + 바람의 망토", "reason": "포크 버티기." }
+    {
+      "condition": "enemy_burst_high_ap",
+      "recommendation": "밴시 장막 + 가고일 돌갑옷",
+      "reason": "AP 버스트 차단."
+    },
+    {
+      "condition": "enemy_ad_heavy",
+      "recommendation": "탑가시 갑옷 + 쇠사슬 조끼",
+      "reason": "AD 팀 구성 상대 탱킹 강화."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호천사",
+      "reason": "CC 감소 + 한타 유지력."
+    },
+    {
+      "condition": "enemy_poke_heavy",
+      "recommendation": "도란의 방패 + 바람의 망토",
+      "reason": "포크 버티기."
+    }
   ],
-  "vulnerabilities": ["kited_by_ranged", "r_used_weak", "no_mobility_no_r", "stackless_q_weak", "scaling_weak"],
-  "keyStrengths": ["armor_stack", "aoe_knockup_r", "ad_counter", "team_engage", "long_flash_r"]
+  "vulnerabilities": [
+    "kited_by_ranged",
+    "r_used_weak",
+    "no_mobility_no_r",
+    "stackless_q_weak",
+    "scaling_weak"
+  ],
+  "keyStrengths": [
+    "armor_stack",
+    "aoe_knockup_r",
+    "ad_counter",
+    "team_engage",
+    "long_flash_r"
+  ]
 }

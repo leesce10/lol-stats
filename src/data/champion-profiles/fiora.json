@@ -4,7 +4,6 @@
   "nameEn": "Fiora",
   "position": "top",
   "patch": "15.7",
-
   "profile": {
     "clearSpeed": "C",
     "earlyDuel": "B",
@@ -15,19 +14,29 @@
     "mobility": "high",
     "burst": "high",
     "sustain": "medium",
-    "ccTypes": ["stun"]
+    "ccTypes": [
+      "stun"
+    ]
   },
-
-  "powerSpikes": [3, 6, 11],
-
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
     {
       "key": "Q",
       "name": "찌르기",
       "type": "dash",
-      "roles": ["primary_damage", "mobility"],
+      "roles": [
+        "primary_damage",
+        "mobility"
+      ],
       "missPenalty": "low",
-      "hitEnables": ["gap_close", "reset_on_vital"],
+      "hitEnables": [
+        "gap_close",
+        "reset_on_vital"
+      ],
       "counterMethod": "짧은 대시. 벽 넘기 불가. Q 방향 예측 후 넉백/에어본으로 차단.",
       "range": 400,
       "cooldownEarly": 9,
@@ -37,9 +46,15 @@
       "key": "W",
       "name": "회피 타격",
       "type": "aoe",
-      "roles": ["defense", "cc"],
+      "roles": [
+        "defense",
+        "cc"
+      ],
       "missPenalty": "high",
-      "hitEnables": ["parry", "stun"],
+      "hitEnables": [
+        "parry",
+        "stun"
+      ],
       "counterMethod": "1초 패리 윈도우. 핵심 CC/딜 스킬은 W 후 사용. W 사용 타이밍 읽기가 승패 결정.",
       "range": 750,
       "cooldownEarly": 24,
@@ -49,15 +64,20 @@
       "key": "R",
       "name": "대결",
       "type": "self_buff",
-      "roles": ["primary_damage", "defense"],
+      "roles": [
+        "primary_damage",
+        "defense"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["4vitals_heal", "slow"],
+      "hitEnables": [
+        "4vitals_heal",
+        "slow"
+      ],
       "counterMethod": "자가 강화 궁 — 회피 대상이 아님. **진짜 위협은 급소(vital) 시스템** — 피오라 주변에 4방향 급소가 순차 표시됨. 예방: (1) 급소 찍히면 피오라 이속+뎀 급증 → **급소 방향 반대로 포지션**, (2) 벽 옆/모서리로 급소 접근 경로 제한, (3) CC 체인으로 급소 도달 차단. 4급소 모두 찍히면 아군/본인 광역 힐 발동 → 2개 찍히기 전에 한타 정리 필수. R 지속 8초.",
       "cooldownEarly": 120,
       "cooldownMaxRank": 80
     }
   ],
-
   "punishTriggers": [
     {
       "condition": "W_used",
@@ -74,7 +94,24 @@
       "explanation": "급소 찍지 못한 Q는 쿨 9초. 5초 이내 역공 가능."
     }
   ],
-
+  "keyCombos": [
+    {
+      "name": "라인전 핵심 콤보 — 급소 찍고 빠지기",
+      "setup": "상대 주변 4방향 급소 중 하나를 Q(찌르기)로 접근해 적중",
+      "payoff": "급소 고정딜 + 체력 % 비례 뎀 + 피오라 이속 버프 → 추가 AA 2~3대",
+      "damage": "초반 15~20% 체력 · 4급소 다 찍으면 풀템 기준 60%+ + 힐",
+      "whenUsed": "라인전 상시 (Q 쿨 5초). 급소 뜰 때마다 단발 트레이드",
+      "counter": "**급소 방향 반대로 포지션** — 벽·모서리 활용해 급소 접근 경로 제한. W(패리)를 쓰기 전에 트레이드 시도하면 유리."
+    },
+    {
+      "name": "6렙 풀콤 — R 대결 4급소 처형",
+      "setup": "R(대결)로 상대 주변 4방향 급소 강제 표시",
+      "payoff": "Q로 급소 순차 적중 → 4개 다 찍으면 피오라 + 아군 광역 힐 (체력 풀회복)",
+      "damage": "저체력 상태면 즉사 · 풀체력이어도 급소 3개면 반피+",
+      "whenUsed": "6렙 이후 R 쿨마다 (쿨 80초)",
+      "counter": "**R 맞으면 벽 옆·구석으로 이동**해 급소 방향 2개 이상 제한. CC로 피오라 이동 차단이 가장 효과적. 급소 2개 찍히면 즉시 후퇴."
+    }
+  ],
   "phases": {
     "early": {
       "goal": "급소 찍으면서 CS 안정. 포탑 밖에서 Q 찌르기로 견제.",
@@ -101,7 +138,6 @@
       "gank": "아군 혼자 남은 상대 캐치 시 합류. 급소 찍어서 빠른 처형."
     }
   },
-
   "defaultSpells": "점멸 + 순간이동",
   "defaultRunes": "정복자",
   "buildAdaptations": [
@@ -126,7 +162,6 @@
       "reason": "급소 4개로 % 체력 뎀 + 방관 결합."
     }
   ],
-
   "vulnerabilities": [
     "weak_early_2_3lv",
     "cc_locked",

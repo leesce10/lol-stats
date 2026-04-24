@@ -4,63 +4,202 @@
   "nameEn": "Warwick",
   "position": "jungle",
   "patch": "15.7",
-  "junglePath": ["레드", "늑대", "블루", "개미", "두꺼비", "닭"],
+  "junglePath": [
+    "레드",
+    "늑대",
+    "블루",
+    "개미",
+    "두꺼비",
+    "닭"
+  ],
   "profile": {
-    "clearSpeed": "S", "earlyDuel": "A", "midDuel": "B", "lateDuel": "B", "gankPower": "A",
-    "scaling": "early", "mobility": "medium", "burst": "medium", "sustain": "high", "ccTypes": ["slow", "suppress"]
+    "clearSpeed": "S",
+    "earlyDuel": "A",
+    "midDuel": "B",
+    "lateDuel": "B",
+    "gankPower": "A",
+    "scaling": "early",
+    "mobility": "medium",
+    "burst": "medium",
+    "sustain": "high",
+    "ccTypes": [
+      "slow",
+      "suppress"
+    ]
   },
-  "powerSpikes": [2, 6, 11],
+  "powerSpikes": [
+    2,
+    6,
+    11
+  ],
   "weakAfter": 14,
   "keySkills": [
-    { "key": "Q", "name": "갈증", "type": "point_click", "roles": ["primary_damage", "sustain"], "missPenalty": "none",
-      "hitEnables": ["heal_on_hit", "bonus_damage"], "counterMethod": "근접 물기. 체젠 큼. 거리 유지.",
-      "range": 225, "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "피의 추적", "type": "self_buff", "roles": ["utility", "mobility"], "missPenalty": "none",
-      "hitEnables": ["low_hp_sight", "ms"], "counterMethod": "저체력 적 감지 + 이속. 숨을 곳 없음.",
-      "cooldownEarly": 120, "cooldownMaxRank": 60 },
-    { "key": "E", "name": "억누를 수 없는 격노", "type": "self_buff", "roles": ["defense"], "missPenalty": "none",
-      "hitEnables": ["cc_immune", "tenacity"],
+    {
+      "key": "Q",
+      "name": "갈증",
+      "type": "point_click",
+      "roles": [
+        "primary_damage",
+        "sustain"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "heal_on_hit",
+        "bonus_damage"
+      ],
+      "counterMethod": "근접 물기. 체젠 큼. 거리 유지.",
+      "range": 225,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "피의 추적",
+      "type": "self_buff",
+      "roles": [
+        "utility",
+        "mobility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "low_hp_sight",
+        "ms"
+      ],
+      "counterMethod": "저체력 적 감지 + 이속. 숨을 곳 없음.",
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 60
+    },
+    {
+      "key": "E",
+      "name": "억누를 수 없는 격노",
+      "type": "self_buff",
+      "roles": [
+        "defense"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "cc_immune",
+        "tenacity"
+      ],
       "counterMethod": "차징 중 강인함. 풀차지 해제 불가. 풀차지 후 뇌물 사용.",
-      "cooldownEarly": 14, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "무한한 식욕", "type": "dash", "roles": ["engage", "cc"], "missPenalty": "high",
-      "hitEnables": ["suppress_1.5s", "auto_target"],
+      "cooldownEarly": 14,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "무한한 식욕",
+      "type": "dash",
+      "roles": [
+        "engage",
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "suppress_1.5s",
+        "auto_target"
+      ],
       "counterMethod": "**타겟팅 도약 + 진압(1.5초)** — 회피 불가. 예방: (1) 체력 50% 이하로 떨어지지 않기 (저체력일수록 사거리 급증, 최대 1600), (2) 아군 근처 포지션으로 진압 해제 대기, (3) 워윅 E 차징(강인함 보유) 상태면 R 셋업 신호. 맞으면: 즉시 QSS/수은/점멸로 해제. 아군이 워윅에게 CC 걸어 진압 취소 유도.",
-      "range": 1600, "cooldownEarly": 110, "cooldownMaxRank": 80 }
+      "range": 1600,
+      "cooldownEarly": 110,
+      "cooldownMaxRank": 80
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_used_charging", "skillKey": "E", "windowSec": 10, "severity": "high",
-      "explanation": "E 차징 중이면 이동 느림. 차징 풀기 전 풀콤 가능." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "critical",
-      "explanation": "R 진압 빠진 워윅 이니시/CC 수단 제로." }
+    {
+      "condition": "E_used_charging",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "high",
+      "explanation": "E 차징 중이면 이동 느림. 차징 풀기 전 풀콤 가능."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "critical",
+      "explanation": "R 진압 빠진 워윅 이니시/CC 수단 제로."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "2렙 듀얼 — Q 갈증 지속 교전",
+      "setup": "Q(갈증) 근접 물기 + 체젠",
+      "payoff": "체력 낮은 상대 추가 뎀 + 힐 → AA 지속 + W 이속",
+      "damage": "초반 25~35% 체력 · 체젠으로 지속 교전 우위",
+      "whenUsed": "2렙 이후 라인전/갱 (Q 쿨 6~10초)",
+      "counter": "**거리 유지** + 포크 — 근접 물기 원거리 무력. 원거리 챔프로 안전 견제."
+    },
+    {
+      "name": "R 장거리 진압 콤보",
+      "setup": "**R(무한한 식욕) 저체력 적 타겟팅 도약 1600거리 + 1.5초 진압**",
+      "payoff": "진압 중 Q + AA 풀콤 → 아군 합세 확정 킬",
+      "damage": "저체력 상대 확정 처형",
+      "whenUsed": "6렙 이후, 특히 사이드 로밍 (R 쿨 80초)",
+      "counter": "**체력 50% 이상 유지** — R 사거리 저체력 시 급증 (최대 1600). 맞으면 즉시 QSS/수은. W 차징 중 워윅 이동 느림 — 그때 이탈."
+    }
   ],
   "phases": {
-    "early": { "goal": "2갱 3갱. 체젠으로 풀HP 유지.",
+    "early": {
+      "goal": "2갱 3갱. 체젠으로 풀HP 유지.",
       "danger": "2~3렙 풀 1:1은 약함. 원거리 견제 약함.",
       "opportunity": "Q 체젠으로 지속 교전. 2렙 갱 강력.",
       "pathing": "빠른 풀클 후 즉시 2~3갱.",
       "objective": "초반 갱 스노우볼. 킬 확보.",
-      "gank": "R 진압으로 확정 킬. 장거리 R 기습." },
-    "mid": { "goal": "스트라이드브레이커 완성. 사이드 다이브.",
+      "gank": "R 진압으로 확정 킬. 장거리 R 기습."
+    },
+    "mid": {
+      "goal": "스트라이드브레이커 완성. 사이드 다이브.",
       "danger": "중반부터 스케일링 밀림. 풀코어 딜러에게 짐.",
       "opportunity": "R로 적 캐리 원콜. 다이브 특화.",
       "pathing": "드래곤/전령 근처. 사이드 갱.",
       "objective": "드래곤 싸움 R 이니시.",
-      "gank": "장거리 R로 사이드 원콜." },
-    "late": { "goal": "한타 R로 적 캐리 진압 + 아군 처형.",
+      "gank": "장거리 R로 사이드 원콜."
+    },
+    "late": {
+      "goal": "한타 R로 적 캐리 진압 + 아군 처형.",
       "danger": "CC 체인 맞으면 사망. 후반 딜 스케일 약함.",
       "opportunity": "W로 저체력 적 추적. 끝까지 처형.",
       "pathing": "한타 후방 R 각 잡기.",
       "objective": "바론 싸움 R로 적 캐리 진압.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 강타",
   "defaultRunes": "어둠의 수확",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 수호천사", "reason": "진압 후 생존." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 밴시 장막", "reason": "CC 감소 + R 방어." },
-    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 덤불 조끼", "reason": "방관 + 탱킹." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷 + 수호천사",
+      "reason": "진압 후 생존."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 밴시 장막",
+      "reason": "CC 감소 + R 방어."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 덤불 조끼",
+      "reason": "방관 + 탱킹."
+    }
   ],
-  "vulnerabilities": ["kited_by_ranged", "late_scale_weak", "r_cancelled", "no_range_poke", "predictable_r"],
-  "keyStrengths": ["low_hp_hunter_w", "suppress_r", "fast_clear", "heal_on_hit", "2lv_gank_strong"]
+  "vulnerabilities": [
+    "kited_by_ranged",
+    "late_scale_weak",
+    "r_cancelled",
+    "no_range_poke",
+    "predictable_r"
+  ],
+  "keyStrengths": [
+    "low_hp_hunter_w",
+    "suppress_r",
+    "fast_clear",
+    "heal_on_hit",
+    "2lv_gank_strong"
+  ]
 }

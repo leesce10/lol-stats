@@ -5,62 +5,188 @@
   "position": "support",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "D", "earlyDuel": "A", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
-    "scaling": "mid", "mobility": "medium", "burst": "high", "sustain": "medium", "ccTypes": ["root", "slow"]
+    "clearSpeed": "D",
+    "earlyDuel": "A",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "medium",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "root",
+      "slow"
+    ]
   },
-  "powerSpikes": [3, 6, 11],
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "내면의 열정", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["damage", "r_empower_explode"],
+    {
+      "key": "Q",
+      "name": "내면의 열정",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "damage",
+        "r_empower_explode"
+      ],
       "counterMethod": "직선 투사체. 미니언 뒤 회피. R 강화 시 폭발 AoE.",
-      "range": 950, "cooldownEarly": 8, "cooldownMaxRank": 4 },
-    { "key": "W", "name": "결속", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
-      "hitEnables": ["slow", "root_if_stay"],
+      "range": 950,
+      "cooldownEarly": 8,
+      "cooldownMaxRank": 4
+    },
+    {
+      "key": "W",
+      "name": "결속",
+      "type": "skillshot",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "slow",
+        "root_if_stay"
+      ],
       "counterMethod": "직선 결속. 사거리 밖으로 이탈 시 속박.",
-      "range": 700, "cooldownEarly": 16, "cooldownMaxRank": 8 },
-    { "key": "E", "name": "고취", "type": "point_click", "roles": ["defense", "mobility"], "missPenalty": "none",
-      "hitEnables": ["shield", "ms"],
+      "range": 700,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "E",
+      "name": "고취",
+      "type": "point_click",
+      "roles": [
+        "defense",
+        "mobility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "shield",
+        "ms"
+      ],
       "counterMethod": "방패 + 이속. R 강화 시 AoE. E 타이밍 주시.",
-      "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "R", "name": "선승", "type": "self_buff", "roles": ["utility"],
-      "missPenalty": "none", "hitEnables": ["empower_next_qwe"],
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "R",
+      "name": "선승",
+      "type": "self_buff",
+      "roles": [
+        "utility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "empower_next_qwe"
+      ],
       "counterMethod": "**다음 Q/W/E 하나를 강화** (쿨 42초로 짧음). 예방: (1) R-Q = Q 폭발 광역 뎀, R-W = 글로벌 슬로우, R-E = 광역 아군 보호막/이속. 카르마가 어떤 스킬 셋업 중인지 주시, (2) R 쿨 짧아서 거의 항상 가능, (3) R-W 먼저 맞으면 슬로우 걸려 후속 스킬 회피 불가. 대응: R-Q 광역 뎀 맞으면 즉시 이탈, R-E는 아군 생존력 급증이라 무리한 추격 금지.",
-      "cooldownEarly": 58, "cooldownMaxRank": 42 }
+      "cooldownEarly": 58,
+      "cooldownMaxRank": 42
+    }
   ],
   "punishTriggers": [
-    { "condition": "R_on_cd", "windowSec": 30, "severity": "high",
-      "explanation": "R 쿨 중 카르마 스킬 강화 불가. 뎀 감소." },
-    { "condition": "W_missed", "skillKey": "W", "windowSec": 8, "severity": "critical",
-      "explanation": "W 속박 빠지면 CC 수단 없음." }
+    {
+      "condition": "R_on_cd",
+      "windowSec": 30,
+      "severity": "high",
+      "explanation": "R 쿨 중 카르마 스킬 강화 불가. 뎀 감소."
+    },
+    {
+      "condition": "W_missed",
+      "skillKey": "W",
+      "windowSec": 8,
+      "severity": "critical",
+      "explanation": "W 속박 빠지면 CC 수단 없음."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "R-Q 광역 폭발 포크",
+      "setup": "**R(선승) 강화 → Q(내면의 열정)**",
+      "payoff": "R-Q는 폭발 AoE + 슬로우 (일반 Q는 직선)",
+      "damage": "광역 15~25% + 누적 포크",
+      "whenUsed": "라인전/한타 (R 쿨 42~58초)",
+      "counter": "**R 켠 Q는 광역** — 뭉치지 말기. R 쿨 확인 후 트레이드."
+    },
+    {
+      "name": "R-E 아군 보호막",
+      "setup": "R 강화 → E(고취)",
+      "payoff": "R-E는 광역 아군 방패 + 이속 → 한타 유지",
+      "damage": "아군 보호 40~60% HP 방패",
+      "whenUsed": "한타 (R 쿨 42~58초)",
+      "counter": "**카르마 본체 암살** — 유틸 원천 차단."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q 견제 + E로 ADC 보호. R 강화 Q 활용.",
+    "early": {
+      "goal": "Q 견제 + E로 ADC 보호. R 강화 Q 활용.",
       "danger": "이동기 짧음. 이니시 서폿에게 취약.",
       "opportunity": "R 강화 Q로 버스트. 솔킬 각.",
       "pathing": "라인 중앙. ADC 보호.",
       "objective": "라인전 유지 + 견제.",
-      "gank": "W 속박 + R-Q 풀콤." },
-    "mid": { "goal": "달의 돌 재탄생 완성. 시야 장악.",
+      "gank": "W 속박 + R-Q 풀콤."
+    },
+    "mid": {
+      "goal": "달의 돌 재탄생 완성. 시야 장악.",
       "danger": "이동기 제한. CC 맞으면 즉사.",
       "opportunity": "R-Q 광역 뎀 + R-E AoE 방패.",
       "pathing": "드래곤 근처.",
       "objective": "드래곤 한타 R 적극.",
-      "gank": "사이드 로밍 + W 속박." },
-    "late": { "goal": "한타 R-Q 광역 + R-E 아군 보호.",
+      "gank": "사이드 로밍 + W 속박."
+    },
+    "late": {
+      "goal": "한타 R-Q 광역 + R-E 아군 보호.",
       "danger": "진입 당하면 즉사.",
       "opportunity": "풀빌드 카르마 한타 유틸 최상.",
       "pathing": "한타 후방 원거리 지원.",
       "objective": "바론 싸움 R-Q 피해.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "점멸 + 점화 (빛의 망토 or 소환: 아이리)",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호자 룬 + 수호천사", "reason": "생존 + 부활." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
-    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘 (AP 한정)", "reason": "치유 감소." },
-    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬 + 조율", "reason": "포크 버티기." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호자 룬 + 수호천사",
+      "reason": "생존 + 부활."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "모렐로노미콘 (AP 한정)",
+      "reason": "치유 감소."
+    },
+    {
+      "condition": "enemy_poke_heavy",
+      "recommendation": "수호자 룬 + 조율",
+      "reason": "포크 버티기."
+    }
   ],
-  "vulnerabilities": ["no_mobility", "w_predicted", "cc_locked", "r_cooldown", "early_mana_hungry"],
-  "keyStrengths": ["dual_r_utility_burst", "aoe_shield_e", "root_w", "poke_support", "versatile_kit"]
+  "vulnerabilities": [
+    "no_mobility",
+    "w_predicted",
+    "cc_locked",
+    "r_cooldown",
+    "early_mana_hungry"
+  ],
+  "keyStrengths": [
+    "dual_r_utility_burst",
+    "aoe_shield_e",
+    "root_w",
+    "poke_support",
+    "versatile_kit"
+  ]
 }

@@ -5,61 +5,186 @@
   "position": "adc",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "B", "earlyDuel": "A", "midDuel": "A", "lateDuel": "S", "gankPower": "B",
-    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "medium", "ccTypes": ["slow"]
+    "clearSpeed": "B",
+    "earlyDuel": "A",
+    "midDuel": "A",
+    "lateDuel": "S",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "slow"
+    ]
   },
-  "powerSpikes": [6, 11],
+  "powerSpikes": [
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "플레어", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["melee_or_ranged_damage"], "counterMethod": "근/원거리 다른 스킬. 근접 칼, 원거리 총. 사거리에 따라 대응.",
-      "range": 500, "cooldownEarly": 8, "cooldownMaxRank": 4 },
-    { "key": "W", "name": "블레이드 훨윈드", "type": "aoe", "roles": ["defense", "primary_damage"], "missPenalty": "none",
-      "hitEnables": ["projectile_block", "aoe_damage"],
+    {
+      "key": "Q",
+      "name": "플레어",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "melee_or_ranged_damage"
+      ],
+      "counterMethod": "근/원거리 다른 스킬. 근접 칼, 원거리 총. 사거리에 따라 대응.",
+      "range": 500,
+      "cooldownEarly": 8,
+      "cooldownMaxRank": 4
+    },
+    {
+      "key": "W",
+      "name": "블레이드 훨윈드",
+      "type": "aoe",
+      "roles": [
+        "defense",
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "projectile_block",
+        "aoe_damage"
+      ],
       "counterMethod": "1.25초 투사체 차단 + AoE. 투사체 기반 딜 무력. W 쿨마다 체크.",
-      "cooldownEarly": 22, "cooldownMaxRank": 14 },
-    { "key": "E", "name": "데어데블 임펄스", "type": "dash", "roles": ["mobility"], "missPenalty": "low",
-      "hitEnables": ["dash_to_ally_enemy", "style_stack"],
+      "cooldownEarly": 22,
+      "cooldownMaxRank": 14
+    },
+    {
+      "key": "E",
+      "name": "데어데블 임펄스",
+      "type": "dash",
+      "roles": [
+        "mobility"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "dash_to_ally_enemy",
+        "style_stack"
+      ],
       "counterMethod": "아군/적 대상 대시. 스타일 스택 상승. E 빠지면 이동기 감소.",
-      "range": 600, "cooldownEarly": 16, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "지옥불 축제", "type": "aoe", "roles": ["primary_damage"], "missPenalty": "low",
-      "hitEnables": ["channel_aoe_burst", "true_damage"],
+      "range": 600,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "지옥불 축제",
+      "type": "aoe",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "channel_aoe_burst",
+        "true_damage"
+      ],
       "counterMethod": "**S 스타일 랭크 도달 시 사용 가능** — 주변 AoE 고정딜 2초 채널링. 예방: (1) 사미라 스타일 랭크 주시 — E로 진입하고 Q 사용 시 스타일 급상승, (2) **스타일 A~S에서 한타 시작 강제** — R 쓰기 전 격리 or CC, (3) 사미라가 W로 투사체 차단한 직후가 R 셋업. 대응: **CC로 R 중단 필수** (수은 불가). 주변 뭉친 상태 R 맞으면 전멸 — 분산 포지션.",
-      "cooldownEarly": 120, "cooldownMaxRank": 90 }
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 90
+    }
   ],
   "punishTriggers": [
-    { "condition": "no_style_stack", "windowSec": 6, "severity": "critical",
-      "explanation": "스타일 E 이하면 R 사용 불가. 6초간 한타 가치 감소." },
-    { "condition": "W_used", "skillKey": "W", "windowSec": 14, "severity": "high",
-      "explanation": "W 투사체 차단 빠지면 원거리 딜 적중 가능." }
+    {
+      "condition": "no_style_stack",
+      "windowSec": 6,
+      "severity": "critical",
+      "explanation": "스타일 E 이하면 R 사용 불가. 6초간 한타 가치 감소."
+    },
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 14,
+      "severity": "high",
+      "explanation": "W 투사체 차단 빠지면 원거리 딜 적중 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "스타일 랭크 S → R 지옥불",
+      "setup": "Q/W/E/AA 콤보로 스타일 랭크 E → S 도달",
+      "payoff": "R(지옥불 축제) 2초 주변 AoE 고정딜",
+      "damage": "뭉친 적 풀콤 50~80% + 고정딜",
+      "whenUsed": "한타 (R 쿨 90~120초)",
+      "counter": "**스타일 S 도달 전 처리** — 주변 맴돌지 말기. R 채널링 CC 중단."
+    },
+    {
+      "name": "E 진입 + W 투사체 차단",
+      "setup": "E(데어데블 임펄스) 적/아군 대시 + W(블레이드 훨윈드) 투사체 차단",
+      "payoff": "근접 안전 진입 + Q 근/원 스킬 풀콤",
+      "damage": "지속 교전 30~50%",
+      "whenUsed": "한타/교전 (W 쿨 14~22초)",
+      "counter": "**AD 투사체 조심** — 사미라에 튕겨 아군 피격. 근접 CC로 풀콤 차단."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q 근/원 활용 CS + 견제. 스타일 스택 쌓기.",
+    "early": {
+      "goal": "Q 근/원 활용 CS + 견제. 스타일 스택 쌓기.",
       "danger": "근접 사거리 취약. 서폿 없으면 죽음.",
       "opportunity": "스타일 S 도달 시 R로 폭딜. 공격적 트레이드.",
       "pathing": "라인 중앙. 서폿과 조율.",
       "objective": "초반 킬로 스노우볼 + 스타일 유지.",
-      "gank": "E 진입 + W 차단 + 풀콤 + R 피니시." },
-    "mid": { "goal": "영원한 통곡 완성. R 쿨마다 한타 이니시.",
+      "gank": "E 진입 + W 차단 + 풀콤 + R 피니시."
+    },
+    "mid": {
+      "goal": "영원한 통곡 완성. R 쿨마다 한타 이니시.",
       "danger": "진입 후 CC 맞으면 즉사.",
       "opportunity": "R로 다중 적 처치 가능. 스타일 S 유지.",
       "pathing": "드래곤 근처. 한타 준비.",
       "objective": "드래곤 싸움 R로 이니시 + DPS.",
-      "gank": "서폿 engage + R 폭딜." },
-    "late": { "goal": "한타 E 진입 + W 차단 + R 폭딜.",
+      "gank": "서폿 engage + R 폭딜."
+    },
+    "late": {
+      "goal": "한타 E 진입 + W 차단 + R 폭딜.",
       "danger": "CC 체인 맞으면 사망. R 끊기면 치명적.",
       "opportunity": "풀빌드 사미라 한타 캐리. 1v5 가능.",
       "pathing": "한타 측면 진입. E 각 잡기.",
       "objective": "바론 싸움 R로 정리.",
-      "gank": "팀 동선 맞춤." }
+      "gank": "팀 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 회복",
   "defaultRunes": "정복자",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 죽음의 무도", "reason": "진입 후 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + R 채널링 보호." },
-    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 독사의 송곳니", "reason": "% 뎀 + 치감." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 + 죽음의 무도",
+      "reason": "진입 후 생존."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소 + R 채널링 보호."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 독사의 송곳니",
+      "reason": "% 뎀 + 치감."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["cc_locked", "r_interrupted", "stack_dependent", "support_dependent", "melee_exposure"],
-  "keyStrengths": ["projectile_block_w", "style_S_r", "dash_ally_enemy_e", "high_burst_r", "mobility_e"]
+  "vulnerabilities": [
+    "cc_locked",
+    "r_interrupted",
+    "stack_dependent",
+    "support_dependent",
+    "melee_exposure"
+  ],
+  "keyStrengths": [
+    "projectile_block_w",
+    "style_S_r",
+    "dash_ally_enemy_e",
+    "high_burst_r",
+    "mobility_e"
+  ]
 }

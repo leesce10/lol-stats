@@ -5,61 +5,193 @@
   "position": "top",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
-    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "medium", "ccTypes": ["stun", "slow"]
+    "clearSpeed": "C",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "stun",
+      "slow"
+    ]
   },
-  "powerSpikes": [3, 6, 11],
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "정밀 단두대", "type": "self_buff", "roles": ["primary_damage"], "missPenalty": "none",
-      "hitEnables": ["true_damage", "second_empowered_aa"], "counterMethod": "Q1 후 2.5초 내 Q2 발동. 2번째 Q가 % 체력 고정딜. 거리 유지로 Q2 회피.",
-      "cooldownEarly": 10, "cooldownMaxRank": 5 },
-    { "key": "W", "name": "전술 휩쓸기", "type": "skillshot", "roles": ["primary_damage", "utility"], "missPenalty": "medium",
-      "hitEnables": ["cone_damage", "heal_ms"],
+    {
+      "key": "Q",
+      "name": "정밀 단두대",
+      "type": "self_buff",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "true_damage",
+        "second_empowered_aa"
+      ],
+      "counterMethod": "Q1 후 2.5초 내 Q2 발동. 2번째 Q가 % 체력 고정딜. 거리 유지로 Q2 회피.",
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "W",
+      "name": "전술 휩쓸기",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage",
+        "utility"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "cone_damage",
+        "heal_ms"
+      ],
       "counterMethod": "원뿔 범위. 바깥 테두리 맞으면 힐 + 이속. 회피해서 회복 저지.",
-      "range": 600, "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "E", "name": "갈고리 후크샷", "type": "dash", "roles": ["mobility", "engage"], "missPenalty": "high",
-      "hitEnables": ["wall_dash", "stun_if_hit"],
+      "range": 600,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "E",
+      "name": "갈고리 후크샷",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "engage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "wall_dash",
+        "stun_if_hit"
+      ],
       "counterMethod": "벽 대상 후크샷. 벽 없으면 짧은 대시. E2는 직선 스킬샷, 측면 회피.",
-      "range": 800, "cooldownEarly": 18, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "반격의 고리", "type": "point_click", "roles": ["cc", "engage"], "missPenalty": "none",
-      "hitEnables": ["zone_trap", "slow"],
+      "range": 800,
+      "cooldownEarly": 18,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "반격의 고리",
+      "type": "point_click",
+      "roles": [
+        "cc",
+        "engage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "zone_trap",
+        "slow"
+      ],
       "counterMethod": "**타겟팅 가둠 존** (475 거리) — 회피 불가. 3.5초 동안 고리 밖으로 못 나감. 예방: (1) 475 밖 유지, (2) 카밀이 E(후크) 썼으면 R 각 들어온 상태 → 바로 후퇴, (3) R 쿨 80초 — 쿨 중 안전한 진입 타이밍. 대응: 즉시 QSS/수은으로 해제 (고리 자체는 안 풀리지만 슬로우/침묵은 풀림). 주변 아군이 고리 안 카밀 공격 → 1:1 구도로 끌려가지 말기.",
-      "range": 475, "cooldownEarly": 100, "cooldownMaxRank": 80 }
+      "range": 475,
+      "cooldownEarly": 100,
+      "cooldownMaxRank": 80
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "critical",
-      "explanation": "E 이탈/기절 빠지면 카밀 풀콤 불가. 10초간 올인 확정." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
-      "explanation": "R 빠지면 픽오프 수단 제거. 원거리 공격 대응 가능." }
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "critical",
+      "explanation": "E 이탈/기절 빠지면 카밀 풀콤 불가. 10초간 올인 확정."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "high",
+      "explanation": "R 빠지면 픽오프 수단 제거. 원거리 공격 대응 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 핵심 콤보 — E 벽 후크샷 기절",
+      "setup": "**E(갈고리 후크샷)로 벽 명중 후 대시** — 착지 시 광역 기절 (벽 대상)",
+      "payoff": "기절 0.75~1.5초 → Q(정밀 단두대) 고정딜 + W 원뿔 슬로우 + AA",
+      "damage": "초반 25~35% 체력 · 코어템 40%+ (Q 고정딜 포함)",
+      "whenUsed": "라인전 상시, 벽 있는 구역 (E 쿨 18초)",
+      "counter": "**벽 근처 포지션 금지** — 벽 없이 쓴 E는 짧은 대시뿐. 부시/강 등 벽 많은 구역 피하고 개활지에서 CS."
+    },
+    {
+      "name": "6렙 픽오프 콤보 — R 고리 가둠",
+      "setup": "R(반격의 고리) 적 1명 가둠 — 3.5초 동안 고리 밖 이동 불가",
+      "payoff": "1:1 구도 강제 → Q + W + AA 풀콤 (벽 스턴 E 재활용 가능)",
+      "damage": "물몸 딜러 확정 처형 · 탱커도 40%+",
+      "whenUsed": "6렙 이후 한타/고립 적 발견 시 (R 쿨 80초)",
+      "counter": "**R 고리 자체는 QSS 해제 불가** (가둠 효과). 점멸로 고리 범위 벗어나기 or 아군 합류로 1:2 강제. 카밀이 E 쓰고 R까지 들어오면 이미 늦음 — E 쿨 주시."
+    }
   ],
   "phases": {
-    "early": { "goal": "2~3렙 W+Q 견제. 6렙 이전 극단 올인 자제.",
+    "early": {
+      "goal": "2~3렙 W+Q 견제. 6렙 이전 극단 올인 자제.",
       "danger": "초반 E 벽 없으면 이동기 약함. 견제 챔프 체력 손해.",
       "opportunity": "3렙 스택 Q 풀콤 + W 고정딜로 솔킬각.",
       "pathing": "웨이브 중립 + 벽 가까이 포지션.",
       "objective": "전령 시기 맞춰 킬 시도.",
-      "gank": "벽 근처 갱 각 최상. E 스턴 + 풀콤." },
-    "mid": { "goal": "삼위일체 완성. 픽오프 + 사이드 스플릿.",
+      "gank": "벽 근처 갱 각 최상. E 스턴 + 풀콤."
+    },
+    "mid": {
+      "goal": "삼위일체 완성. 픽오프 + 사이드 스플릿.",
       "danger": "한타 이니시 역할 부담. R 맞추기 어려우면 무용.",
       "opportunity": "R로 고립 상대 원콜. 1:1 솔킬 지속.",
       "pathing": "탑 스플릿 + TP 합류. R로 고립 적 캐치.",
       "objective": "드래곤 한타 R로 캐리 가둠.",
-      "gank": "미드 로밍 + 바텀 갱 TP." },
-    "late": { "goal": "한타 R로 적 캐리 가둠. 풀콤 버스트.",
+      "gank": "미드 로밍 + 바텀 갱 TP."
+    },
+    "late": {
+      "goal": "한타 R로 적 캐리 가둠. 풀콤 버스트.",
       "danger": "CC 체인 맞으면 사망. 앞라인 약함.",
       "opportunity": "물몸 딜러 원콜. 고리로 아군 DPS 확보.",
       "pathing": "사이드 1-3-1. 한타 측면 진입.",
       "objective": "바론 싸움 R 핵심. 엘더도 같음.",
-      "gank": "혼자 움직이지 말 것. 팀과 동선 맞춤." }
+      "gank": "혼자 움직이지 말 것. 팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 순간이동",
   "defaultRunes": "정복자",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 2코어", "reason": "진입 후 즉사 방지. 부활로 한타 유지." },
-    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 데스 댄스", "reason": "방관 + 피흡으로 탱커 녹이기." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소. 지속 교전 유리." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 체인 차단. R 활용 시간 확보." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 2코어",
+      "reason": "진입 후 즉사 방지. 부활로 한타 유지."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 데스 댄스",
+      "reason": "방관 + 피흡으로 탱커 녹이기."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소. 지속 교전 유리."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 체인 차단. R 활용 시간 확보."
+    }
   ],
-  "vulnerabilities": ["no_walls_nearby", "e_missed", "cc_locked", "r_cancelled", "long_cd_r"],
-  "keyStrengths": ["wall_dash_e", "true_damage_q", "pick_off_r", "1v1_specialist", "splitpush_threat"]
+  "vulnerabilities": [
+    "no_walls_nearby",
+    "e_missed",
+    "cc_locked",
+    "r_cancelled",
+    "long_cd_r"
+  ],
+  "keyStrengths": [
+    "wall_dash_e",
+    "true_damage_q",
+    "pick_off_r",
+    "1v1_specialist",
+    "splitpush_threat"
+  ]
 }

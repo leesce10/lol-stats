@@ -5,61 +5,194 @@
   "position": "support",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "D", "earlyDuel": "A", "midDuel": "B", "lateDuel": "B", "gankPower": "A",
-    "scaling": "mid", "mobility": "medium", "burst": "low", "sustain": "low", "ccTypes": ["hook", "slow", "knockup", "stun"]
+    "clearSpeed": "D",
+    "earlyDuel": "A",
+    "midDuel": "B",
+    "lateDuel": "B",
+    "gankPower": "A",
+    "scaling": "mid",
+    "mobility": "medium",
+    "burst": "low",
+    "sustain": "low",
+    "ccTypes": [
+      "hook",
+      "slow",
+      "knockup",
+      "stun"
+    ]
   },
-  "powerSpikes": [2, 6, 11],
+  "powerSpikes": [
+    2,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "닻", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
-      "hitEnables": ["hook_pull", "slow"],
+    {
+      "key": "Q",
+      "name": "닻",
+      "type": "skillshot",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "critical",
+      "hitEnables": [
+        "hook_pull",
+        "slow"
+      ],
       "counterMethod": "장거리 직선 후크. 벽/미니언에 맞으면 취소. 미니언 뒤 숨기.",
-      "range": 925, "cooldownEarly": 14, "cooldownMaxRank": 10 },
-    { "key": "W", "name": "피더 타이탄", "type": "self_buff", "roles": ["defense", "primary_damage"], "missPenalty": "none",
-      "hitEnables": ["shield", "aa_empower"],
+      "range": 925,
+      "cooldownEarly": 14,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "W",
+      "name": "피더 타이탄",
+      "type": "self_buff",
+      "roles": [
+        "defense",
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "shield",
+        "aa_empower"
+      ],
       "counterMethod": "방패 + 강화 AA. 근접 교전 주의.",
-      "cooldownEarly": 11, "cooldownMaxRank": 7 },
-    { "key": "E", "name": "차가운 대기", "type": "aoe", "roles": ["primary_damage", "cc"], "missPenalty": "medium",
-      "hitEnables": ["aoe_slow", "damage"], "counterMethod": "주변 AoE 뎀 + 슬로우. 범위 밖 이탈.",
-      "range": 500, "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "R", "name": "심해로 향하는 길", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
-      "hitEnables": ["knockup_chain", "slow_aoe"],
+      "cooldownEarly": 11,
+      "cooldownMaxRank": 7
+    },
+    {
+      "key": "E",
+      "name": "차가운 대기",
+      "type": "aoe",
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "aoe_slow",
+        "damage"
+      ],
+      "counterMethod": "주변 AoE 뎀 + 슬로우. 범위 밖 이탈.",
+      "range": 500,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "R",
+      "name": "심해로 향하는 길",
+      "type": "skillshot",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "knockup_chain",
+        "slow_aoe"
+      ],
       "counterMethod": "825 거리 **타겟팅 대상 돌진 + 착지 주변 적 슬로우 + 경로상 적 넉업**. 예방: (1) 노틸 주변 825 밖 유지 (한타 포지션), (2) 타겟된 아군이 있으면 팀 분산 (경로 넉업 막기), (3) 노틸 Q+E+W 쿨 쓰고 있을 때 R 진입 각이므로 이 조합 나오면 한 템포 뒤로. 타겟되면: 점멸로 경로 최단화 or 수은/QSS로 해제. Q+R 체인(광역 CC 4회) 콤보 위험.",
-      "range": 825, "cooldownEarly": 120, "cooldownMaxRank": 80 }
+      "range": 825,
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 80
+    }
   ],
   "punishTriggers": [
-    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 10, "severity": "critical",
-      "explanation": "Q 빠지면 이니시 수단 제로. 10초간 올인 대응 가능." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 80, "severity": "high",
-      "explanation": "R 빠진 노틸 이니시 반감. 대응 가능." }
+    {
+      "condition": "Q_missed",
+      "skillKey": "Q",
+      "windowSec": 10,
+      "severity": "critical",
+      "explanation": "Q 빠지면 이니시 수단 제로. 10초간 올인 대응 가능."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 80,
+      "severity": "high",
+      "explanation": "R 빠진 노틸 이니시 반감. 대응 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "Q 후크 + 패시브 + R 체인",
+      "setup": "**Q(닻) 925 거리 후크**",
+      "payoff": "Q 끌기 + 패시브 첫 AA 루트 + E+R 다중 CC",
+      "damage": "초반 40~55% · 2렙 풀콤 솔킬",
+      "whenUsed": "라인전/한타 (Q 쿨 10~14초)",
+      "counter": "**미니언/벽 뒤 숨기** — Q 차단. Q 빠지면 10초 대응 창."
+    },
+    {
+      "name": "R 타겟팅 체인 한타",
+      "setup": "**R(심해로 향하는 길) 825 거리 타겟팅**",
+      "payoff": "돌진 + 경로 넉업 + 착지 슬로우 + Q+E 추가 CC",
+      "damage": "다중 CC 3초+ + 아군 AoE",
+      "whenUsed": "한타 (R 쿨 80~120초)",
+      "counter": "**뭉침 금지** — 경로 넉업 방지. 타겟되면 점멸/QSS."
+    }
   ],
   "phases": {
-    "early": { "goal": "2렙 Q 솔킬 시도. 공격적 라인전.",
+    "early": {
+      "goal": "2렙 Q 솔킬 시도. 공격적 라인전.",
       "danger": "Q 빗나가면 체력 손해. 느린 이속.",
       "opportunity": "부시 Q + E + 풀콤 2렙 솔킬.",
       "pathing": "부시 시야. Q 각 잡기.",
       "objective": "3분 이전 부시 체크. 5분경 강 와드.",
-      "gank": "Q 후크 + R 넉업 체인 확정 킬." },
-    "mid": { "goal": "시야 장악 + 한타 이니시.",
+      "gank": "Q 후크 + R 넉업 체인 확정 킬."
+    },
+    "mid": {
+      "goal": "시야 장악 + 한타 이니시.",
       "danger": "후반 스케일링 약함. 탱 빌드 유지.",
       "opportunity": "R 글로벌 이니시 + Q 연계.",
       "pathing": "드래곤 주변 와드. 한타 합류.",
       "objective": "드래곤 한타 R 적극.",
-      "gank": "미드 로밍 가능. R 활용." },
-    "late": { "goal": "한타 R로 후방 적 캐리 CC + 아군 보호.",
+      "gank": "미드 로밍 가능. R 활용."
+    },
+    "late": {
+      "goal": "한타 R로 후방 적 캐리 CC + 아군 보호.",
       "danger": "진입 후 CC 체인 맞으면 사망.",
       "opportunity": "풀 CC 체인으로 한타 기여.",
       "pathing": "한타 전방 이니시.",
       "objective": "바론 싸움 R로 캐리 원콜.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "여진 or 포식자",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷 + 밴시 장막", "reason": "버스트 차단." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호자", "reason": "CC 감소." },
-    { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
-    { "condition": "enemy_poke_heavy", "recommendation": "도란의 반지 → 지크", "reason": "포크 버티기." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷 + 밴시 장막",
+      "reason": "버스트 차단."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호자",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "지크의 융합",
+      "reason": "아군 AA 강화."
+    },
+    {
+      "condition": "enemy_poke_heavy",
+      "recommendation": "도란의 반지 → 지크",
+      "reason": "포크 버티기."
+    }
   ],
-  "vulnerabilities": ["q_missed", "slow_mobility", "low_damage", "vision_dependent", "kited_by_range"],
-  "keyStrengths": ["long_hook_q", "multi_cc_chain", "r_global_cc", "engage_initiator", "aoe_slow_e"]
+  "vulnerabilities": [
+    "q_missed",
+    "slow_mobility",
+    "low_damage",
+    "vision_dependent",
+    "kited_by_range"
+  ],
+  "keyStrengths": [
+    "long_hook_q",
+    "multi_cc_chain",
+    "r_global_cc",
+    "engage_initiator",
+    "aoe_slow_e"
+  ]
 }

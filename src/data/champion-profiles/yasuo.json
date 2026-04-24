@@ -4,7 +4,6 @@
   "nameEn": "Yasuo",
   "position": "mid",
   "patch": "15.7",
-
   "profile": {
     "clearSpeed": "B",
     "earlyDuel": "B",
@@ -15,19 +14,29 @@
     "mobility": "high",
     "burst": "high",
     "sustain": "low",
-    "ccTypes": ["knockup"]
+    "ccTypes": [
+      "knockup"
+    ]
   },
-
-  "powerSpikes": [3, 6, 11],
-
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
     {
       "key": "Q",
       "name": "칼날 폭풍",
       "type": "skillshot",
-      "roles": ["primary_damage", "cc"],
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
       "missPenalty": "medium",
-      "hitEnables": ["q3_knockup", "tornado"],
+      "hitEnables": [
+        "q3_knockup",
+        "tornado"
+      ],
       "counterMethod": "**Q3(토네이도) 셋업 감지가 핵심**. Q1~Q2는 475 근접 찌르기 — 거리 유지 쉬움. Q2 맞은 뒤 3스택 차면 **Q3가 1100 거리 직선 토네이도 넉업** 발사 → R 확정 셋업. 예방: Q 중첩 수 주시, 3중첩 시 CS 접근 금지 + 미니언 뒤/측면 대기. E 대시 직후 Q는 연속 히트 주의.",
       "range": 475,
       "cooldownEarly": 4,
@@ -37,9 +46,16 @@
       "key": "E",
       "name": "질풍검",
       "type": "dash",
-      "roles": ["mobility", "secondary_damage"],
+      "roles": [
+        "mobility",
+        "secondary_damage"
+      ],
       "missPenalty": "low",
-      "hitEnables": ["gap_close", "stack_q", "reset_on_kill"],
+      "hitEnables": [
+        "gap_close",
+        "stack_q",
+        "reset_on_kill"
+      ],
       "counterMethod": "대상(적/미니언) 필요 대시 — **미니언 없이 고립된 야스오는 이동기 제로**. 예방: (1) 웨이브 클리어해서 E 스택 차단, (2) 정글/강에서 미니언 없는 구역으로 유도, (3) 연쇄 E 주의 — 적 챔프에 E 후 Q, 또다른 적에 E 반복. 킬 시 쿨 리셋 → 기절 건 직후 킬 어시 전에 추격 차단 필수.",
       "range": 475,
       "cooldownEarly": 10,
@@ -49,9 +65,13 @@
       "key": "W",
       "name": "바람 장막",
       "type": "aoe",
-      "roles": ["defense"],
+      "roles": [
+        "defense"
+      ],
       "missPenalty": "low",
-      "hitEnables": ["block_projectiles"],
+      "hitEnables": [
+        "block_projectiles"
+      ],
       "counterMethod": "투사체 전부 차단. AP/원거리 챔프는 W 쿨 빠질 때까지 근접 금지.",
       "range": 400,
       "cooldownEarly": 26,
@@ -61,16 +81,22 @@
       "key": "R",
       "name": "최후의 숨결",
       "type": "point_click",
-      "roles": ["engage", "primary_damage"],
+      "roles": [
+        "engage",
+        "primary_damage"
+      ],
       "missPenalty": "none",
-      "hitEnables": ["gap_close", "armor_pen", "untargetable"],
+      "hitEnables": [
+        "gap_close",
+        "armor_pen",
+        "untargetable"
+      ],
       "counterMethod": "**공중에 뜬 적만 대상** (1400 거리 타겟팅) — 넉업 없으면 R 불가. 예방: (1) **넉업 챔프(알리스타·말파·자르반) 있는 팀 상대 시 넉업 타이밍 회피가 핵심**, (2) Q3 토네이도가 야스오의 자체 넉업 → Q 스택 2 상태 시 거리 유지, (3) 아군 넉업과 겹치지 않게 포지션. 대응: R 걸리면 수은/QSS/점멸로 이탈 — 야스오 R 중 2초 무적 프레임 있어서 반격 타이밍 놓치지 말 것.",
       "range": 1400,
       "cooldownEarly": 90,
       "cooldownMaxRank": 70
     }
   ],
-
   "punishTriggers": [
     {
       "condition": "Q3_tornado_used",
@@ -93,7 +119,24 @@
       "explanation": "주변 미니언/적 없으면 E 불가. 고립된 야스오는 이동기 없는 근접 챔프와 동일."
     }
   ],
-
+  "keyCombos": [
+    {
+      "name": "Q3 토네이도 + R 풀콤",
+      "setup": "**Q 3중첩 → Q3(토네이도) 넉업** 스킬샷",
+      "payoff": "공중에 뜬 대상 R(최후의 숨결) + E 리셋 평타 + Q 연타",
+      "damage": "초반 40~55% 체력 · 풀템 즉사",
+      "whenUsed": "3렙 이후 Q 스택 관리로 상시 (Q 쿨 4~1초)",
+      "counter": "**Q 스택 체크** — 3스택 차면 토네이도 대기. 스택 2일 때 거리 좁히거나 피할 준비."
+    },
+    {
+      "name": "넉업 연계 R 합류",
+      "setup": "아군 넉업 (말파 R, 자르반 R 등)",
+      "payoff": "야스오 R 1400 거리 연계 → E 리셋 + Q 연타 + 방관 증가",
+      "damage": "아군 넉업 한타 뒤집기 · 개별 50%+",
+      "whenUsed": "한타 (R 쿨 70~90초)",
+      "counter": "**넉업 스킬 사용 타이밍 분산** — 야스오 근처 아군 넉업 금지. 넉업 없으면 R 불가."
+    }
+  ],
   "phases": {
     "early": {
       "goal": "Q 중첩 쌓으면서 CS. 6렙 이전 넉업 아군과 갱 협공.",
@@ -120,7 +163,6 @@
       "gank": "픽오프보다 한타 이니시 호응. 혼자 먼저 진입 금지."
     }
   },
-
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "치명적 속도",
   "buildAdaptations": [
@@ -145,7 +187,6 @@
       "reason": "치유 감소. 탱커/브루저 체젠 차단."
     }
   ],
-
   "vulnerabilities": [
     "cc_locked",
     "no_sustain",

@@ -5,59 +5,190 @@
   "position": "top",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
-    "scaling": "mid", "mobility": "medium", "burst": "high", "sustain": "medium", "ccTypes": ["stun", "slow"]
+    "clearSpeed": "C",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "medium",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "stun",
+      "slow"
+    ]
   },
-  "powerSpikes": [6, 11],
+  "powerSpikes": [
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "부메랑 던지기", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["return_damage"], "counterMethod": "왕복 투사체. 귀환 궤적 예측. 미니언 뒤 회피.",
-      "range": 1125, "cooldownEarly": 20, "cooldownMaxRank": 12 },
-    { "key": "W", "name": "자극하기", "type": "self_buff", "roles": ["primary_damage", "cc"], "missPenalty": "none",
-      "hitEnables": ["3rd_aa_stun", "damage"], "counterMethod": "3번째 AA 기절. 대상 AA 맞추지 말고 거리 유지.",
-      "cooldownEarly": 6, "cooldownMaxRank": 4 },
-    { "key": "E", "name": "깡총깡총", "type": "dash", "roles": ["mobility", "primary_damage"], "missPenalty": "low",
-      "hitEnables": ["hop", "landing_damage"], "counterMethod": "짧은 도약. 착지 지점 예측. 도약 중에는 CC 불가.",
-      "range": 475, "cooldownEarly": 16, "cooldownMaxRank": 10 },
-    { "key": "R", "name": "GNAR!", "type": "aoe", "roles": ["cc", "engage"], "missPenalty": "high",
-      "hitEnables": ["knockback", "stun_if_wall"],
+    {
+      "key": "Q",
+      "name": "부메랑 던지기",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "return_damage"
+      ],
+      "counterMethod": "왕복 투사체. 귀환 궤적 예측. 미니언 뒤 회피.",
+      "range": 1125,
+      "cooldownEarly": 20,
+      "cooldownMaxRank": 12
+    },
+    {
+      "key": "W",
+      "name": "자극하기",
+      "type": "self_buff",
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "3rd_aa_stun",
+        "damage"
+      ],
+      "counterMethod": "3번째 AA 기절. 대상 AA 맞추지 말고 거리 유지.",
+      "cooldownEarly": 6,
+      "cooldownMaxRank": 4
+    },
+    {
+      "key": "E",
+      "name": "깡총깡총",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "primary_damage"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "hop",
+        "landing_damage"
+      ],
+      "counterMethod": "짧은 도약. 착지 지점 예측. 도약 중에는 CC 불가.",
+      "range": 475,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "R",
+      "name": "GNAR!",
+      "type": "aoe",
+      "roles": [
+        "cc",
+        "engage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "knockback",
+        "stun_if_wall"
+      ],
       "counterMethod": "**메가 나르 전용** 광역 넉백 + 벽 충돌 시 기절. 예방: (1) 나르 분노 95% 이상 + 메가 폼 상태 = R 준비 완료 → 벽 근처 포지션 금지, (2) 개활지/중앙에서 교전 유도, (3) 미니 나르 폼에선 R 불가 → 분노 관리 주시. 대응: 넉백 궤적에 벽 있으면 점멸 or QSS 준비. 한타 R 맞으면 **아군 2~3인 벽 기절 시 전멸**이므로 초기 포지션이 전부.",
-      "range": 600, "cooldownEarly": 100, "cooldownMaxRank": 60 }
+      "range": 600,
+      "cooldownEarly": 100,
+      "cooldownMaxRank": 60
+    }
   ],
   "punishTriggers": [
-    { "condition": "mini_form", "windowSec": 15, "severity": "high",
-      "explanation": "미니 나르 HP 낮음. CC 걸면 즉사. 분노 0~99 상태일 때 올인." },
-    { "condition": "E_used", "skillKey": "E", "windowSec": 10, "severity": "high",
-      "explanation": "E 빠지면 미니 나르 도주 불가." }
+    {
+      "condition": "mini_form",
+      "windowSec": 15,
+      "severity": "high",
+      "explanation": "미니 나르 HP 낮음. CC 걸면 즉사. 분노 0~99 상태일 때 올인."
+    },
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 10,
+      "severity": "high",
+      "explanation": "E 빠지면 미니 나르 도주 불가."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "분노 관리 콤보 — 메가 나르 전환 타이밍",
+      "setup": "미니 나르에서 분노 95%+ 쌓기 → 메가 변신",
+      "payoff": "메가 나르 E+Q+W 콤보 → 넉업/스턴/뎀 급증 → 광역 한타 장악",
+      "damage": "변신 직후 풀콤 40~50% 체력 + CC 2초+",
+      "whenUsed": "라인전/한타 (분노 75% 이상부터 주시)",
+      "counter": "**분노 95% 이상 + 공격 자세면 곧 변신** → 거리 유지. 미니 나르 상태면 체력 낮아 CC 건 뒤 올인 가능."
+    },
+    {
+      "name": "메가 R 벽 기절 콤보",
+      "setup": "**메가 나르 R(GNAR!) 광역 넉백** → 벽에 부딪히면 기절",
+      "payoff": "벽 기절 2초 → E+Q+W 풀콤 + 아군 합세",
+      "damage": "다중 벽 기절 시 한타 전멸 가능 · 개별 50%+",
+      "whenUsed": "메가 폼 + 벽 근처 한타 (R 쿨 60초)",
+      "counter": "**벽 근처 포지션 금지** — 개활지 한타 유도. 넉백 방향 예측 후 점멸. 벽 없는 공간에선 슬로우만 받음."
+    }
   ],
   "phases": {
-    "early": { "goal": "미니 나르 상태 원거리 Q 견제 지배.",
+    "early": {
+      "goal": "미니 나르 상태 원거리 Q 견제 지배.",
       "danger": "근접 브루저 접근 시 미니 나르 체력 낮음. E 없으면 죽음.",
       "opportunity": "Q + W 3번째 AA 기절로 견제.",
       "pathing": "사거리 활용 라인 컨트롤. 웨이브 중립.",
       "objective": "CS 유리하게. 솔킬 무리 금지.",
-      "gank": "분노 95% 이상 시 갱 시도. 메가 나르 전환 연계." },
-    "mid": { "goal": "메가 나르 전환 타이밍 한타. 공명의 수정구 완성.",
+      "gank": "분노 95% 이상 시 갱 시도. 메가 나르 전환 연계."
+    },
+    "mid": {
+      "goal": "메가 나르 전환 타이밍 한타. 공명의 수정구 완성.",
       "danger": "미니 나르일 때 한타 사망. 분노 관리 실패 시 존재감 제로.",
       "opportunity": "메가 나르 R + 벽 기절로 다중 CC.",
       "pathing": "분노 75% 이상에서 한타 타이밍. 웨이브 밀고 합류.",
       "objective": "드래곤 한타 메가 나르 전환 시점 조율.",
-      "gank": "TP + 메가 나르 전환 시점 조율." },
-    "late": { "goal": "메가 나르 R로 한타 이니시. 벽 기절 콤보.",
+      "gank": "TP + 메가 나르 전환 시점 조율."
+    },
+    "late": {
+      "goal": "메가 나르 R로 한타 이니시. 벽 기절 콤보.",
       "danger": "R 타이밍 실수 시 한타 패배. 벽 없는 지역 불리.",
       "opportunity": "드래곤/바론 벽 활용 R 다중 기절.",
       "pathing": "한타 벽 근처 포지션.",
       "objective": "바론 싸움 R로 벽 몰아 다중 기절.",
-      "gank": "팀과 동선 맞춤. 분노 조절로 메가 전환." }
+      "gank": "팀과 동선 맞춤. 분노 조절로 메가 전환."
+    }
   },
   "defaultSpells": "점멸 + 순간이동",
   "defaultRunes": "기민한 발놀림",
   "buildAdaptations": [
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "미니 나르 CC 취약. 감소 필수." },
-    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷", "reason": "메가 나르 전환 시 생존력 증가." },
-    { "condition": "enemy_tank_heavy", "recommendation": "흑요석 절단기 + 몰락한 왕의 검", "reason": "방관 + % 체력 뎀." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "미니 나르 CC 취약. 감소 필수."
+    },
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷",
+      "reason": "메가 나르 전환 시 생존력 증가."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "흑요석 절단기 + 몰락한 왕의 검",
+      "reason": "방관 + % 체력 뎀."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["mini_form_squishy", "rage_starved", "no_mobility_mega", "r_miss_teamfight", "range_dependent"],
-  "keyStrengths": ["dual_form", "ranged_poke_mini", "wall_stun_r", "aoe_cc_ult", "mega_frontline"]
+  "vulnerabilities": [
+    "mini_form_squishy",
+    "rage_starved",
+    "no_mobility_mega",
+    "r_miss_teamfight",
+    "range_dependent"
+  ],
+  "keyStrengths": [
+    "dual_form",
+    "ranged_poke_mini",
+    "wall_stun_r",
+    "aoe_cc_ult",
+    "mega_frontline"
+  ]
 }

@@ -5,32 +5,128 @@
   "position": "mid",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "C", "earlyDuel": "A", "midDuel": "A", "lateDuel": "B", "gankPower": "A",
-    "scaling": "mid", "mobility": "low", "burst": "medium", "sustain": "medium", "ccTypes": ["knockup", "taunt", "slow"]
+    "clearSpeed": "C",
+    "earlyDuel": "A",
+    "midDuel": "A",
+    "lateDuel": "B",
+    "gankPower": "A",
+    "scaling": "mid",
+    "mobility": "low",
+    "burst": "medium",
+    "sustain": "medium",
+    "ccTypes": [
+      "knockup",
+      "taunt",
+      "slow"
+    ]
   },
-  "powerSpikes": [3, 6, 11],
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "광풍베기", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["aoe_damage", "magic_damage"],
+    {
+      "key": "Q",
+      "name": "광풍베기",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "aoe_damage",
+        "magic_damage"
+      ],
       "counterMethod": "원거리 광풍 + 중앙 추가 뎀. 중앙 피하기.",
-      "range": 825, "cooldownEarly": 9, "cooldownMaxRank": 5 },
-    { "key": "W", "name": "방패 지휘", "type": "self_buff", "roles": ["defense"], "missPenalty": "none",
-      "hitEnables": ["charge_aoe_taunt", "magic_resist"],
+      "range": 825,
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "W",
+      "name": "방패 지휘",
+      "type": "self_buff",
+      "roles": [
+        "defense"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "charge_aoe_taunt",
+        "magic_resist"
+      ],
       "counterMethod": "차징 도발 + 마저 버프. 차징 풀리면 원형 도발. 범위 밖 이탈.",
-      "cooldownEarly": 18, "cooldownMaxRank": 14 },
-    { "key": "E", "name": "정의의 돌진", "type": "dash", "roles": ["mobility", "cc"], "missPenalty": "medium",
-      "hitEnables": ["dash_knockup"], "counterMethod": "직선 대시 + 넉업. 측면 회피 or 점멸로 회피.",
-      "range": 650, "cooldownEarly": 13, "cooldownMaxRank": 9 },
-    { "key": "R", "name": "영웅의 부름", "type": "aoe", "roles": ["engage", "cc"], "missPenalty": "high",
-      "hitEnables": ["knockup_aoe", "ms_boost_ally"],
+      "cooldownEarly": 18,
+      "cooldownMaxRank": 14
+    },
+    {
+      "key": "E",
+      "name": "정의의 돌진",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "cc"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "dash_knockup"
+      ],
+      "counterMethod": "직선 대시 + 넉업. 측면 회피 or 점멸로 회피.",
+      "range": 650,
+      "cooldownEarly": 13,
+      "cooldownMaxRank": 9
+    },
+    {
+      "key": "R",
+      "name": "영웅의 부름",
+      "type": "aoe",
+      "roles": [
+        "engage",
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "knockup_aoe",
+        "ms_boost_ally"
+      ],
       "counterMethod": "**글로벌 R** (맵 반대편도 이동 가능) — 지정 아군에게 도약 + 착지 시 주변 적 광역 넉업. 예방: (1) 갈리오 시야 유실 시 R 준비 가정, (2) 미드 웨이브 밀려있고 갈리오 포지션 미확인 = 바텀/탑 갱 위험, (3) 갈리오 이니시 아군(블리츠·레오나) 근처 서면 표적. 대응: R 채널링 1.75초 있음 — 보라 원 표시되면 즉시 범위 이탈. 점멸 아끼지 말고 즉시 사용.",
-      "cooldownEarly": 200, "cooldownMaxRank": 160 }
+      "cooldownEarly": 200,
+      "cooldownMaxRank": 160
+    }
   ],
   "punishTriggers": [
-    { "condition": "W_used", "skillKey": "W", "windowSec": 14, "severity": "high",
-      "explanation": "W 도발/방어 빠지면 갈리오 뎀 감소 + 탱킹 약화." },
-    { "condition": "R_used", "skillKey": "R", "windowSec": 160, "severity": "critical",
-      "explanation": "R 글로벌 이니시 빠지면 갈리오 사이드 존재감 급감." }
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 14,
+      "severity": "high",
+      "explanation": "W 도발/방어 빠지면 갈리오 뎀 감소 + 탱킹 약화."
+    },
+    {
+      "condition": "R_used",
+      "skillKey": "R",
+      "windowSec": 160,
+      "severity": "critical",
+      "explanation": "R 글로벌 이니시 빠지면 갈리오 사이드 존재감 급감."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 W 도발 + Q 풀콤",
+      "setup": "W(방패 지휘) 차징 → 도발 발동",
+      "payoff": "도발 중 Q(광풍베기) 중앙 뎀 + E(정의의 돌진) 넉업",
+      "damage": "초반 30~40% · AP 상대 카운터",
+      "whenUsed": "라인전 (W 쿨 14~18초)",
+      "counter": "**도발 범위 밖 이탈** — W 차징 취소. AD 상대면 갈리오 탱킹 약함."
+    },
+    {
+      "name": "R 글로벌 한타 이니시",
+      "setup": "R(영웅의 부름) 지정 아군에게 도약",
+      "payoff": "착지 광역 넉업 + E 추가 넉업 → 아군 합세",
+      "damage": "뭉친 팀 광역 CC 1~2초",
+      "whenUsed": "한타 강제 (R 쿨 160~200초)",
+      "counter": "**R 보라 원 표시 1.75초 동안 이탈** + 분산. 갈리오 시야 유실 시 R 대기."
+    }
   ],
   "phases": {
     "early": {
@@ -61,11 +157,39 @@
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "여진",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high_ap", "recommendation": "밴시 장막 + 가고일 돌갑옷", "reason": "AP 팀 상대 마저 + 한타 이니시 후 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호자", "reason": "CC 감소." },
-    { "condition": "enemy_ad_heavy", "recommendation": "탑가시 갑옷 + 쇠사슬 조끼", "reason": "AD 팀 상대 탱킹 강화." },
-    { "condition": "enemy_sustain_high", "recommendation": "리안드리의 고뇌", "reason": "지속딜 + 체젠 감소." }
+    {
+      "condition": "enemy_burst_high_ap",
+      "recommendation": "밴시 장막 + 가고일 돌갑옷",
+      "reason": "AP 팀 상대 마저 + 한타 이니시 후 생존."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호자",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_ad_heavy",
+      "recommendation": "탑가시 갑옷 + 쇠사슬 조끼",
+      "reason": "AD 팀 상대 탱킹 강화."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "리안드리의 고뇌",
+      "reason": "지속딜 + 체젠 감소."
+    }
   ],
-  "vulnerabilities": ["weak_solo_lane_without_r", "predictable_r_landing", "w_predicted", "kited_by_range", "long_cd_r"],
-  "keyStrengths": ["global_r", "multi_cc_chain", "anti_ap_team", "w_defense", "team_fight_initiator"]
+  "vulnerabilities": [
+    "weak_solo_lane_without_r",
+    "predictable_r_landing",
+    "w_predicted",
+    "kited_by_range",
+    "long_cd_r"
+  ],
+  "keyStrengths": [
+    "global_r",
+    "multi_cc_chain",
+    "anti_ap_team",
+    "w_defense",
+    "team_fight_initiator"
+  ]
 }

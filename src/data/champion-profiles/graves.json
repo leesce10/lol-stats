@@ -4,62 +4,201 @@
   "nameEn": "Graves",
   "position": "jungle",
   "patch": "15.7",
-  "junglePath": ["레드", "두꺼비", "늑대", "블루", "개미", "닭"],
+  "junglePath": [
+    "레드",
+    "두꺼비",
+    "늑대",
+    "블루",
+    "개미",
+    "닭"
+  ],
   "profile": {
-    "clearSpeed": "A", "earlyDuel": "S", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
-    "scaling": "mid", "mobility": "medium", "burst": "high", "sustain": "low", "ccTypes": ["slow"]
+    "clearSpeed": "A",
+    "earlyDuel": "S",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "medium",
+    "burst": "high",
+    "sustain": "low",
+    "ccTypes": [
+      "slow"
+    ]
   },
-  "powerSpikes": [3, 6, 9, 11],
+  "powerSpikes": [
+    3,
+    6,
+    9,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "끝나지 않은 사업", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
-      "hitEnables": ["2hit_damage", "delayed_burst"],
+    {
+      "key": "Q",
+      "name": "끝나지 않은 사업",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "2hit_damage",
+        "delayed_burst"
+      ],
       "counterMethod": "탄환 + 지연 폭발. 근거리 뎀 최상. 거리 유지로 1번만 맞기.",
-      "range": 800, "cooldownEarly": 12, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "지옥불 폭탄", "type": "skillshot", "roles": ["cc"], "missPenalty": "high",
-      "hitEnables": ["smoke_zone", "near_sight"], "counterMethod": "연막 구역. 시야 차단. 빠르게 이탈.",
-      "range": 950, "cooldownEarly": 24, "cooldownMaxRank": 16 },
-    { "key": "E", "name": "거친 질주", "type": "dash", "roles": ["mobility", "defense"], "missPenalty": "low",
-      "hitEnables": ["dash", "true_grit_stack"], "counterMethod": "짧은 대시 2스택. 방어력 증가 스택. E 빠지면 이동기 제로.",
-      "range": 425, "cooldownEarly": 16, "cooldownMaxRank": 8 },
-    { "key": "R", "name": "콜래터럴 데미지", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
-      "hitEnables": ["long_range_burst", "cone_damage"],
+      "range": 800,
+      "cooldownEarly": 12,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "지옥불 폭탄",
+      "type": "skillshot",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "smoke_zone",
+        "near_sight"
+      ],
+      "counterMethod": "연막 구역. 시야 차단. 빠르게 이탈.",
+      "range": 950,
+      "cooldownEarly": 24,
+      "cooldownMaxRank": 16
+    },
+    {
+      "key": "E",
+      "name": "거친 질주",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "defense"
+      ],
+      "missPenalty": "low",
+      "hitEnables": [
+        "dash",
+        "true_grit_stack"
+      ],
+      "counterMethod": "짧은 대시 2스택. 방어력 증가 스택. E 빠지면 이동기 제로.",
+      "range": 425,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "R",
+      "name": "콜래터럴 데미지",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "long_range_burst",
+        "cone_damage"
+      ],
       "counterMethod": "1000 직선 포탄 + **적중 후 원뿔로 퍼짐**. 예방: (1) 직선 측면 회피 가능, (2) 첫 적중 대상 뒤에 원뿔 확산 → **아군 뒤에 서면 광역 피해**, 원딜/물몸은 옆으로 분산, (3) 그레이브즈 E 스택 2 + R 조합 = 풀콤 셋업. 대응: R 맞으면 풀콤 위험이라 즉시 존야 or Q 사거리 밖 이탈. R 쿨 90초 쿨 중이 주요 교전 타이밍.",
-      "range": 1000, "cooldownEarly": 120, "cooldownMaxRank": 90 }
+      "range": 1000,
+      "cooldownEarly": 120,
+      "cooldownMaxRank": 90
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_both_used", "skillKey": "E", "windowSec": 8, "severity": "critical",
-      "explanation": "E 두 스택 모두 사용 시 이동기 제로. 올인 확정." },
-    { "condition": "W_used", "skillKey": "W", "windowSec": 16, "severity": "high",
-      "explanation": "연막 빠지면 시야 차단 수단 없음. 조준 가능." }
+    {
+      "condition": "E_both_used",
+      "skillKey": "E",
+      "windowSec": 8,
+      "severity": "critical",
+      "explanation": "E 두 스택 모두 사용 시 이동기 제로. 올인 확정."
+    },
+    {
+      "condition": "W_used",
+      "skillKey": "W",
+      "windowSec": 16,
+      "severity": "high",
+      "explanation": "연막 빠지면 시야 차단 수단 없음. 조준 가능."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "라인전 듀얼 콤보 — Q 근거리 풀히트",
+      "setup": "E(거친 질주) 대시로 거리 좁힘 → **Q(끝나지 않은 사업) 근거리 발사**",
+      "payoff": "탄환 2발 + 지연 폭발 → 치명타 AA + W 연막 시야 차단",
+      "damage": "초반 40~55% 체력 · 근거리 Q 풀히트는 암살 수준",
+      "whenUsed": "카정/갱/1:1 교전 상시 (Q 쿨 6초)",
+      "counter": "**거리 유지가 최선** — Q 근거리는 원거리보다 뎀 2배+. 벽·미니언 뒤에서 트레이드."
+    },
+    {
+      "name": "한타 R 피니시 — 콜래터럴 데미지",
+      "setup": "아군 이니시 + 적 저체력/뭉침 상태",
+      "payoff": "R(콜래터럴 데미지) 장거리 1000 포탄 + 원뿔 퍼짐 → 다중 적중",
+      "damage": "뭉친 팀 첫 대상 50%+ · 원뿔 아군 20~30%",
+      "whenUsed": "한타/오브젝트 (R 쿨 90초)",
+      "counter": "**직선 측면 회피 가능** — 저체력 시 직선 경로 피하기. 원뿔 확산이라 아군 뒤에 서지 말 것."
+    }
   ],
   "phases": {
-    "early": { "goal": "풀클 후 4렙 갱. 카정 주도권.",
+    "early": {
+      "goal": "풀클 후 4렙 갱. 카정 주도권.",
       "danger": "근접 대시 정글러에게 E 빠지면 취약.",
       "opportunity": "1:1 최상 듀얼. 카정 적극.",
       "pathing": "레드→블루 풀클. 상대 정글 시야 확보.",
       "objective": "첫 드래곤 경쟁. 1:1 자신 있음.",
-      "gank": "갱 시 W 연막으로 시야 차단 + Q 버스트." },
-    "mid": { "goal": "콜렉터 완성. 사이드 캠프 + 카정.",
+      "gank": "갱 시 W 연막으로 시야 차단 + Q 버스트."
+    },
+    "mid": {
+      "goal": "콜렉터 완성. 사이드 캠프 + 카정.",
       "danger": "팀파이트 물몸. CC 맞으면 녹음.",
       "opportunity": "1:1 대부분 이김. 픽오프 가능.",
       "pathing": "정글 풀클 + 적 정글 카정.",
       "objective": "오브젝트 싸움 Q 버스트로 원콜.",
-      "gank": "갱보다 파밍 + 카정 우선." },
-    "late": { "goal": "한타 후방 DPS. Q 근거리 풀콤.",
+      "gank": "갱보다 파밍 + 카정 우선."
+    },
+    "late": {
+      "goal": "한타 후방 DPS. Q 근거리 풀콤.",
       "danger": "앞라인 뚫리면 즉사. 스펠 낭비 금지.",
       "opportunity": "풀빌드 그레이브즈 DPS 최상. 치명타 빌드.",
       "pathing": "한타 측면 포지션. 사이드 스플릿 옵션.",
       "objective": "바론 싸움 R로 원콜. 엘더도.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 강타",
   "defaultRunes": "치명적 속도",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 죽음의 무도", "reason": "물몸 보완." },
-    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 독사의 송곳니", "reason": "치감 + % 뎀." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소 + 생존." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 + 죽음의 무도",
+      "reason": "물몸 보완."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 독사의 송곳니",
+      "reason": "치감 + % 뎀."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소 + 생존."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["e_both_used", "cc_locked", "squishy_teamfight", "mana_starved", "skillshot_dependent"],
-  "keyStrengths": ["strong_dueler", "invade_specialist", "smoke_w", "long_range_r", "dual_shot_q"]
+  "vulnerabilities": [
+    "e_both_used",
+    "cc_locked",
+    "squishy_teamfight",
+    "mana_starved",
+    "skillshot_dependent"
+  ],
+  "keyStrengths": [
+    "strong_dueler",
+    "invade_specialist",
+    "smoke_w",
+    "long_range_r",
+    "dual_shot_q"
+  ]
 }

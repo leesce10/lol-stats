@@ -5,62 +5,188 @@
   "position": "support",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "D", "earlyDuel": "A", "midDuel": "B", "lateDuel": "C", "gankPower": "A",
-    "scaling": "early", "mobility": "medium", "burst": "medium", "sustain": "low", "ccTypes": ["hook", "silence", "knockup"]
+    "clearSpeed": "D",
+    "earlyDuel": "A",
+    "midDuel": "B",
+    "lateDuel": "C",
+    "gankPower": "A",
+    "scaling": "early",
+    "mobility": "medium",
+    "burst": "medium",
+    "sustain": "low",
+    "ccTypes": [
+      "hook",
+      "silence",
+      "knockup"
+    ]
   },
-  "powerSpikes": [2, 6],
+  "powerSpikes": [
+    2,
+    6
+  ],
   "weakAfter": 14,
   "keySkills": [
-    { "key": "Q", "name": "로켓 손", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
-      "hitEnables": ["pull_enemy"],
+    {
+      "key": "Q",
+      "name": "로켓 손",
+      "type": "skillshot",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "critical",
+      "hitEnables": [
+        "pull_enemy"
+      ],
       "counterMethod": "장거리 직선 후크. 가장 중요한 스킬. 미니언 뒤 반드시 숨기.",
-      "range": 1050, "cooldownEarly": 22, "cooldownMaxRank": 13 },
-    { "key": "W", "name": "과부하", "type": "self_buff", "roles": ["mobility"], "missPenalty": "none",
-      "hitEnables": ["ms_boost"], "counterMethod": "이속 급증 + 마나 소모. W 타이밍 주시.",
-      "cooldownEarly": 22, "cooldownMaxRank": 14 },
-    { "key": "E", "name": "힘 주먹", "type": "point_click", "roles": ["cc"], "missPenalty": "none",
-      "hitEnables": ["knockup", "empowered_aa"],
+      "range": 1050,
+      "cooldownEarly": 22,
+      "cooldownMaxRank": 13
+    },
+    {
+      "key": "W",
+      "name": "과부하",
+      "type": "self_buff",
+      "roles": [
+        "mobility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "ms_boost"
+      ],
+      "counterMethod": "이속 급증 + 마나 소모. W 타이밍 주시.",
+      "cooldownEarly": 22,
+      "cooldownMaxRank": 14
+    },
+    {
+      "key": "E",
+      "name": "힘 주먹",
+      "type": "point_click",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "knockup",
+        "empowered_aa"
+      ],
       "counterMethod": "다음 AA 넉업. Q 후크 후 콤보. E 쿨 주시.",
-      "cooldownEarly": 9, "cooldownMaxRank": 5 },
-    { "key": "R", "name": "정전기장", "type": "aoe", "roles": ["cc", "primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["silence", "damage_aoe"],
+      "cooldownEarly": 9,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "R",
+      "name": "정전기장",
+      "type": "aoe",
+      "roles": [
+        "cc",
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "silence",
+        "damage_aoe"
+      ],
       "counterMethod": "600 주변 **1초 침묵 + 뎀** (2회 발동 가능). 예방: (1) Q 후크 맞으면 R-E-R 콤보로 침묵 + 기절 풀콤 → Q 회피가 R 예방, (2) 블리츠 주변 600 거리 밖 유지, (3) R 쿨 30초 매우 짧음. 대응: 침묵 걸리면 1초간 스킬 사용 불가 → 수은 장식띠 우선. 한타 시작 전 블리츠 R 먼저 빼게 유도.",
-      "range": 600, "cooldownEarly": 60, "cooldownMaxRank": 30 }
+      "range": 600,
+      "cooldownEarly": 60,
+      "cooldownMaxRank": 30
+    }
   ],
   "punishTriggers": [
-    { "condition": "Q_missed", "skillKey": "Q", "windowSec": 13, "severity": "critical",
-      "explanation": "Q 빠지면 이니시 수단 제로. 13초간 올인 확정." },
-    { "condition": "low_mana", "windowSec": 6, "severity": "high",
-      "explanation": "마나 부족 블리츠 Q 사용 불가." }
+    {
+      "condition": "Q_missed",
+      "skillKey": "Q",
+      "windowSec": 13,
+      "severity": "critical",
+      "explanation": "Q 빠지면 이니시 수단 제로. 13초간 올인 확정."
+    },
+    {
+      "condition": "low_mana",
+      "windowSec": 6,
+      "severity": "high",
+      "explanation": "마나 부족 블리츠 Q 사용 불가."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "Q 후크 + E + AA",
+      "setup": "**Q(로켓 손) 1050 직선 후크**",
+      "payoff": "Q 끌기 + E(힘 주먹) 넉업 + AA 강화 + ADC 풀콤",
+      "damage": "초반 50~70% · 2렙 솔킬 확정",
+      "whenUsed": "라인전 부쉬 (Q 쿨 13~22초)",
+      "counter": "**미니언 뒤 절대 노출 금지** — 후크 막기. 부쉬 회피."
+    },
+    {
+      "name": "R 침묵 체인",
+      "setup": "Q 후크 후",
+      "payoff": "R(정전기장) 1초 침묵 + AoE → E 넉업 + R 재발동",
+      "damage": "풀콤 60%+ 침묵 누적",
+      "whenUsed": "한타 (R 쿨 30~60초)",
+      "counter": "**수은 장식띠 필수** — 침묵 1초 해제."
+    }
   ],
   "phases": {
-    "early": { "goal": "부시 잠복 + Q 후크. 2렙 솔킬 시도.",
+    "early": {
+      "goal": "부시 잠복 + Q 후크. 2렙 솔킬 시도.",
       "danger": "Q 빗나가면 마나 손해. 회피 당하면 무력.",
       "opportunity": "부시 Q 후크 + E 넉업 + 풀콤 2렙 솔킬.",
       "pathing": "부시 시야 잠복. Q 각 잡기.",
       "objective": "3분 이전 부시 체크. 5분경 강 와드.",
-      "gank": "Q 후크 + E 넉업 풀콤." },
-    "mid": { "goal": "시야 장악 + 픽오프.",
+      "gank": "Q 후크 + E 넉업 풀콤."
+    },
+    "mid": {
+      "goal": "시야 장악 + 픽오프.",
       "danger": "후반 스케일링 약함. 한타 기여도 낮음.",
       "opportunity": "Q로 고립 적 원콜.",
       "pathing": "드래곤 주변 와드.",
       "objective": "드래곤 한타 Q 원콜.",
-      "gank": "미드 로밍 시 Q 풀콤." },
-    "late": { "goal": "한타 Q + R 침묵 풀콤.",
+      "gank": "미드 로밍 시 Q 풀콤."
+    },
+    "late": {
+      "goal": "한타 Q + R 침묵 풀콤.",
       "danger": "후반 Q 실수 시 즉사. 탱킹 부족.",
       "opportunity": "물몸 캐리 Q 원콜 기회.",
       "pathing": "한타 측면 Q 각 잡기.",
       "objective": "바론 스틸 Q 노리기.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "어둠의 수확",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "가고일 돌갑옷", "reason": "이니시 후 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
-    { "condition": "enemy_sustain_high", "recommendation": "지크의 융합", "reason": "아군 AA 강화." },
-    { "condition": "enemy_poke_heavy", "recommendation": "수호자 룬", "reason": "포크 버티기." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "가고일 돌갑옷",
+      "reason": "이니시 후 생존."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "지크의 융합",
+      "reason": "아군 AA 강화."
+    },
+    {
+      "condition": "enemy_poke_heavy",
+      "recommendation": "수호자 룬",
+      "reason": "포크 버티기."
+    }
   ],
-  "vulnerabilities": ["q_missed", "mana_starved", "late_scale_weak", "single_target_cc", "kited_by_range"],
-  "keyStrengths": ["long_hook_q", "playmaking_cc", "early_kill_2lv", "silence_r", "pick_off_specialist"]
+  "vulnerabilities": [
+    "q_missed",
+    "mana_starved",
+    "late_scale_weak",
+    "single_target_cc",
+    "kited_by_range"
+  ],
+  "keyStrengths": [
+    "long_hook_q",
+    "playmaking_cc",
+    "early_kill_2lv",
+    "silence_r",
+    "pick_off_specialist"
+  ]
 }

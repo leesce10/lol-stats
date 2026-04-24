@@ -5,61 +5,188 @@
   "position": "support",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "D", "earlyDuel": "B", "midDuel": "A", "lateDuel": "S", "gankPower": "B",
-    "scaling": "late", "mobility": "low", "burst": "high", "sustain": "medium", "ccTypes": ["root", "slow"]
+    "clearSpeed": "D",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "S",
+    "gankPower": "B",
+    "scaling": "late",
+    "mobility": "low",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "root",
+      "slow"
+    ]
   },
-  "powerSpikes": [6, 11, 16],
+  "powerSpikes": [
+    6,
+    11,
+    16
+  ],
   "keySkills": [
-    { "key": "Q", "name": "여명의 그림자", "type": "skillshot", "roles": ["primary_damage", "sustain"], "missPenalty": "medium",
-      "hitEnables": ["heal_ally", "damage"],
+    {
+      "key": "Q",
+      "name": "여명의 그림자",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage",
+        "sustain"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "heal_ally",
+        "damage"
+      ],
       "counterMethod": "직선 투사체. 적중 시 본인/아군 힐. 미니언 뒤 회피.",
-      "range": 1300, "cooldownEarly": 10, "cooldownMaxRank": 6 },
-    { "key": "W", "name": "마지막 안식", "type": "skillshot", "roles": ["cc"], "missPenalty": "critical",
-      "hitEnables": ["root"], "counterMethod": "직선 스킬샷 속박. 느린 이동. 측면 회피.",
-      "range": 1150, "cooldownEarly": 16, "cooldownMaxRank": 12 },
-    { "key": "E", "name": "장막", "type": "aoe", "roles": ["utility"], "missPenalty": "none",
-      "hitEnables": ["stealth_zone", "ms"],
+      "range": 1300,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 6
+    },
+    {
+      "key": "W",
+      "name": "마지막 안식",
+      "type": "skillshot",
+      "roles": [
+        "cc"
+      ],
+      "missPenalty": "critical",
+      "hitEnables": [
+        "root"
+      ],
+      "counterMethod": "직선 스킬샷 속박. 느린 이동. 측면 회피.",
+      "range": 1150,
+      "cooldownEarly": 16,
+      "cooldownMaxRank": 12
+    },
+    {
+      "key": "E",
+      "name": "장막",
+      "type": "aoe",
+      "roles": [
+        "utility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "stealth_zone",
+        "ms"
+      ],
       "counterMethod": "장막 안 아군 은신 + 이속. 제어와드로 해제.",
-      "cooldownEarly": 28, "cooldownMaxRank": 20 },
-    { "key": "R", "name": "성녀 여명", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "medium",
-      "hitEnables": ["global_line", "shield_allies"],
+      "cooldownEarly": 28,
+      "cooldownMaxRank": 20
+    },
+    {
+      "key": "R",
+      "name": "성녀 여명",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "global_line",
+        "shield_allies"
+      ],
       "counterMethod": "**글로벌 직선 레이저** — 맵 어디든 저격 + 적중 시 세나 아군에게 방패. 예방: (1) 저체력 상태 직선 경로 피하기, (2) 차징 1초 중 세나 이동 불가 → 사거리 내면 역공, (3) 아군 방패 효과 있어 수비적 활용도 많음 — 한타 후반 체크. 대응: 글로벌이라 회피 어려움. 체력 관리 + 측면 회피.",
-      "cooldownEarly": 160, "cooldownMaxRank": 120 }
+      "cooldownEarly": 160,
+      "cooldownMaxRank": 120
+    }
   ],
   "punishTriggers": [
-    { "condition": "W_missed", "skillKey": "W", "windowSec": 12, "severity": "high",
-      "explanation": "W 속박 빠지면 CC 수단 없음. 12초간 대응 가능." },
-    { "condition": "low_stacks", "windowSec": 30, "severity": "medium",
-      "explanation": "소울 스택 부족 시 사거리/뎀 감소." }
+    {
+      "condition": "W_missed",
+      "skillKey": "W",
+      "windowSec": 12,
+      "severity": "high",
+      "explanation": "W 속박 빠지면 CC 수단 없음. 12초간 대응 가능."
+    },
+    {
+      "condition": "low_stacks",
+      "windowSec": 30,
+      "severity": "medium",
+      "explanation": "소울 스택 부족 시 사거리/뎀 감소."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "Q 힐 + 뎀 장거리 견제",
+      "setup": "Q(여명의 그림자) 1300 거리 직선",
+      "payoff": "아군/본인 힐 + 적 뎀 + 영혼 스택 수집",
+      "damage": "초반 5~10% · 누적 20~30%",
+      "whenUsed": "라인전 상시 (Q 쿨 7~10초)",
+      "counter": "**미니언 뒤 회피** — 힐/뎀 동시 차단. 스택 축적 방해."
+    },
+    {
+      "name": "R 글로벌 방패 한타",
+      "setup": "R(성녀 여명) 글로벌 직선",
+      "payoff": "글로벌 뎀 + 아군 방패 → 한타 뒤집기",
+      "damage": "저체력 글로벌 처형 + 팀 방패",
+      "whenUsed": "한타/글로벌 저격 (R 쿨 120~160초)",
+      "counter": "**직선 회피** — 세나 조준 예측. 체력 관리."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q로 CS 견제 + 힐. 소울 스택 수집.",
+    "early": {
+      "goal": "Q로 CS 견제 + 힐. 소울 스택 수집.",
       "danger": "이동기 없음. 이니시 서폿에게 취약.",
       "opportunity": "장거리 Q 견제. W 속박 각 노리기.",
       "pathing": "라인 뒤쪽 포지션. ADC 보호.",
       "objective": "스택 수집 우선. 라인전 유지.",
-      "gank": "W 속박 + Q 풀콤 + ADC 연계." },
-    "mid": { "goal": "영겁의 창 완성. 스택 20+ 달성.",
+      "gank": "W 속박 + Q 풀콤 + ADC 연계."
+    },
+    "mid": {
+      "goal": "영겁의 창 완성. 스택 20+ 달성.",
       "danger": "이동기 없어 암살자 취약.",
       "opportunity": "R 글로벌로 사이드 합류 + 한타 기여.",
       "pathing": "드래곤 근처. 원거리 견제.",
       "objective": "드래곤 한타 R 적극.",
-      "gank": "R 글로벌 지원." },
-    "late": { "goal": "한타 W 속박 + R 방패 + Q 풀딜.",
+      "gank": "R 글로벌 지원."
+    },
+    "late": {
+      "goal": "한타 W 속박 + R 방패 + Q 풀딜.",
       "danger": "진입 당하면 즉사. 포지션 중요.",
       "opportunity": "풀빌드 세나 무한 사거리 + 체젠.",
       "pathing": "한타 후방 장거리 딜.",
       "objective": "바론/엘더 싸움 R 핵심.",
-      "gank": "혼자 움직이지 말 것." }
+      "gank": "혼자 움직이지 말 것."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "집중 공격",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호천사 + 맬모셔스", "reason": "암살자 버스트 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수은 장식띠", "reason": "CC 감소." },
-    { "condition": "enemy_tank_heavy", "recommendation": "몰락한 왕의 검 + 독사의 송곳니", "reason": "% 뎀 + 치감." },
-    { "condition": "enemy_sustain_high", "recommendation": "몰락한 왕의 검", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호천사 + 맬모셔스",
+      "reason": "암살자 버스트 생존."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수은 장식띠",
+      "reason": "CC 감소."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "몰락한 왕의 검 + 독사의 송곳니",
+      "reason": "% 뎀 + 치감."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "몰락한 왕의 검",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["no_mobility", "stack_dependent", "early_poke_weak", "w_predicted", "cc_locked"],
-  "keyStrengths": ["long_range_q", "global_r", "stealth_zone_e", "infinite_scaling", "sustain_team"]
+  "vulnerabilities": [
+    "no_mobility",
+    "stack_dependent",
+    "early_poke_weak",
+    "w_predicted",
+    "cc_locked"
+  ],
+  "keyStrengths": [
+    "long_range_q",
+    "global_r",
+    "stealth_zone_e",
+    "infinite_scaling",
+    "sustain_team"
+  ]
 }

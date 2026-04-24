@@ -5,59 +5,190 @@
   "position": "mid",
   "patch": "15.7",
   "profile": {
-    "clearSpeed": "B", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "B",
-    "scaling": "mid", "mobility": "high", "burst": "high", "sustain": "high", "ccTypes": ["slow", "stun"]
+    "clearSpeed": "B",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "B",
+    "scaling": "mid",
+    "mobility": "high",
+    "burst": "high",
+    "sustain": "high",
+    "ccTypes": [
+      "slow",
+      "stun"
+    ]
   },
-  "powerSpikes": [3, 6, 11],
+  "powerSpikes": [
+    3,
+    6,
+    11
+  ],
   "keySkills": [
-    { "key": "Q", "name": "차이나브레이커", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
-      "hitEnables": ["double_hit", "slow"], "counterMethod": "근거리 찍기 + 원거리 회수. 2번 맞으면 풀뎀. 거리 유지.",
-      "range": 775, "cooldownEarly": 12, "cooldownMaxRank": 8 },
-    { "key": "W", "name": "칼날 덤벼들기", "type": "point_click", "roles": ["primary_damage", "sustain"], "missPenalty": "none",
-      "hitEnables": ["aa_reset", "heal"], "counterMethod": "근접 덤벼들기 + 체젠. 3초 후 재사용. W 빠지면 추격 수단 감소.",
-      "range": 300, "cooldownEarly": 14, "cooldownMaxRank": 8 },
-    { "key": "E", "name": "연쇄 휘두르기", "type": "dash", "roles": ["mobility", "cc"], "missPenalty": "medium",
-      "hitEnables": ["dash_stun"], "counterMethod": "2단계 E. E1은 짧은 대시, E2는 긴 대시 + 기절. E2 거리 주시.",
-      "range": 850, "cooldownEarly": 10, "cooldownMaxRank": 8 },
-    { "key": "R", "name": "약탈", "type": "self_buff", "roles": ["utility"], "missPenalty": "none",
-      "hitEnables": ["steal_ult"],
+    {
+      "key": "Q",
+      "name": "차이나브레이커",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "double_hit",
+        "slow"
+      ],
+      "counterMethod": "근거리 찍기 + 원거리 회수. 2번 맞으면 풀뎀. 거리 유지.",
+      "range": 775,
+      "cooldownEarly": 12,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "W",
+      "name": "칼날 덤벼들기",
+      "type": "point_click",
+      "roles": [
+        "primary_damage",
+        "sustain"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "aa_reset",
+        "heal"
+      ],
+      "counterMethod": "근접 덤벼들기 + 체젠. 3초 후 재사용. W 빠지면 추격 수단 감소.",
+      "range": 300,
+      "cooldownEarly": 14,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "E",
+      "name": "연쇄 휘두르기",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "cc"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "dash_stun"
+      ],
+      "counterMethod": "2단계 E. E1은 짧은 대시, E2는 긴 대시 + 기절. E2 거리 주시.",
+      "range": 850,
+      "cooldownEarly": 10,
+      "cooldownMaxRank": 8
+    },
+    {
+      "key": "R",
+      "name": "약탈",
+      "type": "self_buff",
+      "roles": [
+        "utility"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "steal_ult"
+      ],
       "counterMethod": "**적 챔프 궁 탈취** (900 거리). 예방: (1) **내 R 먼저 쓰지 말기** — 사일러스가 대기 중이면 내 궁이 적 손에 들어감, (2) 900 거리 밖 유지, (3) 탈취 채널링 2초 → 채널링 도중 거리 벌리면 탈취 실패. 대응: 내 궁 탈취되면 해당 궁 효과 2번 맞을 각오 (내 사용 + 사일러스 사용). 특히 정글(자르반·리신·녹턴 R)이 훔쳐지면 치명적. 한타 전 **훔칠 가치 있는 궁 사용 타이밍 조절**.",
-      "range": 900, "cooldownEarly": 90, "cooldownMaxRank": 50 }
+      "range": 900,
+      "cooldownEarly": 90,
+      "cooldownMaxRank": 50
+    }
   ],
   "punishTriggers": [
-    { "condition": "E2_used", "skillKey": "E", "windowSec": 8, "severity": "critical",
-      "explanation": "E2 기절 빠진 사일러스 풀콤 불가. 8초간 1:1 대응 가능." },
-    { "condition": "no_mana", "windowSec": 6, "severity": "high",
-      "explanation": "마나 부족 사일러스 풀콤 불가. 스킬 1~2개 사용 후 올인." }
+    {
+      "condition": "E2_used",
+      "skillKey": "E",
+      "windowSec": 8,
+      "severity": "critical",
+      "explanation": "E2 기절 빠진 사일러스 풀콤 불가. 8초간 1:1 대응 가능."
+    },
+    {
+      "condition": "no_mana",
+      "windowSec": 6,
+      "severity": "high",
+      "explanation": "마나 부족 사일러스 풀콤 불가. 스킬 1~2개 사용 후 올인."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "W 체젠 + Q 풀콤",
+      "setup": "Q(차이나브레이커) 왕복 2회 적중",
+      "payoff": "W(칼날 덤벼들기) 체젠 + E2 기절 + 평타 리셋",
+      "damage": "초반 30~40% · W 체젠으로 지속 교전 우위",
+      "whenUsed": "라인전 상시 (Q 쿨 8~12초)",
+      "counter": "**Q 왕복 경로 회피** — 근거리 + 원거리 둘 다. W 쓴 후 체력 관리 실패 시 역공."
+    },
+    {
+      "name": "R 궁 탈취 콤보",
+      "setup": "**R(약탈) 2초 채널링 — 적 궁 훔침**",
+      "payoff": "훔친 궁(말파 R, 카밀 R 등) + 사일러스 풀콤 2번",
+      "damage": "훔친 궁에 따라 다름 · 보통 40~60%",
+      "whenUsed": "6렙 이후 (R 쿨 50~90초)",
+      "counter": "**내 궁 먼저 쓰지 말기** — 사일러스 R 대기 중. 훔칠 가치 있는 궁은 한타 중간에 사용."
+    }
   ],
   "phases": {
-    "early": { "goal": "Q 풀콤 + W 체젠으로 지속 교전.",
+    "early": {
+      "goal": "Q 풀콤 + W 체젠으로 지속 교전.",
       "danger": "초반 마나 부족. 공격적으로 사용 시 마나 고갈.",
       "opportunity": "3렙 E2 기절 + Q 풀콤으로 솔킬.",
       "pathing": "웨이브 중립. 체젠으로 유지.",
       "objective": "6렙 R 획득 후 상대 궁 훔쳐 활용.",
-      "gank": "E2 기절 + Q 풀콤으로 확정 킬." },
-    "mid": { "goal": "루덴의 동반자 완성. R로 상대 궁 변주.",
+      "gank": "E2 기절 + Q 풀콤으로 확정 킬."
+    },
+    "mid": {
+      "goal": "루덴의 동반자 완성. R로 상대 궁 변주.",
       "danger": "한타 진입 타이밍 중요. CC 체인 맞으면 사망.",
       "opportunity": "R로 상대 궁 훔쳐 원콜. 카밀 R, 말파 R 추천.",
       "pathing": "미드 웨이브 밀고 사이드 합류.",
       "objective": "드래곤 한타 R로 변주.",
-      "gank": "바텀 로밍 + R 훔쳐 원콜." },
-    "late": { "goal": "한타 R로 상대 핵심 궁 훔쳐 승리.",
+      "gank": "바텀 로밍 + R 훔쳐 원콜."
+    },
+    "late": {
+      "goal": "한타 R로 상대 핵심 궁 훔쳐 승리.",
       "danger": "CC 체인 맞으면 즉사. 진입 타이밍 중요.",
       "opportunity": "풀빌드 사일러스 한타 캐리.",
       "pathing": "한타 측면 진입. E2 각 잡기.",
       "objective": "바론 싸움 R 훔쳐 원콜.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 점화",
   "defaultRunes": "정복자",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "수호 천사", "reason": "버스트 후 부활로 한타 유지." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호 천사", "reason": "CC 감소 + 부활." },
-    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
-    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "수호 천사",
+      "reason": "버스트 후 부활로 한타 유지."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호 천사",
+      "reason": "CC 감소 + 부활."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "공허의 지팡이 + 리안드리",
+      "reason": "% 마관 + % 체력 뎀."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "모렐로노미콘",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["mana_starved", "e2_used", "cc_locked", "long_cd_early", "no_ranged_poke"],
-  "keyStrengths": ["ultimate_theft_r", "sustain_w", "dash_stun_e", "versatile_combos", "brawler_mid"]
+  "vulnerabilities": [
+    "mana_starved",
+    "e2_used",
+    "cc_locked",
+    "long_cd_early",
+    "no_ranged_poke"
+  ],
+  "keyStrengths": [
+    "ultimate_theft_r",
+    "sustain_w",
+    "dash_stun_e",
+    "versatile_combos",
+    "brawler_mid"
+  ]
 }

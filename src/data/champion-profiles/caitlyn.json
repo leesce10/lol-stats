@@ -4,7 +4,6 @@
   "nameEn": "Caitlyn",
   "position": "adc",
   "patch": "15.7",
-
   "profile": {
     "clearSpeed": "B",
     "earlyDuel": "A",
@@ -15,19 +14,28 @@
     "mobility": "low",
     "burst": "high",
     "sustain": "low",
-    "ccTypes": ["root", "slow"]
+    "ccTypes": [
+      "root",
+      "slow"
+    ]
   },
-
-  "powerSpikes": [2, 6, 11],
-
+  "powerSpikes": [
+    2,
+    6,
+    11
+  ],
   "keySkills": [
     {
       "key": "Q",
       "name": "피스메이커",
       "type": "skillshot",
-      "roles": ["primary_damage"],
+      "roles": [
+        "primary_damage"
+      ],
       "missPenalty": "medium",
-      "hitEnables": ["extended_range_poke"],
+      "hitEnables": [
+        "extended_range_poke"
+      ],
       "counterMethod": "1.25초 차징 후 긴 직선. 미니언 통과 시 뎀 감소. 라인 진입 타이밍 회피.",
       "range": 1300,
       "cooldownEarly": 9,
@@ -37,9 +45,14 @@
       "key": "W",
       "name": "요들 덫",
       "type": "aoe",
-      "roles": ["cc"],
+      "roles": [
+        "cc"
+      ],
       "missPenalty": "high",
-      "hitEnables": ["root", "empowered_aa"],
+      "hitEnables": [
+        "root",
+        "empowered_aa"
+      ],
       "counterMethod": "지상 설치. 보이는 덫 회피. 덫 밟으면 1.5초 속박 + 강화 자동공격 확정.",
       "range": 800,
       "cooldownEarly": 30,
@@ -49,9 +62,15 @@
       "key": "E",
       "name": "90구경 그물",
       "type": "skillshot",
-      "roles": ["mobility", "cc"],
+      "roles": [
+        "mobility",
+        "cc"
+      ],
       "missPenalty": "medium",
-      "hitEnables": ["knockback_jump", "slow"],
+      "hitEnables": [
+        "knockback_jump",
+        "slow"
+      ],
       "counterMethod": "후방 대시 스킬. 케이틀린 이탈기. E 빠지면 추격 가능.",
       "range": 750,
       "cooldownEarly": 16,
@@ -61,15 +80,19 @@
       "key": "R",
       "name": "저격",
       "type": "point_click",
-      "roles": ["execute", "primary_damage"],
+      "roles": [
+        "execute",
+        "primary_damage"
+      ],
       "missPenalty": "low",
-      "hitEnables": ["long_range_finish"],
+      "hitEnables": [
+        "long_range_finish"
+      ],
       "counterMethod": "**타겟팅 장거리 처형** (2000+ 거리, 1.25초 차징). 예방: (1) 체력 처형 임계치 이상 유지, (2) **차징 중 아군/동물이 앞에 서면 대신 맞음** — 탱커 앞세우기, (3) 차징 동안 케이틀린 이동 불가 → 사거리 들어가면 역공 타이밍. 대응: 차징 표시 보면 즉시 벽 뒤/아군 뒤 or 점멸. 저체력 상태로 R 사거리 내 이동 절대 금지.",
       "cooldownEarly": 90,
       "cooldownMaxRank": 60
     }
   ],
-
   "punishTriggers": [
     {
       "condition": "E_used",
@@ -86,7 +109,24 @@
       "explanation": "피스메이커 빠지면 견제 수단 감소. 7초간 케이틀린 파밍만 가능."
     }
   ],
-
+  "keyCombos": [
+    {
+      "name": "2렙 W 덫 + Q 콤보",
+      "setup": "**W(요들 덫) 부쉬/포탑 배치 → 밟음 = 1.5초 속박**",
+      "payoff": "속박 중 Q(피스메이커) 긴 직선 뎀 + 강화 AA 2발",
+      "damage": "초반 30~45% · 2렙 솔킬 가능",
+      "whenUsed": "라인전 상시 (W 쿨 18~30초)",
+      "counter": "**부쉬·포탑 밟기 전 시야 확보** — 보이는 덫 회피. 덫 밟으면 즉시 점멸."
+    },
+    {
+      "name": "R 장거리 저격 — 풀체력 처형",
+      "setup": "**R(저격) 2000+ 거리 타겟팅 1.25초 차징**",
+      "payoff": "장거리 처형 + 아군 차단 불가",
+      "damage": "저체력 즉사 · 풀체력 35%+",
+      "whenUsed": "6렙 이후 (R 쿨 60~90초)",
+      "counter": "**차징 중 아군이 앞에 서면 대신 맞음** — 탱커 활용. 벽 뒤/아군 뒤 이탈."
+    }
+  ],
   "phases": {
     "early": {
       "goal": "2렙 W 덫 + Q로 적극 견제. 사거리 650 활용 견제 지배.",
@@ -113,7 +153,6 @@
       "gank": "혼자 이동 금지. 한타 합류 우선."
     }
   },
-
   "defaultSpells": "점멸 + 회복",
   "defaultRunes": "집중 공격",
   "buildAdaptations": [
@@ -138,7 +177,6 @@
       "reason": "체젠 많은 상대 치유 감소 필수."
     }
   ],
-
   "vulnerabilities": [
     "no_mobility",
     "e_used_vulnerable",

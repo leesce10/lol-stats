@@ -4,63 +4,201 @@
   "nameEn": "Diana",
   "position": "jungle",
   "patch": "15.7",
-  "junglePath": ["레드", "두꺼비", "늑대", "블루", "개미", "닭"],
+  "junglePath": [
+    "레드",
+    "두꺼비",
+    "늑대",
+    "블루",
+    "개미",
+    "닭"
+  ],
   "profile": {
-    "clearSpeed": "A", "earlyDuel": "B", "midDuel": "A", "lateDuel": "A", "gankPower": "A",
-    "scaling": "mid", "mobility": "medium", "burst": "high", "sustain": "medium", "ccTypes": ["pull", "slow"]
+    "clearSpeed": "A",
+    "earlyDuel": "B",
+    "midDuel": "A",
+    "lateDuel": "A",
+    "gankPower": "A",
+    "scaling": "mid",
+    "mobility": "medium",
+    "burst": "high",
+    "sustain": "medium",
+    "ccTypes": [
+      "pull",
+      "slow"
+    ]
   },
-  "powerSpikes": [6, 11, 16],
+  "powerSpikes": [
+    6,
+    11,
+    16
+  ],
   "keySkills": [
-    { "key": "Q", "name": "초승달 투척", "type": "skillshot", "roles": ["primary_damage"], "missPenalty": "high",
-      "hitEnables": ["bonus_damage_sweet", "moonlight_debuff"],
+    {
+      "key": "Q",
+      "name": "초승달 투척",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "bonus_damage_sweet",
+        "moonlight_debuff"
+      ],
       "counterMethod": "원뿔 투척. 끝 부분 맞으면 추가 뎀. 측면 회피.",
-      "range": 900, "cooldownEarly": 7, "cooldownMaxRank": 5 },
-    { "key": "W", "name": "달의 폭포", "type": "self_buff", "roles": ["defense", "primary_damage"], "missPenalty": "none",
-      "hitEnables": ["shield", "aoe_damage"], "counterMethod": "방패 + AoE 뎀. 풀콤 버스트 시작.",
-      "cooldownEarly": 18, "cooldownMaxRank": 10 },
-    { "key": "E", "name": "달빛 돌진", "type": "dash", "roles": ["mobility", "cc"], "missPenalty": "medium",
-      "hitEnables": ["dash_to_target", "pull_moonlight"],
+      "range": 900,
+      "cooldownEarly": 7,
+      "cooldownMaxRank": 5
+    },
+    {
+      "key": "W",
+      "name": "달의 폭포",
+      "type": "self_buff",
+      "roles": [
+        "defense",
+        "primary_damage"
+      ],
+      "missPenalty": "none",
+      "hitEnables": [
+        "shield",
+        "aoe_damage"
+      ],
+      "counterMethod": "방패 + AoE 뎀. 풀콤 버스트 시작.",
+      "cooldownEarly": 18,
+      "cooldownMaxRank": 10
+    },
+    {
+      "key": "E",
+      "name": "달빛 돌진",
+      "type": "dash",
+      "roles": [
+        "mobility",
+        "cc"
+      ],
+      "missPenalty": "medium",
+      "hitEnables": [
+        "dash_to_target",
+        "pull_moonlight"
+      ],
       "counterMethod": "달빛 찍힌 적에게만 대시. 달빛 디버프 풀리기 전 이탈.",
-      "range": 825, "cooldownEarly": 26, "cooldownMaxRank": 18 },
-    { "key": "R", "name": "월광 참격", "type": "skillshot", "roles": ["primary_damage", "cc"], "missPenalty": "high",
-      "hitEnables": ["pull_enemies", "aoe_burst"],
+      "range": 825,
+      "cooldownEarly": 26,
+      "cooldownMaxRank": 18
+    },
+    {
+      "key": "R",
+      "name": "월광 참격",
+      "type": "skillshot",
+      "roles": [
+        "primary_damage",
+        "cc"
+      ],
+      "missPenalty": "high",
+      "hitEnables": [
+        "pull_enemies",
+        "aoe_burst"
+      ],
       "counterMethod": "450 원형 범위 뎀 + 범위 내 적 **중앙으로 끌기**. 예방: (1) **3인 이상 뭉치지 말 것** (1명 맞으면 R 쿨 반감), (2) 다이애나 E(대시) 거리 밖 유지 — E 없이는 R 사거리 진입 불가, (3) Q 맞은 상대는 달빛 디버프로 E 타겟 → Q 회피가 사실상 R 예방. 대응: R 중앙으로 끌린 뒤 연속 Q+W+AA 풀콤 — 존야/수은 즉시 발동.",
-      "range": 450, "cooldownEarly": 100, "cooldownMaxRank": 60 }
+      "range": 450,
+      "cooldownEarly": 100,
+      "cooldownMaxRank": 60
+    }
   ],
   "punishTriggers": [
-    { "condition": "E_used", "skillKey": "E", "windowSec": 18, "severity": "critical",
-      "explanation": "E 대시 빠지면 다이애나 풀콤 불가. 18초간 위협도 급감." },
-    { "condition": "no_moonlight", "windowSec": 6, "severity": "high",
-      "explanation": "달빛 디버프 없으면 E 사용 불가. 이동기 제로." }
+    {
+      "condition": "E_used",
+      "skillKey": "E",
+      "windowSec": 18,
+      "severity": "critical",
+      "explanation": "E 대시 빠지면 다이애나 풀콤 불가. 18초간 위협도 급감."
+    },
+    {
+      "condition": "no_moonlight",
+      "windowSec": 6,
+      "severity": "high",
+      "explanation": "달빛 디버프 없으면 E 사용 불가. 이동기 제로."
+    }
+  ],
+  "keyCombos": [
+    {
+      "name": "Q 달빛 + E 대시 콤보",
+      "setup": "**Q(초승달 투척) 달빛 디버프 적중** → E 대시 가능 상태",
+      "payoff": "E(달빛 돌진) 자동 대시 + W 보호막 + AA 풀콤",
+      "damage": "초반 30~40% 체력 · 코어템 50%+",
+      "whenUsed": "라인전/갱 (Q 쿨 5~7초)",
+      "counter": "**Q 회피 = E 대시 차단** — Q 원뿔 측면 회피. 미니언 뒤 고정."
+    },
+    {
+      "name": "한타 R 끌어 모으기 콤보",
+      "setup": "**R(월광 참격) 광역 450 범위 적 중앙으로 당김**",
+      "payoff": "당긴 적들에게 W + Q + AA 광역 풀콤 + 아군 AoE 시너지",
+      "damage": "3명 이상 당기면 한타 전멸 각 · 개별 35%+",
+      "whenUsed": "한타 (R 쿨 60~100초)",
+      "counter": "**뭉치지 말 것** — 1명만 맞아도 R 쿨 반감. 다이애나 시야 확보 후 분산."
+    }
   ],
   "phases": {
-    "early": { "goal": "풀클 후 6렙 갱. Q 달빛 + E 돌진.",
+    "early": {
+      "goal": "풀클 후 6렙 갱. Q 달빛 + E 돌진.",
       "danger": "초반 마나 부족. 카정 당하면 죽음.",
       "opportunity": "Q 달빛 맞춘 상대에게 E 돌진 + 풀콤.",
       "pathing": "레드→블루 풀클. 6렙 맞춰 갱.",
       "objective": "드래곤 경쟁. 6렙 R 획득 후 적극.",
-      "gank": "Q 맞추면 확정 킬. E 돌진 + W + R." },
-    "mid": { "goal": "몰락한 왕의 검 완성. R로 다중 CC.",
+      "gank": "Q 맞추면 확정 킬. E 돌진 + W + R."
+    },
+    "mid": {
+      "goal": "몰락한 왕의 검 완성. R로 다중 CC.",
       "danger": "팀파이트 뒤늦게 진입. 한타 진입 타이밍 중요.",
       "opportunity": "R로 3명 이상 끌어 아군 AoE 딜러 폭딜 유도.",
       "pathing": "정글 풀클 + 적 정글 카정.",
       "objective": "드래곤 한타 R로 이니시.",
-      "gank": "R로 뭉친 적 끌어 원콜." },
-    "late": { "goal": "한타 R + 아군 AoE 시너지.",
+      "gank": "R로 뭉친 적 끌어 원콜."
+    },
+    "late": {
+      "goal": "한타 R + 아군 AoE 시너지.",
       "danger": "앞라인 뚫기 전 즉사. 풀콤 타이밍 중요.",
       "opportunity": "풀빌드 다이애나 한타 캐리.",
       "pathing": "한타 측면 진입. R 각 잡기.",
       "objective": "바론 싸움 R 적극.",
-      "gank": "팀과 동선 맞춤." }
+      "gank": "팀과 동선 맞춤."
+    }
   },
   "defaultSpells": "점멸 + 강타",
   "defaultRunes": "감전",
   "buildAdaptations": [
-    { "condition": "enemy_burst_high", "recommendation": "존야의 모래시계 + 밴시 장막", "reason": "버스트 후 생존." },
-    { "condition": "enemy_cc_hard", "recommendation": "머큐리 부츠 + 수호 천사", "reason": "CC 감소 + 부활." },
-    { "condition": "enemy_tank_heavy", "recommendation": "공허의 지팡이 + 리안드리", "reason": "% 마관 + % 체력 뎀." },
-    { "condition": "enemy_sustain_high", "recommendation": "모렐로노미콘", "reason": "치유 감소." }
+    {
+      "condition": "enemy_burst_high",
+      "recommendation": "존야의 모래시계 + 밴시 장막",
+      "reason": "버스트 후 생존."
+    },
+    {
+      "condition": "enemy_cc_hard",
+      "recommendation": "머큐리 부츠 + 수호 천사",
+      "reason": "CC 감소 + 부활."
+    },
+    {
+      "condition": "enemy_tank_heavy",
+      "recommendation": "공허의 지팡이 + 리안드리",
+      "reason": "% 마관 + % 체력 뎀."
+    },
+    {
+      "condition": "enemy_sustain_high",
+      "recommendation": "모렐로노미콘",
+      "reason": "치유 감소."
+    }
   ],
-  "vulnerabilities": ["mana_starved", "e_used_no_mobility", "cc_locked", "moonlight_required", "r_miss"],
-  "keyStrengths": ["pull_r", "dash_on_moonlight", "shield_w", "teamfight_aoe", "scaling_ap"]
+  "vulnerabilities": [
+    "mana_starved",
+    "e_used_no_mobility",
+    "cc_locked",
+    "moonlight_required",
+    "r_miss"
+  ],
+  "keyStrengths": [
+    "pull_r",
+    "dash_on_moonlight",
+    "shield_w",
+    "teamfight_aoe",
+    "scaling_ap"
+  ]
 }
