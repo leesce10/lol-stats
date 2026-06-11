@@ -153,11 +153,13 @@ function ItemTimingDemo() {
             <img
               src={`https://ddragon.leagueoflegends.com/cdn/${DDV}/img/item/${t.target.image}`}
               alt={t.target.name}
-              className={`w-10 h-10 shrink-0 rounded-md border ${
+              style={{ width: 40, height: 40, maxWidth: "none", flexShrink: 0 }}
+              className={`rounded-md border ${
                 affordable ? "border-emerald-400" : "border-amber-400/60"
               }`}
             />
             <span
+              style={{ minWidth: 52, textAlign: "center", whiteSpace: "nowrap" }}
               className={`mt-1 text-xs font-bold px-1.5 rounded ${
                 affordable
                   ? "bg-emerald-500/30 text-emerald-100"
