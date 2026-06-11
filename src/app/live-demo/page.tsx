@@ -72,7 +72,7 @@ const EDGE_LABEL: Record<string, string> = {
 
 export default function LiveDemoPage() {
   const [presetIdx, setPresetIdx] = useState(0);
-  const [voice, setVoice] = useState("female");
+  const [voice, setVoice] = useState("hyunsu");
   const [data, setData] = useState<AnalysisResponse | null>(null);
   const [status, setStatus] = useState("조합 분석 중…");
   const lastTts = useRef("");
