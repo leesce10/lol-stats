@@ -165,34 +165,36 @@ function makeGamePlan(
 
   // 한타 vs 회피
   if (has(ourS, "이니시") || has(ourS, "한타")) {
-    plan.push("한타를 적극적으로 열어라 — 우리 교전력이 강하다");
+    plan.push("우리팀은 교전력이 좋기 때문에 한타를 적극적으로 열면 유리합니다.");
   } else if (has(theirS, "이니시") || has(theirS, "한타")) {
-    plan.push("상대 이니시를 조심하고 진형을 유지하라 — 무리한 한타 회피");
+    plan.push("상대 교전력이 강하니 무리한 한타는 피하고 진형을 유지하는 게 좋습니다.");
   }
   // 스플릿/사이드
   if (has(ourS, "스플릿")) {
-    plan.push("사이드 운영으로 압박 — 스플릿 푸시가 강하다");
+    plan.push("스플릿 푸시가 강한 조합이라 사이드 운영으로 압박하는 게 좋습니다.");
   }
   // 포킹
   if (has(ourS, "포킹")) {
-    plan.push("포킹으로 체력을 빼고 화력 우위에서 교전하라");
+    plan.push("포킹이 강하니 상대 체력을 빼면서 화력이 앞설 때 교전하세요.");
   }
   // 약점 대응
   if (has(ourW, "프론트라인")) {
-    plan.push("탱커가 부족하다 — 포지셔닝 신경, 적 진입 라인을 차단");
+    plan.push("탱커가 부족하니 포지셔닝에 주의하고 상대의 진입을 차단하세요.");
   }
   if (has(ourW, "편중")) {
-    plan.push("데미지 타입이 편중 — 상대가 방어템 갖추기 전에 끝내라");
+    plan.push(
+      "데미지 타입이 한쪽으로 치우쳐 있어 상대가 방어 아이템을 갖추기 전에 승부를 보는 게 좋습니다."
+    );
   }
   // 타이밍
   if (timing === "early") {
-    plan.push("초반에 강한 조합 — 라인전부터 주도권 잡고 스노우볼");
+    plan.push("초반에 강한 조합이니 라인전부터 주도권을 잡고 스노우볼을 굴리세요.");
   } else if (timing === "late") {
-    plan.push("후반 캐리 조합 — 초반 손해를 최소화하고 후반을 도모");
+    plan.push("후반 캐리 조합이라 초반 손해를 줄이고 후반을 도모하는 게 좋습니다.");
   }
-  // 엣지에 따른 마무리 톤 (단정 금지)
+  // 엣지에 따른 마무리 (단정 금지)
   if (edge === "behind" && plan.length) {
-    plan.push("조합상 불리한 편 — 실수 줄이고 상대 약점을 노려라");
+    plan.push("조합상 다소 불리하니 실수를 줄이고 상대의 약점을 노리세요.");
   }
   return plan.slice(0, 4);
 }
@@ -206,23 +208,27 @@ function josa(word: string, withBatchim: string, withoutBatchim: string): string
 }
 
 function buildTts(b: Omit<CompBriefing, "tts">): string {
-  const parts: string[] = ["게임 브리핑입니다."];
+  const parts: string[] = [];
   if (b.ourStrengths.length) {
     const s = b.ourStrengths.slice(0, 2);
-    parts.push(`우리 조합은 ${s.join(", ")}${josa(s[s.length - 1], "이", "가")} 강점입니다.`);
+    const joined =
+      s.length === 2 ? `${s[0]}${josa(s[0], "과", "와")} ${s[1]}` : s[0];
+    const last = s[s.length - 1];
+    parts.push(`우리팀은 ${joined}${josa(last, "이", "가")} 좋습니다.`);
   }
   if (b.theirStrengths.length) {
     const t = b.theirStrengths[0];
     parts.push(`상대는 ${t}${josa(t, "이", "가")} 강하니 주의하세요.`);
   }
-  if (b.gamePlan.length) parts.push(`핵심 플랜. ${b.gamePlan.slice(0, 2).join(". ")}.`);
-  const edgeKo =
+  // 게임플랜은 이미 자연스러운 문장이라 라벨 없이 그대로 읽음
+  if (b.gamePlan.length) parts.push(b.gamePlan.slice(0, 2).join(" "));
+  parts.push(
     b.compEdge === "ahead"
-      ? "조합상 우리가 유리한 편입니다."
+      ? "전체적으로 우리 조합이 유리한 편입니다."
       : b.compEdge === "behind"
-        ? "조합상 다소 불리하지만 충분히 풀 수 있습니다."
-        : "양팀 조합은 비슷합니다.";
-  parts.push(edgeKo);
+        ? "조합상 다소 불리하지만 충분히 풀어갈 수 있습니다."
+        : "양팀 조합은 비슷한 편입니다."
+  );
   return parts.join(" ");
 }
 
