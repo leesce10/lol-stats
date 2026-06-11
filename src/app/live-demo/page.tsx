@@ -92,14 +92,14 @@ function ItemTimingDemo() {
   const [simGold, setSimGold] = useState(0);
   const [maxSec, setMaxSec] = useState(1);
 
-  // 프리셋: 몰왕검(3153) 빌드 중, 13분, 현재 1600골드, CS 150
+  // 프리셋: 몰왕검(3153) 빌드 중. 골드를 남은 비용보다 살짝 적게 잡아 카운트다운이 보이게.
   useEffect(() => {
     fetch("/api/live/item-timing", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         gameTime: 780,
-        currentGold: 1600,
+        currentGold: 1300,
         creepScore: 150,
         items: [1053, 1037],
         targetItemId: 3153,
@@ -108,7 +108,7 @@ function ItemTimingDemo() {
       .then((r) => r.json())
       .then((data: Timing) => {
         setT(data);
-        setSimGold(1600);
+        setSimGold(1300);
         setMaxSec(Math.max(1, data.secondsToAfford));
       })
       .catch(() => {});
@@ -119,7 +119,8 @@ function ItemTimingDemo() {
     if (!t?.target) return;
     const id = setInterval(() => {
       setSimGold((g) => {
-        if (g >= t.target!.remainingCost) return g;
+        // 0s 도달 후 잠깐 멈췄다가 처음으로 되감기 (데모 반복)
+        if (g >= t.target!.remainingCost + t.incomePerSec * 3) return 1300;
         return g + t.incomePerSec;
       });
     }, 1000);
