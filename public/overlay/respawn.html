@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>respawn overlay</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        font-family: "Pretendard", "Malgun Gothic", sans-serif;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+      #track {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .rail {
+        position: absolute;
+        left: 50%;
+        top: 14px;
+        bottom: 14px;
+        width: 2px;
+        transform: translateX(-50%);
+        background: linear-gradient(
+          to bottom,
+          rgba(202, 161, 74, 0.12),
+          rgba(202, 161, 74, 0.6),
+          rgba(202, 161, 74, 0.12)
+        );
+      }
+      .node {
+        position: absolute;
+        left: 50%;
+        width: 9px;
+        height: 9px;
+        background: #caa14a;
+        transform: translate(-50%, -50%) rotate(45deg);
+        box-shadow: 0 0 6px rgba(202, 161, 74, 0.6);
+      }
+      .node-top {
+        top: 14px;
+      }
+      .node-bot {
+        top: calc(100% - 14px);
+      }
+      .entry {
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .entry img {
+        width: 44px;
+        height: 44px;
+        max-width: none;
+        border-radius: 50%;
+        border: 2px solid rgba(230, 70, 70, 0.85);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      }
+      .entry.back img {
+        border-color: #4ade80;
+      }
+      .entry .sec {
+        margin-top: 3px;
+        min-width: 40px;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 12px;
+        font-weight: 700;
+        color: #ffd1d1;
+        background: rgba(10, 12, 18, 0.8);
+        border-radius: 5px;
+        padding: 1px 5px;
+      }
+      .entry.back .sec {
+        color: #bbf7d0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="track">
+      <div class="rail"></div>
+      <span class="node node-top"></span>
+      <span class="node node-bot"></span>
+    </div>
+    <script>
+      const VER = "15.7.1";
+      const CHAMP = (k) =>
+        `https://ddragon.leagueoflegends.com/cdn/${VER}/img/champion/${k}.png`;
+      const track = document.getElementById("track");
+      const timers = new Map();
+
+      function addTimer({ championKey, name, totalSec }) {
+        const id = name || championKey;
+        let t = timers.get(id);
+        const now = Date.now();
+        if (!t) {
+          const el = document.createElement("div");
+          el.className = "entry";
+          const img = document.createElement("img");
+          img.src = CHAMP(championKey);
+          img.onerror = () => (img.style.visibility = "hidden");
+          const sec = document.createElement("div");
+          sec.className = "sec";
+          el.appendChild(img);
+          el.appendChild(sec);
+          track.appendChild(el);
+          t = { el, img, sec, totalMs: totalSec * 1000 };
+          timers.set(id, t);
+        }
+        if (totalSec * 1000 > t.totalMs) t.totalMs = totalSec * 1000;
+        t.endAt = now + totalSec * 1000;
+      }
+
+      function render() {
+        const now = Date.now();
+        const h = track.clientHeight || 460;
+        for (const [id, t] of timers) {
+          const rem = t.endAt - now;
+          if (rem <= -1000) {
+            t.el.remove();
+            timers.delete(id);
+            continue;
+          }
+          const back = rem <= 0;
+          const prog = back ? 1 : 1 - rem / t.totalMs;
+          const top = 14 + prog * (h - 28);
+          t.el.style.top = `${top - 22}px`;
+          t.el.classList.toggle("back", back);
+          t.sec.textContent = back ? "복귀" : `${Math.ceil(rem / 1000)}s`;
+        }
+        requestAnimationFrame(render);
+      }
+      requestAnimationFrame(render);
+
+      // Overwolf 창 껍데기 → iframe(postMessage)로 데이터 수신
+      window.addEventListener("message", (e) => {
+        const d = e.data || {};
+        if (d.id === "respawn-add" && d.content) addTimer(d.content);
+      });
+
+      // 브라우저 미리보기
+      if (location.search.includes("demo")) {
+        addTimer({ championKey: "Fiora", name: "demo1", totalSec: 48 });
+      }
+    </script>
+  </body>
+</html>
