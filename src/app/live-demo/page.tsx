@@ -95,11 +95,21 @@ export default function LiveDemoPage() {
   const speak = useCallback(
     (text: string) => {
       if (!text) return;
+      // 이전에 깔린 브라우저 폴백 음성이 있으면 즉시 중단 (이중 재생 방지)
+      if (typeof window !== "undefined" && window.speechSynthesis)
+        window.speechSynthesis.cancel();
+
       const url = `/api/live/tts?text=${encodeURIComponent(text)}&voice=female`;
       try {
         if (!audioRef.current) audioRef.current = new Audio();
-        audioRef.current.src = url;
-        audioRef.current.play().catch(() => fallbackSpeak(text));
+        const a = audioRef.current;
+        a.pause();
+        // 폴백은 '진짜 로드 실패(onerror)'일 때만. play() promise의 일시적 reject로는 폴백하지 않음
+        a.onerror = () => fallbackSpeak(text);
+        a.src = url;
+        a.play().catch(() => {
+          /* autoplay 정책 등 일시적 거부는 무시 — 실제 실패는 onerror가 처리 */
+        });
       } catch {
         fallbackSpeak(text);
       }
