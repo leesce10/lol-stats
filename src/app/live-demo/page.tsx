@@ -75,23 +75,37 @@ export default function LiveDemoPage() {
   const [data, setData] = useState<AnalysisResponse | null>(null);
   const [status, setStatus] = useState("조합 분석 중…");
   const lastTts = useRef("");
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const speak = useCallback((text: string) => {
-    if (!text || typeof window === "undefined" || !window.speechSynthesis) return;
+  // 브라우저 기본 음성 (성우 TTS 재생 실패 시 폴백)
+  const fallbackSpeak = useCallback((text: string) => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
     try {
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = "ko-KR";
       u.rate = 1.05;
-      const ko = window.speechSynthesis
-        .getVoices()
-        .find((v) => v.lang.startsWith("ko"));
-      if (ko) u.voice = ko;
       window.speechSynthesis.speak(u);
     } catch {
       /* ignore */
     }
   }, []);
+
+  // 서버의 성우급 TTS(mp3) 재생
+  const speak = useCallback(
+    (text: string) => {
+      if (!text) return;
+      const url = `/api/live/tts?text=${encodeURIComponent(text)}&voice=female`;
+      try {
+        if (!audioRef.current) audioRef.current = new Audio();
+        audioRef.current.src = url;
+        audioRef.current.play().catch(() => fallbackSpeak(text));
+      } catch {
+        fallbackSpeak(text);
+      }
+    },
+    [fallbackSpeak]
+  );
 
   const run = useCallback(
     async (idx: number, withVoice: boolean) => {
