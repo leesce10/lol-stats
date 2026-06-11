@@ -148,9 +148,10 @@
         if (d.id === "respawn-add" && d.content) addTimer(d.content);
       });
 
-      // 브라우저 미리보기 (투명이라 어두운 배경 깔아 보이게)
-      if (location.search.includes("demo")) {
+      // bg=단독 미리보기용 어두운 배경 / demo=샘플 데이터 (임베드 시엔 demo만 → 투명)
+      if (location.search.includes("bg"))
         document.body.style.background = "#2b2f3a";
+      if (location.search.includes("demo")) {
         addTimer({ championKey: "Fiora", name: "demo1", totalSec: 48 });
       }
     </script>

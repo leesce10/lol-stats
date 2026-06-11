@@ -124,13 +124,17 @@
         if (d.id === "new-item" && d.content) showToast(d.content);
       });
 
-      if (location.search.includes("demo")) {
+      if (location.search.includes("bg"))
         document.body.style.background = "#2b2f3a";
-        showToast({
-          championKey: "Zed",
-          itemName: "존야의 모래시계",
-          itemID: 3157,
-        });
+      if (location.search.includes("demo")) {
+        const fire = () =>
+          showToast({
+            championKey: "Zed",
+            itemName: "존야의 모래시계",
+            itemID: 3157,
+          });
+        fire();
+        setInterval(fire, 6000); // 미리보기에서 계속 보이게 반복
       }
     </script>
   </body>

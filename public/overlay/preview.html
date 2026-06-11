@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>오버레이 미리보기 (게임 화면 위)</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #05070c;
+        overflow: hidden;
+      }
+      /* 1920x1080 가상 게임 화면을 만들고 뷰포트에 맞춰 축소 */
+      #stage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1920px;
+        height: 1080px;
+        transform-origin: top left;
+        background:
+          url("https://ddragon.leagueoflegends.com/cdn/15.7.1/img/map/map11.png")
+          center / cover no-repeat;
+      }
+      #stage iframe {
+        position: absolute;
+        border: 0;
+        background: transparent;
+      }
+      .hud-note {
+        position: absolute;
+        left: 50%;
+        bottom: 18px;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.5);
+        font: 13px "Malgun Gothic", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <!-- 인게임 창 위치/크기와 동일하게 배치 (1920x1080 기준) -->
+      <iframe
+        src="/overlay/respawn.html?demo"
+        style="left: 8px; top: 120px; width: 120px; height: 460px"
+      ></iframe>
+      <iframe
+        src="/overlay/fight.html?demo"
+        style="left: 150px; top: 110px; width: 220px; height: 460px"
+      ></iframe>
+      <iframe
+        src="/overlay/item.html?demo"
+        style="left: 730px; top: 520px; width: 460px; height: 200px"
+      ></iframe>
+      <div class="hud-note">
+        ↑ 좌측: 적 복귀(빨강) · 오브젝트 교전(금색) / 중앙 하단: 적 아이템 구매
+      </div>
+    </div>
+    <script>
+      const stage = document.getElementById("stage");
+      function fit() {
+        const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+        stage.style.transform = "scale(" + s + ")";
+      }
+      addEventListener("resize", fit);
+      fit();
+    </script>
+  </body>
+</html>

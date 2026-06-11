@@ -186,8 +186,9 @@
         if (d.id === "fight-update" && d.content) update(d.content);
       });
 
-      if (location.search.includes("demo")) {
+      if (location.search.includes("bg"))
         document.body.style.background = "#2b2f3a";
+      if (location.search.includes("demo")) {
         update({
           key: "baron",
           objective: "바론",
