@@ -147,7 +147,7 @@ function ItemTimingDemo() {
         {/* 세로 트랙 */}
         <div className="relative w-14 h-56 rounded-lg bg-black/40 border border-white/10">
           <div
-            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
+            className="absolute left-0 right-0 flex flex-col items-center"
             style={{ top: `calc(${topPct}% - 22px)` }}
           >
             <img
