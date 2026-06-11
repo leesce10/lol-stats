@@ -70,6 +70,131 @@ const EDGE_LABEL: Record<string, string> = {
   even: "조합 호각",
 };
 
+const DDV = "15.7.1";
+
+interface Timing {
+  ok: boolean;
+  incomePerSec: number;
+  target: {
+    itemId: number;
+    name: string;
+    image: string;
+    totalCost: number;
+    investedValue: number;
+    remainingCost: number;
+  } | null;
+  secondsToAfford: number;
+}
+
+// 다음 코어 완성 예상 — 아이콘이 남은 초와 함께 내려오는 시각화 (내 기준)
+function ItemTimingDemo() {
+  const [t, setT] = useState<Timing | null>(null);
+  const [simGold, setSimGold] = useState(0);
+  const [maxSec, setMaxSec] = useState(1);
+
+  // 프리셋: 몰왕검(3153) 빌드 중, 13분, 현재 1600골드, CS 150
+  useEffect(() => {
+    fetch("/api/live/item-timing", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        gameTime: 780,
+        currentGold: 1600,
+        creepScore: 150,
+        items: [1053, 1037],
+        targetItemId: 3153,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data: Timing) => {
+        setT(data);
+        setSimGold(1600);
+        setMaxSec(Math.max(1, data.secondsToAfford));
+      })
+      .catch(() => {});
+  }, []);
+
+  // 1초마다 골드 누적 → 아이콘 내려오고 숫자 감소
+  useEffect(() => {
+    if (!t?.target) return;
+    const id = setInterval(() => {
+      setSimGold((g) => {
+        if (g >= t.target!.remainingCost) return g;
+        return g + t.incomePerSec;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [t]);
+
+  if (!t?.target) return null;
+
+  const remaining = t.target.remainingCost;
+  const secLeft = Math.max(0, Math.ceil((remaining - simGold) / t.incomePerSec));
+  const affordable = simGold >= remaining;
+  // 위(멀었음) → 아래(0s)로 이동
+  const topPct = Math.min(100, Math.max(0, (1 - secLeft / maxSec) * 100));
+
+  return (
+    <div className="mt-6">
+      <h2 className="text-sm font-bold mb-1">다음 코어 완성 예상</h2>
+      <p className="text-[11px] text-slate-400 mb-3">
+        내 골드 + 수급속도로 <b>{t.target.name}</b> 완성까지 남은 시간. 아이콘이
+        0s까지 내려오면 살 수 있는 골드 확보. (수급 {t.incomePerSec}g/s)
+      </p>
+      <div className="flex gap-4">
+        {/* 세로 트랙 */}
+        <div className="relative w-14 h-56 rounded-lg bg-black/40 border border-white/10">
+          <div
+            className="absolute left-1/2 -translate-x-1/2 transition-all duration-700 ease-linear flex flex-col items-center"
+            style={{ top: `calc(${topPct}% - 22px)` }}
+          >
+            <img
+              src={`https://ddragon.leagueoflegends.com/cdn/${DDV}/img/item/${t.target.image}`}
+              alt={t.target.name}
+              width={40}
+              height={40}
+              className={`rounded-md border ${
+                affordable ? "border-emerald-400" : "border-amber-400/60"
+              }`}
+            />
+            <span
+              className={`mt-1 text-xs font-bold px-1.5 rounded ${
+                affordable
+                  ? "bg-emerald-500/30 text-emerald-100"
+                  : "bg-black/70 text-amber-200"
+              }`}
+            >
+              {affordable ? "구매가능" : `${secLeft}s`}
+            </span>
+          </div>
+          {/* 0s 바닥 라인 */}
+          <div className="absolute bottom-1 left-0 right-0 text-center text-[9px] text-slate-500">
+            0s
+          </div>
+        </div>
+
+        <div className="flex-1 text-[12.5px] text-slate-300 self-center space-y-1">
+          <div>
+            총 비용 <b>{t.target.totalCost}</b> · 보유분{" "}
+            <b>{t.target.investedValue}</b>
+          </div>
+          <div>
+            남은 비용 <b className="text-amber-300">{remaining}</b>
+          </div>
+          <div>
+            현재 골드(시뮬) <b>{Math.floor(simGold)}</b>
+          </div>
+          {affordable && (
+            <div className="text-emerald-300 font-bold">
+              지금 {t.target.name} 구매 가능!
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LiveDemoPage() {
   const [presetIdx, setPresetIdx] = useState(0);
   const [voice, setVoice] = useState("hyunsu");
@@ -293,14 +418,14 @@ export default function LiveDemoPage() {
               적
             </span>
             <img
-              src="https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Zed.png"
+              src="https://ddragon.leagueoflegends.com/cdn/15.7.1/img/champion/Zed.png"
               alt="champion"
               width={36}
               height={36}
               className="rounded-full border border-white/25"
             />
             <img
-              src="https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/3157.png"
+              src="https://ddragon.leagueoflegends.com/cdn/15.7.1/img/item/3157.png"
               alt="item"
               width={36}
               height={36}
@@ -311,6 +436,8 @@ export default function LiveDemoPage() {
             </span>
           </div>
         </div>
+
+        <ItemTimingDemo />
       </div>
     </main>
   );
