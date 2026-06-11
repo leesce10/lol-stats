@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     "밴픽 단계에서 승리 전략을 제시합니다. 맞라인 실전 가이드, 팀 조합 분석, 시간대별 운영 지침까지.",
 };
 
+const OVERLAY_DOWNLOAD_URL = process.env.NEXT_PUBLIC_OVERLAY_DOWNLOAD_URL || "";
+
 export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -43,6 +45,55 @@ export default function Home() {
           >
             👥 팀 조합 분석
           </Link>
+        </div>
+      </section>
+
+      {/* 인게임 오버레이 베타 다운로드 */}
+      <section className="py-8">
+        <div className="rounded-2xl border border-[var(--accent-blue)]/40 bg-gradient-to-br from-blue-500/10 to-purple-600/10 p-6 sm:p-8">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-2 rounded-full bg-[var(--accent-blue)]/20 px-2.5 py-0.5 text-xs font-bold text-[var(--accent-blue)] mb-3">
+                BETA · PC 앱
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                🖥️ 인게임 오버레이 (베타 테스트)
+              </h2>
+              <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
+                게임 화면 위에 실시간 정보 — <b className="text-[var(--text-primary)]">조합 브리핑(음성)</b>,
+                적 아이템 구매 알림, 코어 완성 예상, 적 복귀 타이머, 오브젝트 교전 분석.
+              </p>
+              <p className="mt-2 text-xs text-[var(--text-muted)]">
+                Windows 전용 · Overwolf 필요 · 현재 비공개 베타
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2 sm:w-56 shrink-0">
+              {OVERLAY_DOWNLOAD_URL ? (
+                <a
+                  href={OVERLAY_DOWNLOAD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 px-6 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+                >
+                  ⬇️ 다운로드 (Windows)
+                </a>
+              ) : (
+                <span
+                  aria-disabled
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)] px-6 py-3.5 text-sm sm:text-base font-bold text-[var(--text-muted)] cursor-not-allowed"
+                >
+                  ⏳ 다운로드 준비 중
+                </span>
+              )}
+              <Link
+                href="/live-demo"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] px-6 py-3 text-sm font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition-colors"
+              >
+                🔊 브라우저에서 미리 체험
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
