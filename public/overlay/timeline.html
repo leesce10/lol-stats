@@ -2,8 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>timeline overlay</title>
+    <title>timeline</title>
     <style>
       html,
       body {
@@ -14,7 +13,6 @@
         overflow: hidden;
         font-family: "Pretendard", "Malgun Gothic", sans-serif;
         -webkit-user-select: none;
-        user-select: none;
       }
       #track {
         position: relative;
@@ -50,7 +48,6 @@
       .node-bot {
         top: calc(100% - 14px);
       }
-      /* 적 복귀 (원형, 빨강) */
       .r-entry {
         position: absolute;
         left: 60px;
@@ -85,7 +82,6 @@
       .r-entry.back .sec {
         color: #bbf7d0;
       }
-      /* 오브젝트 교전 (사각 초상화 + 이름 + 판정) */
       .f-marker {
         position: absolute;
         left: 60px;
@@ -116,8 +112,8 @@
       }
       .verdict {
         position: absolute;
-        left: 54px; /* 아이콘 오른쪽에 배치 */
-        top: 23px; /* 아이콘 세로 중앙 */
+        left: 54px;
+        top: 23px;
         transform: translateY(-50%);
         white-space: nowrap;
         font-size: 12px;
@@ -181,12 +177,8 @@
       };
       const FIGHT_WINDOW = 60;
       const track = document.getElementById("track");
+      const posFor = (prog, h) => 14 + Math.max(0, Math.min(1, prog)) * (h - 28);
 
-      function posFor(prog, h) {
-        return 14 + Math.max(0, Math.min(1, prog)) * (h - 28);
-      }
-
-      // 적 복귀 타이머
       const timers = new Map();
       function addRespawn({ championKey, name, totalSec }) {
         const id = "r:" + (name || championKey);
@@ -210,10 +202,9 @@
         t.endAt = now + totalSec * 1000;
       }
 
-      // 오브젝트 교전
-      let fight = null;
-      let fHideAt = 0;
-      let fEl = null;
+      let fight = null,
+        fHideAt = 0,
+        fEl = null;
       function ensureFightEl() {
         if (fEl) return fEl;
         fEl = document.createElement("div");
@@ -264,22 +255,34 @@
       }
       requestAnimationFrame(render);
 
-      window.addEventListener("message", (e) => {
-        const d = e.data || {};
-        if (d.id === "respawn-add" && d.content) addRespawn(d.content);
-        else if (d.id === "fight-update" && d.content) updateFight(d.content);
-      });
+      function handle(id, content) {
+        if (!content) return;
+        if (id === "respawn-add") addRespawn(content);
+        else if (id === "fight-update") updateFight(content);
+      }
 
-      if (location.search.includes("bg"))
-        document.body.style.background = "#2b2f3a";
-      if (location.search.includes("demo")) {
-        addRespawn({ championKey: "Vayne", name: "v", totalSec: 36 });
-        updateFight({
-          key: "baron",
-          objective: "바론",
-          verdict: "매우 유리",
-          secondsTo: 50,
+      // 네이티브 Overwolf 창: background가 보내는 메시지 직접 수신
+      if (typeof overwolf !== "undefined") {
+        overwolf.windows.onMessageReceived.addListener((msg) =>
+          handle(msg.id, msg.content)
+        );
+      } else {
+        // 브라우저 미리보기
+        window.addEventListener("message", (e) => {
+          const d = e.data || {};
+          handle(d.id, d.content);
         });
+        if (location.search.includes("bg"))
+          document.body.style.background = "#2b2f3a";
+        if (location.search.includes("demo")) {
+          addRespawn({ championKey: "Vayne", name: "v", totalSec: 36 });
+          updateFight({
+            key: "baron",
+            objective: "바론",
+            verdict: "매우 유리",
+            secondsTo: 50,
+          });
+        }
       }
     </script>
   </body>
