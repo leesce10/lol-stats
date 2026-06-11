@@ -30,13 +30,14 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 8px 12px;
-        border-radius: 10px;
-        background: rgba(10, 12, 18, 0.82);
-        border: 1px solid rgba(120, 170, 255, 0.35);
-        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+        padding: 2px 0;
         color: #eef2ff;
+        /* 검정 배경 없이 내용만. 게임 위에서도 보이게 그림자 */
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9));
         animation: in 0.18s ease-out, out 0.4s ease-in 4.6s forwards;
+      }
+      .toast .text {
+        text-shadow: 0 1px 3px #000, 0 0 4px #000;
       }
       .enemy-badge {
         flex: 0 0 auto;

@@ -23,7 +23,7 @@
       }
       .rail {
         position: absolute;
-        left: 45px;
+        left: 60px;
         top: 14px;
         bottom: 14px;
         width: 2px;
@@ -37,7 +37,7 @@
       }
       .node {
         position: absolute;
-        left: 45px;
+        left: 60px;
         width: 9px;
         height: 9px;
         background: #caa14a;
@@ -53,7 +53,7 @@
       /* 적 복귀 (원형, 빨강) */
       .r-entry {
         position: absolute;
-        left: 45px;
+        left: 60px;
         transform: translateX(-50%);
         display: flex;
         flex-direction: column;
@@ -88,19 +88,15 @@
       /* 오브젝트 교전 (사각 초상화 + 이름 + 판정) */
       .f-marker {
         position: absolute;
-        left: 45px;
+        left: 60px;
         transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 48px;
       }
       .f-marker.hidden {
         display: none;
-      }
-      .f-marker .box {
-        display: flex;
-        align-items: center;
-        gap: 8px;
       }
       .f-marker img {
         width: 46px;
@@ -119,6 +115,10 @@
         text-shadow: 0 1px 3px #000;
       }
       .verdict {
+        position: absolute;
+        left: 54px; /* 아이콘 오른쪽에 배치 */
+        top: 23px; /* 아이콘 세로 중앙 */
+        transform: translateY(-50%);
         white-space: nowrap;
         font-size: 12px;
         font-weight: 800;
@@ -219,7 +219,7 @@
         fEl = document.createElement("div");
         fEl.className = "f-marker";
         fEl.innerHTML =
-          '<div class="box"><img class="fimg" alt="" /><span class="verdict"></span></div><div class="f-name"></div>';
+          '<img class="fimg" alt="" /><span class="verdict"></span><div class="f-name"></div>';
         track.appendChild(fEl);
         return fEl;
       }
