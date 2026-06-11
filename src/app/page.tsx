@@ -8,6 +8,8 @@ export const metadata: Metadata = {
 };
 
 const OVERLAY_DOWNLOAD_URL = process.env.NEXT_PUBLIC_OVERLAY_DOWNLOAD_URL || "";
+const OVERLAY_ZIP_URL =
+  "https://github.com/leesce10/lol-overlay/archive/refs/heads/master.zip";
 
 export default function Home() {
   return (
@@ -68,24 +70,15 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 sm:w-56 shrink-0">
-              {OVERLAY_DOWNLOAD_URL ? (
-                <a
-                  href={OVERLAY_DOWNLOAD_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 px-6 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
-                >
-                  ⬇️ 다운로드 (Windows)
-                </a>
-              ) : (
-                <span
-                  aria-disabled
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-tertiary)] px-6 py-3.5 text-sm sm:text-base font-bold text-[var(--text-muted)] cursor-not-allowed"
-                >
-                  ⏳ 다운로드 준비 중
-                </span>
-              )}
+            <div className="flex flex-col gap-2 sm:w-60 shrink-0">
+              <a
+                href={OVERLAY_DOWNLOAD_URL || OVERLAY_ZIP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 px-6 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
+              >
+                {OVERLAY_DOWNLOAD_URL ? "⬇️ 다운로드 (원클릭 설치)" : "⬇️ 베타 다운로드 (ZIP)"}
+              </a>
               <Link
                 href="/live-demo"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] px-6 py-3 text-sm font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition-colors"
@@ -94,6 +87,47 @@ export default function Home() {
               </Link>
             </div>
           </div>
+
+          {/* 수동 설치 가이드 (Overwolf 원클릭 링크 나오기 전) */}
+          {!OVERLAY_DOWNLOAD_URL && (
+            <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-sm font-bold text-[var(--text-primary)]">
+                  설치 방법 (베타 · 수동 설치)
+                </span>
+                <span className="text-[10px] font-bold text-amber-300 bg-amber-500/15 rounded px-1.5 py-0.5">
+                  Windows 전용
+                </span>
+              </div>
+              <ol className="space-y-2 text-sm text-[var(--text-secondary)] list-decimal pl-5 leading-relaxed">
+                <li>
+                  <a
+                    href="https://www.overwolf.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--accent-blue)] underline"
+                  >
+                    Overwolf
+                  </a>
+                  를 설치합니다.
+                </li>
+                <li>
+                  위 <b className="text-[var(--text-primary)]">베타 다운로드(ZIP)</b> 를 받아 압축을 풉니다.
+                </li>
+                <li>
+                  Overwolf 트레이 아이콘 우클릭 → <b className="text-[var(--text-primary)]">Settings</b> →{" "}
+                  <b className="text-[var(--text-primary)]">Development</b> 탭 →{" "}
+                  <b className="text-[var(--text-primary)]">&quot;Load unpacked extension&quot;</b> → 압축 푼{" "}
+                  <code className="text-xs bg-[var(--bg-tertiary)] px-1 rounded">lol-overlay</code> 폴더 선택
+                </li>
+                <li>리그 오브 레전드를 시작하면 오버레이가 표시됩니다.</li>
+              </ol>
+              <p className="mt-3 text-[11px] text-[var(--text-muted)]">
+                ⚠️ 비공개 베타입니다 — 일부 기능이 아직 동작하지 않거나 다듬어지는 중일 수 있어요.
+                문제가 있으면 피드백 부탁드립니다. (정식 원클릭 설치는 준비 중)
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
