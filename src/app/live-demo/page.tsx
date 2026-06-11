@@ -72,6 +72,7 @@ const EDGE_LABEL: Record<string, string> = {
 
 export default function LiveDemoPage() {
   const [presetIdx, setPresetIdx] = useState(0);
+  const [voice, setVoice] = useState("female");
   const [data, setData] = useState<AnalysisResponse | null>(null);
   const [status, setStatus] = useState("조합 분석 중…");
   const lastTts = useRef("");
@@ -99,7 +100,7 @@ export default function LiveDemoPage() {
       if (typeof window !== "undefined" && window.speechSynthesis)
         window.speechSynthesis.cancel();
 
-      const url = `/api/live/tts?text=${encodeURIComponent(text)}&voice=female`;
+      const url = `/api/live/tts?text=${encodeURIComponent(text)}&voice=${voice}`;
       try {
         if (!audioRef.current) audioRef.current = new Audio();
         const a = audioRef.current;
@@ -114,7 +115,7 @@ export default function LiveDemoPage() {
         fallbackSpeak(text);
       }
     },
-    [fallbackSpeak]
+    [fallbackSpeak, voice]
   );
 
   const run = useCallback(
@@ -156,7 +157,7 @@ export default function LiveDemoPage() {
           폼/팀운은 추정(mock)이라 음성으로 읽지 않습니다.
         </p>
 
-        <div className="flex gap-2 mb-4 flex-wrap">
+        <div className="flex gap-2 mb-3 flex-wrap">
           {PRESETS.map((p, i) => (
             <button
               key={i}
@@ -168,6 +169,38 @@ export default function LiveDemoPage() {
               }`}
             >
               {p.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <span className="text-xs text-slate-400">음성</span>
+          {[
+            { key: "female", label: "여성(SunHi)" },
+            { key: "male", label: "남성(InJoon)" },
+            { key: "hyunsu", label: "남성·자연(Hyunsu)" },
+          ].map((v) => (
+            <button
+              key={v.key}
+              onClick={() => {
+                setVoice(v.key);
+                if (lastTts.current) {
+                  const url = `/api/live/tts?text=${encodeURIComponent(
+                    lastTts.current
+                  )}&voice=${v.key}`;
+                  if (!audioRef.current) audioRef.current = new Audio();
+                  audioRef.current.pause();
+                  audioRef.current.src = url;
+                  audioRef.current.play().catch(() => {});
+                }
+              }}
+              className={`px-2.5 py-1 rounded-lg text-xs border ${
+                v.key === voice
+                  ? "bg-emerald-500/25 border-emerald-400/50 text-emerald-100"
+                  : "border-white/10 text-slate-300 hover:bg-white/5"
+              }`}
+            >
+              {v.label}
             </button>
           ))}
         </div>
