@@ -6,6 +6,12 @@
 import { loadItems } from "./item-timing";
 
 const TRAVEL = 12; // 부활 후 오브젝트까지 이동(추정, 초)
+const SETUP_MARGIN = 8; // 도착 후 자리잡는 데 필요한 여유(초). 이보다 빠듯하면 반쪽 전력
+
+// 판정 가중치 — 실게임 데이터로 보정 예정(현재는 추정값)
+const W_NUMBERS = 3; // 수적 우위(가장 지배적)
+const W_LEVEL = 0.8; // 평균 레벨 차
+const W_GOLD = 1 / 1500; // 아이템 골드 차
 
 function respawnSeconds(level: number, gameSec: number): number {
   const BRW = [
@@ -80,8 +86,12 @@ export async function analyzeFight(input: FightInput): Promise<FightAnalysis> {
         (p.respawnTimer && p.respawnTimer > 0
           ? p.respawnTimer
           : respawnSeconds(p.level, input.gameTime)) + TRAVEL;
-      if (backIn <= input.secondsToObjective) effective++;
-      else lateReturns++;
+      const margin = input.secondsToObjective - backIn;
+      if (margin >= SETUP_MARGIN)
+        effective++; // 여유 있게 도착
+      else if (margin >= 0)
+        effective += 0.5; // 가까스로 도착 → 반쪽 전력
+      else lateReturns++; // 제시간에 못 옴
     }
     return {
       members: ps.length,
@@ -102,7 +112,7 @@ export async function analyzeFight(input: FightInput): Promise<FightAnalysis> {
 
   // 수적 우위가 가장 지배적, 그다음 레벨, 골드
   const score =
-    numbersDiff * 3 + avgLevelDiff * 0.8 + goldDiff / 1500;
+    numbersDiff * W_NUMBERS + avgLevelDiff * W_LEVEL + goldDiff * W_GOLD;
 
   const verdict: Verdict =
     score >= 3
