@@ -40,20 +40,18 @@
   <body>
     <div id="stage">
       <!-- 인게임 창 위치/크기와 동일하게 배치 (1920x1080 기준) -->
+      <!-- 좌측: 적 복귀 + 오브젝트 교전을 하나의 세로선에 통합 -->
       <iframe
-        src="/overlay/respawn.html?demo"
-        style="left: 8px; top: 120px; width: 120px; height: 460px"
+        src="/overlay/timeline.html?demo"
+        style="left: 8px; top: 90px; width: 240px; height: 600px"
       ></iframe>
-      <iframe
-        src="/overlay/fight.html?demo"
-        style="left: 150px; top: 110px; width: 220px; height: 460px"
-      ></iframe>
+      <!-- 중앙 하단(스킬창 조금 위): 적 아이템 구매 -->
       <iframe
         src="/overlay/item.html?demo"
-        style="left: 730px; top: 520px; width: 460px; height: 200px"
+        style="left: 730px; top: 700px; width: 460px; height: 200px"
       ></iframe>
       <div class="hud-note">
-        ↑ 좌측: 적 복귀(빨강) · 오브젝트 교전(금색) / 중앙 하단: 적 아이템 구매
+        ↑ 좌측 한 줄: 적 복귀(빨강) + 오브젝트 교전(금색) 통합 / 중앙 하단: 적 아이템
       </div>
     </div>
     <script>
