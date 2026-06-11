@@ -197,12 +197,24 @@ function makeGamePlan(
   return plan.slice(0, 4);
 }
 
+// 한글 받침 유무로 조사 선택 (이/가, 은/는 등)
+function josa(word: string, withBatchim: string, withoutBatchim: string): string {
+  const last = word.charCodeAt(word.length - 1);
+  if (last < 0xac00 || last > 0xd7a3) return withoutBatchim; // 한글 아니면 받침 없음 취급
+  const hasBatchim = (last - 0xac00) % 28 !== 0;
+  return hasBatchim ? withBatchim : withoutBatchim;
+}
+
 function buildTts(b: Omit<CompBriefing, "tts">): string {
   const parts: string[] = ["게임 브리핑입니다."];
-  if (b.ourStrengths.length)
-    parts.push(`우리 조합은 ${b.ourStrengths.slice(0, 2).join(", ")}이 강점입니다.`);
-  if (b.theirStrengths.length)
-    parts.push(`상대는 ${b.theirStrengths.slice(0, 1).join("")}이 강하니 주의하세요.`);
+  if (b.ourStrengths.length) {
+    const s = b.ourStrengths.slice(0, 2);
+    parts.push(`우리 조합은 ${s.join(", ")}${josa(s[s.length - 1], "이", "가")} 강점입니다.`);
+  }
+  if (b.theirStrengths.length) {
+    const t = b.theirStrengths[0];
+    parts.push(`상대는 ${t}${josa(t, "이", "가")} 강하니 주의하세요.`);
+  }
   if (b.gamePlan.length) parts.push(`핵심 플랜. ${b.gamePlan.slice(0, 2).join(". ")}.`);
   const edgeKo =
     b.compEdge === "ahead"
