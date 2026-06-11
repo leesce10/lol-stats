@@ -197,6 +197,101 @@ function ItemTimingDemo() {
   );
 }
 
+// 부활 대기시간(초) = 레벨별 기본값 BRW × (1 + 시간증가계수). 레벨·게임시간은 화면에 보이는 값.
+function respawnSeconds(level: number, gameSec: number): number {
+  const BRW = [
+    10, 10, 12, 12, 14, 16, 20, 25, 28.5, 32.5, 35, 37.5, 40, 42.5, 45, 47.5,
+    50, 52.5,
+  ];
+  const lvl = Math.max(1, Math.min(18, Math.round(level)));
+  const brw = BRW[lvl - 1];
+  const min = gameSec / 60;
+  // 15분부터 분당 약 2%씩 증가(최대 +50%) — 추정
+  const tif = min > 15 ? Math.min(0.5, (min - 15) * 0.02) : 0;
+  return brw * (1 + tif);
+}
+
+// 적 처치 후 좌측 타임라인: 챔피언 아이콘이 남은 복귀 시간과 함께 내려옴
+function RespawnTimelineDemo() {
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    let raf = 0;
+    let start: number | null = null;
+    const loop = (ts: number) => {
+      if (start === null) start = ts;
+      setElapsed((ts - start) / 1000);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // 시나리오: 피오라(레벨 11) 처치, 약 16분. 부활 + 라인 복귀 이동(약 12초) = 복귀 예상
+  const champ = "Fiora";
+  const total = Math.round(respawnSeconds(11, 1000)) + 12;
+  const e = elapsed % (total + 3); // 0s 후 3초 멈췄다 반복
+  const remaining = Math.max(0, Math.ceil(total - e));
+  const back = remaining <= 0;
+  const topPct = Math.min(100, (Math.min(e, total) / total) * 100);
+
+  return (
+    <div className="mt-6">
+      <h2 className="text-sm font-bold mb-1">적 처치 후 복귀 타이머</h2>
+      <p className="text-[11px] text-slate-400 mb-3">
+        적 라이너를 처치하면 좌측 타임라인에 챔피언 아이콘 + 남은 복귀 예상
+        시간이 내려옵니다. 무리한 푸시로 손해 보는 걸 줄이는 용도. (레벨·게임시간
+        기반 계산)
+      </p>
+      <div className="flex gap-4">
+        <div className="relative w-14 h-64 rounded-lg bg-black/40 border border-white/10">
+          <div
+            className="absolute left-0 right-0 flex flex-col items-center"
+            style={{ top: `calc(${topPct}% - 24px)` }}
+          >
+            <img
+              src={`https://ddragon.leagueoflegends.com/cdn/${DDV}/img/champion/${champ}.png`}
+              alt={champ}
+              style={{ width: 44, height: 44, maxWidth: "none", flexShrink: 0 }}
+              className={`rounded-full border-2 ${
+                back ? "border-emerald-400" : "border-rose-500/70"
+              }`}
+            />
+            <span
+              style={{ minWidth: 52, textAlign: "center", whiteSpace: "nowrap" }}
+              className={`mt-1 text-xs font-bold px-1.5 rounded ${
+                back
+                  ? "bg-emerald-500/30 text-emerald-100"
+                  : "bg-black/70 text-rose-200"
+              }`}
+            >
+              {back ? "복귀" : `${remaining}s`}
+            </span>
+          </div>
+          <div className="absolute bottom-1 left-0 right-0 text-center text-[9px] text-slate-500">
+            복귀
+          </div>
+        </div>
+
+        <div className="flex-1 text-[12.5px] text-slate-300 self-center space-y-1">
+          <div>
+            처치 대상 <b>피오라</b> (레벨 11)
+          </div>
+          <div>
+            복귀 예상 <b className="text-rose-300">{total}초</b>
+          </div>
+          <div className="text-[11px] text-slate-400">
+            = 부활 대기 + 라인 복귀 이동(추정)
+          </div>
+          {back && (
+            <div className="text-emerald-300 font-bold">복귀 — 라인 압박 주의</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LiveDemoPage() {
   const [presetIdx, setPresetIdx] = useState(0);
   const [voice, setVoice] = useState("hyunsu");
@@ -440,6 +535,8 @@ export default function LiveDemoPage() {
         </div>
 
         <ItemTimingDemo />
+
+        <RespawnTimelineDemo />
       </div>
     </main>
   );
