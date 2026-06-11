@@ -280,6 +280,32 @@ export default function LiveDemoPage() {
           소리가 안 나면 🔊 버튼을 누르세요 (브라우저가 클릭 없는 자동 음성을
           막습니다).
         </p>
+
+        {/* 인게임 '적 아이템 구매' 알림 미리보기 (모양 확인용) */}
+        <div className="mt-6">
+          <h2 className="text-sm font-bold mb-1">인게임 알림 미리보기</h2>
+          <p className="text-[11px] text-slate-400 mb-2">
+            적이 시야에 보였을 때 새로 산 아이템을 이렇게 띄웁니다. (실제로는
+            게임 화면 위 오버레이로 표시)
+          </p>
+          <div className="inline-flex items-center gap-2.5 px-3 py-2 rounded-xl bg-black/70 border border-blue-400/30 shadow-lg">
+            <span className="text-xs font-bold text-white bg-[#c0392b] rounded-md px-1.5 py-0.5">
+              적
+            </span>
+            <img
+              src="https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/3157.png"
+              alt="item"
+              width={36}
+              height={36}
+              className="rounded-md"
+            />
+            <span className="text-[13px] leading-tight">
+              <b>제드</b> 구매
+              <br />
+              존야의 모래시계
+            </span>
+          </div>
+        </div>
       </div>
     </main>
   );
