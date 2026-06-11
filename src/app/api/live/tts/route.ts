@@ -15,7 +15,7 @@ const VOICES: Record<string, string> = {
   male: "ko-KR-InJoonNeural", // 남성
   hyunsu: "ko-KR-HyunsuMultilingualNeural", // 남성, 멀티스타일
 };
-const DEFAULT_VOICE = "hyunsu"; // 멀티링구얼 — 가장 자연스러움
+const DEFAULT_VOICE = "female"; // ko-KR-SunHi (여성)
 
 const CORS = { "Access-Control-Allow-Origin": "*" };
 
