@@ -293,6 +293,13 @@ export default function LiveDemoPage() {
               적
             </span>
             <img
+              src="https://ddragon.leagueoflegends.com/cdn/15.1.1/img/champion/Zed.png"
+              alt="champion"
+              width={36}
+              height={36}
+              className="rounded-full border border-white/25"
+            />
+            <img
               src="https://ddragon.leagueoflegends.com/cdn/15.1.1/img/item/3157.png"
               alt="item"
               width={36}
@@ -300,9 +307,7 @@ export default function LiveDemoPage() {
               className="rounded-md"
             />
             <span className="text-[13px] leading-tight">
-              <b>제드</b> 구매
-              <br />
-              존야의 모래시계
+              <b>존야의 모래시계</b> 구매
             </span>
           </div>
         </div>
