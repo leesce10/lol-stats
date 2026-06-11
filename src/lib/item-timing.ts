@@ -16,7 +16,7 @@ interface DDItem {
 let ITEMS: Record<string, DDItem> | null = null;
 const treeCache = new Map<string, Set<string>>();
 
-async function loadItems(): Promise<Record<string, DDItem>> {
+export async function loadItems(): Promise<Record<string, DDItem>> {
   if (ITEMS) return ITEMS;
   const res = await fetch(
     `https://ddragon.leagueoflegends.com/cdn/${DDRAGON_VERSION}/data/ko_KR/item.json`,

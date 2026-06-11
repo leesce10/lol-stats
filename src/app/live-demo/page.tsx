@@ -295,6 +295,130 @@ function RespawnTimelineDemo() {
   );
 }
 
+interface FightResult {
+  verdict: string;
+  score: number;
+  reason: string;
+  objective: string;
+  secondsToObjective: number;
+  my: { effective: number };
+  enemy: { effective: number };
+}
+
+const VERDICT_STYLE: Record<string, string> = {
+  "매우 유리": "bg-emerald-500/30 text-emerald-100 border-emerald-400",
+  유리: "bg-green-500/25 text-green-100 border-green-400/60",
+  호각: "bg-white/10 text-slate-200 border-white/20",
+  불리: "bg-amber-500/25 text-amber-100 border-amber-400/60",
+  "매우 불리": "bg-rose-500/30 text-rose-100 border-rose-400",
+};
+
+// 오브젝트 교전 분석: 스폰 60초 전부터 좌측 타임라인에 오브젝트 + 판정
+function ObjectiveFightDemo() {
+  const [a, setA] = useState<FightResult | null>(null);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/live/fight-analysis", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        secondsToObjective: 60,
+        gameTime: 1500,
+        myTeamId: 100,
+        objective: "드래곤",
+        players: [
+          { teamId: 100, level: 13, items: [3153, 3006] },
+          { teamId: 100, level: 13, items: [6692] },
+          { teamId: 100, level: 12, items: [3157] },
+          { teamId: 100, level: 13, items: [3031] },
+          { teamId: 100, level: 12, items: [3850] },
+          { teamId: 200, level: 12, items: [3153] },
+          { teamId: 200, level: 12, items: [6692] },
+          { teamId: 200, level: 11, items: [3157] },
+          { teamId: 200, level: 12, items: [3031] },
+          { teamId: 200, level: 11, items: [3850], isDead: true, respawnTimer: 55 },
+        ],
+      }),
+    })
+      .then((r) => r.json())
+      .then(setA)
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!a) return;
+    let raf = 0;
+    let start: number | null = null;
+    const loop = (ts: number) => {
+      if (start === null) start = ts;
+      setElapsed((ts - start) / 1000);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [a]);
+
+  if (!a) return null;
+
+  const win = a.secondsToObjective; // 60초 창
+  const e = elapsed % (win + 4);
+  const secToSpawn = Math.max(0, Math.ceil(win - e));
+  const spawned = e >= win;
+  const topPct = Math.min(100, (Math.min(e, win) / win) * 100);
+  const vStyle = VERDICT_STYLE[a.verdict] || VERDICT_STYLE["호각"];
+
+  return (
+    <div className="mt-6">
+      <h2 className="text-sm font-bold mb-1">오브젝트 교전 분석</h2>
+      <p className="text-[11px] text-slate-400 mb-3">
+        오브젝트 스폰 60초 전부터, 핵심 아이템·평균 레벨 차·죽은 팀원 복귀
+        가능 여부를 종합해 <b>지금 싸우면 유리한지</b> 판정. (좌측 타임라인)
+      </p>
+      <div className="flex gap-4">
+        <div className="relative w-14 h-64 rounded-lg bg-black/40 border border-white/10">
+          <div
+            className="absolute left-0 right-0 flex flex-col items-center"
+            style={{ top: `calc(${topPct}% - 24px)` }}
+          >
+            <div
+              style={{ width: 44, height: 44, flexShrink: 0 }}
+              className="rounded-full border-2 border-purple-400/70 bg-purple-900/50 flex items-center justify-center text-2xl"
+            >
+              🐉
+            </div>
+            <span
+              style={{ minWidth: 56, textAlign: "center", whiteSpace: "nowrap" }}
+              className={`mt-1 text-[11px] font-bold px-1.5 rounded border ${vStyle}`}
+            >
+              {a.verdict}
+            </span>
+          </div>
+          <div className="absolute bottom-1 left-0 right-0 text-center text-[9px] text-slate-500">
+            스폰
+          </div>
+        </div>
+
+        <div className="flex-1 text-[12.5px] text-slate-300 self-center space-y-1">
+          <div>
+            <b>{a.objective}</b> 스폰까지{" "}
+            <b className="text-purple-300">{spawned ? "0s — 지금!" : `${secToSpawn}s`}</b>
+          </div>
+          <div className="text-[12px]">
+            교전 인원 <b>{a.my.effective}</b> : <b>{a.enemy.effective}</b>
+          </div>
+          <div className="text-[11px] text-slate-400">{a.reason}</div>
+          <div
+            className={`inline-block mt-1 text-xs font-bold px-2 py-0.5 rounded border ${vStyle}`}
+          >
+            {a.verdict}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function LiveDemoPage() {
   const [presetIdx, setPresetIdx] = useState(0);
   const [voice, setVoice] = useState("hyunsu");
@@ -540,6 +664,8 @@ export default function LiveDemoPage() {
         <ItemTimingDemo />
 
         <RespawnTimelineDemo />
+
+        <ObjectiveFightDemo />
       </div>
     </main>
   );
