@@ -230,9 +230,10 @@ function RespawnTimelineDemo() {
   // 시나리오: 피오라(레벨 11) 처치, 약 16분. 부활 + 라인 복귀 이동(약 12초) = 복귀 예상
   const champ = "Fiora";
   const total = Math.round(respawnSeconds(11, 1000)) + 12;
-  const e = elapsed % (total + 3); // 0s 후 3초 멈췄다 반복
+  const e = elapsed % (total + 3); // 카운트다운 + "복귀" 1초 + 빈 2초 후 반복
   const remaining = Math.max(0, Math.ceil(total - e));
-  const back = remaining <= 0;
+  const back = e >= total;
+  const visible = e < total + 1; // "복귀" 표시 1초 뒤 사라짐
   const topPct = Math.min(100, (Math.min(e, total) / total) * 100);
 
   return (
@@ -245,6 +246,7 @@ function RespawnTimelineDemo() {
       </p>
       <div className="flex gap-4">
         <div className="relative w-14 h-64 rounded-lg bg-black/40 border border-white/10">
+          {visible && (
           <div
             className="absolute left-0 right-0 flex flex-col items-center"
             style={{ top: `calc(${topPct}% - 24px)` }}
@@ -268,6 +270,7 @@ function RespawnTimelineDemo() {
               {back ? "복귀" : `${remaining}s`}
             </span>
           </div>
+          )}
           <div className="absolute bottom-1 left-0 right-0 text-center text-[9px] text-slate-500">
             복귀
           </div>
