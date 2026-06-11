@@ -88,52 +88,53 @@ interface Timing {
 
 // 다음 코어 완성 예상 — 아이콘이 남은 초와 함께 내려오는 시각화 (내 기준)
 function ItemTimingDemo() {
+  const START_GOLD = 1300;
   const [t, setT] = useState<Timing | null>(null);
-  const [simGold, setSimGold] = useState(0);
-  const [maxSec, setMaxSec] = useState(1);
+  const [elapsed, setElapsed] = useState(0);
 
-  // 프리셋: 몰왕검(3153) 빌드 중. 골드를 남은 비용보다 살짝 적게 잡아 카운트다운이 보이게.
+  // 프리셋: 몰왕검(3153) 빌드 중. 골드를 남은 비용보다 적게 잡아 카운트다운이 보이게.
   useEffect(() => {
     fetch("/api/live/item-timing", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         gameTime: 780,
-        currentGold: 1300,
+        currentGold: START_GOLD,
         creepScore: 150,
         items: [1053, 1037],
         targetItemId: 3153,
       }),
     })
       .then((r) => r.json())
-      .then((data: Timing) => {
-        setT(data);
-        setSimGold(1300);
-        setMaxSec(Math.max(1, data.secondsToAfford));
-      })
+      .then((data: Timing) => setT(data))
       .catch(() => {});
   }, []);
 
-  // 1초마다 골드 누적 → 아이콘 내려오고 숫자 감소
+  // 매 프레임 경과시간 갱신 → 골드가 연속적으로 차올라 아이콘이 부드럽게 내려옴
   useEffect(() => {
     if (!t?.target) return;
-    const id = setInterval(() => {
-      setSimGold((g) => {
-        // 0s 도달 후 잠깐 멈췄다가 처음으로 되감기 (데모 반복)
-        if (g >= t.target!.remainingCost + t.incomePerSec * 3) return 1300;
-        return g + t.incomePerSec;
-      });
-    }, 1000);
-    return () => clearInterval(id);
+    let raf = 0;
+    let start: number | null = null;
+    const loop = (ts: number) => {
+      if (start === null) start = ts;
+      setElapsed((ts - start) / 1000);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
   }, [t]);
 
   if (!t?.target) return null;
 
   const remaining = t.target.remainingCost;
-  const secLeft = Math.max(0, Math.ceil((remaining - simGold) / t.incomePerSec));
+  const income = t.incomePerSec;
+  const needTime = Math.max(1, (remaining - START_GOLD) / income); // 완성까지 초
+  const e = elapsed % (needTime + 3); // 0s 도달 후 3초 멈췄다 반복
+  const simGold = Math.min(remaining, START_GOLD + income * e);
+  const secLeft = Math.max(0, Math.ceil((remaining - simGold) / income));
   const affordable = simGold >= remaining;
-  // 위(멀었음) → 아래(0s)로 이동
-  const topPct = Math.min(100, Math.max(0, (1 - secLeft / maxSec) * 100));
+  // 위(멀었음) → 아래(0s). 경과시간 기반이라 연속적으로 이동.
+  const topPct = Math.min(100, (Math.min(e, needTime) / needTime) * 100);
 
   return (
     <div className="mt-6">
@@ -146,15 +147,13 @@ function ItemTimingDemo() {
         {/* 세로 트랙 */}
         <div className="relative w-14 h-56 rounded-lg bg-black/40 border border-white/10">
           <div
-            className="absolute left-1/2 -translate-x-1/2 transition-all duration-700 ease-linear flex flex-col items-center"
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center"
             style={{ top: `calc(${topPct}% - 22px)` }}
           >
             <img
               src={`https://ddragon.leagueoflegends.com/cdn/${DDV}/img/item/${t.target.image}`}
               alt={t.target.name}
-              width={40}
-              height={40}
-              className={`rounded-md border ${
+              className={`w-10 h-10 shrink-0 rounded-md border ${
                 affordable ? "border-emerald-400" : "border-amber-400/60"
               }`}
             />
