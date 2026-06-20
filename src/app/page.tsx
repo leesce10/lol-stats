@@ -7,9 +7,9 @@ export const metadata: Metadata = {
     "밴픽 단계에서 승리 전략을 제시합니다. 맞라인 실전 가이드, 팀 조합 분석, 시간대별 운영 지침까지.",
 };
 
-const OVERLAY_DOWNLOAD_URL = process.env.NEXT_PUBLIC_OVERLAY_DOWNLOAD_URL || "";
-const OVERLAY_ZIP_URL =
-  "https://github.com/leesce10/lol-overlay/archive/refs/heads/master.zip";
+// Electron .exe (GitHub Actions가 빌드해 release-latest에 올림)
+const OVERLAY_EXE_URL =
+  "https://github.com/leesce10/lol-overlay/releases/download/release-latest/LoL-Overlay-Setup.exe";
 
 export default function Home() {
   return (
@@ -50,7 +50,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 인게임 오버레이 베타 다운로드 */}
+      {/* 인게임 오버레이 다운로드 (Electron · Overwolf 불필요) */}
       <section className="py-8">
         <div className="rounded-2xl border border-[var(--accent-blue)]/40 bg-gradient-to-br from-blue-500/10 to-purple-600/10 p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row sm:items-center gap-5">
@@ -59,25 +59,23 @@ export default function Home() {
                 BETA · PC 앱
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
-                🖥️ 인게임 오버레이 (베타 테스트)
+                🖥️ 인게임 오버레이 (베타)
               </h2>
               <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                게임 화면 위에 실시간 정보 — <b className="text-[var(--text-primary)]">조합 브리핑(음성)</b>,
-                적 아이템 구매 알림, 코어 완성 예상, 적 복귀 타이머, 오브젝트 교전 분석.
+                게임 화면 위에 실시간 정보 — <b className="text-[var(--text-primary)]">조합 브리핑(한국어 음성)</b>,
+                적 아이템 구매 알림, 적 복귀 타이머, 오브젝트 교전 유불리(숫자 근거).
               </p>
               <p className="mt-2 text-xs text-[var(--text-muted)]">
-                Windows 전용 · Overwolf 필요 · 현재 비공개 베타
+                Windows 전용 · <b className="text-[var(--text-primary)]">Overwolf 불필요</b> · 받아서 실행만 하면 끝
               </p>
             </div>
 
             <div className="flex flex-col gap-2 sm:w-60 shrink-0">
               <a
-                href={OVERLAY_DOWNLOAD_URL || OVERLAY_ZIP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={OVERLAY_EXE_URL}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 px-6 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
               >
-                {OVERLAY_DOWNLOAD_URL ? "⬇️ 다운로드 (원클릭 설치)" : "⬇️ 베타 다운로드 (ZIP)"}
+                ⬇️ 다운로드 (.exe)
               </a>
               <Link
                 href="/live-demo"
@@ -88,46 +86,32 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 수동 설치 가이드 (Overwolf 원클릭 링크 나오기 전) */}
-          {!OVERLAY_DOWNLOAD_URL && (
-            <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-sm font-bold text-[var(--text-primary)]">
-                  설치 방법 (베타 · 수동 설치)
-                </span>
-                <span className="text-[10px] font-bold text-amber-300 bg-amber-500/15 rounded px-1.5 py-0.5">
-                  Windows 전용
-                </span>
-              </div>
-              <ol className="space-y-2 text-sm text-[var(--text-secondary)] list-decimal pl-5 leading-relaxed">
-                <li>
-                  <a
-                    href="https://www.overwolf.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[var(--accent-blue)] underline"
-                  >
-                    Overwolf
-                  </a>
-                  를 설치합니다.
-                </li>
-                <li>
-                  위 <b className="text-[var(--text-primary)]">베타 다운로드(ZIP)</b> 를 받아 압축을 풉니다.
-                </li>
-                <li>
-                  Overwolf 트레이 아이콘 우클릭 → <b className="text-[var(--text-primary)]">Settings</b> →{" "}
-                  <b className="text-[var(--text-primary)]">Development</b> 탭 →{" "}
-                  <b className="text-[var(--text-primary)]">&quot;Load unpacked extension&quot;</b> → 압축 푼{" "}
-                  <code className="text-xs bg-[var(--bg-tertiary)] px-1 rounded">lol-overlay</code> 폴더 선택
-                </li>
-                <li>리그 오브 레전드를 시작하면 오버레이가 표시됩니다.</li>
-              </ol>
-              <p className="mt-3 text-[11px] text-[var(--text-muted)]">
-                ⚠️ 비공개 베타입니다 — 일부 기능이 아직 동작하지 않거나 다듬어지는 중일 수 있어요.
-                문제가 있으면 피드백 부탁드립니다. (정식 원클릭 설치는 준비 중)
-              </p>
+          <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/60 p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-sm font-bold text-[var(--text-primary)]">설치 방법</span>
+              <span className="text-[10px] font-bold text-amber-300 bg-amber-500/15 rounded px-1.5 py-0.5">
+                Windows 전용
+              </span>
             </div>
-          )}
+            <ol className="space-y-2 text-sm text-[var(--text-secondary)] list-decimal pl-5 leading-relaxed">
+              <li>
+                위 <b className="text-[var(--text-primary)]">다운로드(.exe)</b> 를 받아 실행합니다.
+              </li>
+              <li>
+                Windows 보안 경고(&quot;알 수 없는 게시자&quot;)가 뜨면{" "}
+                <b className="text-[var(--text-primary)]">추가 정보 → 실행</b> 을 누릅니다.
+              </li>
+              <li>
+                롤을 <b className="text-[var(--text-primary)]">테두리 없음(Borderless)</b> 또는 창 모드로 설정합니다.
+                (전체화면이면 오버레이가 안 보임)
+              </li>
+              <li>리그 오브 레전드를 시작하면 오버레이가 자동으로 표시됩니다.</li>
+            </ol>
+            <p className="mt-3 text-[11px] text-[var(--text-muted)]">
+              ⚠️ 베타입니다 — 다듬어지는 중일 수 있어요. 문제가 있으면 피드백 부탁드립니다.
+              종료는 우측 하단 트레이 아이콘에서.
+            </p>
+          </div>
         </div>
       </section>
 
