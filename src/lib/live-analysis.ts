@@ -281,7 +281,9 @@ function buildLaneCoaching(
   const md = guide.mustDodge?.[0];
   if (md) {
     const verb = (md.type as string) === "skillshot" ? "꼭 피하세요" : "조심하세요";
-    parts.push(`${md.skillName} ${verb}.`);
+    // 키만 말하면 못 알아들으니 "Q 스킬명" 형태로
+    const skill = md.skillKey ? `${md.skillKey} ${md.skillName}` : md.skillName;
+    parts.push(`${skill} ${verb}.`);
   }
   return parts.join(" ");
 }
@@ -332,21 +334,62 @@ function buildTopThreat(
   return `팀에서 가장 위험한 건 ${name}예요. ${caution}.`;
 }
 
-// 1부: 팀 5:5 조합 한 줄(구도 + 이기는 법)
-function buildTeamLine(edge: CompEdge, timing: Timing, ourStrengths: string[]): string {
+// 1부: 적 조합을 챔프 이름 + 구체적 특성으로 설명 + 우리 이기는 법
+function buildEnemyCompLine(
+  participants: LiveParticipant[],
+  myTeamId: number,
+  edge: CompEdge,
+  timing: Timing,
+  ourStrengths: string[]
+): string {
+  const enemyTeam = myTeamId === 200 ? 100 : 200;
+  const en = participants
+    .filter((p) => p.teamId === enemyTeam)
+    .map((p) => {
+      const c = getChampionById(p.championKey || "");
+      return {
+        nm: p.championName || c?.name || p.championKey || "?",
+        classes: c?.classes || [],
+        damage: c?.damage || "",
+        strengths: c?.strengths || [],
+      };
+    });
+  const by = (pred: (x: (typeof en)[number]) => boolean) =>
+    en.filter(pred).map((x) => x.nm);
+  const assassins = by((x) => x.classes.includes("assassin"));
+  const engagers = by((x) => x.classes.includes("tank") || x.strengths.includes("engage"));
+  const pokers = by((x) => x.strengths.includes("poke"));
+  const adCount = en.filter((x) => x.damage === "ad").length;
+  const apCount = en.filter((x) => x.damage === "ap").length;
+
+  const parts: string[] = [];
+  // ① 가장 정의적인 특징(챔프 이름 포함)
+  if (assassins.length) {
+    parts.push(`상대는 ${assassins.slice(0, 2).join("·")} 같은 암살자가 있어서, 한타 때 뒷라인 위치를 조심해야 해요.`);
+  } else if (engagers.length >= 2) {
+    parts.push(`상대는 ${engagers.slice(0, 2).join("·")}처럼 이니시·CC가 강해서, 한타 진입 타이밍을 조심해야 해요.`);
+  } else if (pokers.length >= 2) {
+    parts.push(`상대는 ${pokers.slice(0, 2).join("·")} 중심 포킹 조합이라, 라인 비울 때 체력 관리가 중요해요.`);
+  } else {
+    parts.push(`상대 조합은 ${en.slice(0, 3).map((x) => x.nm).join(", ")} 등이에요.`);
+  }
+  // ② 데미지 타입(아이템 선택에 직결)
+  if (adCount - apCount >= 3) parts.push("데미지가 거의 AD라 방어구가 효과적이에요.");
+  else if (apCount - adCount >= 3) parts.push("AP 데미지가 많아 마법저항을 챙기면 좋아요.");
+
+  // ③ 구도 + 우리 이기는 법
   const edgeTxt =
     edge === "ahead" ? "조합은 우리가 유리해요"
-    : edge === "behind" ? "조합은 상대가 유리해요"
+    : edge === "behind" ? "조합은 상대가 유리하지만 충분히 풀 수 있어요"
     : "조합은 비등해요";
-  const timeTxt =
-    timing === "early" ? "초반에 강한 조합이에요" : timing === "late" ? "후반 캐리 조합이에요" : "";
   let win = "";
   if (has(ourStrengths, "한타") || has(ourStrengths, "이니시")) win = "한타로 풀어가세요";
   else if (has(ourStrengths, "스플릿")) win = "사이드 운영이 좋아요";
   else if (has(ourStrengths, "포킹")) win = "포킹으로 체력 빼고 싸우세요";
-  let s = edgeTxt + (timeTxt ? `, ${timeTxt}` : "") + ".";
-  if (win) s += ` ${ensureDot(win)}`;
-  return s;
+  else if (timing === "late") win = "초반만 버티면 후반이 우리 거예요";
+  else if (timing === "early") win = "초반에 굴려야 해요";
+  parts.push(win ? `${edgeTxt}. ${win}.` : `${edgeTxt}.`);
+  return parts.join(" ");
 }
 
 // ----- 2부 보조: 바텀 2v2 듀오 분석 -----
@@ -434,13 +477,14 @@ function buildDuoCoaching(
   for (const ip of enProfs) {
     const cc = findCcSkill(ip);
     if (!cc) continue;
+    const skill = `${cc.key} ${cc.name}`; // "Q 면도날 표창" 처럼 키+스킬명
     const partner = enProfs.find((p) => p.id !== ip.id);
     if (partner) {
       comboLine =
-        `${ip.name} ${cc.key} ${cc.ko}에 맞으면 ${partner.name} 연계로 위험해요.` +
-        (cc.dodgeable ? ` ${cc.key} 꼭 피하세요.` : ` 거리 유지하세요.`);
+        `${ip.name} ${skill}(${cc.ko})에 맞으면 ${partner.name} 연계로 위험해요.` +
+        (cc.dodgeable ? ` ${skill} 꼭 피하세요.` : ` 거리 유지하세요.`);
     } else {
-      comboLine = `${ip.name} ${cc.key}${cc.dodgeable ? " 꼭 피하세요." : " 조심하세요."}`;
+      comboLine = `${ip.name} ${skill}${cc.dodgeable ? " 꼭 피하세요." : " 조심하세요."}`;
     }
     break;
   }
@@ -488,7 +532,10 @@ export function buildCompBriefing(
   const priority = buildPriority(edge, timing, ourStrengths);
 
   // 1부 — 팀 5:5 (시작 직후): 조합 구도 + 내 라인 밖 최대 위협
-  const part1 = [buildTeamLine(edge, timing, ourStrengths), buildTopThreat(participants, myTeamId, me)]
+  const part1 = [
+    buildEnemyCompLine(participants, myTeamId, edge, timing, ourStrengths),
+    buildTopThreat(participants, myTeamId, me),
+  ]
     .filter(Boolean)
     .join(" ");
 
