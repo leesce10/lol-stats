@@ -120,6 +120,33 @@ function SummarySection({ guide }: { guide: MatchupGuide }) {
 // L2 — 4개 카드
 // ============================================================
 
+// 상황별 핵심 위협 — "이럴 때 → 이 콤보 조심 → 결과" (가장 실전적)
+function SituationalThreatsCard({ guide }: { guide: MatchupGuide }) {
+  const list = guide.situationalThreats || [];
+  if (list.length === 0) return null;
+  return (
+    <div className="glass-card p-5 border-l-4 border-rose-500/60">
+      <h3 className="text-sm font-bold text-rose-400 mb-3 flex items-center gap-1.5">
+        <span className="w-2 h-2 rounded-full bg-rose-500" />
+        이럴 때 조심 (상황별 핵심)
+      </h3>
+      <div className="space-y-3">
+        {list.map((t, i) => (
+          <div key={i} className="border-l-2 border-rose-500/40 pl-3">
+            <p className="text-sm">
+              <span className="text-rose-300 font-semibold">{t.when}</span>
+              <span className="text-[var(--text-secondary)]">엔 </span>
+              <b className="text-[var(--text-primary)]"><MD text={t.watch} /></b>
+              <span className="text-[var(--text-secondary)]"> 조심하세요.</span>
+            </p>
+            <p className="text-xs text-[var(--text-muted)] mt-0.5"><MD text={t.consequence} /></p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function KeyCombosCard({ guide }: { guide: MatchupGuide }) {
   if (!guide.keyCombos || guide.keyCombos.length === 0) return null;
   return (
@@ -402,6 +429,9 @@ export default function MatchupGuideResult({ guide, myJunglePath }: { guide: Mat
 
       {/* L1 */}
       <SummarySection guide={guide} />
+
+      {/* 상황별 핵심 위협 (가장 실전적 — 있으면 콤보보다 먼저) */}
+      <SituationalThreatsCard guide={guide} />
 
       {/* 핵심 콤보 (전폭 카드, 라인전 위협의 실체) */}
       <KeyCombosCard guide={guide} />

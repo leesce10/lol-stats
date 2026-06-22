@@ -43,6 +43,7 @@ export function generateMatchupGuide(
     buildAdvice,
     phases,
     champOverride,
+    situationalThreats: enemy.situationalThreats || [],
   };
 }
 

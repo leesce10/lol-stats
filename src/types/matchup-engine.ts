@@ -106,6 +106,16 @@ export interface KeyCombo {
   counter: string;
 }
 
+// --- 상황별 핵심 위협 (실전 체감형: 이럴 때 → 이 콤보 조심 → 결과) ---
+export interface SituationalThreat {
+  /** 어떤 상황일 때 (예: "케이틀린에게 근접해서 딜하려 할 때") */
+  when: string;
+  /** 조심할 스킬/콤보 (예: "E 90구경 그물 → Q 피스메이커 + 평타") */
+  watch: string;
+  /** 맞으면/걸리면 어떻게 되는지 (예: "느려지고 Q·평 연계로 체력이 크게 깎임") */
+  consequence: string;
+}
+
 // --- 페이즈 전략 ---
 
 /**
@@ -165,6 +175,9 @@ export interface ChampionProfile {
 
   // --- 핵심 콤보/스킬 연계 ---
   keyCombos?: KeyCombo[];
+
+  // --- 상황별 핵심 위협 ("이럴 때 → 이 스킬 콤보 조심 → 이렇게 됨") ---
+  situationalThreats?: SituationalThreat[];
 
   // --- 페이즈별 전략 ---
   phases: {
@@ -279,4 +292,7 @@ export interface MatchupGuide {
   };
   // L4-B (매치업 한정 변형)
   champOverride: string[];
+
+  // 상황별 핵심 위협 (상대 프로파일에서 전달)
+  situationalThreats: SituationalThreat[];
 }
