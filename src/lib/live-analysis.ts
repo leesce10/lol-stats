@@ -21,6 +21,8 @@ export interface TeamAnalysisRequest {
   region?: string;
   myTeamId?: number; // 100 | 200 — 브리핑을 우리팀 관점으로 작성
   participants: LiveParticipant[];
+  // 내 라인 맞라인 코칭용 — 내가 누구인지(챔프/포지션). 없으면 라인 코칭 생략(폴백).
+  me?: { championKey?: string; position?: string };
 }
 
 // ===== 응답 타입 =====
@@ -122,6 +124,8 @@ export function computeLuck(lanes: LaneEvaluation[]): TeamLuck {
 
 import { analyzeTeamComp } from "./teamcomp";
 import { getChampionById } from "@/data/champions";
+import { generateMatchupGuide, type ChampionProfile } from "./matchup-engine";
+import { getProfileByKey } from "@/data/champion-profiles";
 
 function championKeys(participants: LiveParticipant[], teamId: number): string[] {
   return participants
@@ -207,34 +211,149 @@ function josa(word: string, withBatchim: string, withoutBatchim: string): string
   return hasBatchim ? withBatchim : withoutBatchim;
 }
 
-function buildTts(b: Omit<CompBriefing, "tts">): string {
-  const parts: string[] = [];
-  if (b.ourStrengths.length) {
-    const s = b.ourStrengths.slice(0, 2);
-    const joined =
-      s.length === 2 ? `${s[0]}${josa(s[0], "과", "와")} ${s[1]}` : s[0];
-    const last = s[s.length - 1];
-    parts.push(`우리팀은 ${joined}${josa(last, "이", "가")} 좋습니다.`);
+// ----- 텍스트 정리 헬퍼 -----
+function stripMd(s: string): string {
+  return (s || "").replace(/\*/g, "").replace(/ or /g, " 또는 ").trim();
+}
+function firstSentence(s: string): string {
+  return stripMd(s).split(/[.!?。\n]/)[0].trim();
+}
+function lastClause(s: string): string {
+  const parts = stripMd(s).split(/[.!?。\n]/).map((t) => t.trim()).filter(Boolean);
+  return parts.length ? parts[parts.length - 1] : "";
+}
+function ensureDot(s: string): string {
+  const t = (s || "").trim();
+  if (!t) return "";
+  return /[.!?。]$/.test(t) ? t : t + ".";
+}
+
+// 라이브 포지션 → 프로파일 라인(top/jungle/mid/adc/support)
+function liveToLane(pos?: string): string | null {
+  switch ((pos || "").toUpperCase()) {
+    case "TOP": return "top";
+    case "JUNGLE": return "jungle";
+    case "MIDDLE": case "MID": return "mid";
+    case "BOTTOM": case "BOT": case "ADC": return "adc";
+    case "UTILITY": case "SUPPORT": return "support";
+    default: return null;
   }
-  if (b.theirStrengths.length) {
-    const t = b.theirStrengths[0];
-    parts.push(`상대는 ${t}${josa(t, "이", "가")} 강하니 주의하세요.`);
-  }
-  // 게임플랜은 이미 자연스러운 문장이라 라벨 없이 그대로 읽음
-  if (b.gamePlan.length) parts.push(b.gamePlan.slice(0, 2).join(" "));
-  parts.push(
-    b.compEdge === "ahead"
-      ? "전체적으로 우리 조합이 유리한 편입니다."
-      : b.compEdge === "behind"
-        ? "조합상 다소 불리하지만 충분히 풀어갈 수 있습니다."
-        : "양팀 조합은 비슷한 편입니다."
+}
+const LANE_LABEL: Record<string, string> = {
+  top: "탑", jungle: "정글", mid: "미드", adc: "바텀", support: "서폿",
+};
+
+// 블록1: 내 라인 맞라인. 프로파일 없음/포지션 불명/포지션 불일치 → null(폴백).
+function buildLaneCoaching(
+  participants: LiveParticipant[],
+  myTeamId: number,
+  me?: { championKey?: string; position?: string }
+): string | null {
+  if (!me || !me.championKey) return null;
+  const lane = liveToLane(me.position);
+  if (!lane) return null;
+  const enemyTeam = myTeamId === 200 ? 100 : 200;
+  const opp = participants.find(
+    (p) => p.teamId === enemyTeam && liveToLane(p.position) === lane
   );
+  if (!opp || !opp.championKey) return null;
+  const myP = getProfileByKey(me.championKey);
+  const enP = getProfileByKey(opp.championKey);
+  if (!myP || !enP || myP.position !== enP.position) return null;
+  let guide;
+  try {
+    guide = generateMatchupGuide(myP, enP);
+  } catch {
+    return null;
+  }
+  const label = LANE_LABEL[lane] || "내 라인";
+  const enemyName = enP.name || opp.championName || opp.championKey;
+  // 판정은 존댓말로 통일(맞라인 원문은 반말/명령조라 음성에 안 맞음)
+  const vl = guide.verdict?.label;
+  const vtxt =
+    vl === "유리" ? "해볼 만한 매치업이에요"
+    : vl === "불리" ? "불리하니 조심하세요"
+    : "비등한 매치업이에요";
+  const parts = [`${label}은 ${enemyName} 상대예요. ${vtxt}.`];
+  // 회피 스킬: 스킬명 + 피하는 법(마지막 핵심 절만, 짧게)
+  const md = guide.mustDodge?.[0];
+  if (md) {
+    const how = lastClause(md.counterMethod);
+    parts.push(how ? `${md.skillName} 조심 — ${ensureDot(how)}` : `${md.skillName} 조심하세요.`);
+  }
   return parts.join(" ");
+}
+
+// 블록2: 내 라인 밖 최대 위협 1명(콤보 있으면 격상). 위협 미미하면 null.
+const HARD_CC = ["stun", "knockup", "knockback", "suppress", "charm", "root", "taunt", "fear", "sleep"];
+function threatScore(p: ChampionProfile): number {
+  const pr = p.profile;
+  if (!pr) return 0;
+  let s = 0;
+  if (pr.burst === "high") s += 2;
+  else if (pr.burst === "medium") s += 1;
+  if ((pr.ccTypes || []).some((c) => HARD_CC.includes(c))) s += 2;
+  if (pr.mobility === "high") s += 1;
+  return s;
+}
+function buildTopThreat(
+  participants: LiveParticipant[],
+  myTeamId: number,
+  me?: { position?: string }
+): string | null {
+  const enemyTeam = myTeamId === 200 ? 100 : 200;
+  const myLane = me ? liveToLane(me.position) : null;
+  const cands = participants
+    .filter((p) => p.teamId === enemyTeam)
+    .filter((p) => !myLane || liveToLane(p.position) !== myLane) // 내 라인 밖
+    .map((p) => ({ p, prof: getProfileByKey(p.championKey) }))
+    .filter((x): x is { p: LiveParticipant; prof: ChampionProfile } => !!x.prof);
+  if (!cands.length) return null;
+  cands.sort((a, b) => threatScore(b.prof) - threatScore(a.prof));
+  const top = cands[0];
+  if (threatScore(top.prof) < 2) return null;
+  const name = top.prof.name || top.p.championName || top.prof.id;
+  const combo = top.prof.keyCombos?.[0];
+  if (combo?.counter) {
+    return `팀에서 가장 위험한 건 ${name}예요. ${ensureDot(firstSentence(combo.counter))}`;
+  }
+  const pr = top.prof.profile;
+  const caution =
+    (pr?.ccTypes || []).some((c) => HARD_CC.includes(c))
+      ? "한 방 CC 조심하세요"
+      : pr?.burst === "high"
+        ? "순식간에 녹으니 거리 두세요"
+        : "조심하세요";
+  return `팀에서 가장 위험한 건 ${name}예요. ${caution}.`;
+}
+
+// 블록3: 오늘의 우선순위 1개
+function buildPriority(edge: CompEdge, timing: Timing, ourStrengths: string[]): string {
+  let p: string;
+  if (edge === "behind") p = "무리하지 말고 상대 실수 날 때만 받아치기";
+  else if (timing === "early") p = "초반 주도권 잡고 굴리기";
+  else if (timing === "late") p = "초반 손해 줄이고 후반 보기";
+  else if (has(ourStrengths, "한타") || has(ourStrengths, "이니시")) p = "진형 갖추고 한타 열기";
+  else p = "큰 실수 없이 차근차근";
+  return `이 판 핵심 하나 — ${p}.`;
+}
+
+// 폴백(라인 코칭 불가): 조합 한 줄 + 우선순위 한 줄
+function buildFallbackTts(edge: CompEdge, ourStrengths: string[], priority: string): string {
+  const e =
+    edge === "ahead" ? "조합이 유리한 편이에요"
+    : edge === "behind" ? "조합상 다소 불리해요"
+    : "조합은 비슷한 편이에요";
+  let s = `이번 판 ${e}.`;
+  if (ourStrengths.length)
+    s += ` 우리는 ${ourStrengths[0]}${josa(ourStrengths[0], "이", "가")} 강점이에요.`;
+  return `${s} ${priority}`;
 }
 
 export function buildCompBriefing(
   participants: LiveParticipant[],
-  myTeamId: number = 100
+  myTeamId: number = 100,
+  me?: { championKey?: string; position?: string }
 ): CompBriefing | null {
   const blue = championKeys(participants, 100);
   const red = championKeys(participants, 200);
@@ -252,15 +371,18 @@ export function buildCompBriefing(
   const edge: CompEdge =
     ourWinRate >= 53 ? "ahead" : ourWinRate <= 47 ? "behind" : "even";
   const timing = timingProfile(ours === "blue" ? blue : red);
-  const gamePlan = makeGamePlan(
-    ourStrengths,
-    ourWeaknesses,
-    theirStrengths,
-    timing,
-    edge
-  );
+  const gamePlan = makeGamePlan(ourStrengths, ourWeaknesses, theirStrengths, timing, edge);
 
-  const base = {
+  // 새 음성 구조: ①내 라인 ②팀 위협 ③우선순위. 라인 코칭 불가 시 폴백(2블록).
+  const priority = buildPriority(edge, timing, ourStrengths);
+  const lane = buildLaneCoaching(participants, myTeamId, me);
+  const tts = lane
+    ? [lane, buildTopThreat(participants, myTeamId, me), priority]
+        .filter(Boolean)
+        .join(" ")
+    : buildFallbackTts(edge, ourStrengths, priority);
+
+  return {
     ourTeamId: myTeamId,
     compEdge: edge,
     ourWinRate,
@@ -270,8 +392,8 @@ export function buildCompBriefing(
     theirWeaknesses,
     timing,
     gamePlan,
+    tts,
   };
-  return { ...base, tts: buildTts(base) };
 }
 
 // ===== mock 빌더 (프로덕션 키 없이 계약 검증용) =====
@@ -327,6 +449,6 @@ export function buildMockTeamAnalysis(
     generatedAt,
     source: "mock",
     team: { luck: computeLuck(lanes), lanes },
-    briefing: buildCompBriefing(req.participants, req.myTeamId),
+    briefing: buildCompBriefing(req.participants, req.myTeamId, req.me),
   };
 }
