@@ -8,6 +8,7 @@ import { generateBuildAdvice } from "./rules/build-advice";
 import { generatePhaseGuides } from "./rules/phase-guide";
 import { generateChampOverride } from "./rules/champ-override";
 import { generateKeyCombos } from "./rules/key-combos";
+import { getSituationalThreats } from "@/data/situational-threats";
 
 /**
  * 매치업 가이드 생성.
@@ -43,7 +44,8 @@ export function generateMatchupGuide(
     buildAdvice,
     phases,
     champOverride,
-    situationalThreats: enemy.situationalThreats || [],
+    situationalThreats:
+      enemy.situationalThreats || getSituationalThreats(enemy.id),
   };
 }
 

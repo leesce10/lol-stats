@@ -129,6 +129,7 @@ import { generateMatchupGuide, type ChampionProfile } from "./matchup-engine";
 import { getProfileByKey } from "@/data/champion-profiles";
 import { tierToNum } from "./matchup-engine/utils";
 import { getCcSkill, type CcSkill } from "@/data/cc-skills";
+import { getSituationalThreats } from "@/data/situational-threats";
 
 function championKeys(participants: LiveParticipant[], teamId: number): string[] {
   return participants
@@ -260,17 +261,26 @@ function buildLaneCoaching(
     (p) => p.teamId === enemyTeam && liveToLane(p.position) === lane
   );
   if (!opp || !opp.championKey) return null;
+  const label = LANE_LABEL[lane] || "내 라인";
+  const enemyName =
+    opp.championName || getChampionById(opp.championKey)?.name || opp.championKey;
   const myP = getProfileByKey(me.championKey, lane);
   const enP = getProfileByKey(opp.championKey, lane);
-  if (!myP || !enP || myP.position !== enP.position) return null;
+  // 프로파일이 없거나 포지션 불일치 → 상황별 위협으로 폴백(모든 챔프 동작)
+  if (!myP || !enP || myP.position !== enP.position) {
+    const threats = getSituationalThreats(opp.championKey);
+    if (threats.length) {
+      const t = threats[0];
+      return `${label}${josa(label, "은", "는")} ${enemyName} 상대예요. ${t.watch} 조심하세요.`;
+    }
+    return null;
+  }
   let guide;
   try {
     guide = generateMatchupGuide(myP, enP);
   } catch {
     return null;
   }
-  const label = LANE_LABEL[lane] || "내 라인";
-  const enemyName = enP.name || opp.championName || opp.championKey;
   // 판정은 존댓말로 통일(맞라인 원문은 반말/명령조라 음성에 안 맞음)
   const vl = guide.verdict?.label;
   const vtxt =

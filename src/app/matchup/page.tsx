@@ -8,6 +8,8 @@ import { generateMatchupGuide } from "@/lib/matchup-engine";
 import type { ChampionProfile } from "@/types/matchup-engine";
 import MatchupGuideResult from "@/components/MatchupGuideResult";
 import { getCcSkill } from "@/data/cc-skills";
+import { getSituationalThreats } from "@/data/situational-threats";
+import type { SituationalThreat } from "@/types/matchup-engine";
 import PositionIcon from "@/components/PositionIcon";
 import { POSITION_ICON_URLS } from "@/types";
 import { allChampions } from "@/data/all-champions";
@@ -532,6 +534,32 @@ function DuoComboCard({
   );
 }
 
+// 프로파일 없는 챔프(심층 가이드 불가)도 상황별 위협만은 보여주는 단독 카드
+function ThreatsOnlyCard({ champKr, threats }: { champKr: string; threats: SituationalThreat[] }) {
+  if (!threats.length) return null;
+  return (
+    <div className="glass-card p-5 border-l-4 border-rose-500/60 mt-6">
+      <h3 className="text-sm font-bold text-rose-400 mb-3 flex items-center gap-1.5">
+        <span className="w-2 h-2 rounded-full bg-rose-500" />
+        {champKr} — 이럴 때 조심 (상황별 핵심)
+      </h3>
+      <div className="space-y-3">
+        {threats.map((t, i) => (
+          <div key={i} className="border-l-2 border-rose-500/40 pl-3">
+            <p className="text-sm">
+              <span className="text-rose-300 font-semibold">{t.when}</span>
+              <span className="text-[var(--text-secondary)]">엔 </span>
+              <b className="text-[var(--text-primary)]">{t.watch}</b>
+              <span className="text-[var(--text-secondary)]"> 조심하세요.</span>
+            </p>
+            <p className="text-xs text-[var(--text-muted)] mt-0.5">{t.consequence}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function MatchupPage() {
   const [lane, setLane] = useState<Lane>("mid");
 
@@ -722,6 +750,10 @@ export default function MatchupPage() {
       {/* Results — 솔로라인: 모든 챔프 엔진 가이드 표시 */}
       {soloMatchupGuide && <MatchupGuideResult guide={soloMatchupGuide} myJunglePath={myProfile?.junglePath} />}
       {hasSoloResult && !soloMatchupGuide && <SoloMatchupResult myChamp={myChamp} enemyChamp={enemyChamp} />}
+      {/* 프로파일 없어 심층가이드가 없어도 상황별 위협은 표시 */}
+      {hasSoloResult && !soloMatchupGuide && enemyChamp && (
+        <ThreatsOnlyCard champKr={enemyChamp.nameKr} threats={getSituationalThreats(enemyChampName)} />
+      )}
 
       {/* 바텀: 듀오 분석 (항상 표시) */}
       {hasBottomResult && <BottomMatchupResult myAdc={myAdcChamp} mySup={mySupChamp} enemyAdc={enemyAdcChamp} enemySup={enemySupChamp} />}
@@ -739,6 +771,9 @@ export default function MatchupPage() {
           <MatchupGuideResult guide={adcMatchupGuide} />
         </div>
       )}
+      {hasBottomResult && !adcMatchupGuide && enemyAdcChamp && (
+        <ThreatsOnlyCard champKr={enemyAdcChamp.nameKr} threats={getSituationalThreats(enemyAdc)} />
+      )}
 
       {/* 바텀 서포터 1v1 심층 가이드 */}
       {supMatchupGuide && (
@@ -749,6 +784,9 @@ export default function MatchupPage() {
           </div>
           <MatchupGuideResult guide={supMatchupGuide} />
         </div>
+      )}
+      {hasBottomResult && !supMatchupGuide && enemySupChamp && (
+        <ThreatsOnlyCard champKr={enemySupChamp.nameKr} threats={getSituationalThreats(enemySup)} />
       )}
 
       {/* Empty state */}
