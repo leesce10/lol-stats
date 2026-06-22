@@ -1,0 +1,109 @@
+# 게임시작 조합 브리핑 — 현재 구조 vs 개선안
+
+> 오버레이 백로그(P2 → 승격 검토). 목적: 게임 시작 음성 브리핑을 "팀 조합 일반론"
+> 에서 "**내 라인 맞라인 + 팀 핵심 위협 + 행동 우선순위 1개**"로 끌어올린다.
+> 핵심 레버 = 이미 보유한 **맞라인 가이드 엔진(`generateMatchupGuide`)** 연동.
+> 관련: [overlay.md](overlay.md) · [matchup-v2.md](matchup-v2.md)
+
+---
+
+## 1. 현재 구조 (As-Is)
+
+### 흐름
+```
+engine.maybeBriefing(players)            // 게임 시작 첫 스냅샷, 1회
+  → participants {championKey, teamId(ORDER=100), position} + myTeamId
+  → POST /api/live/team-analysis
+       → buildMockTeamAnalysis → buildCompBriefing(participants, myTeamId)
+            → analyzeTeamComp(blue, red)   // 챔피언 정적 데이터 기반
+                 = winRate + strengths/weaknesses (이니시·한타·스플릿·포킹·프론트라인·편중…)
+            → edge(승률≥53 ahead / ≤47 behind / else even)
+            → timing(early/late/balanced)  // 챔프 strengths 태그 합산
+            → makeGamePlan() 최대 4문장
+            → buildTts() 한 문단
+  → playTts(tts)  // 한국어 여성, 자동재생 1회
+```
+
+### 현재 TTS 예시 (블루, 유리, 강점 이니시·한타 / 상대 포킹)
+> "우리팀은 이니시와 한타가 좋습니다. 상대는 포킹이 강하니 주의하세요. 우리팀은
+> 교전력이 좋기 때문에 한타를 적극적으로 열면 유리합니다. 초반에 강한 조합이니
+> 라인전부터 주도권을 잡고 스노우볼을 굴리세요. 전체적으로 우리 조합이 유리한 편입니다."
+
+### 데이터 출처
+- **조합 강약점/승률**: `analyzeTeamComp` — 챔피언 정적 데이터(실데이터, 휴리스틱).
+- **라인 폼/전적(`team.lanes`)**: **mock(시드 난수)** — TTS엔 안 쓰임, 화면 표시용 자리만.
+
+---
+
+## 2. 현재 한계
+
+| # | 한계 | 영향 |
+|---|---|---|
+| 1 | **팀 조합 일반론만** — 내 라인(맞라인) 구체 코칭 0 | 초보가 "나는 뭘 해야 하나"를 못 받음 |
+| 2 | **맞라인 가이드 엔진 미연동** | 우리 최강 자산(`generateMatchupGuide`)을 안 씀 |
+| 3 | **추상적 문구** ("한타 적극적으로", "스노우볼") | 당장의 행동으로 안 이어짐 |
+| 4 | **위협 챔프 비명시** — "편중" 정도 | "상대 제드 궁 조심" 같은 핵심 경고 없음 |
+| 5 | **타이밍 모호** — early/late만 | 3렙·6렙 파워스파이크 등 구체 신호 없음 |
+| 6 | **우선순위 압축 없음** — 강점 나열 | 70초 안에 "한 가지"를 못 줌 |
+| 7 | **라인 폼 mock** | "상대 정글 폼 좋음" 같은 실전 정보 없음 |
+
+---
+
+## 3. 개선안 (To-Be) — 차원별 비교
+
+| 차원 | As-Is | To-Be |
+|---|---|---|
+| **관점** | 팀 전체 조합 | **내 라인 1순위** + 팀 핵심 위협 |
+| **데이터** | analyzeTeamComp만 | + **generateMatchupGuide(내챔프, 상대라이너)** |
+| **위협** | "편중/포킹" 일반 | **위협 챔프·콤보 명시** (mustDodge/keyCombos) |
+| **타이밍** | early/late | **레벨 신호** (powerSpikes: 3렙/6렙/코어템) |
+| **구성** | 강점 나열 4문장 | **3블록**: ①내 라인 ②팀 위협 ③오늘의 우선순위 1개 |
+| **길이/톤** | 길고 추상 | 짧고 행동지향(초보 70초 룰) |
+| **폼(전적)** | mock | (선택) Production 키 시 live 분기 |
+
+### 개선 TTS 예시 (내가 바텀 ADC, 상대 케이틀린+럭스, 팀 최대위협 제드)
+> "바텀은 케이틀린·럭스 상대예요. 사거리에서 밀리니 부쉬 끼고 미니언 뒤에서
+> 받아치세요. 팀에서 가장 위험한 건 제드라, 6렙부터 점멸을 궁 회피용으로 남기세요.
+> 이 판 핵심 하나 — 초반 3렙 교전 주도권을 먼저 잡기."
+
+→ 같은 길이로 **내 라인·구체 위협·단일 우선순위**를 전달. (현재는 팀 일반론)
+
+---
+
+## 4. 구현 변경점
+
+### 서버 (`src/lib/live-analysis.ts`)
+1. `buildCompBriefing`에 **내 라인 맞라인 블록** 추가:
+   - 내 position + enemy team 같은 position 라이너 식별.
+   - 두 챔프 `ChampionProfile` 로드 → `generateMatchupGuide(my, enemy)`.
+   - 추출: `summary`(1줄) + `mustDodge[0]` + `powerSpikes`에서 핵심 1개.
+   - 프로파일 없거나 포지션 매칭 실패 → 기존 조합 일반론으로 폴백.
+2. **팀 핵심 위협 선정**: 상대 조합에서 위험도 톱1 챔프/콤보(위협카드/keyCombos 활용) 1줄.
+3. **우선순위 1개**: edge+timing+위협 종합 → "이 판 핵심 하나" 한 줄.
+4. `buildTts` 재작성: **①내 라인 → ②팀 위협 → ③우선순위** 순, 라벨 없이 자연어, 길이 컷.
+
+### 클라 (`engine.js`)
+- 변경 거의 없음. `maybeBriefing` 이 이미 position/championKey/myTeamId 전송 중.
+- (확인) position 빈 값(봇/블라인드) 시 내 라인 블록 생략 → 폴백 경로 타게.
+
+### 응답 타입
+- `CompBriefing`에 `laneCoaching?: {enemy, lines[]}`, `topThreat?: string`, `priority?: string` 필드 추가(화면 표시도 가능).
+
+---
+
+## 5. 단계 / 비용
+
+- **P0(핵심)**: 내 라인 맞라인 블록 + 우선순위 1개 + buildTts 재구성. **새 데이터 0**(엔진 재사용). ToS 안전.
+- **P1**: 팀 핵심 위협 명시(콤보), 타이밍 레벨 신호.
+- **P2(선택)**: Riot Production 키 시 라인 폼 live 분기(현재 mock→live TODO 존재).
+
+### 리스크/주의
+- `generateMatchupGuide`는 **프로파일 보유 + 동일 포지션** 챔프만 정확 → 미보유 페어 폴백 필수.
+- 길이 폭주 방지: 블록당 1~2문장, 총 3블록 컷. (음성 설정 P0 백로그와 연동: 끄기/짧게)
+
+---
+
+## 6. 결정 필요
+- 화면(타임라인/토스트)에도 라인 코칭을 띄울지, **음성만** 할지.
+- 위협 선정 기준: 콤보체인(위협카드) vs 단일 챔프 위험도 — 둘 중 우선.
+- 폴백 시 톤: 현재 일반론 유지 vs 더 짧게.
