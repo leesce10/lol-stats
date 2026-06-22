@@ -7,9 +7,9 @@ export const metadata: Metadata = {
     "밴픽 단계에서 승리 전략을 제시합니다. 맞라인 실전 가이드, 팀 조합 분석, 시간대별 운영 지침까지.",
 };
 
-// Electron .exe (GitHub Actions가 빌드해 release-latest에 올림)
+// Electron .exe (GitHub Actions가 빌드해 최신 Release에 발행 → /latest/ 별칭)
 const OVERLAY_EXE_URL =
-  "https://github.com/leesce10/lol-overlay/releases/download/release-latest/LoL-Overlay-Setup.exe";
+  "https://github.com/leesce10/lol-overlay/releases/latest/download/LoL-Overlay-Setup.exe";
 
 export default function Home() {
   return (
