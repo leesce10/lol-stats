@@ -1,4 +1,8 @@
-# 인게임 오버레이 앱 (In-Game Overlay) 기획서
+# 인게임 오버레이 앱 (In-Game Overlay) 기획서 — 초기 컨셉
+
+> ⚠️ **초기 컨셉 문서.** 현행 관리 문서는 [overlay.md](overlay.md). 플랫폼은
+> **Overwolf → Electron으로 피벗**됨(영어강제·승인게이트 회피). 아래 Overwolf 서술은
+> 역사적 기록이며 현행 아키텍처는 overlay.md를 따른다.
 
 > 게임 중 알면 좋은 정보를 화면 위 오버레이 + TTS로 알려주는 데스크톱 앱.
 > 이 사이트에서 다운로드·설치. 웹과 별도 repo, 백엔드는 공유.
