@@ -4,6 +4,24 @@ import { useState } from "react";
 import type { Lane, MatchupGuide } from "@/types/matchup-engine";
 import JunglePathMap from "./JunglePathMap";
 
+// **굵게** 마크업을 실제 굵은 글씨로 렌더(데이터에 ** 포함됨)
+function MD({ text }: { text?: string }) {
+  if (!text) return null;
+  return (
+    <>
+      {text.split("**").map((part, i) =>
+        i % 2 === 1 ? (
+          <strong key={i} className="font-bold text-[var(--text-primary)]">
+            {part}
+          </strong>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+}
+
 // 라인별 L3 하단 2줄 라벨
 const LANE_PHASE_LABELS: Record<Lane, { pathing: string; tactic: string }> = {
   jungle: { pathing: "동선/오브젝트", tactic: "카정/갱" },
@@ -120,11 +138,11 @@ function KeyCombosCard({ guide }: { guide: MatchupGuide }) {
             <div className="space-y-1 text-xs">
               <div className="flex gap-2">
                 <span className="text-red-400 font-bold shrink-0 w-10">셋업</span>
-                <span className="text-[var(--text-secondary)]">{c.setup}</span>
+                <span className="text-[var(--text-secondary)]"><MD text={c.setup} /></span>
               </div>
               <div className="flex gap-2">
                 <span className="text-orange-400 font-bold shrink-0 w-10">→ 연결</span>
-                <span className="text-[var(--text-secondary)]">{c.payoff}</span>
+                <span className="text-[var(--text-secondary)]"><MD text={c.payoff} /></span>
               </div>
               <div className="flex gap-2">
                 <span className="text-yellow-400 font-bold shrink-0 w-10">뎀</span>
@@ -132,7 +150,7 @@ function KeyCombosCard({ guide }: { guide: MatchupGuide }) {
               </div>
               <div className="flex gap-2">
                 <span className="text-green-400 font-bold shrink-0 w-10">대응</span>
-                <span className="text-green-300/90">{c.counter}</span>
+                <span className="text-green-300/90"><MD text={c.counter} /></span>
               </div>
             </div>
           </div>
@@ -165,8 +183,8 @@ function MustDodgeCard({ guide }: { guide: MatchupGuide }) {
               {skill.range && <span>사거리 {skill.range}</span>}
               {skill.cooldown && <span>쿨 {skill.cooldown}초</span>}
             </div>
-            <p className="text-xs text-red-300/80 mb-1">{skill.hitConsequence}</p>
-            <p className="text-xs text-[var(--text-secondary)]">{skill.counterMethod}</p>
+            <p className="text-xs text-red-300/80 mb-1"><MD text={skill.hitConsequence} /></p>
+            <p className="text-xs text-[var(--text-secondary)]"><MD text={skill.counterMethod} /></p>
           </div>
         ))}
       </div>
