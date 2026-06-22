@@ -497,6 +497,9 @@ function DuoComboCard({
   let cc = null;
   if (supCc) { init = enemySup; pun = enemyAdc; cc = supCc; }
   else if (adcCc) { init = enemyAdc; pun = enemySup; cc = adcCc; }
+  // 펀처의 연계 스킬(예: 케이틀린 W 요들 덫)까지 구체적으로
+  const punCc = pun ? getCcSkill(pun.name) : null;
+  const punLabel = pun ? (punCc ? `${pun.nameKr} ${punCc.key} ${punCc.name}` : pun.nameKr) : "";
 
   return (
     <div className="glass-card p-5 border-l-4 border-amber-500/60 mt-6">
@@ -509,7 +512,7 @@ function DuoComboCard({
           <p className="text-[var(--text-secondary)]">
             <b className="text-amber-300">{init.nameKr} {cc.key} {cc.name}</b>
             <span className="text-[var(--text-muted)]">({cc.cc})</span> 적중 →{" "}
-            <b className="text-[var(--text-primary)]">{pun?.nameKr}</b> 연계로 순식간에 체력 증발
+            <b className="text-[var(--text-primary)]">{punLabel}</b> 연계로 순식간에 체력 증발
           </p>
           <p className="text-green-300/90">
             대응 —{" "}

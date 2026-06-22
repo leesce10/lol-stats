@@ -437,7 +437,7 @@ const avg = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length
 // CC 스킬 조회: 큐레이션 테이블(getCcSkill) 우선, 없으면 리치 프로파일에서 추출
 function ccFor(
   key?: string,
-  lane?: string
+  lane?: string | null
 ): { key: string; name: string; cc: string; dodgeable: boolean; trap?: boolean } | null {
   const c = getCcSkill(key);
   if (c) return { key: c.key, name: c.name, cc: c.cc, dodgeable: c.dodgeable, trap: c.trap };
@@ -484,11 +484,18 @@ function buildDuoCoaching(
     const initName = nameOf(initP);
     const punName = nameOf(punP);
     const skill = `${cc.key} ${cc.name}`.trim();
-    if (punName) {
+    // 펀처의 연계 스킬도 구체적으로 (예: 케이틀린 W 요들 덫)
+    const punCc = ccFor(punP?.championKey, punP ? liveToLane(punP.position) : undefined);
+    const punLabel = punName
+      ? punCc
+        ? `${punName} ${punCc.key} ${punCc.name}`
+        : punName
+      : null;
+    if (punLabel) {
       parts.push(
         cc.dodgeable
-          ? `상대는 ${initName} ${skill}(${cc.cc}) 맞으면 ${punName} 연계로 바로 죽어요. ${skill}만 피하면 해볼 만해요.`
-          : `상대는 ${initName} ${skill}(${cc.cc})에 걸리면 ${punName} 연계로 위험해요. ${cc.trap ? "덫 위치 보고 피하세요." : "거리를 유지하세요."}`
+          ? `상대는 ${initName} ${skill}(${cc.cc}) 맞으면 ${punLabel} 연계로 바로 죽어요. ${skill}만 피하면 해볼 만해요.`
+          : `상대는 ${initName} ${skill}(${cc.cc})에 걸리면 ${punLabel} 연계로 위험해요. ${cc.trap ? "덫 위치 보고 피하세요." : "거리를 유지하세요."}`
       );
     } else {
       parts.push(`상대 ${initName} ${skill}${cc.dodgeable ? "을 꼭 피하세요." : " 조심하세요."}`);
