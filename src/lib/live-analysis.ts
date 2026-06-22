@@ -128,6 +128,7 @@ import { getChampionById } from "@/data/champions";
 import { generateMatchupGuide, type ChampionProfile } from "./matchup-engine";
 import { getProfileByKey } from "@/data/champion-profiles";
 import { tierToNum } from "./matchup-engine/utils";
+import { getCcSkill, type CcSkill } from "@/data/cc-skills";
 
 function championKeys(participants: LiveParticipant[], teamId: number): string[] {
   return participants
@@ -393,7 +394,7 @@ function buildEnemyCompLine(
 }
 
 // ----- 2부 보조: 바텀 2v2 듀오 분석 -----
-function earlyScore(key?: string, lane?: string): number {
+function earlyScore(key?: string, lane?: string | null): number {
   const prof = getProfileByKey(key, lane);
   if (prof?.profile?.earlyDuel) return tierToNum(prof.profile.earlyDuel); // 1..5
   const s = getChampionById(key || "")?.strengths || [];
@@ -401,7 +402,7 @@ function earlyScore(key?: string, lane?: string): number {
   if (s.includes("late")) return 2;
   return 3;
 }
-function scalingScore(key?: string, lane?: string): number {
+function scalingScore(key?: string, lane?: string | null): number {
   const sc = getProfileByKey(key, lane)?.profile?.scaling;
   if (sc === "late") return 3;
   if (sc === "mid") return 2;
@@ -433,6 +434,21 @@ function findCcSkill(prof: ChampionProfile) {
 }
 const avg = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
 
+// CC 스킬 조회: 큐레이션 테이블(getCcSkill) 우선, 없으면 리치 프로파일에서 추출
+function ccFor(
+  key?: string,
+  lane?: string
+): { key: string; name: string; cc: string; dodgeable: boolean; trap?: boolean } | null {
+  const c = getCcSkill(key);
+  if (c) return { key: c.key, name: c.name, cc: c.cc, dodgeable: c.dodgeable, trap: c.trap };
+  const prof = getProfileByKey(key, lane);
+  if (prof) {
+    const f = findCcSkill(prof);
+    if (f) return { key: f.key, name: f.name, cc: f.ko, dodgeable: f.dodgeable };
+  }
+  return null;
+}
+
 function buildDuoCoaching(
   participants: LiveParticipant[],
   myTeamId: number,
@@ -441,57 +457,58 @@ function buildDuoCoaching(
   const myLane = liveToLane(me?.position);
   if (myLane !== "adc" && myLane !== "support") return null;
   const enemyTeam = myTeamId === 200 ? 100 : 200;
-  const slot = (team: number, lane: string) => {
-    const k = participants.find(
-      (p) => p.teamId === team && liveToLane(p.position) === lane
-    )?.championKey;
-    return k ? { key: k, lane } : null;
-  };
-  const myDuo = [slot(myTeamId, "adc"), slot(myTeamId, "support")].filter(
-    (d): d is { key: string; lane: string } => !!d
-  );
-  const enDuo = [slot(enemyTeam, "adc"), slot(enemyTeam, "support")].filter(
-    (d): d is { key: string; lane: string } => !!d
-  );
+  const partAt = (team: number, lane: string) =>
+    participants.find((p) => p.teamId === team && liveToLane(p.position) === lane);
+  const nameOf = (p?: LiveParticipant) =>
+    p ? p.championName || getChampionById(p.championKey || "")?.name || p.championKey : null;
+
+  const enAdc = partAt(enemyTeam, "adc");
+  const enSup = partAt(enemyTeam, "support");
+  const myAdc = partAt(myTeamId, "adc");
+  const mySup = partAt(myTeamId, "support");
+  const myDuo = [myAdc, mySup].filter((p): p is LiveParticipant => !!p);
+  const enDuo = [enAdc, enSup].filter((p): p is LiveParticipant => !!p);
   if (!myDuo.length || !enDuo.length) return null;
 
-  // 라인전 강약
-  const diff =
-    avg(enDuo.map((d) => earlyScore(d.key, d.lane))) -
-    avg(myDuo.map((d) => earlyScore(d.key, d.lane)));
-  const laneLine =
-    diff >= 1 ? "라인전은 상대가 더 강해요" : diff <= -1 ? "라인전은 우리가 더 강해요" : "라인전은 반반 구도예요";
-  // 스케일링 승리조건
-  const sdiff =
-    avg(myDuo.map((d) => scalingScore(d.key, d.lane))) -
-    avg(enDuo.map((d) => scalingScore(d.key, d.lane)));
-  const winLine =
-    sdiff >= 0.5 ? "반반만 잘 넘기면 후반에 유리해져요"
-    : sdiff <= -0.5 ? "후반보다 초반에 승부를 보세요"
-    : "";
-  // 콤보 경고(프로파일 있을 때만): 적 듀오 CC 개시자 + 파트너 연계
-  let comboLine = "";
-  const enProfs = enDuo
-    .map((d) => getProfileByKey(d.key, d.lane))
-    .filter((p): p is ChampionProfile => !!p);
-  for (const ip of enProfs) {
-    const cc = findCcSkill(ip);
-    if (!cc) continue;
-    const skill = `${cc.key} ${cc.name}`; // "Q 면도날 표창" 처럼 키+스킬명
-    const partner = enProfs.find((p) => p.id !== ip.id);
-    if (partner) {
-      comboLine =
-        `${ip.name} ${skill}(${cc.ko})에 맞으면 ${partner.name} 연계로 위험해요.` +
-        (cc.dodgeable ? ` ${skill} 꼭 피하세요.` : ` 거리 유지하세요.`);
+  const parts: string[] = [];
+
+  // ① 메인: 적 듀오 콤보(개시 CC → 펀처 연계). 보통 서폿이 개시, 원딜이 마무리.
+  const supCc = ccFor(enSup?.championKey, "support");
+  const adcCc = ccFor(enAdc?.championKey, "adc");
+  let initP: LiveParticipant | undefined;
+  let punP: LiveParticipant | undefined;
+  let cc: ReturnType<typeof ccFor> = null;
+  if (supCc && enSup) { initP = enSup; cc = supCc; punP = enAdc; }
+  else if (adcCc && enAdc) { initP = enAdc; cc = adcCc; punP = enSup; }
+  if (initP && cc) {
+    const initName = nameOf(initP);
+    const punName = nameOf(punP);
+    const skill = `${cc.key} ${cc.name}`.trim();
+    if (punName) {
+      parts.push(
+        cc.dodgeable
+          ? `상대는 ${initName} ${skill}(${cc.cc}) 맞으면 ${punName} 연계로 바로 죽어요. ${skill}만 피하면 해볼 만해요.`
+          : `상대는 ${initName} ${skill}(${cc.cc})에 걸리면 ${punName} 연계로 위험해요. ${cc.trap ? "덫 위치 보고 피하세요." : "거리를 유지하세요."}`
+      );
     } else {
-      comboLine = `${ip.name} ${skill}${cc.dodgeable ? " 꼭 피하세요." : " 조심하세요."}`;
+      parts.push(`상대 ${initName} ${skill}${cc.dodgeable ? "을 꼭 피하세요." : " 조심하세요."}`);
     }
-    break;
   }
 
-  const parts = [ensureDot(laneLine)];
-  if (winLine) parts.push(ensureDot(winLine));
-  if (comboLine) parts.push(comboLine);
+  // ② 라인전 강약
+  const diff =
+    avg(enDuo.map((p) => earlyScore(p.championKey, liveToLane(p.position)))) -
+    avg(myDuo.map((p) => earlyScore(p.championKey, liveToLane(p.position))));
+  parts.push(
+    diff >= 1 ? "라인전은 상대가 더 강해요." : diff <= -1 ? "라인전은 우리가 더 강해요." : "라인전은 반반 구도예요."
+  );
+  // ③ 스케일링 승리조건
+  const sdiff =
+    avg(myDuo.map((p) => scalingScore(p.championKey, liveToLane(p.position)))) -
+    avg(enDuo.map((p) => scalingScore(p.championKey, liveToLane(p.position))));
+  if (sdiff >= 0.5) parts.push("반반만 잘 넘기면 후반에 유리해져요.");
+  else if (sdiff <= -0.5) parts.push("후반보다 초반에 승부를 보세요.");
+
   return parts.join(" ");
 }
 
