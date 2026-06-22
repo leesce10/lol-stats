@@ -60,7 +60,8 @@ export interface CompBriefing {
   theirWeaknesses: string[];
   timing: Timing;
   gamePlan: string[]; // 화면 표시용 액션 아이템
-  tts: string; // TTS로 읽어줄 한 문단
+  tts: string; // 1부 — 팀 5:5 조합(시작 직후 재생)
+  laneTts: string | null; // 2부 — 내 라인 코칭(약 3초 뒤 재생). 없으면 null
 }
 
 export interface TeamAnalysis {
@@ -126,6 +127,7 @@ import { analyzeTeamComp } from "./teamcomp";
 import { getChampionById } from "@/data/champions";
 import { generateMatchupGuide, type ChampionProfile } from "./matchup-engine";
 import { getProfileByKey } from "@/data/champion-profiles";
+import { tierToNum } from "./matchup-engine/utils";
 
 function championKeys(participants: LiveParticipant[], teamId: number): string[] {
   return participants
@@ -257,8 +259,8 @@ function buildLaneCoaching(
     (p) => p.teamId === enemyTeam && liveToLane(p.position) === lane
   );
   if (!opp || !opp.championKey) return null;
-  const myP = getProfileByKey(me.championKey);
-  const enP = getProfileByKey(opp.championKey);
+  const myP = getProfileByKey(me.championKey, lane);
+  const enP = getProfileByKey(opp.championKey, lane);
   if (!myP || !enP || myP.position !== enP.position) return null;
   let guide;
   try {
@@ -274,12 +276,12 @@ function buildLaneCoaching(
     vl === "유리" ? "해볼 만한 매치업이에요"
     : vl === "불리" ? "불리하니 조심하세요"
     : "비등한 매치업이에요";
-  const parts = [`${label}은 ${enemyName} 상대예요. ${vtxt}.`];
-  // 회피 스킬: 스킬명 + 피하는 법(마지막 핵심 절만, 짧게)
+  const parts = [`${label}${josa(label, "은", "는")} ${enemyName} 상대예요. ${vtxt}.`];
+  // 회피 스킬: 스킬명 + 스킬샷이면 "꼭 피하세요" (counterMethod는 절 추출이 들쭉날쭉해 제외)
   const md = guide.mustDodge?.[0];
   if (md) {
-    const how = lastClause(md.counterMethod);
-    parts.push(how ? `${md.skillName} 조심 — ${ensureDot(how)}` : `${md.skillName} 조심하세요.`);
+    const verb = (md.type as string) === "skillshot" ? "꼭 피하세요" : "조심하세요";
+    parts.push(`${md.skillName} ${verb}.`);
   }
   return parts.join(" ");
 }
@@ -296,6 +298,7 @@ function threatScore(p: ChampionProfile): number {
   if (pr.mobility === "high") s += 1;
   return s;
 }
+// 1부 보조: 내 라인 밖 최대 위협 1명. (바텀이면 적 원딜+서폿 둘 다 제외)
 function buildTopThreat(
   participants: LiveParticipant[],
   myTeamId: number,
@@ -303,10 +306,12 @@ function buildTopThreat(
 ): string | null {
   const enemyTeam = myTeamId === 200 ? 100 : 200;
   const myLane = me ? liveToLane(me.position) : null;
+  const exclude =
+    myLane === "adc" || myLane === "support" ? ["adc", "support"] : myLane ? [myLane] : [];
   const cands = participants
     .filter((p) => p.teamId === enemyTeam)
-    .filter((p) => !myLane || liveToLane(p.position) !== myLane) // 내 라인 밖
-    .map((p) => ({ p, prof: getProfileByKey(p.championKey) }))
+    .filter((p) => !exclude.includes(liveToLane(p.position) || "")) // 내 라인 밖
+    .map((p) => ({ p, prof: getProfileByKey(p.championKey, liveToLane(p.position)) }))
     .filter((x): x is { p: LiveParticipant; prof: ChampionProfile } => !!x.prof);
   if (!cands.length) return null;
   cands.sort((a, b) => threatScore(b.prof) - threatScore(a.prof));
@@ -327,7 +332,126 @@ function buildTopThreat(
   return `팀에서 가장 위험한 건 ${name}예요. ${caution}.`;
 }
 
-// 블록3: 오늘의 우선순위 1개
+// 1부: 팀 5:5 조합 한 줄(구도 + 이기는 법)
+function buildTeamLine(edge: CompEdge, timing: Timing, ourStrengths: string[]): string {
+  const edgeTxt =
+    edge === "ahead" ? "조합은 우리가 유리해요"
+    : edge === "behind" ? "조합은 상대가 유리해요"
+    : "조합은 비등해요";
+  const timeTxt =
+    timing === "early" ? "초반에 강한 조합이에요" : timing === "late" ? "후반 캐리 조합이에요" : "";
+  let win = "";
+  if (has(ourStrengths, "한타") || has(ourStrengths, "이니시")) win = "한타로 풀어가세요";
+  else if (has(ourStrengths, "스플릿")) win = "사이드 운영이 좋아요";
+  else if (has(ourStrengths, "포킹")) win = "포킹으로 체력 빼고 싸우세요";
+  let s = edgeTxt + (timeTxt ? `, ${timeTxt}` : "") + ".";
+  if (win) s += ` ${ensureDot(win)}`;
+  return s;
+}
+
+// ----- 2부 보조: 바텀 2v2 듀오 분석 -----
+function earlyScore(key?: string, lane?: string): number {
+  const prof = getProfileByKey(key, lane);
+  if (prof?.profile?.earlyDuel) return tierToNum(prof.profile.earlyDuel); // 1..5
+  const s = getChampionById(key || "")?.strengths || [];
+  if (s.includes("early") || s.includes("lane") || s.includes("snowball")) return 4;
+  if (s.includes("late")) return 2;
+  return 3;
+}
+function scalingScore(key?: string, lane?: string): number {
+  const sc = getProfileByKey(key, lane)?.profile?.scaling;
+  if (sc === "late") return 3;
+  if (sc === "mid") return 2;
+  if (sc === "early") return 1;
+  const s = getChampionById(key || "")?.strengths || [];
+  if (s.includes("late")) return 3;
+  if (s.includes("early") || s.includes("lane")) return 1;
+  return 2;
+}
+const CC_KO: [RegExp, string][] = [
+  [/stun/i, "기절"], [/root|snare|bind/i, "속박"], [/charm/i, "매혹"],
+  [/knockup|airborne/i, "에어본"], [/knock/i, "넉백"], [/suppress/i, "제압"],
+  [/fear|flee|terrify/i, "공포"], [/taunt/i, "도발"], [/sleep|drowsy/i, "수면"],
+];
+function findCcSkill(prof: ChampionProfile) {
+  for (const s of prof.keySkills || []) {
+    const roles = s.roles as unknown as string[];
+    const isCc = roles?.includes("cc") || (s.hitEnables || []).some((h) => CC_KO.some(([re]) => re.test(h)));
+    if (isCc) {
+      let ko = "CC";
+      for (const h of s.hitEnables || []) {
+        const m = CC_KO.find(([re]) => re.test(h));
+        if (m) { ko = m[1]; break; }
+      }
+      return { key: s.key as string, name: s.name, ko, dodgeable: (s.type as string) === "skillshot" };
+    }
+  }
+  return null;
+}
+const avg = (a: number[]) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0);
+
+function buildDuoCoaching(
+  participants: LiveParticipant[],
+  myTeamId: number,
+  me?: { position?: string }
+): string | null {
+  const myLane = liveToLane(me?.position);
+  if (myLane !== "adc" && myLane !== "support") return null;
+  const enemyTeam = myTeamId === 200 ? 100 : 200;
+  const slot = (team: number, lane: string) => {
+    const k = participants.find(
+      (p) => p.teamId === team && liveToLane(p.position) === lane
+    )?.championKey;
+    return k ? { key: k, lane } : null;
+  };
+  const myDuo = [slot(myTeamId, "adc"), slot(myTeamId, "support")].filter(
+    (d): d is { key: string; lane: string } => !!d
+  );
+  const enDuo = [slot(enemyTeam, "adc"), slot(enemyTeam, "support")].filter(
+    (d): d is { key: string; lane: string } => !!d
+  );
+  if (!myDuo.length || !enDuo.length) return null;
+
+  // 라인전 강약
+  const diff =
+    avg(enDuo.map((d) => earlyScore(d.key, d.lane))) -
+    avg(myDuo.map((d) => earlyScore(d.key, d.lane)));
+  const laneLine =
+    diff >= 1 ? "라인전은 상대가 더 강해요" : diff <= -1 ? "라인전은 우리가 더 강해요" : "라인전은 반반 구도예요";
+  // 스케일링 승리조건
+  const sdiff =
+    avg(myDuo.map((d) => scalingScore(d.key, d.lane))) -
+    avg(enDuo.map((d) => scalingScore(d.key, d.lane)));
+  const winLine =
+    sdiff >= 0.5 ? "반반만 잘 넘기면 후반에 유리해져요"
+    : sdiff <= -0.5 ? "후반보다 초반에 승부를 보세요"
+    : "";
+  // 콤보 경고(프로파일 있을 때만): 적 듀오 CC 개시자 + 파트너 연계
+  let comboLine = "";
+  const enProfs = enDuo
+    .map((d) => getProfileByKey(d.key, d.lane))
+    .filter((p): p is ChampionProfile => !!p);
+  for (const ip of enProfs) {
+    const cc = findCcSkill(ip);
+    if (!cc) continue;
+    const partner = enProfs.find((p) => p.id !== ip.id);
+    if (partner) {
+      comboLine =
+        `${ip.name} ${cc.key} ${cc.ko}에 맞으면 ${partner.name} 연계로 위험해요.` +
+        (cc.dodgeable ? ` ${cc.key} 꼭 피하세요.` : ` 거리 유지하세요.`);
+    } else {
+      comboLine = `${ip.name} ${cc.key}${cc.dodgeable ? " 꼭 피하세요." : " 조심하세요."}`;
+    }
+    break;
+  }
+
+  const parts = [ensureDot(laneLine)];
+  if (winLine) parts.push(ensureDot(winLine));
+  if (comboLine) parts.push(comboLine);
+  return parts.join(" ");
+}
+
+// 오늘의 우선순위 1개
 function buildPriority(edge: CompEdge, timing: Timing, ourStrengths: string[]): string {
   let p: string;
   if (edge === "behind") p = "무리하지 말고 상대 실수 날 때만 받아치기";
@@ -336,18 +460,6 @@ function buildPriority(edge: CompEdge, timing: Timing, ourStrengths: string[]): 
   else if (has(ourStrengths, "한타") || has(ourStrengths, "이니시")) p = "진형 갖추고 한타 열기";
   else p = "큰 실수 없이 차근차근";
   return `이 판 핵심 하나 — ${p}.`;
-}
-
-// 폴백(라인 코칭 불가): 조합 한 줄 + 우선순위 한 줄
-function buildFallbackTts(edge: CompEdge, ourStrengths: string[], priority: string): string {
-  const e =
-    edge === "ahead" ? "조합이 유리한 편이에요"
-    : edge === "behind" ? "조합상 다소 불리해요"
-    : "조합은 비슷한 편이에요";
-  let s = `이번 판 ${e}.`;
-  if (ourStrengths.length)
-    s += ` 우리는 ${ourStrengths[0]}${josa(ourStrengths[0], "이", "가")} 강점이에요.`;
-  return `${s} ${priority}`;
 }
 
 export function buildCompBriefing(
@@ -373,14 +485,23 @@ export function buildCompBriefing(
   const timing = timingProfile(ours === "blue" ? blue : red);
   const gamePlan = makeGamePlan(ourStrengths, ourWeaknesses, theirStrengths, timing, edge);
 
-  // 새 음성 구조: ①내 라인 ②팀 위협 ③우선순위. 라인 코칭 불가 시 폴백(2블록).
   const priority = buildPriority(edge, timing, ourStrengths);
-  const lane = buildLaneCoaching(participants, myTeamId, me);
-  const tts = lane
-    ? [lane, buildTopThreat(participants, myTeamId, me), priority]
-        .filter(Boolean)
-        .join(" ")
-    : buildFallbackTts(edge, ourStrengths, priority);
+
+  // 1부 — 팀 5:5 (시작 직후): 조합 구도 + 내 라인 밖 최대 위협
+  const part1 = [buildTeamLine(edge, timing, ourStrengths), buildTopThreat(participants, myTeamId, me)]
+    .filter(Boolean)
+    .join(" ");
+
+  // 2부 — 내 라인 (약 3초 뒤): 바텀=2v2 듀오, 그 외=1v1 맞라인
+  const myLane = liveToLane(me?.position);
+  let laneCore: string | null = null;
+  if (myLane === "adc" || myLane === "support")
+    laneCore = buildDuoCoaching(participants, myTeamId, me);
+  if (!laneCore) laneCore = buildLaneCoaching(participants, myTeamId, me);
+
+  const laneTts = laneCore ? `${laneCore} ${priority}` : null;
+  // 라인 코칭이 없으면 우선순위를 1부 끝에 붙인다
+  const tts = laneTts ? part1 : `${part1} ${priority}`;
 
   return {
     ourTeamId: myTeamId,
@@ -393,6 +514,7 @@ export function buildCompBriefing(
     timing,
     gamePlan,
     tts,
+    laneTts,
   };
 }
 

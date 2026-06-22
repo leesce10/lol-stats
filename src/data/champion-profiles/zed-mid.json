@@ -22,7 +22,7 @@
       "hitEnables": ["slow"],
       "counterMethod": "290 범위 슬로우 + 뎀. **E 슬로우 걸리면 Q 확정** → 290 밖 유지가 핵심. 그림자도 E 범위가 있으니 그림자 근처 진입 금지.",
       "range": 290, "cooldownEarly": 5, "cooldownMaxRank": 3 },
-    { "key": "R", "name": "사형 선고", "type": "dash", "roles": ["execute", "primary_damage", "mobility"], "missPenalty": "critical",
+    { "key": "R", "name": "죽음의 표식", "type": "dash", "roles": ["execute", "primary_damage", "mobility"], "missPenalty": "critical",
       "hitEnables": ["execute_mark", "untargetable", "shadow_swap"],
       "counterMethod": "**타겟팅 궁 — 회피 불가**. 사거리 625 밖 유지가 유일한 예방. 라인전 예방: (1) W 그림자 설치 각 차단 위해 미니언 뒤 고정, (2) 제드 W 눈에 들어오면 즉시 존야/QSS 슬롯 체크, (3) E 슬로우(290) 범위 밖 유지로 Q 풀히트 셋업 차단. 맞은 뒤 대응: 착지 지점(대상 뒤 600)에 CC 걸거나 존야/수은 발동으로 마크 뎀 무효화. 한타 기준 R 쿨 80초 — 쓰고 나면 80초가 오브젝트 타이밍.",
       "range": 625, "cooldownEarly": 120, "cooldownMaxRank": 80 }
@@ -47,8 +47,8 @@
       "counter": "**W 그림자 위치 주시 — 본체와 그림자 사이(직선)에 서면 Q 양쪽 히트 확정**. 그림자 착지각 밖으로 빠지기 + 미니언 뒤 포지션. W 사용 후 22초가 풀쿨 올인 창."
     },
     {
-      "name": "6렙 암살 콤보 — R 사형선고 풀콤",
-      "setup": "**R(사형 선고)로 대상 뒤 순간이동** + W 그림자 미리 측면 배치",
+      "name": "6렙 암살 콤보 — R 죽음의 표식 풀콤",
+      "setup": "**R(죽음의 표식)로 대상 뒤 순간이동** + W 그림자 미리 측면 배치",
       "payoff": "R 무적 중 Q + W 그림자 Q + E 슬로우 + 평타 → R 마크 폭발 뎀",
       "damage": "저체력 상대 확정 처형 · 풀체력이어도 50%+ 한 방",
       "whenUsed": "6렙 이후 R 쿨마다 (쿨 80초). 상대 체력 50% 이하면 즉시 셋업",
