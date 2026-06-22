@@ -7,6 +7,7 @@ import { DDRAGON_VERSION } from "@/data/champions";
 import { generateMatchupGuide } from "@/lib/matchup-engine";
 import type { ChampionProfile } from "@/types/matchup-engine";
 import MatchupGuideResult from "@/components/MatchupGuideResult";
+import { getCcSkill } from "@/data/cc-skills";
 import PositionIcon from "@/components/PositionIcon";
 import { POSITION_ICON_URLS } from "@/types";
 import { allChampions } from "@/data/all-champions";
@@ -481,6 +482,53 @@ function BottomMatchupResult({ myAdc, mySup, enemyAdc, enemySup }: {
   );
 }
 
+// 상대 바텀 듀오의 진짜 위협 = 개시 CC(주로 서폿) → 원딜 연계 콤보
+function DuoComboCard({
+  enemyAdc,
+  enemySup,
+}: {
+  enemyAdc: ExternalChampionStats;
+  enemySup: ExternalChampionStats;
+}) {
+  const supCc = getCcSkill(enemySup.name);
+  const adcCc = getCcSkill(enemyAdc.name);
+  let init: ExternalChampionStats | null = null;
+  let pun: ExternalChampionStats | null = null;
+  let cc = null;
+  if (supCc) { init = enemySup; pun = enemyAdc; cc = supCc; }
+  else if (adcCc) { init = enemyAdc; pun = enemySup; cc = adcCc; }
+
+  return (
+    <div className="glass-card p-5 border-l-4 border-amber-500/60 mt-6">
+      <h3 className="text-sm font-bold text-amber-400 mb-3 flex items-center gap-1.5">
+        <span className="w-2 h-2 rounded-full bg-amber-500" />
+        상대 바텀 핵심 콤보 (이게 진짜 위협)
+      </h3>
+      {init && cc ? (
+        <div className="text-sm space-y-2 leading-relaxed">
+          <p className="text-[var(--text-secondary)]">
+            <b className="text-amber-300">{init.nameKr} {cc.key} {cc.name}</b>
+            <span className="text-[var(--text-muted)]">({cc.cc})</span> 적중 →{" "}
+            <b className="text-[var(--text-primary)]">{pun?.nameKr}</b> 연계로 순식간에 체력 증발
+          </p>
+          <p className="text-green-300/90">
+            대응 —{" "}
+            {cc.trap
+              ? "덫 위치 확인하고 밟지 않기. 부쉬·포탑 진입 전 시야 먼저."
+              : cc.dodgeable
+                ? `${cc.key} ${cc.name}만 피하면 라인전 해볼 만. 미니언 뒤/사이드 무빙으로 스킬샷 흘리기.`
+                : "거리 유지 + 진입 각 차단. 뭉쳐 있지 말기."}
+          </p>
+        </div>
+      ) : (
+        <p className="text-sm text-[var(--text-muted)]">
+          이 듀오는 강제 개시 CC가 약한 편 — 라인전 주도권·포지셔닝 싸움 위주로 풀려요.
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function MatchupPage() {
   const [lane, setLane] = useState<Lane>("mid");
 
@@ -674,6 +722,9 @@ export default function MatchupPage() {
 
       {/* 바텀: 듀오 분석 (항상 표시) */}
       {hasBottomResult && <BottomMatchupResult myAdc={myAdcChamp} mySup={mySupChamp} enemyAdc={enemyAdcChamp} enemySup={enemySupChamp} />}
+
+      {/* 바텀: 상대 듀오 핵심 콤보 (개시 CC → 원딜 연계) */}
+      {hasBottomResult && <DuoComboCard enemyAdc={enemyAdcChamp} enemySup={enemySupChamp} />}
 
       {/* 바텀 ADC 1v1 심층 가이드 */}
       {adcMatchupGuide && (
