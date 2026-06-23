@@ -154,7 +154,7 @@ export function getChampionsByPosition(position: Position): ChampionData[] {
   return champions.filter((c) => c.positions.includes(position));
 }
 
-export const DDRAGON_VERSION = "15.7.1";
+export const DDRAGON_VERSION = "16.12.1";
 export function getChampionImageUrl(championId: string): string {
   return `https://ddragon.leagueoflegends.com/cdn/${DDRAGON_VERSION}/img/champion/${championId}.png`;
 }
