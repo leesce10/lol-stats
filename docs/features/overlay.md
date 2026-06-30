@@ -101,6 +101,7 @@
 - [live-api.md](live-api.md) — Live Client Data API 상세
 - [fight-stats-display.md](fight-stats-display.md) — 교전 숫자 근거 표시
 - [briefing-upgrade.md](briefing-upgrade.md) — 조합 브리핑 현재구조 vs 개선안
+- [overlay-review.md](overlay-review.md) — **기능별 완성도 점검 & 개선 우선순위(2026-06-30)**
 - [overlay-competitive-roadmap.md](overlay-competitive-roadmap.md) — 경쟁 지형 + 신규기능 로드맵
 - [champ-select-coach.md](champ-select-coach.md) — 챔프셀렉트 코치(예정)
 
