@@ -7,9 +7,11 @@ export const metadata: Metadata = {
     "밴픽 단계에서 승리 전략을 제시합니다. 맞라인 실전 가이드, 팀 조합 분석, 시간대별 운영 지침까지.",
 };
 
-// Electron .exe (GitHub Actions가 빌드해 최신 Release에 발행 → /latest/ 별칭)
+// Electron 설치파일 (GitHub Actions가 빌드해 최신 Release에 발행 → /latest/ 별칭)
 const OVERLAY_EXE_URL =
   "https://github.com/leesce10/lol-overlay/releases/latest/download/LoL-Overlay-Setup.exe";
+const OVERLAY_DMG_URL =
+  "https://github.com/leesce10/lol-overlay/releases/latest/download/LoL-Overlay-Setup.dmg";
 
 export default function Home() {
   return (
@@ -66,7 +68,7 @@ export default function Home() {
                 적 아이템 구매 알림, 적 복귀 타이머, 오브젝트 교전 유불리(숫자 근거).
               </p>
               <p className="mt-2 text-xs text-[var(--text-muted)]">
-                Windows 전용 · <b className="text-[var(--text-primary)]">Overwolf 불필요</b> · 받아서 실행만 하면 끝
+                Windows · macOS · <b className="text-[var(--text-primary)]">Overwolf 불필요</b> · 받아서 실행만 하면 끝
               </p>
             </div>
 
@@ -75,7 +77,13 @@ export default function Home() {
                 href={OVERLAY_EXE_URL}
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 px-6 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-[1.02] transition-all"
               >
-                ⬇️ 다운로드 (.exe)
+                ⬇️ Windows (.exe)
+              </a>
+              <a
+                href={OVERLAY_DMG_URL}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] px-6 py-3 text-sm font-semibold text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)] transition-colors"
+              >
+                ⬇️ macOS (.dmg)
               </a>
               <Link
                 href="/live-demo"
@@ -95,11 +103,11 @@ export default function Home() {
             </div>
             <ol className="space-y-2 text-sm text-[var(--text-secondary)] list-decimal pl-5 leading-relaxed">
               <li>
-                위 <b className="text-[var(--text-primary)]">다운로드(.exe)</b> 를 받아 실행합니다.
+                <b className="text-[var(--text-primary)]">Windows</b>는 .exe, <b className="text-[var(--text-primary)]">Mac</b>은 .dmg 를 받아 실행합니다.
               </li>
               <li>
-                Windows 보안 경고(&quot;알 수 없는 게시자&quot;)가 뜨면{" "}
-                <b className="text-[var(--text-primary)]">추가 정보 → 실행</b> 을 누릅니다.
+                보안 경고 시 — Windows: <b className="text-[var(--text-primary)]">추가 정보 → 실행</b>,
+                Mac: <b className="text-[var(--text-primary)]">우클릭 → 열기</b> (확인되지 않은 개발자 베타).
               </li>
               <li>
                 롤을 <b className="text-[var(--text-primary)]">테두리 없음(Borderless)</b> 또는 창 모드로 설정합니다.
