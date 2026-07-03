@@ -75,6 +75,43 @@ export async function getSummonerById(
   return res.json();
 }
 
+// riotId(게임명#태그) → 계정(puuid). account-v1은 리전(asia) 라우팅.
+export async function getAccountByRiotId(
+  gameName: string,
+  tagLine: string
+): Promise<{ puuid: string; gameName: string; tagLine: string } | null> {
+  const res = await rateLimitedFetch(
+    `${ASIA_REGION}/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(
+      gameName
+    )}/${encodeURIComponent(tagLine)}`
+  );
+  if (!res.ok) return null;
+  return res.json();
+}
+
+// puuid → 랭크 엔트리(큐별). 솔로랭크는 RANKED_SOLO_5x5.
+export async function getLeagueEntriesByPuuid(
+  puuid: string
+): Promise<LeagueEntryFull[]> {
+  const res = await rateLimitedFetch(
+    `${KR_PLATFORM}/lol/league/v4/entries/by-puuid/${puuid}`
+  );
+  if (!res.ok) return [];
+  return res.json();
+}
+
+// puuid + 챔피언 숫자ID → 해당 챔피언 숙련도
+export async function getMasteryByChampion(
+  puuid: string,
+  championId: number
+): Promise<ChampionMastery | null> {
+  const res = await rateLimitedFetch(
+    `${KR_PLATFORM}/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/by-champion/${championId}`
+  );
+  if (!res.ok) return null;
+  return res.json();
+}
+
 // 매치 ID 목록 가져오기
 export async function getMatchIds(
   puuid: string,
@@ -120,6 +157,22 @@ export interface LeagueEntry {
   inactive: boolean;
   freshBlood: boolean;
   hotStreak: boolean;
+}
+
+// league-v4 entries 응답(큐별 랭크). LeagueEntry와 달리 tier/queueType 포함.
+export interface LeagueEntryFull {
+  queueType: string; // RANKED_SOLO_5x5, RANKED_FLEX_SR
+  tier: string; // IRON..CHALLENGER
+  rank: string; // I..IV
+  leaguePoints: number;
+  wins: number;
+  losses: number;
+}
+
+export interface ChampionMastery {
+  championId: number;
+  championLevel: number;
+  championPoints: number;
 }
 
 export interface Summoner {
